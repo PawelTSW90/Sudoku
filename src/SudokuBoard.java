@@ -1,9 +1,11 @@
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.ArrayList;
 
 
 public class SudokuBoard extends JFrame {
+    ArrayList<Object> textFields = new ArrayList<>();
 
     public SudokuBoard() {
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -37,50 +39,59 @@ public class SudokuBoard extends JFrame {
             int y = 100;
             int width = 300;
             int height = 300;
+            int textX = 0;
+            int textY = 0;
+            int textWidth = 100;
+            int textHeight = 100;
+
             switch (tmp) {
-                case 0:
+                case 0 -> {
                     x = 100;
                     y = 100;
-                    break;
 
-                case 1:
+                }
+                case 1 -> {
                     x = 100;
                     y = 400;
-                    break;
-                case 2:
+                }
+                case 2 -> {
                     x = 100;
                     y = 700;
-                    break;
-                case 3:
+                }
+                case 3 -> {
                     x = 400;
                     y = 100;
-                    break;
-                case 4:
+                }
+                case 4 -> {
                     x = 400;
                     y = 400;
-                    break;
-                case 5:
+                }
+                case 5 -> {
                     x = 400;
                     y = 700;
-                    break;
-                case 6:
+                }
+                case 6 -> {
                     x = 700;
                     y = 100;
-                    break;
-                case 7:
+                }
+                case 7 -> {
                     x = 700;
                     y = 400;
-                    break;
-                case 8:
+                }
+                case 8 -> {
                     x = 700;
                     y = 700;
-
-
+                }
             }
             JPanel panel = new JPanel();
             panel.setLayout(null);
             panel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
             panel.setBounds(x, y, width, height);
+            for (int tmp2 = 0; tmp2 < 9; tmp2++) {
+                Button button = new Button();
+                button.setBounds(100, 100, 100, 100);
+                frame.add(button);
+            }
             frame.add(panel);
 
 
