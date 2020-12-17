@@ -1,6 +1,7 @@
 import javax.swing.*;
 import java.awt.*;
-import java.util.logging.Logger;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 
 public class SudokuBoard extends JFrame {
@@ -68,18 +69,14 @@ public class SudokuBoard extends JFrame {
 
             switch (tmp) {
                 case 0 -> {
-                    x = 100;
-                    y = 100;
 
                 }
-                case 1 -> {
-                    x = 100;
+                case 1 ->
                     y = 400;
-                }
-                case 2 -> {
-                    x = 100;
+
+                case 2 ->
                     y = 700;
-                }
+
                 case 3 -> {
                     x = 400;
                     y = 100;
@@ -111,6 +108,7 @@ public class SudokuBoard extends JFrame {
             panel.setBounds(x, y, width, height);
             for (int buttons = 0; buttons < 9; buttons++) {
                 Button button = new Button();
+                button.addActionListener(new ButtonInteract(button));
                 panel.add(button);
                 buttonList[paneNumber][buttons] = button;
 
@@ -122,6 +120,10 @@ public class SudokuBoard extends JFrame {
 
 
         }
+
+    }
+
+    public void buttonInteract(){
 
     }
 
