@@ -1,11 +1,14 @@
-
 import javax.swing.*;
 import java.awt.*;
-import java.util.ArrayList;
+import java.util.logging.Logger;
 
 
 public class SudokuBoard extends JFrame {
-    ArrayList<Object> textFields = new ArrayList<>();
+    Button[][] buttonList = new Button[9][9];
+    Button[] sudokuKeyboardList = new Button[9];
+    Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+    int screenHeight = screenSize.height;
+    int screenWidth = screenSize.width;
 
     public SudokuBoard() {
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -13,6 +16,7 @@ public class SudokuBoard extends JFrame {
         this.setUndecorated(true);
         this.setLayout(null);
         drawSudokuBoard(this);
+        this.add(sudokuInputKeyboard());
         this.add(background());
         this.setVisible(true);
 
@@ -21,9 +25,7 @@ public class SudokuBoard extends JFrame {
 
     //method setting background
     public JLabel background() {
-        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-        int screenHeight = screenSize.height;
-        int screenWidth = screenSize.width;
+
         JLabel backgroundLabel = new JLabel();
         backgroundLabel.setBounds(0, 0, screenWidth, screenHeight);
         backgroundLabel.setIcon(new ImageIcon("C:/Users/Paweł/Desktop/Sudoku/sudoku-background.jpg"));
@@ -33,16 +35,36 @@ public class SudokuBoard extends JFrame {
 
     }
 
+    public JPanel sudokuInputKeyboard() {
+        JPanel sudokuKeyboard = new JPanel();
+        int buttonNumber = 1;
+        sudokuKeyboard.setLayout(new GridLayout(3, 3));
+        sudokuKeyboard.setBounds(1600, 100, 300, 300);
+        for (int x = 0; x < 9; x++) {
+            Button button = new Button(String.valueOf(buttonNumber));
+            button.setFont(new Font(null, Font.BOLD, 20));
+            sudokuKeyboard.add(button);
+            sudokuKeyboardList[x] = button;
+            buttonNumber++;
+
+
+        }
+        return sudokuKeyboard;
+
+
+
+
+
+    }
+
     public void drawSudokuBoard(JFrame frame) {
+        int paneNumber = 0;
         for (int tmp = 0; tmp < 9; tmp++) {
             int x = 100;
             int y = 100;
             int width = 300;
             int height = 300;
-            int textX = 0;
-            int textY = 0;
-            int textWidth = 100;
-            int textHeight = 100;
+
 
             switch (tmp) {
                 case 0 -> {
@@ -84,18 +106,24 @@ public class SudokuBoard extends JFrame {
                 }
             }
             JPanel panel = new JPanel();
-            panel.setLayout(null);
+            panel.setLayout(new GridLayout(3, 3));
             panel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
             panel.setBounds(x, y, width, height);
-            for (int tmp2 = 0; tmp2 < 9; tmp2++) {
+            for (int buttons = 0; buttons < 9; buttons++) {
                 Button button = new Button();
-                button.setBounds(100, 100, 100, 100);
-                frame.add(button);
+                panel.add(button);
+                buttonList[paneNumber][buttons] = button;
+
+
             }
+
+            paneNumber++;
             frame.add(panel);
 
 
         }
+
     }
+
 
 }
