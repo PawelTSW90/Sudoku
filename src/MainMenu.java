@@ -8,12 +8,14 @@ public class MainMenu extends JFrame {
         JPanel mainMenuPanel = new JPanel();
         mainMenuPanel.setLayout(null);
         Button startButton = new Button("Start");
+        startButton.setFocusable(false);
         startButton.addActionListener(e->{
             new SudokuBoard();
             this.dispose();
         });
         startButton.setBounds(200,200,200,200);
         Button exitButton = new Button("Exit");
+        exitButton.setFocusable(false);
         exitButton.addActionListener(e->{
             System.exit(0);
         });

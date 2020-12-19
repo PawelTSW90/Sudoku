@@ -3,10 +3,11 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class ButtonInteract implements ActionListener {
-    boolean isButtonHighlighted = false;
+    private static boolean isButtonHighlighted = false;
+    Button focusedButton;
     Button button;
 
-    public ButtonInteract(Button button){
+    public ButtonInteract(Button button) {
         this.button = button;
     }
 
@@ -17,23 +18,53 @@ public class ButtonInteract implements ActionListener {
 
     }
 
-    public void highLightButton(){
-        if(!isButtonHighlighted){
-            button.setBackground(Color.getHSBColor(80,80,80));
+    public void highLightButton() {
+        if (!isButtonHighlighted) {
+            button.setBackground(Color.getHSBColor(80, 80, 80));
+            button.setFocusable(true);
+            button.requestFocus();
             isButtonHighlighted = true;
-        } else{
-            button.setBackground(null);
-            isButtonHighlighted = false;
+        } else {
 
+            if (button.isFocusable()) {
+                button.setBackground(null);
+                isButtonHighlighted = false;
+                button.setFocusable(false);
+
+            } else {
+
+                for (int x = 0; x < 81; x++) {
+                    if (Buttons.boardButtons.get(x).isFocusable()) {
+                        Buttons.boardButtons.get(x).setFocusable(false);
+                        Buttons.boardButtons.get(x).setBackground(null);
+                    }
+                }
+                button.setBackground(Color.getHSBColor(80, 80, 80));
+                button.setFocusable(true);
+                button.requestFocus();
+                isButtonHighlighted = true;
+
+
+
+            }
         }
-
 
 
     }
 
-    public void keyboardInput(){
+    public boolean getIsButtonHighlighted() {
+        return isButtonHighlighted;
+    }
 
+    public Button getFocusedButton() {
+        return focusedButton;
+    }
+
+    public Button getButton(){
+        return button;
     }
 
 
 }
+
+

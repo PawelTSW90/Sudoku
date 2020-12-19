@@ -1,12 +1,9 @@
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+
 
 
 public class SudokuBoard extends JFrame {
-    Button[][] buttonList = new Button[9][9];
-    Button[] sudokuKeyboardList = new Button[9];
     Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
     int screenHeight = screenSize.height;
     int screenWidth = screenSize.width;
@@ -19,6 +16,8 @@ public class SudokuBoard extends JFrame {
         drawSudokuBoard(this);
         this.add(sudokuInputKeyboard());
         this.add(background());
+        Buttons.refactorButtonList();
+        this.setFocusable(true);
         this.setVisible(true);
 
 
@@ -44,8 +43,8 @@ public class SudokuBoard extends JFrame {
         for (int x = 0; x < 9; x++) {
             Button button = new Button(String.valueOf(buttonNumber));
             button.setFont(new Font(null, Font.BOLD, 20));
+            Buttons.keyboardButtons.add(button);
             sudokuKeyboard.add(button);
-            sudokuKeyboardList[x] = button;
             buttonNumber++;
 
 
@@ -53,13 +52,10 @@ public class SudokuBoard extends JFrame {
         return sudokuKeyboard;
 
 
-
-
-
     }
 
     public void drawSudokuBoard(JFrame frame) {
-        int paneNumber = 0;
+        int squareNumber = 0;
         for (int tmp = 0; tmp < 9; tmp++) {
             int x = 100;
             int y = 100;
@@ -68,38 +64,50 @@ public class SudokuBoard extends JFrame {
 
 
             switch (tmp) {
-                case 0 -> {
-
-                }
-                case 1 ->
+                case 0 -> squareNumber = 1;
+                case 1 -> {
+                    squareNumber = 2;
                     y = 400;
-
-                case 2 ->
+                }
+                case 2 -> {
+                    squareNumber = 3;
                     y = 700;
-
+                }
                 case 3 -> {
+                    squareNumber = 4;
                     x = 400;
                     y = 100;
+
                 }
                 case 4 -> {
+                    squareNumber = 5;
                     x = 400;
                     y = 400;
+
                 }
                 case 5 -> {
+                    squareNumber = 6;
                     x = 400;
                     y = 700;
+
                 }
                 case 6 -> {
+                    squareNumber = 7;
                     x = 700;
                     y = 100;
+
                 }
                 case 7 -> {
+                    squareNumber = 8;
                     x = 700;
                     y = 400;
+
                 }
                 case 8 -> {
+                    squareNumber = 9;
                     x = 700;
                     y = 700;
+
                 }
             }
             JPanel panel = new JPanel();
@@ -108,24 +116,25 @@ public class SudokuBoard extends JFrame {
             panel.setBounds(x, y, width, height);
             for (int buttons = 0; buttons < 9; buttons++) {
                 Button button = new Button();
+                button.setName("S" + squareNumber);
+                button.setFocusable(false);
                 button.addActionListener(new ButtonInteract(button));
+                Buttons.boardButtons.add(button);
                 panel.add(button);
-                buttonList[paneNumber][buttons] = button;
 
 
             }
 
-            paneNumber++;
+
             frame.add(panel);
 
 
         }
 
-    }
-
-    public void buttonInteract(){
 
     }
+
+
 
 
 }
