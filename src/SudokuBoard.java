@@ -42,6 +42,9 @@ public class SudokuBoard extends JFrame {
         sudokuKeyboard.setBounds(1600, 100, 300, 300);
         for (int x = 0; x < 9; x++) {
             Button button = new Button(String.valueOf(buttonNumber));
+            button.setFocusable(false);
+            button.setName("Keypad");
+            button.addActionListener(new ButtonInteract(button));
             button.setFont(new Font(null, Font.BOLD, 20));
             Buttons.keyboardButtons.add(button);
             sudokuKeyboard.add(button);

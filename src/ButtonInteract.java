@@ -3,8 +3,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class ButtonInteract implements ActionListener {
-    private static boolean isButtonHighlighted = false;
-    Button focusedButton;
+    private static boolean isBoardButtonHighlighted = false;
+    private static boolean isKeypadButtonHighlighted = false;
+    private static String valueToInput;
     Button button;
 
     public ButtonInteract(Button button) {
@@ -14,21 +15,38 @@ public class ButtonInteract implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        highLightButton();
+        if (button.getName().contains("Keypad")) {
+            keypadHighlightButton();
+        } else
+
+            boardHighLightButton();
 
     }
 
-    public void highLightButton() {
-        if (!isButtonHighlighted) {
+    public void boardHighLightButton() {
+        if (isKeypadButtonHighlighted && !isBoardButtonHighlighted) {
+            button.setLabel(valueToInput);
+            for (int y = 0; y < 9; y++) {
+                if (Buttons.keyboardButtons.get(y).isFocusable()) {
+                    Buttons.keyboardButtons.get(y).setFocusable(false);
+                    Buttons.keyboardButtons.get(y).setBackground(null);
+
+                }
+
+            }
+            isKeypadButtonHighlighted = false;
+
+
+        } else if (!isBoardButtonHighlighted) {
             button.setBackground(Color.getHSBColor(80, 80, 80));
             button.setFocusable(true);
             button.requestFocus();
-            isButtonHighlighted = true;
+            isBoardButtonHighlighted = true;
         } else {
 
             if (button.isFocusable()) {
                 button.setBackground(null);
-                isButtonHighlighted = false;
+                isBoardButtonHighlighted = false;
                 button.setFocusable(false);
 
             } else {
@@ -37,13 +55,15 @@ public class ButtonInteract implements ActionListener {
                     if (Buttons.boardButtons.get(x).isFocusable()) {
                         Buttons.boardButtons.get(x).setFocusable(false);
                         Buttons.boardButtons.get(x).setBackground(null);
+
                     }
+
+
                 }
                 button.setBackground(Color.getHSBColor(80, 80, 80));
                 button.setFocusable(true);
                 button.requestFocus();
-                isButtonHighlighted = true;
-
+                isBoardButtonHighlighted = true;
 
 
             }
@@ -52,19 +72,40 @@ public class ButtonInteract implements ActionListener {
 
     }
 
-    public boolean getIsButtonHighlighted() {
-        return isButtonHighlighted;
+    public void keypadHighlightButton() {
+        if (!isBoardButtonHighlighted && !isKeypadButtonHighlighted) {
+            button.setBackground(Color.getHSBColor(80, 80, 80));
+            button.setFocusable(true);
+            valueToInput = button.getLabel();
+            button.requestFocus();
+            isKeypadButtonHighlighted = true;
+
+        } else if (isKeypadButtonHighlighted) {
+            if (button.isFocusable()) {
+                button.setBackground(null);
+                isKeypadButtonHighlighted = false;
+                button.setFocusable(false);
+
+            } else {
+                for (int y = 0; y < 9; y++) {
+                    if (Buttons.keyboardButtons.get(y).isFocusable()) {
+                        Buttons.keyboardButtons.get(y).setFocusable(false);
+                        Buttons.keyboardButtons.get(y).setBackground(null);
+
+                    }
+
+                }
+                valueToInput = button.getLabel();
+                button.setBackground(Color.getHSBColor(80, 80, 80));
+                button.setFocusable(true);
+                button.requestFocus();
+                isKeypadButtonHighlighted = true;
+            }
+        }
+
     }
-
-    public Button getFocusedButton() {
-        return focusedButton;
-    }
-
-    public Button getButton(){
-        return button;
-    }
-
-
 }
+
+
 
 
