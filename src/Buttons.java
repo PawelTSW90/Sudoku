@@ -5,7 +5,7 @@ import java.util.List;
 public class Buttons {
     static List<Button> keyboardButtons = new ArrayList<>();
     static List<Button> boardButtons = new ArrayList<>();
-
+        //method is adding name signature to all buttons/ depends on board position
     public static void refactorButtonList() {
 
         for (int x = 0; x < 25; x=x+3) {

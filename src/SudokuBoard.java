@@ -13,17 +13,18 @@ public class SudokuBoard extends JFrame {
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
         this.setUndecorated(true);
         this.setLayout(null);
+        this.add(setKeypad());
         drawSudokuBoard(this);
-        this.add(sudokuInputKeyboard());
         this.add(background());
-        Buttons.refactorButtonList();
         this.setFocusable(true);
+
+        Buttons.refactorButtonList();
         this.setVisible(true);
 
 
     }
 
-    //method setting background
+    //method is setting background
     public JLabel background() {
 
         JLabel backgroundLabel = new JLabel();
@@ -34,8 +35,8 @@ public class SudokuBoard extends JFrame {
         return backgroundLabel;
 
     }
-
-    public JPanel sudokuInputKeyboard() {
+        //method is creating keypad
+    public JPanel setKeypad() {
         JPanel sudokuKeyboard = new JPanel();
         int buttonNumber = 1;
         sudokuKeyboard.setLayout(new GridLayout(3, 3));
@@ -56,7 +57,7 @@ public class SudokuBoard extends JFrame {
 
 
     }
-
+        //method is creating sudoku board
     public void drawSudokuBoard(JFrame frame) {
         int squareNumber = 0;
         for (int tmp = 0; tmp < 9; tmp++) {
