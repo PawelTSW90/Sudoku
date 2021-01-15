@@ -3,9 +3,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Buttons {
-    static List<Button> keyboardButtons = new ArrayList<>();
+    static List<Button> keypadButtons = new ArrayList<>();
     static List<Button> boardButtons = new ArrayList<>();
-        //method is adding name signature to all buttons/ depends on board position
+        //method is adding name signature to all buttons/ depends on board position (C for column, R for row)
     public static void refactorButtonList() {
 
         for (int x = 0; x < 25; x=x+3) {

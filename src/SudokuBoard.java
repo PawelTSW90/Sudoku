@@ -16,10 +16,9 @@ public class SudokuBoard extends JFrame {
         this.add(setKeypad());
         drawSudokuBoard(this);
         this.add(background());
-        this.setFocusable(true);
-
         Buttons.refactorButtonList();
         this.setVisible(true);
+        this.setFocusable(true);
 
 
     }
@@ -47,7 +46,7 @@ public class SudokuBoard extends JFrame {
             button.setName("Keypad");
             button.addActionListener(new ButtonInteract(button));
             button.setFont(new Font(null, Font.BOLD, 20));
-            Buttons.keyboardButtons.add(button);
+            Buttons.keypadButtons.add(button);
             sudokuKeyboard.add(button);
             buttonNumber++;
 
