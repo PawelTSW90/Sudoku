@@ -136,6 +136,10 @@ public class ButtonInteract implements ActionListener {
 
     }
 
+    public static void setIsBoardButtonHighlighted(boolean isBoardButtonHighlighted) {
+        ButtonInteract.isBoardButtonHighlighted = isBoardButtonHighlighted;
+    }
+
 
 }
 

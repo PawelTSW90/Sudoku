@@ -19,8 +19,12 @@ public class ButtonKeyListener implements KeyListener {
     public void keyPressed(KeyEvent e) {
         String value = String.valueOf(e.getKeyChar());
 
+
         if (checkInput(value)) {
             interact.button.setLabel(value);
+            interact.button.setBackground(null);
+            ButtonInteract.setIsBoardButtonHighlighted(false);
+            interact.button.setFocusable(false);
         }
 
 

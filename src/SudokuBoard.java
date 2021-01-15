@@ -15,10 +15,25 @@ public class SudokuBoard extends JFrame {
         this.setLayout(null);
         this.add(setKeypad());
         drawSudokuBoard(this);
+
+        JPanel buttonPanel = new JPanel();
+        buttonPanel.setBounds(1200, 500, 200, 200);
+        Button button = new Button("Button");
+        buttonPanel.add(button);
+        button.addActionListener(e->{
+            SudokuGenerator.generateNewBoard();
+
+        });
+        this.add(buttonPanel);
+
+
+
         this.add(background());
         Buttons.refactorButtonList();
         this.setVisible(true);
         this.setFocusable(true);
+
+
 
 
     }
