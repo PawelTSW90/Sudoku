@@ -17,12 +17,14 @@ public class SudokuGenerator {
     }
 
 
-    public static void fillRandomCell() {
-        Random random = new Random();
-        int randomCell = random.nextInt(cellsAvailable.size()-1);
-        cellsAvailable.removeIf(s->s.equals(randomCell));
-        Buttons.boardButtons.get(randomCell).setLabel("Siema");
-        Buttons.boardButtons.remove(randomCell);
+    public static Button fillRandomCell() {
+        Random randomButton = new Random();
+        int randomCell = randomButton.nextInt(cellsAvailable.size());
+        return Buttons.boardButtons.get(randomCell);
+
+
+        //cellsAvailable.remove(randomCell);
+        //Buttons.boardButtons.remove(randomCell);
 
     }
 }
