@@ -8,6 +8,7 @@ public class Buttons {
     static List<List<Button>> columnsList = new ArrayList<>();
     static List<List<Button>> rowsList = new ArrayList<>();
     static List<List<Button>> squaresList = new ArrayList<>();
+    List <String> buttonsValues = new ArrayList<>();
 
     //method is adding name signature to all buttons/ depends on board position (C for column, R for row)
     public static void refactorButtonList() {
