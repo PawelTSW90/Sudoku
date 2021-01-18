@@ -4,6 +4,7 @@ import java.util.Random;
 
 public class SudokuGenerator {
     Buttons buttons = new Buttons();
+    BacktrackingChecker checker = new BacktrackingChecker();
 
     static List<Integer> cellsAvailable = new ArrayList<>();
 
@@ -62,7 +63,10 @@ public class SudokuGenerator {
         }
 
         buttons.buttonsValues.set(location, String.valueOf(value));
+        checker.checkIfSolvable();
         Buttons.boardButtons.get(cellsAvailable.get(location)).setLabel(String.valueOf(value));
+        String buttonName = Buttons.boardButtons.get(cellsAvailable.get(location)).getName();
+        Buttons.boardButtons.get(cellsAvailable.get(location)).setName(buttonName+"N");
         cellsAvailable.remove(location);
     }
 
