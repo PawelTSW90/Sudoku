@@ -135,6 +135,7 @@ public class SudokuBoard extends JFrame {
             panel.setBounds(x, y, width, height);
             for (int buttons = 0; buttons < 9; buttons++) {
                 Button button = new Button();
+                button.setFont(new Font("Arial", Font.PLAIN, 20));
                 button.setName("S" + squareNumber);
                 button.setFocusable(false);
                 button.addActionListener(new ButtonInteract(button));
