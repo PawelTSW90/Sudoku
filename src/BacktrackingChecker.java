@@ -10,7 +10,7 @@ public class BacktrackingChecker {
         int numberToInput = 1;
 
 
-        for (int x = 0; x < 82; x++) {
+        for (int x = 0; x <81; x++) {
             //skip buttons not for edit
             if (Buttons.boardButtons.get(x).getName().contains("N")) {
                 x++;
@@ -38,12 +38,15 @@ public class BacktrackingChecker {
             }
             if (!increaseNumber) {
                 Buttons.boardButtons.get(x).setLabel(String.valueOf(numberToInput));
-                if(numberToInput ==9){
-                    numberToInput = 1;
-                }
+                numberToInput = 1;
             } else {
-                numberToInput = numberToInput + 1;
-                increaseNumber = false;
+                if(numberToInput ==9){
+
+
+                } else {
+                    numberToInput = numberToInput + 1;
+                    increaseNumber = false;
+                }
 
 
             }

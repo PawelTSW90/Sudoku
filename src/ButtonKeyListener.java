@@ -22,9 +22,12 @@ public class ButtonKeyListener implements KeyListener {
 
         if (checkInput(value)) {
             interact.button.setLabel(value);
+            String buttonName = interact.button.getName();
+            interact.button.setName(buttonName+"N");
             interact.button.setBackground(null);
             ButtonInteract.setIsBoardButtonHighlighted(false);
             interact.button.setFocusable(false);
+
         }
 
 
