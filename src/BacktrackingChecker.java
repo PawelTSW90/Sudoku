@@ -14,9 +14,7 @@ public class BacktrackingChecker {
 
         for (int x = 0; x < 81; x++) { //increase RANGE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
             //skip buttons not for edit
-            if (Buttons.boardButtons.get(x).getName().contains("N")) {
-                x++;
-            }
+
 
             if (changePreviousCell) {
                 currentValue = Integer.parseInt(Buttons.boardButtons.get(x).getLabel());
@@ -34,6 +32,8 @@ public class BacktrackingChecker {
                 }
 
 
+            } else if (Buttons.boardButtons.get(x).getName().contains("N")) {
+                x++;
             }
 
 
