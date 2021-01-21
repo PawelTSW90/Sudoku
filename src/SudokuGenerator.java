@@ -3,7 +3,6 @@ import java.util.List;
 import java.util.Random;
 
 public class SudokuGenerator {
-    Buttons buttons = new Buttons();
     BacktrackingChecker checker = new BacktrackingChecker();
 
     static List<Integer> cellsAvailable = new ArrayList<>();
@@ -12,7 +11,6 @@ public class SudokuGenerator {
     public void generateNewBoard() {
         for (int x = 1; x < 82; x++) {
             cellsAvailable.add(x);
-            buttons.buttonsValues.add("");
         }
 
         fillRandomCell();
@@ -21,26 +19,28 @@ public class SudokuGenerator {
 
 
     public void fillRandomCell() {
-        while (buttons.buttonsValues.contains("")) {
-            Random randomButton = new Random();
-            Random randomNumber = new Random();
-            try {
-                int randomCell = randomButton.nextInt(cellsAvailable.size() - 1);
-                int randomNumberInt = randomNumber.nextInt(10 - 1) + 1;
-                buttons.buttonsValues.set(randomCell, String.valueOf(randomNumberInt));
-                String buttonDetails = Buttons.boardButtons.get(cellsAvailable.get(randomCell)).getName();
-                int square = Integer.parseInt(buttonDetails.substring(1, 2));
-                int column = Integer.parseInt(buttonDetails.substring(4, 5));
-                int row = Integer.parseInt(buttonDetails.substring(7, 8));
-                checkIfNumberIsAllowed(square, column, row, randomNumberInt, randomCell);
+        for (int x = 0; x < 81; x++) {
+            if (Buttons.getValue(Buttons.buttonsValues.get(x)).equals("")) {
+                Random randomButton = new Random();
+                Random randomNumber = new Random();
+                try {
+                    int randomCell = randomButton.nextInt(cellsAvailable.size() - 1);
+                    int randomNumberInt = randomNumber.nextInt(10 - 1) + 1;
+                    Buttons.setValue(Buttons.buttonsValues.get(randomCell), String.valueOf(randomNumberInt));
+                    String buttonDetails = Buttons.boardButtons.get(cellsAvailable.get(randomCell)).getName();
+                    int square = Integer.parseInt(buttonDetails.substring(1, 2));
+                    int column = Integer.parseInt(buttonDetails.substring(4, 5));
+                    int row = Integer.parseInt(buttonDetails.substring(7, 8));
+                    checkIfNumberIsAllowed(square, column, row, randomNumberInt, randomCell);
 
 
-            } catch (IllegalArgumentException e) {
+                } catch (IllegalArgumentException e) {
 
+                }
             }
+
+
         }
-
-
     }
 
     public void checkIfNumberIsAllowed(int square, int column, int row, int value, int location) {
@@ -62,7 +62,7 @@ public class SudokuGenerator {
 
         }
 
-        buttons.buttonsValues.set(location, String.valueOf(value));
+        Buttons.setValue(Buttons.buttonsValues.get(location), String.valueOf(value));
         checker.checkIfSolvable();
         //Buttons.boardButtons.get(cellsAvailable.get(location)).setLabel(String.valueOf(value));
         //String buttonName = Buttons.boardButtons.get(cellsAvailable.get(location)).getName();
