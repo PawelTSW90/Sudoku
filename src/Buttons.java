@@ -3,6 +3,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Buttons {
+    int square;
+    int column;
+    int row;
     String name;
     String value;
     static List<Button> keypadButtons = new ArrayList<>();
@@ -44,8 +47,83 @@ public class Buttons {
         List<Button> square9 = new ArrayList<>();
 
 
+        for (int x = 1; x < 10; x++) {
+            Buttons button = new Buttons();
+            button.setRow(1);
+            Buttons.buttonsValues.add(button);
+        }
+
+        for (int x = 10; x<19; x++){
+            Buttons button = new Buttons();
+            button.setRow(2);
+            Buttons.buttonsValues.add(button);
+
+        }
+
+        for (int x = 19; x<28; x++){
+            Buttons button = new Buttons();
+            button.setRow(3);
+            Buttons.buttonsValues.add(button);
+
+        }
+
+        for (int x = 28; x<37; x++){
+            Buttons button = new Buttons();
+            button.setRow(4);
+            Buttons.buttonsValues.add(button);
+
+        }
+
+        for (int x = 37; x<46; x++){
+            Buttons button = new Buttons();
+            button.setRow(5);
+            Buttons.buttonsValues.add(button);
+
+        }
+
+        for (int x = 46; x<55; x++){
+            Buttons button = new Buttons();
+            button.setRow(6);
+            Buttons.buttonsValues.add(button);
+
+        }
+
+        for (int x = 55; x<64; x++){
+            Buttons button = new Buttons();
+            button.setRow(7);
+            Buttons.buttonsValues.add(button);
+
+        }
+
+        for (int x = 64; x<73; x++){
+            Buttons button = new Buttons();
+            button.setRow(8);
+            Buttons.buttonsValues.add(button);
+
+        }
+
+        for (int x = 73; x<82; x++){
+            Buttons button = new Buttons();
+            button.setRow(9);
+            Buttons.buttonsValues.add(button);
+
+        }
+
+        for(int x = 0; x<81; x++){
+            for(int y = 1; y<10; y++){
+                Buttons.buttonsValues.get(x).setColumn(y);
+                if(x<80){
+                    x++;
+                    if(y == 9){
+                        x--;
+                    }
+                }
+
+            }
+        }
 
 
+        /////////////////////////////////////////////////////////////////////////////////////////////////////////
         for (int x = 0; x < 25; x = x + 3) {
             boardButtons.get(x).setName(boardButtons.get(x).getName() + " C1");
             column1.add(boardButtons.get(x));
@@ -103,21 +181,14 @@ public class Buttons {
             row1.add(boardButtons.get(y));
             if (y == 2 || y == 29) {
                 y = y + 24;
-            }
-            else if (y == 56) {
+            } else if (y == 56) {
                 break;
             }
 
         }
 
-        for(int x = 0; x<9; x++){
-            Buttons button = new Buttons();
-            setName(button, row1.get(x).getName());
-            setValue(button, "");
-            buttonsValues.add(button);
-        }
-        rowsList.add(row1);
 
+        rowsList.add(row1);
 
 
         for (int y = 3; y < 60; y++) {
@@ -132,12 +203,6 @@ public class Buttons {
 
         }
         rowsList.add(row2);
-        for(int x = 0; x<9; x++){
-            Buttons button = new Buttons();
-            setName(button, row2.get(x).getName());
-            setValue(button, "");
-            buttonsValues.add(button);
-        }
 
 
         for (int y = 6; y < 63; y++) {
@@ -152,12 +217,7 @@ public class Buttons {
 
         }
         rowsList.add(row3);
-        for(int x = 0; x<9; x++){
-            Buttons button = new Buttons();
-            setName(button, row3.get(x).getName());
-            setValue(button, "");
-            buttonsValues.add(button);
-        }
+
         for (int y = 9; y < 66; y++) {
             boardButtons.get(y).setName(boardButtons.get(y).getName() + " R4");
 
@@ -170,12 +230,7 @@ public class Buttons {
 
         }
         rowsList.add(row4);
-        for(int x = 0; x<9; x++){
-            Buttons button = new Buttons();
-            setName(button, row4.get(x).getName());
-            setValue(button, "");
-            buttonsValues.add(button);
-        }
+
         for (int y = 12; y < 69; y++) {
             boardButtons.get(y).setName(boardButtons.get(y).getName() + " R5");
 
@@ -188,12 +243,7 @@ public class Buttons {
 
         }
         rowsList.add(row5);
-        for(int x = 0; x<9; x++){
-            Buttons button = new Buttons();
-            setName(button, row5.get(x).getName());
-            setValue(button, "");
-            buttonsValues.add(button);
-        }
+
         for (int y = 15; y < 72; y++) {
             boardButtons.get(y).setName(boardButtons.get(y).getName() + " R6");
 
@@ -206,12 +256,7 @@ public class Buttons {
 
         }
         rowsList.add(row6);
-        for(int x = 0; x<9; x++){
-            Buttons button = new Buttons();
-            setName(button, row6.get(x).getName());
-            setValue(button, "");
-            buttonsValues.add(button);
-        }
+
         for (int y = 18; y < 75; y++) {
             boardButtons.get(y).setName(boardButtons.get(y).getName() + " R7");
 
@@ -224,12 +269,7 @@ public class Buttons {
 
         }
         rowsList.add(row7);
-        for(int x = 0; x<9; x++){
-            Buttons button = new Buttons();
-            setName(button, row7.get(x).getName());
-            setValue(button, "");
-            buttonsValues.add(button);
-        }
+
         for (int y = 21; y < 78; y++) {
             boardButtons.get(y).setName(boardButtons.get(y).getName() + " R8");
 
@@ -242,12 +282,7 @@ public class Buttons {
 
         }
         rowsList.add(row8);
-        for(int x = 0; x<9; x++){
-            Buttons button = new Buttons();
-            setName(button, row8.get(x).getName());
-            setValue(button, "");
-            buttonsValues.add(button);
-        }
+
         for (int y = 24; y < 81; y++) {
             boardButtons.get(y).setName(boardButtons.get(y).getName() + " R9");
 
@@ -260,12 +295,6 @@ public class Buttons {
 
         }
         rowsList.add(row9);
-        for(int x = 0; x<9; x++){
-            Buttons button = new Buttons();
-            setName(button, row9.get(x).getName());
-            setValue(button, "");
-            buttonsValues.add(button);
-        }
 
 
         for (int y = 0; y < 81; y++) {
@@ -304,21 +333,45 @@ public class Buttons {
 
     }
 
-    public static void setName(Buttons button, String name) {
-        button.name = name;
+    public void setName(String name) {
+        this.name = name;
 
 
     }
 
-    public static void setValue(Buttons button, String value) {
-        button.value = value;
+    public void setValue(String value) {
+        this.value = value;
     }
 
-    public static String getName(Buttons button) {
+    public String getName(Buttons button) {
         return button.name;
     }
 
-    public static String getValue(Buttons button) {
+    public String getValue(Buttons button) {
         return button.value;
+    }
+
+    public int getSquare() {
+        return square;
+    }
+
+    public void setSquare(int square) {
+        this.square = square;
+    }
+
+    public int getColumn() {
+        return column;
+    }
+
+    public void setColumn(int column) {
+        this.column = column;
+    }
+
+    public int getRow() {
+        return row;
+    }
+
+    public void setRow(int row) {
+        this.row = row;
     }
 }

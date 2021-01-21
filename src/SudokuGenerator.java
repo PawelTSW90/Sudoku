@@ -3,6 +3,7 @@ import java.util.List;
 import java.util.Random;
 
 public class SudokuGenerator {
+    Buttons buttons = new Buttons();
     BacktrackingChecker checker = new BacktrackingChecker();
 
     static List<Integer> cellsAvailable = new ArrayList<>();
@@ -19,14 +20,15 @@ public class SudokuGenerator {
 
 
     public void fillRandomCell() {
-        for (int x = 0; x < 81; x++) {
-            if (Buttons.getValue(Buttons.buttonsValues.get(x)).equals("")) {
+        checker.checkIfSolvable();
+        /*
+            while (Buttons.buttonsValues.contains("")){
                 Random randomButton = new Random();
                 Random randomNumber = new Random();
                 try {
                     int randomCell = randomButton.nextInt(cellsAvailable.size() - 1);
                     int randomNumberInt = randomNumber.nextInt(10 - 1) + 1;
-                    Buttons.setValue(Buttons.buttonsValues.get(randomCell), String.valueOf(randomNumberInt));
+                    Buttons.buttonsValues.get(randomCell).setValue(String.valueOf(randomNumberInt));
                     String buttonDetails = Buttons.boardButtons.get(cellsAvailable.get(randomCell)).getName();
                     int square = Integer.parseInt(buttonDetails.substring(1, 2));
                     int column = Integer.parseInt(buttonDetails.substring(4, 5));
@@ -40,7 +42,9 @@ public class SudokuGenerator {
             }
 
 
-        }
+
+         */
+
     }
 
     public void checkIfNumberIsAllowed(int square, int column, int row, int value, int location) {
@@ -62,8 +66,8 @@ public class SudokuGenerator {
 
         }
 
-        Buttons.setValue(Buttons.buttonsValues.get(location), String.valueOf(value));
-        checker.checkIfSolvable();
+        Buttons.buttonsValues.get(location).setValue(String.valueOf(value));
+
         //Buttons.boardButtons.get(cellsAvailable.get(location)).setLabel(String.valueOf(value));
         //String buttonName = Buttons.boardButtons.get(cellsAvailable.get(location)).getName();
         //Buttons.boardButtons.get(cellsAvailable.get(location)).setName(buttonName+"N");
