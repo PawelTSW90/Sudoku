@@ -159,18 +159,97 @@ public class Buttons {
 
             }
         }
+        columnsList1.add(column11);
+        columnsList1.add(column22);
+        columnsList1.add(column33);
+        columnsList1.add(column44);
+        columnsList1.add(column55);
+        columnsList1.add(column66);
+        columnsList1.add(column77);
+        columnsList1.add(column88);
+        columnsList1.add(column99);
         //setting buttonsValues square positions
-        for (int x = 0; x < 81; x++) {
-            for (int y = 1; y < 4; y++) {
-                Buttons.buttonsValues.get(x).setSquare(y);
-                if (x < 80) {
-                    x++;
-                    if (y == 3) {
-                        x--;
-                    }
-                }
+        for (int x = 0; x < 21; x++) {
+            Buttons.buttonsValues.get(x).setSquare(1);
+            square11.add(buttonsValues.get(x));
+            if(x == 2 || x == 11){
+                x+=6;
             }
+
         }
+        squaresList1.add(square11);
+        for (int x = 3; x < 24; x++) {
+            Buttons.buttonsValues.get(x).setSquare(2);
+            square22.add(buttonsValues.get(x));
+            if(x == 5 || x == 14){
+                x+=6;
+            }
+
+        }
+        squaresList1.add(square22);
+        for (int x = 6; x < 27; x++) {
+            Buttons.buttonsValues.get(x).setSquare(3);
+            square33.add(buttonsValues.get(x));
+            if(x == 8 || x == 17){
+                x+=6;
+            }
+
+        }
+        squaresList1.add(square33);
+        for (int x = 27; x < 48; x++) {
+            Buttons.buttonsValues.get(x).setSquare(4);
+            square44.add(buttonsValues.get(x));
+            if(x == 29 || x == 38){
+                x+=6;
+            }
+
+        }
+        squaresList1.add(square44);
+        for (int x = 30; x < 51; x++) {
+            Buttons.buttonsValues.get(x).setSquare(5);
+            square55.add(buttonsValues.get(x));
+            if(x == 32 || x == 41){
+                x+=6;
+            }
+
+        }
+        squaresList1.add(square55);
+        for (int x = 33; x < 54; x++) {
+            Buttons.buttonsValues.get(x).setSquare(6);
+            square66.add(buttonsValues.get(x));
+            if(x == 35 || x == 44){
+                x+=6;
+            }
+
+        }
+        squaresList1.add(square66);
+        for (int x = 54; x < 75; x++) {
+            Buttons.buttonsValues.get(x).setSquare(7);
+            square77.add(buttonsValues.get(x));
+            if(x == 56 || x == 65){
+                x+=6;
+            }
+
+        }
+        squaresList1.add(square77);
+        for (int x = 57; x < 78; x++) {
+            Buttons.buttonsValues.get(x).setSquare(8);
+            square88.add(buttonsValues.get(x));
+            if(x == 59 || x == 68){
+                x+=6;
+            }
+
+        }
+        squaresList1.add(square88);
+        for (int x = 60; x < 81; x++) {
+            Buttons.buttonsValues.get(x).setSquare(9);
+            square99.add(buttonsValues.get(x));
+            if(x == 62 || x == 71){
+                x+=6;
+            }
+
+        }
+        squaresList1.add(square99);
 
 
         /////////////////////////////////////////////////////////////////////////////////////////////////////////
