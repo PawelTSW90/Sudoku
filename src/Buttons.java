@@ -15,9 +15,165 @@ public class Buttons {
     static List<List<Button>> rowsList = new ArrayList<>();
     static List<List<Button>> squaresList = new ArrayList<>();
     static List<Buttons> buttonsValues = new ArrayList<>();
+    //
+
+    static List<List<Buttons>> columnsList1 = new ArrayList<>();
+    static List<List<Buttons>> rowsList1 = new ArrayList<>();
+    static List<List<Buttons>> squaresList1 = new ArrayList<>();
+
 
     //method is adding name signature to all buttons/ depends on board position (C for column, R for row)
     public static void refactorButtonList() {
+        List<Buttons> column11 = new ArrayList<>();
+        List<Buttons> column22 = new ArrayList<>();
+        List<Buttons> column33 = new ArrayList<>();
+        List<Buttons> column44 = new ArrayList<>();
+        List<Buttons> column55 = new ArrayList<>();
+        List<Buttons> column66 = new ArrayList<>();
+        List<Buttons> column77 = new ArrayList<>();
+        List<Buttons> column88 = new ArrayList<>();
+        List<Buttons> column99 = new ArrayList<>();
+        List<Buttons> row11 = new ArrayList<>();
+        List<Buttons> row22 = new ArrayList<>();
+        List<Buttons> row33 = new ArrayList<>();
+        List<Buttons> row44 = new ArrayList<>();
+        List<Buttons> row55 = new ArrayList<>();
+        List<Buttons> row66 = new ArrayList<>();
+        List<Buttons> row77 = new ArrayList<>();
+        List<Buttons> row88 = new ArrayList<>();
+        List<Buttons> row99 = new ArrayList<>();
+        List<Buttons> square11 = new ArrayList<>();
+        List<Buttons> square22 = new ArrayList<>();
+        List<Buttons> square33 = new ArrayList<>();
+        List<Buttons> square44 = new ArrayList<>();
+        List<Buttons> square55 = new ArrayList<>();
+        List<Buttons> square66 = new ArrayList<>();
+        List<Buttons> square77 = new ArrayList<>();
+        List<Buttons> square88 = new ArrayList<>();
+        List<Buttons> square99 = new ArrayList<>();
+
+
+        //setting buttonsValues row positions
+        for (int x = 1; x < 10; x++) {
+            Buttons button = new Buttons();
+            button.setRow(1);
+            button.setValue("");
+            row11.add(button);
+            Buttons.buttonsValues.add(button);
+        }
+        rowsList1.add(row11);
+
+        for (int x = 10; x < 19; x++) {
+            Buttons button = new Buttons();
+            button.setRow(2);
+            button.setValue("");
+            row22.add(button);
+            Buttons.buttonsValues.add(button);
+
+        }
+        rowsList1.add(row22);
+        for (int x = 19; x < 28; x++) {
+            Buttons button = new Buttons();
+            button.setRow(3);
+            button.setValue("");
+            row33.add(button);
+            Buttons.buttonsValues.add(button);
+
+        }
+        rowsList1.add(row33);
+        for (int x = 28; x < 37; x++) {
+            Buttons button = new Buttons();
+            button.setRow(4);
+            button.setValue("");
+            row44.add(button);
+            Buttons.buttonsValues.add(button);
+
+        }
+        rowsList1.add(row44);
+        for (int x = 37; x < 46; x++) {
+            Buttons button = new Buttons();
+            button.setRow(5);
+            button.setValue("");
+            row55.add(button);
+            Buttons.buttonsValues.add(button);
+
+        }
+        rowsList1.add(row55);
+        for (int x = 46; x < 55; x++) {
+            Buttons button = new Buttons();
+            button.setRow(6);
+            button.setValue("");
+            row66.add(button);
+            Buttons.buttonsValues.add(button);
+
+        }
+        rowsList1.add(row66);
+        for (int x = 55; x < 64; x++) {
+            Buttons button = new Buttons();
+            button.setRow(7);
+            button.setValue("");
+            row77.add(button);
+            Buttons.buttonsValues.add(button);
+
+        }
+        rowsList1.add(row77);
+        for (int x = 64; x < 73; x++) {
+            Buttons button = new Buttons();
+            button.setRow(8);
+            button.setValue("");
+            row88.add(button);
+            Buttons.buttonsValues.add(button);
+
+        }
+        rowsList1.add(row88);
+        for (int x = 73; x < 82; x++) {
+            Buttons button = new Buttons();
+            button.setRow(9);
+            button.setValue("");
+            row99.add(button);
+            Buttons.buttonsValues.add(button);
+
+        }
+        rowsList1.add(row99);
+        //setting buttonsValues column positions
+        for (int x = 0; x < 81; x++) {
+            for (int y = 1; y < 10; y++) {
+                Buttons.buttonsValues.get(x).setColumn(y);
+                switch (Buttons.buttonsValues.get(x).getColumn()) {
+                    case 1 -> column11.add(Buttons.buttonsValues.get(x));
+                    case 2 -> column22.add(Buttons.buttonsValues.get(x));
+                    case 3 -> column33.add(Buttons.buttonsValues.get(x));
+                    case 4 -> column44.add(Buttons.buttonsValues.get(x));
+                    case 5 -> column55.add(Buttons.buttonsValues.get(x));
+                    case 6 -> column66.add(Buttons.buttonsValues.get(x));
+                    case 7 -> column77.add(Buttons.buttonsValues.get(x));
+                    case 8 -> column88.add(Buttons.buttonsValues.get(x));
+                    case 9 -> column99.add(Buttons.buttonsValues.get(x));
+                }
+                if (x < 80) {
+                    x++;
+                    if (y == 9) {
+                        x--;
+                    }
+                }
+
+            }
+        }
+        //setting buttonsValues square positions
+        for (int x = 0; x < 81; x++) {
+            for (int y = 1; y < 4; y++) {
+                Buttons.buttonsValues.get(x).setSquare(y);
+                if (x < 80) {
+                    x++;
+                    if (y == 3) {
+                        x--;
+                    }
+                }
+            }
+        }
+
+
+        /////////////////////////////////////////////////////////////////////////////////////////////////////////
         List<Button> column1 = new ArrayList<>();
         List<Button> column2 = new ArrayList<>();
         List<Button> column3 = new ArrayList<>();
@@ -47,83 +203,6 @@ public class Buttons {
         List<Button> square9 = new ArrayList<>();
 
 
-        for (int x = 1; x < 10; x++) {
-            Buttons button = new Buttons();
-            button.setRow(1);
-            Buttons.buttonsValues.add(button);
-        }
-
-        for (int x = 10; x<19; x++){
-            Buttons button = new Buttons();
-            button.setRow(2);
-            Buttons.buttonsValues.add(button);
-
-        }
-
-        for (int x = 19; x<28; x++){
-            Buttons button = new Buttons();
-            button.setRow(3);
-            Buttons.buttonsValues.add(button);
-
-        }
-
-        for (int x = 28; x<37; x++){
-            Buttons button = new Buttons();
-            button.setRow(4);
-            Buttons.buttonsValues.add(button);
-
-        }
-
-        for (int x = 37; x<46; x++){
-            Buttons button = new Buttons();
-            button.setRow(5);
-            Buttons.buttonsValues.add(button);
-
-        }
-
-        for (int x = 46; x<55; x++){
-            Buttons button = new Buttons();
-            button.setRow(6);
-            Buttons.buttonsValues.add(button);
-
-        }
-
-        for (int x = 55; x<64; x++){
-            Buttons button = new Buttons();
-            button.setRow(7);
-            Buttons.buttonsValues.add(button);
-
-        }
-
-        for (int x = 64; x<73; x++){
-            Buttons button = new Buttons();
-            button.setRow(8);
-            Buttons.buttonsValues.add(button);
-
-        }
-
-        for (int x = 73; x<82; x++){
-            Buttons button = new Buttons();
-            button.setRow(9);
-            Buttons.buttonsValues.add(button);
-
-        }
-
-        for(int x = 0; x<81; x++){
-            for(int y = 1; y<10; y++){
-                Buttons.buttonsValues.get(x).setColumn(y);
-                if(x<80){
-                    x++;
-                    if(y == 9){
-                        x--;
-                    }
-                }
-
-            }
-        }
-
-
-        /////////////////////////////////////////////////////////////////////////////////////////////////////////
         for (int x = 0; x < 25; x = x + 3) {
             boardButtons.get(x).setName(boardButtons.get(x).getName() + " C1");
             column1.add(boardButtons.get(x));
