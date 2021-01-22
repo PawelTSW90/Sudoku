@@ -85,15 +85,15 @@ public class SudokuBoard extends JFrame {
             switch (tmp) {
                 case 0 -> squareNumber = 1;
                 case 1 -> {
-                    squareNumber = 2;
+                    squareNumber = 4;
                     y = 400;
                 }
                 case 2 -> {
-                    squareNumber = 3;
+                    squareNumber = 7;
                     y = 700;
                 }
                 case 3 -> {
-                    squareNumber = 4;
+                    squareNumber = 2;
                     x = 400;
                     y = 100;
 
@@ -105,19 +105,19 @@ public class SudokuBoard extends JFrame {
 
                 }
                 case 5 -> {
-                    squareNumber = 6;
+                    squareNumber = 8;
                     x = 400;
                     y = 700;
 
                 }
                 case 6 -> {
-                    squareNumber = 7;
+                    squareNumber = 3;
                     x = 700;
                     y = 100;
 
                 }
                 case 7 -> {
-                    squareNumber = 8;
+                    squareNumber = 6;
                     x = 700;
                     y = 400;
 

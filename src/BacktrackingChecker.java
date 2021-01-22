@@ -1,64 +1,66 @@
 import java.awt.*;
 
 public class BacktrackingChecker {
+    Buttons buttons = new Buttons();
     int square;
     int column;
     int row;
 
     public void checkIfSolvable() {
+        BacktrackingChecker checker = new BacktrackingChecker();
         boolean increaseCurrentCell = false;
         boolean changePreviousCell = false;
         int numberToInput = 1;
         int currentValue;
 
 
-        for (int x = 0; x < 81; x++) { //increase RANGE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-            //skip buttons not for edit
+        for (int x = 0; x < 81; x++) {
 
 
             if (changePreviousCell) {
-                currentValue = Integer.parseInt(Buttons.boardButtons.get(x).getLabel());
+                currentValue = Integer.parseInt(buttons.getValue(Buttons.buttonsValues.get(x)));
 
-                if (Buttons.boardButtons.get(x).getName().contains("N")) {
+                if (buttons.getName(Buttons.buttonsValues.get(x)).contains("N")) {
                     x--;
                 } else if (currentValue == 9) {
-                    Buttons.boardButtons.get(x).setLabel("");
+                    Buttons.buttonsValues.get(x).setValue("");
                     x--;
                 } else {
                     numberToInput = currentValue + 1;
-                    Buttons.boardButtons.get(x).setLabel("");
+                    Buttons.buttonsValues.get(x).setValue("");
                     changePreviousCell = false;
                     increaseCurrentCell = false;
                 }
 
 
-            } else if (Buttons.boardButtons.get(x).getName().contains("N")) {
+            } else if (buttons.getName(Buttons.buttonsValues.get(x)).contains("N")) {
                 x++;
             }
 
 
-            int square = getButtonPosition(Buttons.boardButtons.get(x)).square;
-            int column = getButtonPosition(Buttons.boardButtons.get(x)).column;
-            int row = getButtonPosition(Buttons.boardButtons.get(x)).row;
+            int square = getButtonPosition2(Buttons.buttonsValues.get(x)).square;
+            int column = getButtonPosition2(Buttons.buttonsValues.get(x)).column;
+            int row = getButtonPosition2(Buttons.buttonsValues.get(x)).row;
             for (int y = 0; y < 9; y++) {
 
 
-                if (Buttons.squaresList.get(square - 1).get(y).getLabel().contains(String.valueOf(numberToInput))) {
+                if (buttons.getValue(Buttons.squaresList1.get(square-1).get(y)).contains(String.valueOf(numberToInput))) {
                     x--;
                     increaseCurrentCell = true;
                     break;
-                } else if (Buttons.columnsList.get(column - 1).get(y).getLabel().contains(String.valueOf(numberToInput))) {
+                } else if (buttons.getValue(Buttons.columnsList1.get(column-1).get(y)).contains(String.valueOf(numberToInput))) {
                     x--;
                     increaseCurrentCell = true;
                     break;
-                } else if (Buttons.rowsList.get(row - 1).get(y).getLabel().contains(String.valueOf(numberToInput))) {
+                } else if (buttons.getValue(Buttons.rowsList1.get(row-1).get(y)).contains(String.valueOf(numberToInput))) {
                     x--;
                     increaseCurrentCell = true;
                     break;
                 }
             }
             if (!increaseCurrentCell) {
-                Buttons.boardButtons.get(x).setLabel(String.valueOf(numberToInput));
+                Buttons.buttonsValues.get(x).setValue(String.valueOf(numberToInput));
+                checker.displayCells();
                 numberToInput = 1;
             } else {
 
@@ -92,4 +94,41 @@ public class BacktrackingChecker {
         checker.row = row;
         return checker;
     }
-}
+
+    public BacktrackingChecker getButtonPosition2(Buttons buttons){
+        BacktrackingChecker checker2 = new BacktrackingChecker();
+        int square = buttons.getSquare();
+        int column = buttons.getColumn();
+        int row = buttons.getRow();
+        checker2.square = square;
+        checker2.column = column;
+        checker2.row = row;
+        return checker2;
+    }
+
+    public void displayCells(){
+        for(int x = 0; x<81; x++){
+            String square = String.valueOf(Buttons.buttonsValues.get(x).getSquare());
+            String column = String.valueOf(Buttons.buttonsValues.get(x).getColumn());
+            String row = String.valueOf(Buttons.buttonsValues.get(x).getRow());
+            String buttonLocation = "S"+square+" "+"C"+column+" "+"R"+row;
+            String buttonValue = buttons.getValue(Buttons.buttonsValues.get(x));
+            for(int y = 0; y<81; y++){
+                if(Buttons.boardButtons.get(y).getName().contains(buttonLocation)){
+                    Buttons.boardButtons.get(y).setLabel(buttonValue);
+                    break;
+                }
+            }
+
+        }
+
+
+
+    }
+
+    public void lookForButtonToIgnore(){
+        }
+
+    }
+
+

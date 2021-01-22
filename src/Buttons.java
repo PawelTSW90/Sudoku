@@ -58,6 +58,7 @@ public class Buttons {
             Buttons button = new Buttons();
             button.setRow(1);
             button.setValue("");
+            button.setName("");
             row11.add(button);
             Buttons.buttonsValues.add(button);
         }
@@ -67,6 +68,7 @@ public class Buttons {
             Buttons button = new Buttons();
             button.setRow(2);
             button.setValue("");
+            button.setName("");
             row22.add(button);
             Buttons.buttonsValues.add(button);
 
@@ -76,6 +78,7 @@ public class Buttons {
             Buttons button = new Buttons();
             button.setRow(3);
             button.setValue("");
+            button.setName("");
             row33.add(button);
             Buttons.buttonsValues.add(button);
 
@@ -85,6 +88,7 @@ public class Buttons {
             Buttons button = new Buttons();
             button.setRow(4);
             button.setValue("");
+            button.setName("");
             row44.add(button);
             Buttons.buttonsValues.add(button);
 
@@ -94,6 +98,7 @@ public class Buttons {
             Buttons button = new Buttons();
             button.setRow(5);
             button.setValue("");
+            button.setName("");
             row55.add(button);
             Buttons.buttonsValues.add(button);
 
@@ -103,6 +108,7 @@ public class Buttons {
             Buttons button = new Buttons();
             button.setRow(6);
             button.setValue("");
+            button.setName("");
             row66.add(button);
             Buttons.buttonsValues.add(button);
 
@@ -112,6 +118,7 @@ public class Buttons {
             Buttons button = new Buttons();
             button.setRow(7);
             button.setValue("");
+            button.setName("");
             row77.add(button);
             Buttons.buttonsValues.add(button);
 
@@ -121,6 +128,7 @@ public class Buttons {
             Buttons button = new Buttons();
             button.setRow(8);
             button.setValue("");
+            button.setName("");
             row88.add(button);
             Buttons.buttonsValues.add(button);
 
@@ -130,6 +138,7 @@ public class Buttons {
             Buttons button = new Buttons();
             button.setRow(9);
             button.setValue("");
+            button.setName("");
             row99.add(button);
             Buttons.buttonsValues.add(button);
 
