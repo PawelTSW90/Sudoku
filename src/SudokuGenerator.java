@@ -1,9 +1,8 @@
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
+
 
 public class SudokuGenerator {
-    Buttons buttons = new Buttons();
     BacktrackingChecker checker = new BacktrackingChecker();
 
     static List<Integer> cellsAvailable = new ArrayList<>();
@@ -21,7 +20,7 @@ public class SudokuGenerator {
 
     public void fillRandomCell() {
         checker.checkIfSolvable();
-        /*
+    /*
             while (Buttons.buttonsValues.contains("")){
                 Random randomButton = new Random();
                 Random randomNumber = new Random();
@@ -43,7 +42,7 @@ public class SudokuGenerator {
 
 
 
-         */
+
 
     }
 
@@ -66,13 +65,18 @@ public class SudokuGenerator {
 
         }
 
+
+
         Buttons.buttonsValues.get(location).setValue(String.valueOf(value));
 
-        //Buttons.boardButtons.get(cellsAvailable.get(location)).setLabel(String.valueOf(value));
-        //String buttonName = Buttons.boardButtons.get(cellsAvailable.get(location)).getName();
-        //Buttons.boardButtons.get(cellsAvailable.get(location)).setName(buttonName+"N");
-        //cellsAvailable.remove(location);
+        Buttons.boardButtons.get(cellsAvailable.get(location)).setLabel(String.valueOf(value));
+        String buttonName = Buttons.boardButtons.get(cellsAvailable.get(location)).getName();
+        Buttons.boardButtons.get(cellsAvailable.get(location)).setName(buttonName+"N");
+        cellsAvailable.remove(location);
     }
 
 
+     */
+
+    }
 }
