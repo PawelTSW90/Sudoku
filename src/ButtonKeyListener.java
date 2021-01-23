@@ -3,6 +3,7 @@ import java.awt.event.KeyListener;
 
 public class ButtonKeyListener implements KeyListener {
     ButtonInteract interact;
+    BacktrackingChecker checker = new BacktrackingChecker();
 
     ButtonKeyListener(ButtonInteract interact) {
         this.interact = interact;
@@ -21,9 +22,22 @@ public class ButtonKeyListener implements KeyListener {
 
 
         if (checkInput(value)) {
-            interact.button.setLabel(value);
-            String buttonName = interact.button.getName();
-            interact.button.setName(buttonName+"N");
+            for(int x = 0; x<81; x++) {
+                String boardButtonLocation = interact.button.getName();
+                String square = String.valueOf(Buttons.buttonsValues.get(x).getSquare());
+                String column = String.valueOf(Buttons.buttonsValues.get(x).getColumn());
+                String row = String.valueOf(Buttons.buttonsValues.get(x).getRow());
+                String buttonsValuesLocation = "S" + square + " " + "C" + column + " " + "R" + row;
+                if(boardButtonLocation.equals(buttonsValuesLocation)){
+                    Buttons.buttonsValues.get(x).setName("N");
+                    Buttons.buttonsValues.get(x).setValue(value);
+                    checker.displayCells();
+                }
+            }
+
+
+
+
             interact.button.setBackground(null);
             ButtonInteract.setIsBoardButtonHighlighted(false);
             interact.button.setFocusable(false);
@@ -46,6 +60,10 @@ public class ButtonKeyListener implements KeyListener {
         } catch (NumberFormatException e) {
             return false;
         }
+    }
+
+    public void markButtonAsSkip(){
+
     }
 
 }

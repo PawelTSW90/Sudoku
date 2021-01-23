@@ -4,7 +4,7 @@ import java.awt.*;
 
 
 public class SudokuBoard extends JFrame {
-    SudokuGenerator generator = new SudokuGenerator();
+    BacktrackingChecker checker = new BacktrackingChecker();
     Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
     int screenHeight = screenSize.height;
     int screenWidth = screenSize.width;
@@ -22,7 +22,7 @@ public class SudokuBoard extends JFrame {
         Button button = new Button("Button");
         buttonPanel.add(button);
         button.addActionListener(e->{
-            generator.generateNewBoard();
+            checker.checkIfSolvable();
 
         });
         this.add(buttonPanel);

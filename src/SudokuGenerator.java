@@ -3,8 +3,6 @@ import java.util.List;
 
 
 public class SudokuGenerator {
-    BacktrackingChecker checker = new BacktrackingChecker();
-
     static List<Integer> cellsAvailable = new ArrayList<>();
 
 
@@ -19,7 +17,6 @@ public class SudokuGenerator {
 
 
     public void fillRandomCell() {
-        checker.checkIfSolvable();
     /*
             while (Buttons.buttonsValues.contains("")){
                 Random randomButton = new Random();
