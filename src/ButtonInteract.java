@@ -7,6 +7,7 @@ public class ButtonInteract implements ActionListener {
     private static boolean isKeypadButtonHighlighted = false;
     private static String valueToInput;
     Button button;
+    ButtonsTemplateCreator buttons = new ButtonsTemplateCreator();
 
     public ButtonInteract(Button button) {
         this.button = button;
@@ -30,9 +31,9 @@ public class ButtonInteract implements ActionListener {
         if (isKeypadButtonHighlighted && !isBoardButtonHighlighted) {
             button.setLabel(valueToInput);
             for (int y = 0; y < 9; y++) {
-                if (Buttons.keypadButtons.get(y).isFocusable()) {
-                    Buttons.keypadButtons.get(y).setFocusable(false);
-                    Buttons.keypadButtons.get(y).setBackground(null);
+                if (ButtonsTemplateCreator.keypadButtons.get(y).isFocusable()) {
+                    ButtonsTemplateCreator.keypadButtons.get(y).setFocusable(false);
+                    ButtonsTemplateCreator.keypadButtons.get(y).setBackground(null);
 
                 }
 
@@ -58,9 +59,9 @@ public class ButtonInteract implements ActionListener {
 
                 // if other board button is active, set it to no-active and set clicked button as active
                 for (int x = 0; x < 81; x++) {
-                    if (Buttons.boardButtons.get(x).isFocusable()) {
-                        Buttons.boardButtons.get(x).setFocusable(false);
-                        Buttons.boardButtons.get(x).setBackground(null);
+                    if (buttons.boardButtons.get(x).isFocusable()) {
+                        buttons.boardButtons.get(x).setFocusable(false);
+                        buttons.boardButtons.get(x).setBackground(null);
 
                     }
 
@@ -97,9 +98,9 @@ public class ButtonInteract implements ActionListener {
             //if other keypad button is active, set it as no-active and set clicked button as active and save its value
             } else {
                 for (int y = 0; y < 9; y++) {
-                    if (Buttons.keypadButtons.get(y).isFocusable()) {
-                        Buttons.keypadButtons.get(y).setFocusable(false);
-                        Buttons.keypadButtons.get(y).setBackground(null);
+                    if (ButtonsTemplateCreator.keypadButtons.get(y).isFocusable()) {
+                        ButtonsTemplateCreator.keypadButtons.get(y).setFocusable(false);
+                        ButtonsTemplateCreator.keypadButtons.get(y).setBackground(null);
 
                     }
 
@@ -118,10 +119,10 @@ public class ButtonInteract implements ActionListener {
 
 
             for (int x = 0; x < 81; x++) {
-                if (Buttons.boardButtons.get(x).isFocusable()) {
-                    Buttons.boardButtons.get(x).setLabel(valueToInput);
-                    Buttons.boardButtons.get(x).setFocusable(false);
-                    Buttons.boardButtons.get(x).setBackground(null);
+                if (buttons.boardButtons.get(x).isFocusable()) {
+                    buttons.boardButtons.get(x).setLabel(valueToInput);
+                    buttons.boardButtons.get(x).setFocusable(false);
+                    buttons.boardButtons.get(x).setBackground(null);
 
                 }
                 isBoardButtonHighlighted = false;

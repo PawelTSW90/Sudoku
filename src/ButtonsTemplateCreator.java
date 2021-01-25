@@ -2,95 +2,201 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Buttons {
+public class ButtonsTemplateCreator {
     int square;
     int column;
     int row;
     String name;
     String value;
     static List<Button> keypadButtons = new ArrayList<>();
-    static List<Button> boardButtons = new ArrayList<>();
-    static List<Buttons> buttonsValues = new ArrayList<>();
+    List<Button> boardButtons = new ArrayList<>();
+    static List<ButtonsTemplateCreator> buttonsValues = new ArrayList<>();
 
-    public static void refactorButtonList() {
+    List<ButtonCreator> buttonsTemplateList = new ArrayList<>();
 
+
+    public void createBoardTemplate() {
+        int columnNumber = 1;
+        int rowNumber = 1;
+        for (int x = 0; x < 9; x++) {
+
+            ButtonCreator creator = new ButtonCreator();
+            creator.setButton(boardButtons.get(x));
+            creator.setValue("");
+            creator.setName("");
+            creator.setSquare(1);
+            if (columnNumber == 4) {
+                columnNumber = 1;
+            }
+            creator.setColumn(columnNumber);
+            columnNumber++;
+            if (x == 3) {
+                rowNumber = 2;
+            } else if (x == 6) {
+                rowNumber = 3;
+            }
+            creator.setRow(rowNumber);
+            buttonsTemplateList.add(creator);
+
+        }
+        columnNumber = 4;
+        rowNumber = 1;
+        for (int x = 9; x < 18; x++) {
+            ButtonCreator creator = new ButtonCreator();
+            creator.setButton(boardButtons.get(x));
+            creator.setValue("");
+            creator.setName("");
+            creator.setSquare(2);
+            if (columnNumber == 7){
+                columnNumber = 4;
+
+            }
+            creator.setColumn(columnNumber);
+            columnNumber++;
+            if(x == 12){
+                rowNumber = 2;
+            } else if(x == 15){
+                rowNumber = 3;
+            }
+            creator.setRow(rowNumber);
+            buttonsTemplateList.add(creator);
+        }
+
+
+
+
+
+        for (int x = 18; x < 27; x++) {
+            ButtonCreator creator = new ButtonCreator();
+            creator.setButton(boardButtons.get(x));
+            creator.setValue("");
+            creator.setName("");
+            creator.setSquare(3);
+        }
+        for (int x = 27; x < 36; x++) {
+            ButtonCreator creator = new ButtonCreator();
+            creator.setButton(boardButtons.get(x));
+            creator.setValue("");
+            creator.setName("");
+            creator.setSquare(4);
+        }
+        for (int x = 36; x < 45; x++) {
+            ButtonCreator creator = new ButtonCreator();
+            creator.setButton(boardButtons.get(x));
+            creator.setValue("");
+            creator.setName("");
+            creator.setSquare(5);
+        }
+        for (int x = 45; x < 54; x++) {
+            ButtonCreator creator = new ButtonCreator();
+            creator.setButton(boardButtons.get(x));
+            creator.setValue("");
+            creator.setName("");
+            creator.setSquare(6);
+        }
+        for (int x = 54; x < 63; x++) {
+            ButtonCreator creator = new ButtonCreator();
+            creator.setButton(boardButtons.get(x));
+            creator.setValue("");
+            creator.setName("");
+            creator.setSquare(7);
+        }
+        for (int x = 63; x < 72; x++) {
+            ButtonCreator creator = new ButtonCreator();
+            creator.setButton(boardButtons.get(x));
+            creator.setValue("");
+            creator.setName("");
+            creator.setSquare(8);
+        }
+        for (int x = 72; x < 81; x++) {
+            ButtonCreator creator = new ButtonCreator();
+            creator.setButton(boardButtons.get(x));
+            creator.setValue("");
+            creator.setName("");
+            creator.setSquare(9);
+        }
+
+    }
+
+
+    public void refactorButtonList() {
         //setting buttonsValues row positions
         for (int x = 1; x < 10; x++) {
-            Buttons button = new Buttons();
+            ButtonsTemplateCreator button = new ButtonsTemplateCreator();
             button.setRow(1);
             button.setValue("");
             button.setName("");
-            Buttons.buttonsValues.add(button);
+            ButtonsTemplateCreator.buttonsValues.add(button);
         }
 
         for (int x = 10; x < 19; x++) {
-            Buttons button = new Buttons();
+            ButtonsTemplateCreator button = new ButtonsTemplateCreator();
             button.setRow(2);
             button.setValue("");
             button.setName("");
-            Buttons.buttonsValues.add(button);
+            ButtonsTemplateCreator.buttonsValues.add(button);
 
         }
         for (int x = 19; x < 28; x++) {
-            Buttons button = new Buttons();
+            ButtonsTemplateCreator button = new ButtonsTemplateCreator();
             button.setRow(3);
             button.setValue("");
             button.setName("");
-            Buttons.buttonsValues.add(button);
+            ButtonsTemplateCreator.buttonsValues.add(button);
 
         }
         for (int x = 28; x < 37; x++) {
-            Buttons button = new Buttons();
+            ButtonsTemplateCreator button = new ButtonsTemplateCreator();
             button.setRow(4);
             button.setValue("");
             button.setName("");
-            Buttons.buttonsValues.add(button);
+            ButtonsTemplateCreator.buttonsValues.add(button);
 
         }
         for (int x = 37; x < 46; x++) {
-            Buttons button = new Buttons();
+            ButtonsTemplateCreator button = new ButtonsTemplateCreator();
             button.setRow(5);
             button.setValue("");
             button.setName("");
-            Buttons.buttonsValues.add(button);
+            ButtonsTemplateCreator.buttonsValues.add(button);
 
         }
         for (int x = 46; x < 55; x++) {
-            Buttons button = new Buttons();
+            ButtonsTemplateCreator button = new ButtonsTemplateCreator();
             button.setRow(6);
             button.setValue("");
             button.setName("");
-            Buttons.buttonsValues.add(button);
+            ButtonsTemplateCreator.buttonsValues.add(button);
 
         }
         for (int x = 55; x < 64; x++) {
-            Buttons button = new Buttons();
+            ButtonsTemplateCreator button = new ButtonsTemplateCreator();
             button.setRow(7);
             button.setValue("");
             button.setName("");
-            Buttons.buttonsValues.add(button);
+            ButtonsTemplateCreator.buttonsValues.add(button);
 
         }
         for (int x = 64; x < 73; x++) {
-            Buttons button = new Buttons();
+            ButtonsTemplateCreator button = new ButtonsTemplateCreator();
             button.setRow(8);
             button.setValue("");
             button.setName("");
-            Buttons.buttonsValues.add(button);
+            ButtonsTemplateCreator.buttonsValues.add(button);
 
         }
         for (int x = 73; x < 82; x++) {
-            Buttons button = new Buttons();
+            ButtonsTemplateCreator button = new ButtonsTemplateCreator();
             button.setRow(9);
             button.setValue("");
             button.setName("");
-            Buttons.buttonsValues.add(button);
+            ButtonsTemplateCreator.buttonsValues.add(button);
 
         }
         //setting buttonsValues column positions
         for (int x = 0; x < 81; x++) {
             for (int y = 1; y < 10; y++) {
-                Buttons.buttonsValues.get(x).setColumn(y);
+                ButtonsTemplateCreator.buttonsValues.get(x).setColumn(y);
                 if (x < 80) {
                     x++;
                     if (y == 9) {
@@ -103,62 +209,62 @@ public class Buttons {
 
         //setting buttonsValues square positions
         for (int x = 0; x < 21; x++) {
-            Buttons.buttonsValues.get(x).setSquare(1);
+            ButtonsTemplateCreator.buttonsValues.get(x).setSquare(1);
             if (x == 2 || x == 11) {
                 x += 6;
             }
 
         }
         for (int x = 3; x < 24; x++) {
-            Buttons.buttonsValues.get(x).setSquare(2);
+            ButtonsTemplateCreator.buttonsValues.get(x).setSquare(2);
             if (x == 5 || x == 14) {
                 x += 6;
             }
 
         }
         for (int x = 6; x < 27; x++) {
-            Buttons.buttonsValues.get(x).setSquare(3);
+            ButtonsTemplateCreator.buttonsValues.get(x).setSquare(3);
             if (x == 8 || x == 17) {
                 x += 6;
             }
 
         }
         for (int x = 27; x < 48; x++) {
-            Buttons.buttonsValues.get(x).setSquare(4);
+            ButtonsTemplateCreator.buttonsValues.get(x).setSquare(4);
             if (x == 29 || x == 38) {
                 x += 6;
             }
         }
         for (int x = 30; x < 51; x++) {
-            Buttons.buttonsValues.get(x).setSquare(5);
+            ButtonsTemplateCreator.buttonsValues.get(x).setSquare(5);
             if (x == 32 || x == 41) {
                 x += 6;
             }
 
         }
         for (int x = 33; x < 54; x++) {
-            Buttons.buttonsValues.get(x).setSquare(6);
+            ButtonsTemplateCreator.buttonsValues.get(x).setSquare(6);
             if (x == 35 || x == 44) {
                 x += 6;
             }
 
         }
         for (int x = 54; x < 75; x++) {
-            Buttons.buttonsValues.get(x).setSquare(7);
+            ButtonsTemplateCreator.buttonsValues.get(x).setSquare(7);
             if (x == 56 || x == 65) {
                 x += 6;
             }
 
         }
         for (int x = 57; x < 78; x++) {
-            Buttons.buttonsValues.get(x).setSquare(8);
+            ButtonsTemplateCreator.buttonsValues.get(x).setSquare(8);
             if (x == 59 || x == 68) {
                 x += 6;
             }
 
         }
         for (int x = 60; x < 81; x++) {
-            Buttons.buttonsValues.get(x).setSquare(9);
+            ButtonsTemplateCreator.buttonsValues.get(x).setSquare(9);
             if (x == 62 || x == 71) {
                 x += 6;
             }
@@ -274,11 +380,11 @@ public class Buttons {
         this.value = value;
     }
 
-    public String getName(Buttons button) {
+    public String getName(ButtonsTemplateCreator button) {
         return button.name;
     }
 
-    public String getValue(Buttons button) {
+    public String getValue(ButtonsTemplateCreator button) {
         return button.value;
     }
 
