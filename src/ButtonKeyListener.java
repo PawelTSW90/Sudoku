@@ -3,7 +3,7 @@ import java.awt.event.KeyListener;
 
 public class ButtonKeyListener implements KeyListener {
     ButtonInteract interact;
-    BacktrackingChecker checker = new BacktrackingChecker(null);
+    //BacktrackingChecker checker = new BacktrackingChecker(null);
 
     ButtonKeyListener(ButtonInteract interact) {
         this.interact = interact;
@@ -19,6 +19,7 @@ public class ButtonKeyListener implements KeyListener {
     //if key pressed is a number, input allowed
     @Override
     public void keyPressed(KeyEvent e) {
+       /*
         String value = String.valueOf(e.getKeyChar());
 
         if (checkInput(value)) {
@@ -43,7 +44,13 @@ public class ButtonKeyListener implements KeyListener {
         }
 
 
+
+        */
     }
+
+
+
+
 
     @Override
     public void keyReleased(KeyEvent e) {

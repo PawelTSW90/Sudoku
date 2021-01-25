@@ -15,17 +15,23 @@ public class ButtonCreator {
 
 
 
-
-
-
     public Button createButton(){
         Button button = new Button();
         button.setFont(new Font("Arial", Font.PLAIN, 20));
         button.setFocusable(false);
-        button.addActionListener(new ButtonInteract(button));
+        button.addActionListener(new ButtonInteract(button, this));
         getButtonsList().add(button);
         return button;
     }
+
+
+
+
+
+
+
+
+
 
     public int getSquare() {
         return square;
