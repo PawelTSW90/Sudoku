@@ -5,6 +5,7 @@ import java.util.List;
 public class ButtonsTemplateCreator {
 
     private List<ButtonCreator> buttonsTemplateList = new ArrayList<>();
+    private List<ButtonCreator> keypadButtonsTemplateList = new ArrayList<>();
 
 
 //method is creating template button list, each cell have button and position on board assigned

@@ -23,7 +23,6 @@ public class ButtonKeyListener implements KeyListener {
             if (Integer.parseInt(value) != 0) {
                 button.setLabel(value);
                 button.setBackground(null);
-                ButtonInteract.setIsBoardButtonHighlighted(false);
                 button.setFocusable(false);
             }
 
