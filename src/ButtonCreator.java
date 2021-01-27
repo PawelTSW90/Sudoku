@@ -11,27 +11,25 @@ public class ButtonCreator {
     private String name;
     private String value;
     private Button button;
-    private List<Button> buttonsList = new ArrayList<>();
-    static List<Button> keypadButtons = new ArrayList<>();
+    final private List<Button> boardButtons = new ArrayList<>();
+    final private List<Button> keypadButtons = new ArrayList<>();
 
 
 
-
+        //method is creating boardButtons
     public Button createBoardButtons(){
         Button button = new Button();
         button.setFont(new Font("Arial", Font.PLAIN, 20));
         button.setFocusable(false);
-        getButtonsList().add(button);
+        boardButtons.add(button);
         return button;
     }
-
+        //method is creating keypadButtons
     public Button createKeypadButtons(){
-
         Button button = new Button(String.valueOf(keypadButtonNumber));
         button.setFocusable(false);
         button.setName("Keypad");
         button.setFont(new Font(null, Font.BOLD, 20));
-        button.addActionListener(new ButtonInteract(button, null, this));
         keypadButtons.add(button);
         keypadButtonNumber++;
         return button;
@@ -78,12 +76,12 @@ public class ButtonCreator {
         this.value = value;
     }
 
-    public List<Button> getButtonsList() {
-        return buttonsList;
+    public List<Button> getBoardButtons() {
+        return boardButtons;
     }
 
-    public void setButtonsList(List<Button> buttonsList) {
-        this.buttonsList = buttonsList;
+    public List<Button> getKeypadButtons() {
+        return keypadButtons;
     }
 
     public Button getButton() {
@@ -93,4 +91,6 @@ public class ButtonCreator {
     public void setButton(Button button) {
         this.button = button;
     }
+
+
 }

@@ -74,7 +74,7 @@ public class SudokuBoard extends JFrame {
         }
 
         // create buttons template
-        buttonsTemplateCreator.createBoardTemplate(buttonCreator.getButtonsList());
+        buttonsTemplateCreator.createBoardTemplate(buttonCreator.getBoardButtons(), buttonCreator.getKeypadButtons());
         return mainPanel;
     }
 }
