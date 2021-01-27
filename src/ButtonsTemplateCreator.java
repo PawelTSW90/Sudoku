@@ -7,14 +7,16 @@ public class ButtonsTemplateCreator {
     private List<ButtonCreator> buttonsTemplateList = new ArrayList<>();
 
 
-    public void createBoardTemplate(ButtonCreator creator) {
+
+    public void createBoardTemplate(List<Button> buttonList) {
+
 
         int columnNumber = 1;
         int rowNumber = 1;
         for (int x = 0; x < 9; x++) {
-
-
-            creator.setButton(creator.getButtonsList().get(x));
+            ButtonCreator creator = new ButtonCreator();
+            creator.setButton(buttonList.get(x));
+            creator.getButton().addActionListener(new ButtonInteract(creator.getButton(),this));
             creator.setValue("");
             creator.setName("");
             creator.setSquare(1);
@@ -35,8 +37,10 @@ public class ButtonsTemplateCreator {
         columnNumber = 4;
         rowNumber = 1;
         for (int x = 9; x < 18; x++) {
+            ButtonCreator creator = new ButtonCreator();
 
-            creator.setButton(creator.getButtonsList().get(x));
+            creator.setButton(buttonList.get(x));
+            creator.getButton().addActionListener(new ButtonInteract(creator.getButton(), this));
             creator.setValue("");
             creator.setName("");
             creator.setSquare(2);
@@ -59,8 +63,9 @@ public class ButtonsTemplateCreator {
         columnNumber = 7;
         rowNumber = 1;
         for (int x = 18; x < 27; x++) {
-
-            creator.setButton(creator.getButtonsList().get(x));
+            ButtonCreator creator = new ButtonCreator();
+            creator.setButton(buttonList.get(x));
+            creator.getButton().addActionListener(new ButtonInteract(creator.getButton(), this));
             creator.setValue("");
             creator.setName("");
             creator.setSquare(3);
@@ -82,8 +87,9 @@ public class ButtonsTemplateCreator {
         columnNumber = 1;
         rowNumber = 4;
         for (int x = 27; x < 36; x++) {
-
-            creator.setButton(creator.getButtonsList().get(x));
+            ButtonCreator creator = new ButtonCreator();
+            creator.setButton(buttonList.get(x));
+            creator.getButton().addActionListener(new ButtonInteract(creator.getButton(), this));
             creator.setValue("");
             creator.setName("");
             creator.setSquare(4);
@@ -103,8 +109,9 @@ public class ButtonsTemplateCreator {
         columnNumber = 4;
         rowNumber = 4;
         for (int x = 36; x < 45; x++) {
-
-            creator.setButton(creator.getButtonsList().get(x));
+            ButtonCreator creator = new ButtonCreator();
+            creator.setButton(buttonList.get(x));
+            creator.getButton().addActionListener(new ButtonInteract(creator.getButton(), this));
             creator.setValue("");
             creator.setName("");
             creator.setSquare(5);
@@ -124,8 +131,9 @@ public class ButtonsTemplateCreator {
         columnNumber = 7;
         rowNumber = 4;
         for (int x = 45; x < 54; x++) {
-
-            creator.setButton(creator.getButtonsList().get(x));
+            ButtonCreator creator = new ButtonCreator();
+            creator.setButton(buttonList.get(x));
+            creator.getButton().addActionListener(new ButtonInteract(creator.getButton(), this));
             creator.setValue("");
             creator.setName("");
             creator.setSquare(6);
@@ -146,19 +154,20 @@ public class ButtonsTemplateCreator {
         columnNumber = 1;
         rowNumber = 7;
         for (int x = 54; x < 63; x++) {
-
-            creator.setButton(creator.getButtonsList().get(x));
+            ButtonCreator creator = new ButtonCreator();
+            creator.setButton(buttonList.get(x));
+            creator.getButton().addActionListener(new ButtonInteract(creator.getButton(), this));
             creator.setValue("");
             creator.setName("");
             creator.setSquare(7);
-            if(columnNumber == 4){
+            if (columnNumber == 4) {
                 columnNumber = 1;
             }
             creator.setColumn(columnNumber);
             columnNumber++;
-            if(x == 57){
+            if (x == 57) {
                 rowNumber = 8;
-            } else if(x == 60){
+            } else if (x == 60) {
                 rowNumber = 9;
             }
             creator.setRow(rowNumber);
@@ -167,19 +176,20 @@ public class ButtonsTemplateCreator {
         columnNumber = 4;
         rowNumber = 7;
         for (int x = 63; x < 72; x++) {
-
-            creator.setButton(creator.getButtonsList().get(x));
+            ButtonCreator creator = new ButtonCreator();
+            creator.setButton(buttonList.get(x));
+            creator.getButton().addActionListener(new ButtonInteract(creator.getButton(), this));
             creator.setValue("");
             creator.setName("");
             creator.setSquare(8);
-            if(columnNumber == 7){
+            if (columnNumber == 7) {
                 columnNumber = 4;
             }
             creator.setColumn(columnNumber);
             columnNumber++;
-            if(x == 66){
+            if (x == 66) {
                 rowNumber = 8;
-            } else if(x == 69){
+            } else if (x == 69) {
                 rowNumber = 9;
             }
             creator.setRow(rowNumber);
@@ -188,25 +198,25 @@ public class ButtonsTemplateCreator {
         columnNumber = 7;
         rowNumber = 7;
         for (int x = 72; x < 81; x++) {
-
-            creator.setButton(creator.getButtonsList().get(x));
+            ButtonCreator creator = new ButtonCreator();
+            creator.setButton(buttonList.get(x));
+            creator.getButton().addActionListener(new ButtonInteract(creator.getButton(), this));
             creator.setValue("");
             creator.setName("");
             creator.setSquare(9);
-            if (columnNumber == 10){
+            if (columnNumber == 10) {
                 columnNumber = 7;
             }
             creator.setColumn(columnNumber);
             columnNumber++;
-            if(x == 75){
+            if (x == 75) {
                 rowNumber = 8;
-            } else if( x == 78){
+            } else if (x == 78) {
                 rowNumber = 9;
             }
             creator.setRow(rowNumber);
             buttonsTemplateList.add(creator);
         }
-
     }
 
     public List<ButtonCreator> getButtonsTemplateList() {

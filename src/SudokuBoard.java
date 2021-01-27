@@ -52,7 +52,7 @@ public class SudokuBoard extends JFrame {
             Button button = new Button(String.valueOf(buttonNumber));
             button.setFocusable(false);
             button.setName("Keypad");
-            button.addActionListener(new ButtonInteract(button,buttonCreator));
+            button.addActionListener(new ButtonInteract(button, buttonsTemplateCreator));
             button.setFont(new Font(null, Font.BOLD, 20));
             ButtonsTemplateCreator.keypadButtons.add(button);
             sudokuKeyboard.add(button);
@@ -80,7 +80,7 @@ public class SudokuBoard extends JFrame {
             mainPanel.add(panel);
         }
         frame.add(mainPanel);
-        buttonsTemplateCreator.createBoardTemplate(buttonCreator);
+        buttonCreator.setButtonTemplate();
     }
 }
 

@@ -19,9 +19,13 @@ public class ButtonCreator {
         Button button = new Button();
         button.setFont(new Font("Arial", Font.PLAIN, 20));
         button.setFocusable(false);
-        button.addActionListener(new ButtonInteract(button, this));
         getButtonsList().add(button);
         return button;
+    }
+
+    public void setButtonTemplate(){
+        ButtonsTemplateCreator creator = new ButtonsTemplateCreator();
+        creator.createBoardTemplate(getButtonsList());
     }
 
 
