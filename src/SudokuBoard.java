@@ -16,13 +16,15 @@ public class SudokuBoard extends JFrame {
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
         this.setUndecorated(true);
         this.setLayout(null);
-        this.add(setKeypad());
-        drawSudokuBoard(this);
+        this.add(drawSudokuKeypad());
+        this.add(drawSudokuBoard());
+        //temporary button
         JPanel buttonPanel = new JPanel();
         buttonPanel.setBounds(1200, 500, 200, 200);
         Button button = new Button("Button");
         buttonPanel.add(button);
         button.addActionListener(e -> backtrackingChecker.checkIfSolvable(buttonsTemplateCreator));
+
         this.add(buttonPanel);
         this.add(background());
         this.setVisible(true);
@@ -43,27 +45,18 @@ public class SudokuBoard extends JFrame {
     }
 
     //method is creating keypad
-    public JPanel setKeypad() {
-        JPanel sudokuKeyboard = new JPanel();
-        int buttonNumber = 1;
-        sudokuKeyboard.setLayout(new GridLayout(3, 3));
-        sudokuKeyboard.setBounds(1600, 100, 300, 300);
+    public JPanel drawSudokuKeypad() {
+        JPanel sudokuKeypad = new JPanel();
+        sudokuKeypad.setLayout(new GridLayout(3, 3));
+        sudokuKeypad.setBounds(1600, 100, 300, 300);
         for (int x = 0; x < 9; x++) {
-            Button button = new Button(String.valueOf(buttonNumber));
-            button.setFocusable(false);
-            button.setName("Keypad");
-            button.addActionListener(new ButtonInteract(button, buttonsTemplateCreator));
-            button.setFont(new Font(null, Font.BOLD, 20));
-            ButtonsTemplateCreator.keypadButtons.add(button);
-            sudokuKeyboard.add(button);
-            buttonNumber++;
-
-
+            sudokuKeypad.add(buttonCreator.createKeypadButtons());
         }
-        return sudokuKeyboard;
+        return sudokuKeypad;
     }
+
     //method is creating sudoku board
-    public void drawSudokuBoard(JFrame frame) {
+    public JPanel drawSudokuBoard() {
 
         JPanel mainPanel = new JPanel();
         mainPanel.setLayout(new GridLayout(3, 3));
@@ -75,12 +68,14 @@ public class SudokuBoard extends JFrame {
             panel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 
             for (int buttonNr = 0; buttonNr < 9; buttonNr++) {
-                panel.add(buttonCreator.createButton());
+                panel.add(buttonCreator.createBoardButtons());
             }
             mainPanel.add(panel);
         }
-        frame.add(mainPanel);
-        buttonCreator.setButtonTemplate();
+
+        // create buttons template
+        buttonsTemplateCreator.createBoardTemplate(buttonCreator.getButtonsList());
+        return mainPanel;
     }
 }
 

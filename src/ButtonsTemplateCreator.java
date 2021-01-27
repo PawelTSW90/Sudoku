@@ -3,11 +3,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ButtonsTemplateCreator {
-    static List<Button> keypadButtons = new ArrayList<>();
+
     private List<ButtonCreator> buttonsTemplateList = new ArrayList<>();
 
 
-
+//method is creating template button list, each cell have button and position on board assigned
     public void createBoardTemplate(List<Button> buttonList) {
 
 
@@ -16,7 +16,7 @@ public class ButtonsTemplateCreator {
         for (int x = 0; x < 9; x++) {
             ButtonCreator creator = new ButtonCreator();
             creator.setButton(buttonList.get(x));
-            creator.getButton().addActionListener(new ButtonInteract(creator.getButton(),this));
+            creator.getButton().addActionListener(new ButtonInteract(creator.getButton(),this, null));
             creator.setValue("");
             creator.setName("");
             creator.setSquare(1);
@@ -40,7 +40,7 @@ public class ButtonsTemplateCreator {
             ButtonCreator creator = new ButtonCreator();
 
             creator.setButton(buttonList.get(x));
-            creator.getButton().addActionListener(new ButtonInteract(creator.getButton(), this));
+            creator.getButton().addActionListener(new ButtonInteract(creator.getButton(), this, null));
             creator.setValue("");
             creator.setName("");
             creator.setSquare(2);
@@ -65,7 +65,7 @@ public class ButtonsTemplateCreator {
         for (int x = 18; x < 27; x++) {
             ButtonCreator creator = new ButtonCreator();
             creator.setButton(buttonList.get(x));
-            creator.getButton().addActionListener(new ButtonInteract(creator.getButton(), this));
+            creator.getButton().addActionListener(new ButtonInteract(creator.getButton(), this, null));
             creator.setValue("");
             creator.setName("");
             creator.setSquare(3);
@@ -89,7 +89,7 @@ public class ButtonsTemplateCreator {
         for (int x = 27; x < 36; x++) {
             ButtonCreator creator = new ButtonCreator();
             creator.setButton(buttonList.get(x));
-            creator.getButton().addActionListener(new ButtonInteract(creator.getButton(), this));
+            creator.getButton().addActionListener(new ButtonInteract(creator.getButton(), this, null));
             creator.setValue("");
             creator.setName("");
             creator.setSquare(4);
@@ -111,7 +111,7 @@ public class ButtonsTemplateCreator {
         for (int x = 36; x < 45; x++) {
             ButtonCreator creator = new ButtonCreator();
             creator.setButton(buttonList.get(x));
-            creator.getButton().addActionListener(new ButtonInteract(creator.getButton(), this));
+            creator.getButton().addActionListener(new ButtonInteract(creator.getButton(), this, null));
             creator.setValue("");
             creator.setName("");
             creator.setSquare(5);
@@ -133,7 +133,7 @@ public class ButtonsTemplateCreator {
         for (int x = 45; x < 54; x++) {
             ButtonCreator creator = new ButtonCreator();
             creator.setButton(buttonList.get(x));
-            creator.getButton().addActionListener(new ButtonInteract(creator.getButton(), this));
+            creator.getButton().addActionListener(new ButtonInteract(creator.getButton(), this, null));
             creator.setValue("");
             creator.setName("");
             creator.setSquare(6);
@@ -156,7 +156,7 @@ public class ButtonsTemplateCreator {
         for (int x = 54; x < 63; x++) {
             ButtonCreator creator = new ButtonCreator();
             creator.setButton(buttonList.get(x));
-            creator.getButton().addActionListener(new ButtonInteract(creator.getButton(), this));
+            creator.getButton().addActionListener(new ButtonInteract(creator.getButton(), this, null));
             creator.setValue("");
             creator.setName("");
             creator.setSquare(7);
@@ -178,7 +178,7 @@ public class ButtonsTemplateCreator {
         for (int x = 63; x < 72; x++) {
             ButtonCreator creator = new ButtonCreator();
             creator.setButton(buttonList.get(x));
-            creator.getButton().addActionListener(new ButtonInteract(creator.getButton(), this));
+            creator.getButton().addActionListener(new ButtonInteract(creator.getButton(), this, null));
             creator.setValue("");
             creator.setName("");
             creator.setSquare(8);
@@ -200,7 +200,7 @@ public class ButtonsTemplateCreator {
         for (int x = 72; x < 81; x++) {
             ButtonCreator creator = new ButtonCreator();
             creator.setButton(buttonList.get(x));
-            creator.getButton().addActionListener(new ButtonInteract(creator.getButton(), this));
+            creator.getButton().addActionListener(new ButtonInteract(creator.getButton(), this, null));
             creator.setValue("");
             creator.setName("");
             creator.setSquare(9);

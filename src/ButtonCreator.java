@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ButtonCreator {
+    int keypadButtonNumber = 1;
     private int square;
     private int column;
     private int row;
@@ -11,11 +12,12 @@ public class ButtonCreator {
     private String value;
     private Button button;
     private List<Button> buttonsList = new ArrayList<>();
+    static List<Button> keypadButtons = new ArrayList<>();
 
 
 
 
-    public Button createButton(){
+    public Button createBoardButtons(){
         Button button = new Button();
         button.setFont(new Font("Arial", Font.PLAIN, 20));
         button.setFocusable(false);
@@ -23,18 +25,17 @@ public class ButtonCreator {
         return button;
     }
 
-    public void setButtonTemplate(){
-        ButtonsTemplateCreator creator = new ButtonsTemplateCreator();
-        creator.createBoardTemplate(getButtonsList());
+    public Button createKeypadButtons(){
+
+        Button button = new Button(String.valueOf(keypadButtonNumber));
+        button.setFocusable(false);
+        button.setName("Keypad");
+        button.setFont(new Font(null, Font.BOLD, 20));
+        button.addActionListener(new ButtonInteract(button, null, this));
+        keypadButtons.add(button);
+        keypadButtonNumber++;
+        return button;
     }
-
-
-
-
-
-
-
-
 
 
     public int getSquare() {

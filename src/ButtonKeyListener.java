@@ -7,36 +7,32 @@ public class ButtonKeyListener implements KeyListener {
 
     ButtonKeyListener(Button button) {
         this.button = button;
-
     }
-
 
     @Override
     public void keyTyped(KeyEvent e) {
-
     }
 
-    //if key pressed is a number, input allowed
+    //if key pressed is a number different than 0, input allowed
     @Override
     public void keyPressed(KeyEvent e) {
 
         String value = String.valueOf(e.getKeyChar());
 
         if (checkInput(value)) {
-            button.setLabel(value);
-            button.setBackground(null);
-            ButtonInteract.setIsBoardButtonHighlighted(false);
-            button.setFocusable(false);
+            if (Integer.parseInt(value) != 0) {
+                button.setLabel(value);
+                button.setBackground(null);
+                ButtonInteract.setIsBoardButtonHighlighted(false);
+                button.setFocusable(false);
+            }
 
         }
 
-
     }
-
 
     @Override
     public void keyReleased(KeyEvent e) {
-
 
     }
 
