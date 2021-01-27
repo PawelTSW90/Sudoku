@@ -4,9 +4,11 @@ import java.awt.event.KeyListener;
 
 public class ButtonKeyListener implements KeyListener {
     Button button;
+    ButtonsTemplateCreator creator;
 
-    ButtonKeyListener(Button button) {
+    ButtonKeyListener(Button button, ButtonsTemplateCreator creator) {
         this.button = button;
+        this.creator = creator;
     }
 
     @Override
@@ -22,6 +24,7 @@ public class ButtonKeyListener implements KeyListener {
         if (checkInput(value)) {
             if (Integer.parseInt(value) != 0) {
                 button.setLabel(value);
+                button.setName("N");
                 button.setBackground(null);
                 button.setFocusable(false);
             }

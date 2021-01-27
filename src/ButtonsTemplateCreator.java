@@ -4,7 +4,7 @@ import java.util.List;
 
 public class ButtonsTemplateCreator {
 
-    final private List<ButtonCreator> buttonsTemplateList = new ArrayList<>();
+    final private List<ButtonCreator> boardButtonsTemplateList = new ArrayList<>();
     final private List<ButtonCreator> keypadButtonsTemplateList = new ArrayList<>();
 
 
@@ -41,7 +41,7 @@ public class ButtonsTemplateCreator {
                 rowNumber = 3;
             }
             creator.setRow(rowNumber);
-            buttonsTemplateList.add(creator);
+            boardButtonsTemplateList.add(creator);
 
         }
         columnNumber = 4;
@@ -66,7 +66,7 @@ public class ButtonsTemplateCreator {
                 rowNumber = 3;
             }
             creator.setRow(rowNumber);
-            buttonsTemplateList.add(creator);
+            boardButtonsTemplateList.add(creator);
         }
 
 
@@ -91,7 +91,7 @@ public class ButtonsTemplateCreator {
                 rowNumber = 3;
             }
             creator.setRow(rowNumber);
-            buttonsTemplateList.add(creator);
+            boardButtonsTemplateList.add(creator);
         }
 
         columnNumber = 1;
@@ -114,7 +114,7 @@ public class ButtonsTemplateCreator {
                 rowNumber = 6;
             }
             creator.setRow(rowNumber);
-            buttonsTemplateList.add(creator);
+            boardButtonsTemplateList.add(creator);
         }
         columnNumber = 4;
         rowNumber = 4;
@@ -136,7 +136,7 @@ public class ButtonsTemplateCreator {
                 rowNumber = 6;
             }
             creator.setRow(rowNumber);
-            buttonsTemplateList.add(creator);
+            boardButtonsTemplateList.add(creator);
         }
         columnNumber = 7;
         rowNumber = 4;
@@ -158,7 +158,7 @@ public class ButtonsTemplateCreator {
                 rowNumber = 6;
             }
             creator.setRow(rowNumber);
-            buttonsTemplateList.add(creator);
+            boardButtonsTemplateList.add(creator);
         }
 
         columnNumber = 1;
@@ -181,7 +181,7 @@ public class ButtonsTemplateCreator {
                 rowNumber = 9;
             }
             creator.setRow(rowNumber);
-            buttonsTemplateList.add(creator);
+            boardButtonsTemplateList.add(creator);
         }
         columnNumber = 4;
         rowNumber = 7;
@@ -203,7 +203,7 @@ public class ButtonsTemplateCreator {
                 rowNumber = 9;
             }
             creator.setRow(rowNumber);
-            buttonsTemplateList.add(creator);
+            boardButtonsTemplateList.add(creator);
         }
         columnNumber = 7;
         rowNumber = 7;
@@ -225,12 +225,12 @@ public class ButtonsTemplateCreator {
                 rowNumber = 9;
             }
             creator.setRow(rowNumber);
-            buttonsTemplateList.add(creator);
+            boardButtonsTemplateList.add(creator);
         }
     }
 
-    public List<ButtonCreator> getButtonsTemplateList() {
-        return buttonsTemplateList;
+    public List<ButtonCreator> getBoardButtonsTemplateList() {
+        return boardButtonsTemplateList;
     }
 
     public List<ButtonCreator> getKeypadButtonsTemplateList(){
