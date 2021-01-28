@@ -1,16 +1,15 @@
+import java.util.List;
+
 public class BacktrackingChecker {
 
     //back tracking main method, checking if current board is solvable
-    public boolean checkIfSolvable(ButtonsTemplateCreator creator) {
-        boolean isSolvable = true;
+    public List<ButtonCreator> checkIfSolvable(ButtonsTemplateCreator creator) {
         boolean increaseCurrentCell = false;
         boolean changePreviousCell = false;
         boolean skipButton = false;
         int numberToInput = 1;
         int currentValue;
         setButtonsToSkip(creator);
-        try {
-
 
             for (int x = 0; x < 81; x++) {
 
@@ -68,10 +67,8 @@ public class BacktrackingChecker {
 
 
             }
-        } catch (IndexOutOfBoundsException e) {
-            isSolvable = false;
-        }
-        return isSolvable;
+
+        return creator.getBoardButtonsTemplateList();
     }
 
     //method is copying value from button to its template, so back tracker will skip it

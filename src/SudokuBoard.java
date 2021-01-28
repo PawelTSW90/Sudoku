@@ -10,6 +10,7 @@ public class SudokuBoard extends JFrame {
     ButtonsTemplateCreator buttonsTemplateCreator = new ButtonsTemplateCreator();
     BacktrackingChecker backtrackingChecker = new BacktrackingChecker();
     ButtonCreator buttonCreator = new ButtonCreator();
+    SudokuGenerator generator = new SudokuGenerator();
 
     public SudokuBoard() {
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -23,7 +24,10 @@ public class SudokuBoard extends JFrame {
         buttonPanel.setBounds(1200, 500, 200, 200);
         Button button = new Button("Button");
         buttonPanel.add(button);
-        button.addActionListener(e -> backtrackingChecker.checkIfSolvable(buttonsTemplateCreator));
+        button.addActionListener(e ->generator.generateSudoku(backtrackingChecker.checkIfSolvable(buttonsTemplateCreator)));
+
+
+
 
         this.add(buttonPanel);
         this.add(background());
