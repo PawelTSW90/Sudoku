@@ -24,7 +24,7 @@ public class SudokuBoard extends JFrame {
         buttonPanel.setBounds(1200, 500, 200, 200);
         Button button = new Button("Button");
         buttonPanel.add(button);
-        button.addActionListener(e ->generator.generateSudoku(backtrackingChecker.checkIfSolvable(buttonsTemplateCreator)));
+        button.addActionListener(e ->backtrackingChecker.checkIfSolvable(buttonsTemplateCreator));
 
 
 
