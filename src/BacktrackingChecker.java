@@ -7,18 +7,17 @@ public class BacktrackingChecker {
         boolean increaseCurrentCell = false;
         boolean changePreviousCell = false;
         boolean skipButton = false;
-        int solvingPatternsNumber = 0;
         int numberToInput = 1;
         int currentValue;
+
+        //call method to mark buttons to skip
         setButtonsToSkip(creator);
 
         for (int x = 0; x < 81; x++) {
-            System.out.println(solvingPatternsNumber);
-
 
             if (changePreviousCell) {
                 currentValue = Integer.parseInt(creator.getBoardButtonsTemplateList().get(x).getValue());
-                //if button is not editable, skip it going back
+                //if button is not editable, skip it by going back
                 if (creator.getBoardButtonsTemplateList().get(x).getButton().getName().contains("N")) {
                     x = x - 2;
                     skipButton = true;
@@ -37,6 +36,7 @@ public class BacktrackingChecker {
                     increaseCurrentCell = false;
                     skipButton = false;
                 }
+
                 //if button is not editable, skip it going forward
             } else if (creator.getBoardButtonsTemplateList().get(x).getButton().getName().contains("N")) {
                 skipButton = true;
@@ -52,27 +52,17 @@ public class BacktrackingChecker {
                 creator.getBoardButtonsTemplateList().get(x).setValue(String.valueOf(numberToInput));
                 displayNumbers(creator);
                 numberToInput = 1;
-
-                if (isBoardCompleted(creator) && !changePreviousCell) {
-                    currentValue = Integer.parseInt(creator.getBoardButtonsTemplateList().get(x).getValue());
-                    if (currentValue == 9) {
-                        solvingPatternsNumber++;
-                        x--;
-                        changePreviousCell = true;
-
-                    } else{
-                        solvingPatternsNumber++;
-                        numberToInput = currentValue+1;
-                        x--;
-                    }
+                if (isBoardCompleted(creator)) {
+                    countWorkingPatterns(creator);
+                    break;
                 }
-
                 //if value is not allowed,
             } else if (skipButton) {
                 skipButton = false;
             } else {
                 //and you cant increase number anymore, start change previous cell process
                 if (numberToInput == 9) {
+                    x--;
                     changePreviousCell = true;
                 } else {
                     //increase value by 1 and try again
@@ -82,13 +72,111 @@ public class BacktrackingChecker {
             }
 
 
-
-
-
-
         }
 
+
         return creator.getBoardButtonsTemplateList();
+    }
+
+
+    public void countWorkingPatterns(ButtonsTemplateCreator creator) {
+        boolean goBackward = true;
+        int patternsNumber = 1;
+        boolean goToPreviousButton;
+        boolean nextCounting;
+
+        try {
+            for (int x = 80; x < 81; x++) {
+                goToPreviousButton = false;
+                nextCounting = false;
+
+                //if button is not editable, skip it by going back
+                if (creator.getBoardButtonsTemplateList().get(x).getButton().getName().contains("N")) {
+                    if (goBackward) {
+                        goToPreviousButton = true;
+
+                    } else {
+
+                    }
+
+                }
+                //if button has no value, try to enter new one starting by 1
+                else if (creator.getBoardButtonsTemplateList().get(x).getValue().equals("")) {
+                    for (int y = 1; y < 10; y++) {
+                        //if new value is allowed, entry value,
+                        if (isNumberAllowed(x, y, creator)) {
+                            creator.getBoardButtonsTemplateList().get(x).setValue(String.valueOf(y));
+                            displayNumbers(creator);
+                            //if board is completed, start everything from beginning
+                            if (isBoardCompleted(creator)) {
+                                patternsNumber++;
+                                nextCounting = true;
+                                //if not, continue with next button
+                            } else {
+                                goBackward = false;
+                            }
+                            break;
+
+                        }
+                        //if none of the values are allowed, leave button empty and go to previous button
+                        if (y == 9) {
+                            goToPreviousButton = true;
+                            goBackward = true;
+                            break;
+                        }
+                    }
+                }
+
+                //if button value is different than 9, clear it, increase its value by one and check if it's allowed here
+
+                else if (Integer.parseInt(creator.getBoardButtonsTemplateList().get(x).getValue()) != 9) {
+                    for (int y = Integer.parseInt(creator.getBoardButtonsTemplateList().get(x).getValue()) + 1; y < 10; y++) {
+                        creator.getBoardButtonsTemplateList().get(x).setValue("");
+                        displayNumbers(creator);
+                        //if new value is allowed, entry value,
+                        if (isNumberAllowed(x, y, creator)) {
+                            creator.getBoardButtonsTemplateList().get(x).setValue(String.valueOf(y));
+                            displayNumbers(creator);
+                            //if board is completed, start everything from beginning
+                            if (isBoardCompleted(creator)) {
+                                patternsNumber++;
+                                nextCounting = true;
+                                //if not, continue with next button
+                            } else {
+                                goBackward = false;
+
+                            }
+                            break;
+
+                        }
+                        //if none of the values are allowed, leave button empty and go to previous button
+                        if (y == 9) {
+                            goToPreviousButton = true;
+                            goBackward = true;
+                            break;
+                        }
+
+                    }
+                }
+                //if button value equals 9, clear it and go to previous button
+                else {
+                    creator.getBoardButtonsTemplateList().get(x).setValue("");
+                    goToPreviousButton = true;
+                    goBackward = true;
+
+                }
+                if (goToPreviousButton) {
+                    x = x - 2;
+                } else if (nextCounting) {
+                    x--;
+                }
+            }
+        }catch (IndexOutOfBoundsException e){
+
+        }
+        System.out.println(patternsNumber);
+
+
     }
 
     //method is copying value from button to its template, so back tracker will skip it
