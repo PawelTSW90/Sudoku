@@ -53,7 +53,7 @@ public class BacktrackingChecker {
                 displayNumbers(creator);
                 numberToInput = 1;
                 if (isBoardCompleted(creator)) {
-                    countWorkingPatterns(creator);
+                    multipleSolvingsChecker(creator);
                     break;
                 }
                 //if value is not allowed,
@@ -79,16 +79,15 @@ public class BacktrackingChecker {
     }
 
 
-    public void countWorkingPatterns(ButtonsTemplateCreator creator) {
+    public boolean multipleSolvingsChecker(ButtonsTemplateCreator creator) {
         boolean goBackward = true;
-        int patternsNumber = 1;
+        boolean multipleSolvings = false;
         boolean goToPreviousButton;
-        boolean nextCounting;
 
         try {
             for (int x = 80; x < 81; x++) {
                 goToPreviousButton = false;
-                nextCounting = false;
+
 
                 //if button is not editable, skip it by going back
                 if (creator.getBoardButtonsTemplateList().get(x).getButton().getName().contains("N")) {
@@ -106,11 +105,11 @@ public class BacktrackingChecker {
                         //if new value is allowed, entry value,
                         if (isNumberAllowed(x, y, creator)) {
                             creator.getBoardButtonsTemplateList().get(x).setValue(String.valueOf(y));
-                            displayNumbers(creator);
+
                             //if board is completed, start everything from beginning
                             if (isBoardCompleted(creator)) {
-                                patternsNumber++;
-                                nextCounting = true;
+                                multipleSolvings = true;
+                                break;
                                 //if not, continue with next button
                             } else {
                                 goBackward = false;
@@ -132,15 +131,15 @@ public class BacktrackingChecker {
                 else if (Integer.parseInt(creator.getBoardButtonsTemplateList().get(x).getValue()) != 9) {
                     for (int y = Integer.parseInt(creator.getBoardButtonsTemplateList().get(x).getValue()) + 1; y < 10; y++) {
                         creator.getBoardButtonsTemplateList().get(x).setValue("");
-                        displayNumbers(creator);
+
                         //if new value is allowed, entry value,
                         if (isNumberAllowed(x, y, creator)) {
                             creator.getBoardButtonsTemplateList().get(x).setValue(String.valueOf(y));
-                            displayNumbers(creator);
+
                             //if board is completed, start everything from beginning
                             if (isBoardCompleted(creator)) {
-                                patternsNumber++;
-                                nextCounting = true;
+                                multipleSolvings = true;
+                                break;
                                 //if not, continue with next button
                             } else {
                                 goBackward = false;
@@ -167,15 +166,13 @@ public class BacktrackingChecker {
                 }
                 if (goToPreviousButton) {
                     x = x - 2;
-                } else if (nextCounting) {
-                    x--;
                 }
             }
-        }catch (IndexOutOfBoundsException e){
+        } catch (IndexOutOfBoundsException e) {
 
         }
-        System.out.println(patternsNumber);
 
+        return multipleSolvings;
 
     }
 
