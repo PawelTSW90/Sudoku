@@ -3,7 +3,7 @@ import java.util.List;
 public class BacktrackingChecker {
 
     //back tracking main method, checking if current board is solvable
-    public List<ButtonCreator> checkIfSolvable(ButtonsTemplateCreator creator) {
+    public List<ButtonCreator> generateBoard(ButtonsTemplateCreator creator) {
         boolean increaseCurrentCell = false;
         boolean changePreviousCell = false;
         boolean skipButton = false;
@@ -53,7 +53,6 @@ public class BacktrackingChecker {
                 displayNumbers(creator);
                 numberToInput = 1;
                 if (isBoardCompleted(creator)) {
-                    multipleSolvingsChecker(creator);
                     break;
                 }
                 //if value is not allowed,
@@ -79,9 +78,9 @@ public class BacktrackingChecker {
     }
 
 
-    public boolean multipleSolvingsChecker(ButtonsTemplateCreator creator) {
+    public boolean multipleSolvingChecker(ButtonsTemplateCreator creator) {
         boolean goBackward = true;
-        boolean multipleSolvings = false;
+        boolean multipleSolving = false;
         boolean goToPreviousButton;
 
         try {
@@ -108,7 +107,7 @@ public class BacktrackingChecker {
 
                             //if board is completed, start everything from beginning
                             if (isBoardCompleted(creator)) {
-                                multipleSolvings = true;
+                                multipleSolving = true;
                                 break;
                                 //if not, continue with next button
                             } else {
@@ -138,7 +137,7 @@ public class BacktrackingChecker {
 
                             //if board is completed, start everything from beginning
                             if (isBoardCompleted(creator)) {
-                                multipleSolvings = true;
+                                multipleSolving = true;
                                 break;
                                 //if not, continue with next button
                             } else {
@@ -172,7 +171,7 @@ public class BacktrackingChecker {
 
         }
 
-        return multipleSolvings;
+        return multipleSolving;
 
     }
 
