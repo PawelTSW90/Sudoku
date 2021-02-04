@@ -7,6 +7,7 @@ public class SudokuBoard extends JFrame {
     int screenHeight = screenSize.height;
     int screenWidth = screenSize.width;
 
+
     ButtonsTemplateCreator buttonsTemplateCreator = new ButtonsTemplateCreator();
     BacktrackingChecker backtrackingChecker = new BacktrackingChecker();
     ButtonCreator buttonCreator = new ButtonCreator();
@@ -24,8 +25,12 @@ public class SudokuBoard extends JFrame {
         buttonPanel.setBounds(1200, 500, 200, 200);
         Button button = new Button("Button");
         buttonPanel.add(button);
-        button.addActionListener(e ->backtrackingChecker.checkBoard(buttonsTemplateCreator));
+        button.addActionListener(e -> {
+            while (!generator.generateFullBoard(buttonsTemplateCreator)) {
 
+            }
+
+        });
 
 
 

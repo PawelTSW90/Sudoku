@@ -52,7 +52,6 @@ public class BacktrackingChecker {
                 //if value is allowed, entry value, jump to next cell, and reset number to input to 1
                 if (!increaseCurrentCell && !skipButton) {
                     creator.getBoardButtonsTemplateList().get(x).setValue(String.valueOf(numberToInput));
-                    displayNumbers(creator);
                     numberToInput = 1;
                     if (isBoardCompleted(creator)) {
                         break;
@@ -73,13 +72,13 @@ public class BacktrackingChecker {
                 }
 
 
+
             }
-            //clearBoard(creator);
         } catch (IndexOutOfBoundsException e) {
             boardSolvable = false;
-            System.out.println("OUPSS!!!");
+
         }
-        System.out.println("HURRRA!!!");
+
         return boardSolvable;
     }
 
