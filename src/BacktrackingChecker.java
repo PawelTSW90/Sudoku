@@ -3,78 +3,84 @@ import java.util.List;
 public class BacktrackingChecker {
 
     //back tracking main method, checking if current board is solvable
-    public List<ButtonCreator> generateBoard(ButtonsTemplateCreator creator) {
+    public boolean checkBoard(ButtonsTemplateCreator creator) {
         boolean increaseCurrentCell = false;
         boolean changePreviousCell = false;
         boolean skipButton = false;
         int numberToInput = 1;
         int currentValue;
+        boolean boardSolvable = true;
 
         //call method to mark buttons to skip
         setButtonsToSkip(creator);
+        try {
 
-        for (int x = 0; x < 81; x++) {
 
-            if (changePreviousCell) {
-                currentValue = Integer.parseInt(creator.getBoardButtonsTemplateList().get(x).getValue());
-                //if button is not editable, skip it by going back
-                if (creator.getBoardButtonsTemplateList().get(x).getButton().getName().contains("N")) {
-                    x = x - 2;
+            for (int x = 0; x < 81; x++) {
+
+                if (changePreviousCell) {
+                    currentValue = Integer.parseInt(creator.getBoardButtonsTemplateList().get(x).getValue());
+                    //if button is not editable, skip it by going back
+                    if (creator.getBoardButtonsTemplateList().get(x).getButton().getName().contains("N")) {
+                        x = x - 2;
+                        skipButton = true;
+                        //if you cant increase value anymore, empty cell, and go back one more cell
+                    } else if (currentValue == 9) {
+                        creator.getBoardButtonsTemplateList().get(x).setValue("");
+                        numberToInput = Integer.parseInt(creator.getBoardButtonsTemplateList().get(x - 1).getValue());
+                        x--;
+                        skipButton = false;
+                        //empty current cell, and try again with value increased by 1
+                    } else {
+                        numberToInput = currentValue + 1;
+                        creator.getBoardButtonsTemplateList().get(x).setValue("");
+                        changePreviousCell = false;
+                        increaseCurrentCell = false;
+                        skipButton = false;
+                    }
+
+                    //if button is not editable, skip it going forward
+                } else if (creator.getBoardButtonsTemplateList().get(x).getButton().getName().contains("N")) {
                     skipButton = true;
-                    //if you cant increase value anymore, empty cell, and go back one more cell
-                } else if (currentValue == 9) {
-                    creator.getBoardButtonsTemplateList().get(x).setValue("");
-                    numberToInput = Integer.parseInt(creator.getBoardButtonsTemplateList().get(x - 1).getValue());
+                }
+
+                //if value is not allowed, start increase current cell process
+                if (!skipButton && !isNumberAllowed(x, numberToInput, creator)) {
                     x--;
-                    skipButton = false;
-                    //empty current cell, and try again with value increased by 1
-                } else {
-                    numberToInput = currentValue + 1;
-                    creator.getBoardButtonsTemplateList().get(x).setValue("");
+                    increaseCurrentCell = true;
+                }
+                //if value is allowed, entry value, jump to next cell, and reset number to input to 1
+                if (!increaseCurrentCell && !skipButton) {
+                    creator.getBoardButtonsTemplateList().get(x).setValue(String.valueOf(numberToInput));
                     displayNumbers(creator);
-                    changePreviousCell = false;
-                    increaseCurrentCell = false;
+                    numberToInput = 1;
+                    if (isBoardCompleted(creator)) {
+                        break;
+                    }
+                    //if value is not allowed,
+                } else if (skipButton) {
                     skipButton = false;
-                }
-
-                //if button is not editable, skip it going forward
-            } else if (creator.getBoardButtonsTemplateList().get(x).getButton().getName().contains("N")) {
-                skipButton = true;
-            }
-
-            //if value is not allowed, start increase current cell process
-            if (!skipButton && !isNumberAllowed(x, numberToInput, creator)) {
-                x--;
-                increaseCurrentCell = true;
-            }
-            //if value is allowed, entry value, jump to next cell, and reset number to input to 1
-            if (!increaseCurrentCell && !skipButton) {
-                creator.getBoardButtonsTemplateList().get(x).setValue(String.valueOf(numberToInput));
-                displayNumbers(creator);
-                numberToInput = 1;
-                if (isBoardCompleted(creator)) {
-                    break;
-                }
-                //if value is not allowed,
-            } else if (skipButton) {
-                skipButton = false;
-            } else {
-                //and you cant increase number anymore, start change previous cell process
-                if (numberToInput == 9) {
-                    x--;
-                    changePreviousCell = true;
                 } else {
-                    //increase value by 1 and try again
-                    numberToInput = numberToInput + 1;
-                    increaseCurrentCell = false;
+                    //and you cant increase number anymore, start change previous cell process
+                    if (numberToInput == 9) {
+                        x--;
+                        changePreviousCell = true;
+                    } else {
+                        //increase value by 1 and try again
+                        numberToInput = numberToInput + 1;
+                        increaseCurrentCell = false;
+                    }
                 }
+
+
             }
-
-
+            //clearBoard(creator);
+        } catch (IndexOutOfBoundsException e) {
+            boardSolvable = false;
+            System.out.println("OUPSS!!!");
         }
-
-
-        return creator.getBoardButtonsTemplateList();
+        System.out.println("HURRRA!!!");
+        return boardSolvable;
     }
 
 
@@ -202,9 +208,27 @@ public class BacktrackingChecker {
     //method is passing value from buttons template to buttons and displaying it
     public void displayNumbers(ButtonsTemplateCreator creator) {
         for (int x = 0; x < 81; x++) {
-            String number = creator.getBoardButtonsTemplateList().get(x).getValue();
-            creator.getBoardButtonsTemplateList().get(x).getButton().setLabel(number);
+            if (creator.getBoardButtonsTemplateList().get(x).getButton().getName().contains("N")) {
+
+            } else {
+                String number = creator.getBoardButtonsTemplateList().get(x).getValue();
+                creator.getBoardButtonsTemplateList().get(x).getButton().setLabel(number);
+            }
         }
+
+    }
+
+    public void clearBoard(ButtonsTemplateCreator creator) {
+        for (int x = 0; x < 81; x++) {
+            if (creator.getBoardButtonsTemplateList().get(x).getButton().getName().contains("N")) {
+
+            } else {
+                creator.getBoardButtonsTemplateList().get(x).getButton().setLabel("");
+                creator.getBoardButtonsTemplateList().get(x).setValue("");
+            }
+
+        }
+
     }
 
 
