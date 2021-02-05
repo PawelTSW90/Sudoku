@@ -1,4 +1,3 @@
-import java.util.List;
 
 public class BacktrackingChecker {
 
@@ -72,7 +71,6 @@ public class BacktrackingChecker {
                 }
 
 
-
             }
         } catch (IndexOutOfBoundsException e) {
             boardSolvable = false;
@@ -97,8 +95,6 @@ public class BacktrackingChecker {
                 if (creator.getBoardButtonsTemplateList().get(x).getButton().getName().contains("N")) {
                     if (goBackward) {
                         goToPreviousButton = true;
-
-                    } else {
 
                     }
 
@@ -207,25 +203,21 @@ public class BacktrackingChecker {
     //method is passing value from buttons template to buttons and displaying it
     public void displayNumbers(ButtonsTemplateCreator creator) {
         for (int x = 0; x < 81; x++) {
-            if (creator.getBoardButtonsTemplateList().get(x).getButton().getName().contains("N")) {
+            if (!creator.getBoardButtonsTemplateList().get(x).getButton().getName().contains("N")) {
 
-            } else {
                 String number = creator.getBoardButtonsTemplateList().get(x).getValue();
                 creator.getBoardButtonsTemplateList().get(x).getButton().setLabel(number);
-            }
-        }
 
+            }
+
+        }
     }
 
     public void clearBoard(ButtonsTemplateCreator creator) {
         for (int x = 0; x < 81; x++) {
-            if (creator.getBoardButtonsTemplateList().get(x).getButton().getName().contains("N")) {
-
-            } else {
-                creator.getBoardButtonsTemplateList().get(x).getButton().setLabel("");
-                creator.getBoardButtonsTemplateList().get(x).setValue("");
-            }
-
+            creator.getBoardButtonsTemplateList().get(x).setValue("");
+            creator.getBoardButtonsTemplateList().get(x).getButton().setLabel("");
+            creator.getBoardButtonsTemplateList().get(x).getButton().setName("");
         }
 
     }

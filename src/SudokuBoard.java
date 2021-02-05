@@ -47,7 +47,7 @@ public class SudokuBoard extends JFrame {
         JLabel backgroundLabel = new JLabel();
         backgroundLabel.setBounds(0, 0, screenWidth, screenHeight);
         backgroundLabel.setIcon(new ImageIcon("sudoku-background.jpg"));
-        backgroundLabel.setBounds(0, 0, screenWidth, screenHeight);
+
 
         return backgroundLabel;
 

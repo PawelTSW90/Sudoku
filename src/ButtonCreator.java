@@ -1,4 +1,5 @@
 
+import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -18,7 +19,7 @@ public class ButtonCreator {
         //method is creating boardButtons
     public Button createBoardButtons(){
         Button button = new Button();
-        button.setFont(new Font("Arial", Font.PLAIN, 20));
+        button.setFont(new Font("Arial", Font.PLAIN, 30));
         button.setFocusable(false);
         boardButtons.add(button);
         return button;
