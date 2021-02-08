@@ -7,6 +7,7 @@ public class SudokuGenerator {
     BacktrackingChecker checker = new BacktrackingChecker();
 
     public boolean generateFullBoard(ButtonsTemplateCreator creator) {
+        boolean boardCreated = false;
         Random randomValue = new Random();
         List<Integer> cellNumbersList = new ArrayList<>();
         for (int x = 0; x < 81; x++) {
@@ -26,27 +27,30 @@ public class SudokuGenerator {
 
         if (checker.checkBoard(creator)) {
             if (!checker.multipleSolvingChecker(creator)) {
-                System.out.println("ONLY ONE SOLUTION!");
-                for(int x = 0; x<81; x++){
-                    if(!creator.getBoardButtonsTemplateList().get(x).getValue().equals("")){
-                        creator.getBoardButtonsTemplateList().get(x).getButton().setBackground(Color.lightGray);
-                    }
-                }
-                return true;
+                boardCreated = true;
 
-
-            } else {
-
-
-                checker.clearBoard(creator);
             }
 
-        } else {
-            checker.clearBoard(creator);
-
-
         }
+        if(boardCreated){
+            for(int x = 0; x<81; x++){
+                if(!creator.getBoardButtonsTemplateList().get(x).getValue().equals("")){
+                    creator.getBoardButtonsTemplateList().get(x).getButton().setBackground(Color.lightGray);
+                    creator.getBoardButtonsTemplateList().get(x).getButton().setFocusable(false);
+                }
+            }
+            return true;
+        }
+        checker.clearBoard(creator);
         return false;
+    }
+
+    public void turnButtonFocusableOff(ButtonsTemplateCreator creator){
+        for(int x = 0; x<81; x++){
+            if(creator.getBoardButtonsTemplateList().get(x).getButton().getBackground().equals(Color.lightGray)){
+                creator.getBoardButtonsTemplateList().get(x).getButton().setFocusable(false);
+            }
+        }
 
     }
 

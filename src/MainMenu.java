@@ -1,27 +1,21 @@
 import javax.swing.*;
 import java.awt.*;
 
+import static javax.swing.WindowConstants.EXIT_ON_CLOSE;
 
 
-public class MainMenu extends JFrame {
+public class MainMenu {
     Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
     int screenHeight = screenSize.height;
     int screenWidth = screenSize.width;
-    JPanel mainMenuPanel = new JPanel();
-    JFrame mainMenuFrame = new JFrame();
+    private final JPanel mainMenuPanel = new JPanel();
+    private final JFrame mainMenuFrame = new JFrame();
 
     public MainMenu() {
         setMainMenu();
-        mainMenuFrame.setDefaultCloseOperation(EXIT_ON_CLOSE);
-        mainMenuFrame.setUndecorated(true);
-        mainMenuFrame.setExtendedState(JFrame.MAXIMIZED_BOTH);
-        mainMenuFrame.setVisible(true);
-
-
     }
 
     public void setMainMenu() {
-
         JLabel background = new JLabel();
         JLabel title = new JLabel();
         JLabel createdBy = new JLabel();
@@ -38,6 +32,10 @@ public class MainMenu extends JFrame {
         mainMenuPanel.add(background);
         mainMenuPanel.setLayout(null);
         mainMenuFrame.add(mainMenuPanel);
+        mainMenuFrame.setDefaultCloseOperation(EXIT_ON_CLOSE);
+        mainMenuFrame.setUndecorated(true);
+        mainMenuFrame.setExtendedState(JFrame.MAXIMIZED_BOTH);
+        mainMenuFrame.setVisible(true);
 
     }
 

@@ -1,12 +1,13 @@
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
 
 public class ButtonInteract implements ActionListener {
     private static String valueToInput;
     Button button;
     ButtonsTemplateCreator creator;
-
+    BacktrackingChecker checker = new BacktrackingChecker();
 
 
     public ButtonInteract(Button button, ButtonsTemplateCreator creator) {
@@ -26,46 +27,59 @@ public class ButtonInteract implements ActionListener {
     //method responsible for interacting with board buttons by clicking
     public void boardButtonAction() {
 
-        //if keypad button is active, set it's value to clicked board button and set both buttons as no-active
-        if (isKeypadButtonHighlighted() && !isBoardButtonHighlighted()) {
-            button.setLabel(valueToInput);
-            for (int y = 0; y < 9; y++) {
-                if (creator.getKeypadButtonsTemplateList().get(y).getButton().isFocusable()) {
-                    creator.getKeypadButtonsTemplateList().get(y).getButton().setFocusable(false);
-                    creator.getKeypadButtonsTemplateList().get(y).getButton().setBackground(null);
+        if (button.getBackground().equals(Color.lightGray)) {
 
-                }
-            }
+        } else
 
-            //if none of the buttons are active, set clicked board button as active
-        } else if (!isBoardButtonHighlighted()) {
-            button.setBackground(Color.getHSBColor(80, 80, 80));
-            button.setFocusable(true);
-            button.requestFocus();
-            button.addKeyListener(new ButtonKeyListener(button, creator));
+            //if keypad button is active, set it's value to clicked board button and set both buttons as no-active
+            if (isKeypadButtonHighlighted() && !isBoardButtonHighlighted()) {
 
-        } else {
-            //if clicked button is active, set it as no-active
+                button.setLabel(valueToInput);
+                for (int y = 0; y < 9; y++) {
+                    if (creator.getKeypadButtonsTemplateList().get(y).getButton().isFocusable()) {
+                        creator.getKeypadButtonsTemplateList().get(y).getButton().setFocusable(false);
+                        creator.getKeypadButtonsTemplateList().get(y).getButton().setBackground(null);
 
-            if (button.isFocusable()) {
-                button.setBackground(null);
-                button.setFocusable(false);
 
-            } else {
-
-                // if other board button is active, set it as no-active and set clicked button as active
-                for (int x = 0; x < 81; x++) {
-                    if (creator.getBoardButtonsTemplateList().get(x).getButton().isFocusable()) {
-                        creator.getBoardButtonsTemplateList().get(x).getButton().setFocusable(false);
-                        creator.getBoardButtonsTemplateList().get(x).getButton().setBackground(null);
                     }
                 }
+                if(isBoardCompleted()){
+                    if(isBoardCompletedCorrectly()){
+                        System.out.println("Congratulations!!!!");
+                    } else{
+                        System.out.println("Wrong!!!");
+                    }
+
+                }
+                //if none of the buttons are active, set clicked board button as active
+            } else if (!isBoardButtonHighlighted()) {
                 button.setBackground(Color.getHSBColor(80, 80, 80));
                 button.setFocusable(true);
                 button.requestFocus();
-                button.addKeyListener(new ButtonKeyListener(button, creator));
+                button.addKeyListener(new ButtonKeyListener(button, creator,this));
+
+            } else {
+                //if clicked button is active, set it as no-active
+
+                if (button.isFocusable()) {
+                    button.setBackground(null);
+                    button.setFocusable(false);
+
+                } else {
+
+                    // if other board button is active, set it as no-active and set clicked button as active
+                    for (int x = 0; x < 81; x++) {
+                        if (creator.getBoardButtonsTemplateList().get(x).getButton().isFocusable()) {
+                            creator.getBoardButtonsTemplateList().get(x).getButton().setFocusable(false);
+                            creator.getBoardButtonsTemplateList().get(x).getButton().setBackground(null);
+                        }
+                    }
+                    button.setBackground(Color.getHSBColor(80, 80, 80));
+                    button.setFocusable(true);
+                    button.requestFocus();
+                    button.addKeyListener(new ButtonKeyListener(button, creator, this));
+                }
             }
-        }
     }
 
     //method responsible for keypad buttons
@@ -112,37 +126,65 @@ public class ButtonInteract implements ActionListener {
                 }
 
             }
+            if(isBoardCompleted()){
+                if(isBoardCompletedCorrectly()){
+                    System.out.println("GRATULACJE!!!!");
+                } else{
+                    System.out.println("Dałeś Ciała!!!");
+                }
+
+            }
         }
     }
 
-        //method is checking if any board button is active
+    //method is checking if any board button is active
     public boolean isBoardButtonHighlighted() {
-        boolean buttonHighlighted = false;
+
         for (int x = 0; x < 81; x++) {
             if (creator.getBoardButtonsTemplateList().get(x).getButton().isFocusable()) {
-                buttonHighlighted = true;
+                return true;
 
 
             }
 
 
         }
-        return buttonHighlighted;
+        return false;
 
     }
-        //method is checking if any keypad button is active
+
+    public boolean isBoardCompleted() {
+        for (int x = 0; x < 81; x++) {
+            if (creator.getBoardButtonsTemplateList().get(x).getButton().getName().equals("")) {
+                return false;
+            }
+
+        }
+        return true;
+    }
+
+    public boolean isBoardCompletedCorrectly(){
+        List<ButtonCreator> userList = creator.getBoardButtonsTemplateList();
+        checker.checkBoard(creator);
+        List<ButtonCreator> correctList = creator.getBoardButtonsTemplateList();
+        return userList.equals(correctList);
+
+    }
+
+    //method is checking if any keypad button is active
     public boolean isKeypadButtonHighlighted() {
-        boolean buttonHighlighted = false;
         for (int y = 0; y < 9; y++) {
             if (creator.getKeypadButtonsTemplateList().get(y).getButton().isFocusable()) {
-                buttonHighlighted = true;
+                return true;
 
 
             }
 
         }
-        return buttonHighlighted;
+        return false;
     }
+
+
 }
 
 

@@ -5,10 +5,13 @@ import java.awt.event.KeyListener;
 public class ButtonKeyListener implements KeyListener {
     Button button;
     ButtonsTemplateCreator creator;
+    ButtonInteract interact;
 
-    ButtonKeyListener(Button button, ButtonsTemplateCreator creator) {
+    ButtonKeyListener(Button button, ButtonsTemplateCreator creator, ButtonInteract interact) {
         this.button = button;
         this.creator = creator;
+        this.interact = interact;
+
     }
 
     @Override
@@ -27,6 +30,14 @@ public class ButtonKeyListener implements KeyListener {
                 button.setName("N");
                 button.setBackground(null);
                 button.setFocusable(false);
+                if(interact.isBoardCompleted()){
+                    if(interact.isBoardCompletedCorrectly()){
+                        System.out.println("GRATULACJE!!!!");
+                    } else{
+                        System.out.println("Dałeś Ciała!!!");
+                    }
+
+                }
             }
 
         }
