@@ -1,3 +1,4 @@
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -26,6 +27,11 @@ public class SudokuGenerator {
         if (checker.checkBoard(creator)) {
             if (!checker.multipleSolvingChecker(creator)) {
                 System.out.println("ONLY ONE SOLUTION!");
+                for(int x = 0; x<81; x++){
+                    if(!creator.getBoardButtonsTemplateList().get(x).getValue().equals("")){
+                        creator.getBoardButtonsTemplateList().get(x).getButton().setBackground(Color.lightGray);
+                    }
+                }
                 return true;
 
 

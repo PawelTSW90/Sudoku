@@ -2,38 +2,42 @@ import javax.swing.*;
 import java.awt.*;
 
 
+
 public class MainMenu extends JFrame {
     Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
     int screenHeight = screenSize.height;
     int screenWidth = screenSize.width;
+    JPanel mainMenuPanel = new JPanel();
+    JFrame mainMenuFrame = new JFrame();
 
     public MainMenu() {
-        JPanel mainMenuPanel = new JPanel();
-        mainMenuPanel.setLayout(null);
-        mainMenuPanel.add(background());
-        this.setDefaultCloseOperation(EXIT_ON_CLOSE);
-        this.setExtendedState(JFrame.MAXIMIZED_BOTH);
-        this.add(mainMenuPanel);
-        this.setUndecorated(true);
-        this.setVisible(true);
+        setMainMenu();
+        mainMenuFrame.setDefaultCloseOperation(EXIT_ON_CLOSE);
+        mainMenuFrame.setUndecorated(true);
+        mainMenuFrame.setExtendedState(JFrame.MAXIMIZED_BOTH);
+        mainMenuFrame.setVisible(true);
 
 
     }
 
-    public JLabel background() {
+    public void setMainMenu() {
 
         JLabel background = new JLabel();
         JLabel title = new JLabel();
+        JLabel createdBy = new JLabel();
+        createdBy.setBounds(screenWidth-screenWidth/7, screenHeight-screenHeight/6, 355, 93);
+        createdBy.setIcon(new ImageIcon("created_by.png"));
         background.setBounds(0, 0, screenWidth, screenHeight);
         background.setIcon(new ImageIcon("sudoku-background.jpg"));
         title.setBounds(screenWidth / 2 - 451 / 2, screenHeight / 8, 451, 198);
         title.setIcon(new ImageIcon("logo.png"));
-        background.add(title);
-        background.add(startButton());
-        background.add(exitButton());
-
-
-        return background;
+        mainMenuPanel.add(title);
+        mainMenuPanel.add(startButton());
+        mainMenuPanel.add(exitButton());
+        mainMenuPanel.add(createdBy);
+        mainMenuPanel.add(background);
+        mainMenuPanel.setLayout(null);
+        mainMenuFrame.add(mainMenuPanel);
 
     }
 
@@ -44,8 +48,10 @@ public class MainMenu extends JFrame {
         start.setBorderPainted(false);
         start.setContentAreaFilled(false);
         start.addActionListener(e->{
-            new SudokuBoard();
-            this.dispose();
+            mainMenuFrame.add(new SudokuBoard().createSudokuBoard());
+            mainMenuFrame.getContentPane().getComponent(0).setVisible(false);
+
+
         });
         return start;
 

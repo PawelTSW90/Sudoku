@@ -1,25 +1,20 @@
 import javax.swing.*;
 import java.awt.*;
 
-
-public class SudokuBoard extends JFrame {
+public class SudokuBoard {
+    JPanel sudokuBoardPanel = new JPanel();
     Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
     int screenHeight = screenSize.height;
     int screenWidth = screenSize.width;
-
-
     ButtonsTemplateCreator buttonsTemplateCreator = new ButtonsTemplateCreator();
     BacktrackingChecker backtrackingChecker = new BacktrackingChecker();
     ButtonCreator buttonCreator = new ButtonCreator();
     SudokuGenerator generator = new SudokuGenerator();
 
-    public SudokuBoard() {
-        this.setDefaultCloseOperation(EXIT_ON_CLOSE);
-        this.setExtendedState(JFrame.MAXIMIZED_BOTH);
-        this.setUndecorated(true);
-        this.setLayout(null);
-        this.add(drawSudokuKeypad());
-        this.add(drawSudokuBoard());
+    public JPanel createSudokuBoard() {
+        sudokuBoardPanel.setLayout(null);
+        sudokuBoardPanel.add(drawSudokuKeypad());
+        sudokuBoardPanel.add(drawSudokuBoard());
         //temporary button
         JPanel buttonPanel = new JPanel();
         buttonPanel.setBounds(1200, 500, 200, 200);
@@ -31,13 +26,12 @@ public class SudokuBoard extends JFrame {
             }
 
         });
+        sudokuBoardPanel.add(buttonPanel);
+        sudokuBoardPanel.add(background());
+
+        return sudokuBoardPanel;
 
 
-
-        this.add(buttonPanel);
-        this.add(background());
-        this.setVisible(true);
-        this.setFocusable(true);
 
     }
 
