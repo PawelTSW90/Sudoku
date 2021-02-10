@@ -7,7 +7,6 @@ public class SudokuBoard {
     int screenHeight = screenSize.height;
     int screenWidth = screenSize.width;
     ButtonsTemplateCreator buttonsTemplateCreator = new ButtonsTemplateCreator();
-    BacktrackingChecker backtrackingChecker = new BacktrackingChecker();
     ButtonCreator buttonCreator = new ButtonCreator();
     SudokuGenerator generator = new SudokuGenerator();
 
@@ -26,7 +25,23 @@ public class SudokuBoard {
             }
 
         });
+
+        //generate sudoku boards button
+        JPanel generateButtonPanel = new JPanel();
+        generateButtonPanel.setBounds(1200, 800, 200, 200);
+        Button button1 = new Button("Generate");
+        button1.addActionListener(e ->{
+            for (int x = 0; x<2; x++){
+                while (!generator.generateFullBoard(buttonsTemplateCreator));
+
+            }
+            System.out.println(EncryptionClass.encrypt("password", generator.getTmp()));
+        });
+
+
+        generateButtonPanel.add(button1);
         sudokuBoardPanel.add(buttonPanel);
+        sudokuBoardPanel.add(generateButtonPanel);
         sudokuBoardPanel.add(background());
 
         return sudokuBoardPanel;

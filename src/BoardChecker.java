@@ -1,5 +1,7 @@
 
-public class BacktrackingChecker {
+public class BoardChecker {
+    static String[] boardSolution = new String[81];
+
 
     //back tracking main method, checking if current board is solvable
     public boolean checkBoard(ButtonsTemplateCreator creator) {
@@ -76,7 +78,7 @@ public class BacktrackingChecker {
             boardSolvable = false;
 
         }
-
+        saveSolution(creator);
         return boardSolvable;
     }
 
@@ -187,15 +189,15 @@ public class BacktrackingChecker {
     }
 
     public boolean isBoardCompleted(ButtonsTemplateCreator creator) {
-        boolean boardCompleted = true;
+
 
         for (int x = 0; x < 81; x++) {
             if (creator.getBoardButtonsTemplateList().get(x).getValue().equals("")) {
-                boardCompleted = false;
-                break;
+                return false;
+
             }
         }
-        return boardCompleted;
+        return true;
 
     }
 
@@ -248,6 +250,29 @@ public class BacktrackingChecker {
         }
         return numberAllowed;
     }
+
+    public void saveSolution(ButtonsTemplateCreator creator) {
+        for (int x = 0; x < 81; x++) {
+            String value = creator.getBoardButtonsTemplateList().get(x).getValue();
+            boardSolution[x] = value;
+
+        }
+
+    }
+
+    public boolean isBoardCompletedCorrectly(ButtonsTemplateCreator creator) {
+        for (int x = 0; x < 81; x++) {
+            String value = creator.getBoardButtonsTemplateList().get(x).getValue();
+            if (value.equals(boardSolution[x])) {
+
+            } else {
+                return false;
+            }
+        }
+        return true;
+
+    }
+
 }
 
 

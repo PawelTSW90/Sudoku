@@ -1,13 +1,13 @@
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.List;
 
 public class ButtonInteract implements ActionListener {
     private static String valueToInput;
     Button button;
     ButtonsTemplateCreator creator;
-    BacktrackingChecker checker = new BacktrackingChecker();
+    BoardChecker checker = new BoardChecker();
+
 
 
     public ButtonInteract(Button button, ButtonsTemplateCreator creator) {
@@ -29,6 +29,7 @@ public class ButtonInteract implements ActionListener {
 
         if (button.getBackground().equals(Color.lightGray)) {
 
+
         } else
 
             //if keypad button is active, set it's value to clicked board button and set both buttons as no-active
@@ -43,20 +44,14 @@ public class ButtonInteract implements ActionListener {
 
                     }
                 }
-                if(isBoardCompleted()){
-                    if(isBoardCompletedCorrectly()){
-                        System.out.println("Congratulations!!!!");
-                    } else{
-                        System.out.println("Wrong!!!");
-                    }
 
-                }
                 //if none of the buttons are active, set clicked board button as active
             } else if (!isBoardButtonHighlighted()) {
                 button.setBackground(Color.getHSBColor(80, 80, 80));
                 button.setFocusable(true);
                 button.requestFocus();
-                button.addKeyListener(new ButtonKeyListener(button, creator,this));
+                button.addKeyListener(new ButtonKeyListener(button, this, checker));
+
 
             } else {
                 //if clicked button is active, set it as no-active
@@ -77,7 +72,7 @@ public class ButtonInteract implements ActionListener {
                     button.setBackground(Color.getHSBColor(80, 80, 80));
                     button.setFocusable(true);
                     button.requestFocus();
-                    button.addKeyListener(new ButtonKeyListener(button, creator, this));
+                    button.addKeyListener(new ButtonKeyListener(button, this, checker));
                 }
             }
     }
@@ -126,14 +121,7 @@ public class ButtonInteract implements ActionListener {
                 }
 
             }
-            if(isBoardCompleted()){
-                if(isBoardCompletedCorrectly()){
-                    System.out.println("GRATULACJE!!!!");
-                } else{
-                    System.out.println("Dałeś Ciała!!!");
-                }
 
-            }
         }
     }
 
@@ -152,22 +140,24 @@ public class ButtonInteract implements ActionListener {
         return false;
 
     }
-
-    public boolean isBoardCompleted() {
-        for (int x = 0; x < 81; x++) {
-            if (creator.getBoardButtonsTemplateList().get(x).getButton().getName().equals("")) {
+    public boolean isBoardCompletedCorrectly(){
+        for(int x = 0; x<81; x++){
+            if(!creator.getBoardButtonsTemplateList().get(x).getButton().getLabel().equals(BoardChecker.boardSolution[x])){
                 return false;
             }
-
         }
-        return true;
+return true;
     }
 
-    public boolean isBoardCompletedCorrectly(){
-        List<ButtonCreator> userList = creator.getBoardButtonsTemplateList();
-        checker.checkBoard(creator);
-        List<ButtonCreator> correctList = creator.getBoardButtonsTemplateList();
-        return userList.equals(correctList);
+    public boolean isBoardCompleted(){
+        for (int x = 0; x < 81; x++) {
+            if (creator.getBoardButtonsTemplateList().get(x).getButton().getLabel().equals("")) {
+                return false;
+
+            }
+        }
+        return true;
+
 
     }
 
