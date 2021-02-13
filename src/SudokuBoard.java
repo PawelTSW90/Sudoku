@@ -14,10 +14,11 @@ public class SudokuBoard {
         sudokuBoardPanel.setLayout(null);
         sudokuBoardPanel.add(drawSudokuKeypad());
         sudokuBoardPanel.add(drawSudokuBoard());
+
         //temporary button
-        JPanel buttonPanel = new JPanel();
+   /*     JPanel buttonPanel = new JPanel();
         buttonPanel.setBounds(1200, 500, 200, 200);
-        Button button = new Button("Button");
+        Button button = new Button("Generate one board");
         buttonPanel.add(button);
         button.addActionListener(e -> {
             while (!generator.generateFullBoard(buttonsTemplateCreator)) {
@@ -26,21 +27,23 @@ public class SudokuBoard {
 
         });
 
+
+    */
         //generate sudoku boards button
         JPanel generateButtonPanel = new JPanel();
         generateButtonPanel.setBounds(1200, 800, 200, 200);
-        Button button1 = new Button("Generate");
+        Button button1 = new Button("Generate boards to file");
         button1.addActionListener(e ->{
-            for (int x = 0; x<2; x++){
+            for (int x = 0; x<300; x++){
                 while (!generator.generateFullBoard(buttonsTemplateCreator));
 
             }
-            System.out.println(EncryptionClass.encrypt("password", generator.getTmp()));
+
         });
 
 
         generateButtonPanel.add(button1);
-        sudokuBoardPanel.add(buttonPanel);
+        //sudokuBoardPanel.add(buttonPanel);
         sudokuBoardPanel.add(generateButtonPanel);
         sudokuBoardPanel.add(background());
 

@@ -24,7 +24,7 @@ public class SudokuGenerator {
             if (checker.isNumberAllowed(randomCell, value, creator)) {
                 creator.getBoardButtonsTemplateList().get(randomCell).setValue(String.valueOf(value));
                 creator.getBoardButtonsTemplateList().get(randomCell).getButton().setName("N");
-                creator.getBoardButtonsTemplateList().get(randomCell).getButton().setLabel(String.valueOf(value));
+                //creator.getBoardButtonsTemplateList().get(randomCell).getButton().setLabel(String.valueOf(value));
                 cellNumbersList.removeIf(s -> (s == randomCell));
 
             }
@@ -59,7 +59,7 @@ public class SudokuGenerator {
             BufferedWriter writer = new BufferedWriter(new FileWriter("BoardFile.brd", true));
             for (int x = 0; x < creator.getBoardButtonsTemplateList().size(); x++) {
                 if (creator.getBoardButtonsTemplateList().get(x).getButton().getName().contains("N")) {
-                    writer.write(creator.getBoardButtonsTemplateList().get(x).getButton().getLabel());
+                    writer.write(creator.getBoardButtonsTemplateList().get(x).getValue());
                 } else {
                     writer.write("0");
 
@@ -80,7 +80,7 @@ public class SudokuGenerator {
 
         for (int x = 0; x < creator.getBoardButtonsTemplateList().size(); x++) {
             if (creator.getBoardButtonsTemplateList().get(x).getButton().getName().contains("N")) {
-                tmpContainer.append(creator.getBoardButtonsTemplateList().get(x).getButton().getLabel());
+                tmpContainer.append(creator.getBoardButtonsTemplateList().get(x).getValue());
             } else {
                 tmpContainer.append(0);
 

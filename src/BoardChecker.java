@@ -13,7 +13,7 @@ public class BoardChecker {
         boolean boardSolvable = true;
 
         //call method to mark buttons to skip
-        setButtonsToSkip(creator);
+       // setButtonsToSkip(creator);
         try {
 
 
