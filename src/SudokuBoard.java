@@ -16,11 +16,11 @@ public class SudokuBoard {
         sudokuBoardPanel.setLayout(null);
         sudokuBoardPanel.add(drawSudokuKeypad());
         sudokuBoardPanel.add(drawSudokuBoard());
-        Random random = new Random();
-        int randomValue = random.nextInt(1000000-1 + 1) +1;
 
+
+/*
         //temporary button
-   /*     JPanel buttonPanel = new JPanel();
+        JPanel buttonPanel = new JPanel();
         buttonPanel.setBounds(1200, 500, 200, 200);
         Button button = new Button("Generate one board");
         buttonPanel.add(button);
@@ -32,20 +32,14 @@ public class SudokuBoard {
         });
 
 
-    */
-
-            for (int x = 0; x<10000; x++){
-                while (!generator.generateFullBoard(buttonsTemplateCreator, randomValue));
-
-            }
 
 
+        sudokuBoardPanel.add(buttonPanel);
 
 
-
-        //sudokuBoardPanel.add(buttonPanel);
-
+ */
         sudokuBoardPanel.add(background());
+        generator.displayBoard(buttonsTemplateCreator);
 
         return sudokuBoardPanel;
 

@@ -1,17 +1,15 @@
 import java.awt.*;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import java.util.Scanner;
 
 public class SudokuGenerator {
     BoardChecker checker = new BoardChecker();
     StringBuilder tmpContainer = new StringBuilder();
 
-    public boolean generateFullBoard(ButtonsTemplateCreator creator, int randomValue) {
+    public boolean generateFullBoard(ButtonsTemplateCreator creator) {
 
         boolean boardCreated = false;
         Random randomCellValue = new Random();
@@ -46,7 +44,7 @@ public class SudokuGenerator {
                 }
             }
 
-            generateBoardsToFile(creator, randomValue);
+            generateBoardsToFile(creator);
 
 
             return true;
@@ -55,12 +53,12 @@ public class SudokuGenerator {
         return false;
     }
 
-    public String generateBoardsToFile(ButtonsTemplateCreator creator, int randomValue) {
+    public String generateBoardsToFile(ButtonsTemplateCreator creator) {
         try {
 
 
 
-            String path = File.separator + "mnt" + File.separator + "BoardsList.nr " + randomValue +".brd";
+            String path = File.separator + "BoardsList.nr " + ".brd";
             File file = new File(path);
             file.getParentFile().mkdirs();
             file.createNewFile();
@@ -109,11 +107,87 @@ public class SudokuGenerator {
 
     }
 
-    public String getTmp(){
-        String tmp;
-        tmp = tmpContainer.toString();
-        return tmp;
+    public String stringCreator(){
+        String boardsContainer = null;
+        try {
+            BufferedReader reader = new BufferedReader(new FileReader("BoardsList.brd"));
+            StringBuilder builder = new StringBuilder();
+            String line = reader.readLine();
+            while (line != null){
+                builder.append(line);
+                builder.append(System.getProperty("line.separator"));
+                line  = reader.readLine();
+            }
+            boardsContainer = builder.toString();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return boardsContainer;
     }
 
+
+
+    public void writeToFile(){
+        try {
+            BufferedWriter writer = new BufferedWriter(new FileWriter("encrypted_file.brd"));
+            writer.write(EncryptionClass.encrypt("123", stringCreator()));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+
+
+    public String decryptToString(){
+        Random random = new Random();
+        String value = null;
+        String decryptedString = new String(EncryptionClass.decrypt("123",EncryptionClass.encrypt("123", stringCreator())));
+        int randomLine = random.nextInt(100-2+2)+2;
+
+        try {
+            BufferedWriter writer = new BufferedWriter(new FileWriter("decrypted_list.brd"));
+            writer.write(EncryptionClass.decrypt("123",EncryptionClass.encrypt("123", stringCreator())));
+            Scanner scanner = new Scanner(new File("decrypted_list.brd"));
+            for(int x = 1; x<101; x++){
+
+
+                if(x == randomLine){
+                    return scanner.next();
+
+                } else{
+                    scanner.nextLine();
+                }
+
+
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+
+
+return null;
+    }
+
+    public void displayBoard(ButtonsTemplateCreator creator){
+        char[] valuesArray = new char[81];
+       String boardValues = decryptToString();
+       StringBuilder builder = new StringBuilder(boardValues);
+       for(int x = 1; x<82; x++) {
+           builder.getChars(x-1, x, valuesArray, x-1);
+
+       }
+
+       for(int x = 0; x<81; x++){
+           if(String.valueOf(valuesArray[x]).equals("0")){
+            creator.getBoardButtonsTemplateList().get(x).getButton().setLabel("");
+           }else
+           creator.getBoardButtonsTemplateList().get(x).getButton().setLabel(String.valueOf(valuesArray[x]));
+       }
+
+
+    }
 
 }
