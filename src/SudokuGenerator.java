@@ -1,5 +1,6 @@
 import java.awt.*;
 import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -10,17 +11,17 @@ public class SudokuGenerator {
     BoardChecker checker = new BoardChecker();
     StringBuilder tmpContainer = new StringBuilder();
 
-    public boolean generateFullBoard(ButtonsTemplateCreator creator) {
+    public boolean generateFullBoard(ButtonsTemplateCreator creator, int randomValue) {
 
         boolean boardCreated = false;
-        Random randomValue = new Random();
+        Random randomCellValue = new Random();
         List<Integer> cellNumbersList = new ArrayList<>();
         for (int x = 0; x < 81; x++) {
             cellNumbersList.add(x);
         }
         while (cellNumbersList.size() > 49) {
-            int value = randomValue.nextInt(9 - 1 + 1) + 1;
-            int randomCell = cellNumbersList.get(randomValue.nextInt(cellNumbersList.size()));
+            int value = randomCellValue.nextInt(9 - 1 + 1) + 1;
+            int randomCell = cellNumbersList.get(randomCellValue.nextInt(cellNumbersList.size()));
             if (checker.isNumberAllowed(randomCell, value, creator)) {
                 creator.getBoardButtonsTemplateList().get(randomCell).setValue(String.valueOf(value));
                 creator.getBoardButtonsTemplateList().get(randomCell).getButton().setName("N");
@@ -45,7 +46,7 @@ public class SudokuGenerator {
                 }
             }
 
-            generateBoardsToFile(creator);
+            generateBoardsToFile(creator, randomValue);
 
 
             return true;
@@ -54,9 +55,16 @@ public class SudokuGenerator {
         return false;
     }
 
-    public String generateBoardsToFile(ButtonsTemplateCreator creator) {
+    public String generateBoardsToFile(ButtonsTemplateCreator creator, int randomValue) {
         try {
-            BufferedWriter writer = new BufferedWriter(new FileWriter("BoardFile.brd", true));
+
+
+
+            String path = File.separator + "mnt" + File.separator + "BoardsList.nr " + randomValue +".brd";
+            File file = new File(path);
+            file.getParentFile().mkdirs();
+            file.createNewFile();
+            BufferedWriter writer = new BufferedWriter(new FileWriter(file, true));
             for (int x = 0; x < creator.getBoardButtonsTemplateList().size(); x++) {
                 if (creator.getBoardButtonsTemplateList().get(x).getButton().getName().contains("N")) {
                     writer.write(creator.getBoardButtonsTemplateList().get(x).getValue());
@@ -96,7 +104,6 @@ public class SudokuGenerator {
         tmpContainer.append("\r\n");
         String boardsContainer;
         boardsContainer = tmpContainer.toString();
-        System.out.println(boardsContainer);
         return boardsContainer;
 
 

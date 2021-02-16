@@ -1,5 +1,6 @@
 import javax.swing.*;
 import java.awt.*;
+import java.util.Random;
 
 public class SudokuBoard {
     JPanel sudokuBoardPanel = new JPanel();
@@ -10,10 +11,13 @@ public class SudokuBoard {
     ButtonCreator buttonCreator = new ButtonCreator();
     SudokuGenerator generator = new SudokuGenerator();
 
+
     public JPanel createSudokuBoard() {
         sudokuBoardPanel.setLayout(null);
         sudokuBoardPanel.add(drawSudokuKeypad());
         sudokuBoardPanel.add(drawSudokuBoard());
+        Random random = new Random();
+        int randomValue = random.nextInt(1000000-1 + 1) +1;
 
         //temporary button
    /*     JPanel buttonPanel = new JPanel();
@@ -29,22 +33,18 @@ public class SudokuBoard {
 
 
     */
-        //generate sudoku boards button
-        JPanel generateButtonPanel = new JPanel();
-        generateButtonPanel.setBounds(1200, 800, 200, 200);
-        Button button1 = new Button("Generate boards to file");
-        button1.addActionListener(e ->{
-            for (int x = 0; x<300; x++){
-                while (!generator.generateFullBoard(buttonsTemplateCreator));
+
+            for (int x = 0; x<10000; x++){
+                while (!generator.generateFullBoard(buttonsTemplateCreator, randomValue));
 
             }
 
-        });
 
 
-        generateButtonPanel.add(button1);
+
+
         //sudokuBoardPanel.add(buttonPanel);
-        sudokuBoardPanel.add(generateButtonPanel);
+
         sudokuBoardPanel.add(background());
 
         return sudokuBoardPanel;
