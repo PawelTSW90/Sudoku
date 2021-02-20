@@ -8,6 +8,7 @@ import java.util.Scanner;
 public class SudokuGenerator {
     BoardChecker checker = new BoardChecker();
     StringBuilder tmpContainer = new StringBuilder();
+    static char[] boardSolution = new char[81];
 
     public boolean generateFullBoard(ButtonsTemplateCreator creator) {
 
@@ -173,11 +174,16 @@ return null;
 
     public void displayBoard(ButtonsTemplateCreator creator){
         char[] valuesArray = new char[81];
+        char[] boardSolutionTmp = new char[81];
        String boardValues = decryptToString();
        StringBuilder builder = new StringBuilder(boardValues);
        for(int x = 1; x<82; x++) {
            builder.getChars(x-1, x, valuesArray, x-1);
 
+       }
+
+       for(int x = 83; x<164; x++){
+           builder.getChars(x-1, x, boardSolutionTmp, x-83);
        }
 
        for(int x = 0; x<81; x++){
@@ -191,6 +197,8 @@ return null;
 
 
        }
+        boardSolution = boardSolutionTmp;
+
 
 
     }

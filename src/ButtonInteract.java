@@ -44,6 +44,13 @@ public class ButtonInteract implements ActionListener {
 
                     }
                 }
+                if(isBoardCompleted()){
+                    if(isBoardCompletedCorrectly()){
+                        System.out.println("Gratulacje");
+                    } else{
+                        System.out.println("Lipa!");
+                    }
+                }
 
                 //if none of the buttons are active, set clicked board button as active
             } else if (!isBoardButtonHighlighted()) {
@@ -121,6 +128,13 @@ public class ButtonInteract implements ActionListener {
                 }
 
             }
+            if(isBoardCompleted()){
+                if(isBoardCompletedCorrectly()){
+                    System.out.println("Board completed!");
+                } else{
+                    System.out.println("Something went wrong...");
+                }
+            }
 
         }
     }
@@ -142,9 +156,10 @@ public class ButtonInteract implements ActionListener {
     }
     public boolean isBoardCompletedCorrectly(){
         for(int x = 0; x<81; x++){
-            if(!creator.getBoardButtonsTemplateList().get(x).getButton().getLabel().equals(BoardChecker.boardSolution[x])){
+            if(!creator.getBoardButtonsTemplateList().get(x).getButton().getLabel().equals(String.valueOf(SudokuGenerator.boardSolution[x]))){
                 return false;
             }
+
         }
 return true;
     }
