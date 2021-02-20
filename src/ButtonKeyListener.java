@@ -7,10 +7,12 @@ public class ButtonKeyListener implements KeyListener {
     ButtonInteract interact;
     BoardChecker checker;
 
+
     ButtonKeyListener(Button button, ButtonInteract interact, BoardChecker checker) {
         this.button = button;
         this.interact = interact;
         this.checker = checker;
+
 
     }
 
@@ -18,11 +20,16 @@ public class ButtonKeyListener implements KeyListener {
     public void keyTyped(KeyEvent e) {
     }
 
-    //if key pressed is a number different than 0, input allowed
+    //if pressed key is a number different than 0, input allowed
     @Override
     public void keyPressed(KeyEvent e) {
+        int delete = 127;
+        int backspace = 8;
+        int esc = 27;
+
 
         String value = String.valueOf(e.getKeyChar());
+        int code = e.getKeyCode();
 
         if (checkInput(value)) {
             if (Integer.parseInt(value) != 0) {
@@ -32,8 +39,17 @@ public class ButtonKeyListener implements KeyListener {
                 button.setFocusable(false);
 
             }
+        //if backspace or delete has been pressed, remove current value
+        } else if(code == delete || code == backspace){
+
+            button.setLabel("");
+            button.setBackground(null);
+            button.setFocusable(false);
+        } else if(code == esc){
+
 
         }
+
 
     }
 

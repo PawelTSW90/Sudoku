@@ -183,8 +183,13 @@ return null;
        for(int x = 0; x<81; x++){
            if(String.valueOf(valuesArray[x]).equals("0")){
             creator.getBoardButtonsTemplateList().get(x).getButton().setLabel("");
+            continue;
+
            }else
+               creator.getBoardButtonsTemplateList().get(x).getButton().setBackground(Color.lightGray);
            creator.getBoardButtonsTemplateList().get(x).getButton().setLabel(String.valueOf(valuesArray[x]));
+
+
        }
 
 

@@ -1,5 +1,9 @@
+import org.w3c.dom.Text;
+
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.util.Random;
 
 public class SudokuBoard {
@@ -14,8 +18,35 @@ public class SudokuBoard {
 
     public JPanel createSudokuBoard() {
         sudokuBoardPanel.setLayout(null);
+        sudokuBoardPanel.add(exitQuestion());
         sudokuBoardPanel.add(drawSudokuKeypad());
         sudokuBoardPanel.add(drawSudokuBoard());
+        sudokuBoardPanel.add(background());
+        sudokuBoardPanel.setFocusable(true);
+        generator.displayBoard(buttonsTemplateCreator);
+        sudokuBoardPanel.addKeyListener(new KeyListener() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+
+            }
+
+            @Override
+            public void keyPressed(KeyEvent e) {
+                int code = e.getKeyCode();
+                if(code == 27){
+                    sudokuBoardPanel.getComponent(0).setVisible(true);
+                }
+
+            }
+
+            @Override
+            public void keyReleased(KeyEvent e) {
+
+            }
+        });
+
+
+        return sudokuBoardPanel;
 
 
 /*
@@ -38,10 +69,7 @@ public class SudokuBoard {
 
 
  */
-        sudokuBoardPanel.add(background());
-        generator.displayBoard(buttonsTemplateCreator);
 
-        return sudokuBoardPanel;
 
 
 
@@ -90,6 +118,35 @@ public class SudokuBoard {
 
         // create buttons template
         buttonsTemplateCreator.createBoardTemplate(buttonCreator.getBoardButtons(), buttonCreator.getKeypadButtons());
+        return mainPanel;
+    }
+
+    public JPanel exitQuestion(){
+        JPanel mainPanel = new JPanel();
+        JButton question = new JButton("Are you sure?");
+        JButton yes = new JButton("Yes");
+        JButton no = new JButton("No");
+        question.setFont(new Font(null, Font.PLAIN, 40));
+        yes.setFont(new Font(null, Font.PLAIN, 40));
+        no.setFont(new Font(null, Font.PLAIN, 40));
+        yes.setBorderPainted(false);
+        yes.setContentAreaFilled(false);
+        no.setBorderPainted(false);
+        no.setContentAreaFilled(false);
+        question.setBorderPainted(false);
+        question.setContentAreaFilled(false);
+        question.setFocusable(false);
+        yes.setFocusable(false);
+        no.setFocusable(false);
+        mainPanel.setLayout(new BorderLayout());
+        mainPanel.setBounds(screenWidth / 2 - 451 / 2, screenHeight/3, 500, 200);
+        mainPanel.setBackground(new Color(247,240,223));
+        mainPanel.add(question, BorderLayout.NORTH);
+        mainPanel.add(yes, BorderLayout.CENTER);
+        mainPanel.add(no, BorderLayout.AFTER_LAST_LINE);
+        yes.addActionListener(e-> System.exit(0));
+        no.addActionListener(e-> mainPanel.setVisible(false));
+        mainPanel.setVisible(false);
         return mainPanel;
     }
 }
