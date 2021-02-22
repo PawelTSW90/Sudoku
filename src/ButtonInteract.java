@@ -7,12 +7,14 @@ public class ButtonInteract implements ActionListener {
     Button button;
     ButtonsTemplateCreator creator;
     BoardChecker checker = new BoardChecker();
+    SudokuGenerator generator;
 
 
 
-    public ButtonInteract(Button button, ButtonsTemplateCreator creator) {
+    public ButtonInteract(Button button, ButtonsTemplateCreator creator, SudokuGenerator generator) {
         this.button = button;
         this.creator = creator;
+        this.generator = generator;
     }
 
 
@@ -44,12 +46,15 @@ public class ButtonInteract implements ActionListener {
 
                     }
                 }
-                if(isBoardCompleted()){
-                    if(isBoardCompletedCorrectly()){
-                        System.out.println("Gratulacje");
+                if(generator.isBoardCompleted(creator)){
+                    System.out.println("COMPLETED");
+                    if(generator.isBoardCompletedCorrectly(creator)){
+                        System.out.println("Board completed!");
                     } else{
-                        System.out.println("Lipa!");
+                        System.out.println("Something went wrong...");
                     }
+                }else {
+                    System.out.println("NOT COMPLETED");
                 }
 
                 //if none of the buttons are active, set clicked board button as active
@@ -128,12 +133,16 @@ public class ButtonInteract implements ActionListener {
                 }
 
             }
-            if(isBoardCompleted()){
-                if(isBoardCompletedCorrectly()){
+            if(generator.isBoardCompleted(creator)){
+
+                System.out.println("COMPLETED");
+                if(generator.isBoardCompletedCorrectly(creator)){
                     System.out.println("Board completed!");
                 } else{
                     System.out.println("Something went wrong...");
                 }
+            }else {
+                System.out.println("Not Completed");
             }
 
         }
@@ -154,27 +163,6 @@ public class ButtonInteract implements ActionListener {
         return false;
 
     }
-    public boolean isBoardCompletedCorrectly(){
-        for(int x = 0; x<81; x++){
-            if(!creator.getBoardButtonsTemplateList().get(x).getButton().getLabel().equals(String.valueOf(SudokuGenerator.boardSolution[x]))){
-                return false;
-            }
-
-        }
-return true;
-    }
-
-    public boolean isBoardCompleted(){
-        for (int x = 0; x < 81; x++) {
-            if (creator.getBoardButtonsTemplateList().get(x).getButton().getLabel().equals("")) {
-                return false;
-
-            }
-        }
-        return true;
-
-
-    }
 
     //method is checking if any keypad button is active
     public boolean isKeypadButtonHighlighted() {
@@ -188,6 +176,8 @@ return true;
         }
         return false;
     }
+
+
 
 
 }

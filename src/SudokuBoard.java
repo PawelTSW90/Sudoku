@@ -1,10 +1,8 @@
-import org.w3c.dom.Text;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.util.Random;
+
 
 public class SudokuBoard {
     JPanel sudokuBoardPanel = new JPanel();
@@ -14,6 +12,8 @@ public class SudokuBoard {
     ButtonsTemplateCreator buttonsTemplateCreator = new ButtonsTemplateCreator();
     ButtonCreator buttonCreator = new ButtonCreator();
     SudokuGenerator generator = new SudokuGenerator();
+
+
 
 
     public JPanel createSudokuBoard() {
@@ -44,8 +44,6 @@ public class SudokuBoard {
 
             }
         });
-
-
         return sudokuBoardPanel;
 
 
@@ -117,7 +115,7 @@ public class SudokuBoard {
         }
 
         // create buttons template
-        buttonsTemplateCreator.createBoardTemplate(buttonCreator.getBoardButtons(), buttonCreator.getKeypadButtons());
+        buttonsTemplateCreator.createBoardTemplate(buttonCreator.getBoardButtons(), buttonCreator.getKeypadButtons(), generator);
         return mainPanel;
     }
 

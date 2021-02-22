@@ -8,7 +8,7 @@ import java.util.Scanner;
 public class SudokuGenerator {
     BoardChecker checker = new BoardChecker();
     StringBuilder tmpContainer = new StringBuilder();
-    static char[] boardSolution = new char[81];
+    char[] boardSolution = new char[81];
 
     public boolean generateFullBoard(ButtonsTemplateCreator creator) {
 
@@ -140,11 +140,9 @@ public class SudokuGenerator {
     }
 
 
-
+//method returns random board line from decrypted String
     public String decryptToString(){
         Random random = new Random();
-        String value = null;
-        String decryptedString = new String(EncryptionClass.decrypt("123",EncryptionClass.encrypt("123", stringCreator())));
         int randomLine = random.nextInt(100-2+2)+2;
 
         try {
@@ -173,34 +171,56 @@ return null;
     }
 
     public void displayBoard(ButtonsTemplateCreator creator){
-        char[] valuesArray = new char[81];
-        char[] boardSolutionTmp = new char[81];
+        char[] notSolvedValues = new char[81];
+        char[] solvedValues = new char[81];
        String boardValues = decryptToString();
        StringBuilder builder = new StringBuilder(boardValues);
        for(int x = 1; x<82; x++) {
-           builder.getChars(x-1, x, valuesArray, x-1);
+           builder.getChars(x-1, x, notSolvedValues, x-1);
 
        }
 
        for(int x = 83; x<164; x++){
-           builder.getChars(x-1, x, boardSolutionTmp, x-83);
+           builder.getChars(x-1, x, solvedValues, x-83);
        }
 
        for(int x = 0; x<81; x++){
-           if(String.valueOf(valuesArray[x]).equals("0")){
+           if(String.valueOf(notSolvedValues[x]).equals("0")){
             creator.getBoardButtonsTemplateList().get(x).getButton().setLabel("");
             continue;
 
            }else
                creator.getBoardButtonsTemplateList().get(x).getButton().setBackground(Color.lightGray);
-           creator.getBoardButtonsTemplateList().get(x).getButton().setLabel(String.valueOf(valuesArray[x]));
+           creator.getBoardButtonsTemplateList().get(x).getButton().setLabel(String.valueOf(notSolvedValues[x]));
 
 
        }
-        boardSolution = boardSolutionTmp;
+        boardSolution = solvedValues;
 
 
 
+    }
+
+    public boolean isBoardCompleted(ButtonsTemplateCreator creator){
+
+        for (int x = 0; x < 81; x++) {
+            if (creator.getBoardButtonsTemplateList().get(x).getButton().getLabel().equals("")) {
+                return false;
+
+            }
+        }
+        return true;
+
+    }
+
+    public boolean isBoardCompletedCorrectly(ButtonsTemplateCreator creator){
+        for(int x = 0; x<81; x++){
+            if(!creator.getBoardButtonsTemplateList().get(x).getButton().getLabel().equals(String.valueOf(boardSolution[x]))){
+                return false;
+            }
+
+        }
+        return true;
     }
 
 }
