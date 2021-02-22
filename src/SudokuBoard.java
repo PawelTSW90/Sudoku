@@ -17,6 +17,7 @@ public class SudokuBoard {
 
 
     public JPanel createSudokuBoard() {
+        TimerClass timer = new TimerClass();
         sudokuBoardPanel.setLayout(null);
         sudokuBoardPanel.add(exitQuestion());
         sudokuBoardPanel.add(drawSudokuKeypad());
@@ -44,6 +45,7 @@ public class SudokuBoard {
 
             }
         });
+        timer.setTimer();
         return sudokuBoardPanel;
 
 
