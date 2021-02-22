@@ -78,7 +78,7 @@ public class SudokuBoard {
 
         JLabel backgroundLabel = new JLabel();
         backgroundLabel.setBounds(0, 0, screenWidth, screenHeight);
-        backgroundLabel.setIcon(new ImageIcon("sudoku-background.jpg"));
+        backgroundLabel.setIcon(new ImageIcon("./Visuals/sudoku-background.jpg"));
 
 
         return backgroundLabel;

@@ -6,6 +6,7 @@ import java.util.Random;
 import java.util.Scanner;
 
 public class SudokuGenerator {
+    SoundClass sound = new SoundClass();
     BoardChecker checker = new BoardChecker();
     StringBuilder tmpContainer = new StringBuilder();
     char[] boardSolution = new char[81];
@@ -190,7 +191,7 @@ return null;
             continue;
 
            }else
-               creator.getBoardButtonsTemplateList().get(x).getButton().setBackground(Color.lightGray);
+               creator.getBoardButtonsTemplateList().get(x).getButton().setBackground(new Color(225, 199, 149));
            creator.getBoardButtonsTemplateList().get(x).getButton().setLabel(String.valueOf(notSolvedValues[x]));
 
 
@@ -216,10 +217,12 @@ return null;
     public boolean isBoardCompletedCorrectly(ButtonsTemplateCreator creator){
         for(int x = 0; x<81; x++){
             if(!creator.getBoardButtonsTemplateList().get(x).getButton().getLabel().equals(String.valueOf(boardSolution[x]))){
+                sound.boardCompletedWrong();
                 return false;
             }
 
         }
+        sound.boardCompletedCorrectly();
         return true;
     }
 

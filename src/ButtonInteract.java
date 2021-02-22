@@ -3,6 +3,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class ButtonInteract implements ActionListener {
+    SoundClass sound = new SoundClass();
     private static String valueToInput;
     Button button;
     ButtonsTemplateCreator creator;
@@ -28,8 +29,9 @@ public class ButtonInteract implements ActionListener {
 
     //method responsible for interacting with board buttons by clicking
     public void boardButtonAction() {
+        //interaction not editable buttons not allowed
+        if (button.getBackground().equals(new Color(225, 199, 149))){
 
-        if (button.getBackground().equals(Color.lightGray)) {
 
 
         } else
@@ -46,15 +48,11 @@ public class ButtonInteract implements ActionListener {
 
                     }
                 }
+                sound.tick();
                 if(generator.isBoardCompleted(creator)){
-                    System.out.println("COMPLETED");
                     if(generator.isBoardCompletedCorrectly(creator)){
-                        System.out.println("Board completed!");
-                    } else{
-                        System.out.println("Something went wrong...");
+
                     }
-                }else {
-                    System.out.println("NOT COMPLETED");
                 }
 
                 //if none of the buttons are active, set clicked board button as active
@@ -62,7 +60,7 @@ public class ButtonInteract implements ActionListener {
                 button.setBackground(Color.getHSBColor(80, 80, 80));
                 button.setFocusable(true);
                 button.requestFocus();
-                button.addKeyListener(new ButtonKeyListener(button, this, checker));
+                button.addKeyListener(new ButtonKeyListener(button, this, checker, generator, creator));
 
 
             } else {
@@ -84,7 +82,7 @@ public class ButtonInteract implements ActionListener {
                     button.setBackground(Color.getHSBColor(80, 80, 80));
                     button.setFocusable(true);
                     button.requestFocus();
-                    button.addKeyListener(new ButtonKeyListener(button, this, checker));
+                    button.addKeyListener(new ButtonKeyListener(button, this, checker, generator, creator));
                 }
             }
     }
@@ -133,16 +131,11 @@ public class ButtonInteract implements ActionListener {
                 }
 
             }
+            sound.tick();
             if(generator.isBoardCompleted(creator)){
-
-                System.out.println("COMPLETED");
                 if(generator.isBoardCompletedCorrectly(creator)){
-                    System.out.println("Board completed!");
-                } else{
-                    System.out.println("Something went wrong...");
+
                 }
-            }else {
-                System.out.println("Not Completed");
             }
 
         }

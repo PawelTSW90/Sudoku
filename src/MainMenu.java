@@ -22,11 +22,11 @@ public class MainMenu {
         JLabel title = new JLabel();
         JLabel createdBy = new JLabel();
         createdBy.setBounds(screenWidth-screenWidth/7, screenHeight-screenHeight/6, 355, 93);
-        createdBy.setIcon(new ImageIcon("created_by.png"));
+        createdBy.setIcon(new ImageIcon("./Visuals/created_by.png"));
         background.setBounds(0, 0, screenWidth, screenHeight);
-        background.setIcon(new ImageIcon("sudoku-background.jpg"));
+        background.setIcon(new ImageIcon("./Visuals/sudoku-background.jpg"));
         title.setBounds(screenWidth / 2 - 451 / 2, screenHeight / 8, 451, 198);
-        title.setIcon(new ImageIcon("logo.png"));
+        title.setIcon(new ImageIcon("./Visuals/logo.png"));
         mainMenuPanel.add(title);
         mainMenuPanel.add(startButton());
         mainMenuPanel.add(exitButton());
@@ -46,7 +46,7 @@ public class MainMenu {
     public JButton startButton(){
         JButton start = new JButton();
         start.setBounds(screenWidth / 2 - 177 / 2, screenHeight / 2, 177, 115);
-        start.setIcon(new ImageIcon("start_button.png"));
+        start.setIcon(new ImageIcon("./Visuals/start_button.png"));
         start.setBorderPainted(false);
         start.setContentAreaFilled(false);
         start.addActionListener(e->{
@@ -62,7 +62,7 @@ public class MainMenu {
     public JButton exitButton(){
         JButton exit = new JButton();
         exit.setBounds(screenWidth / 2 - 147 / 2, screenHeight-(screenHeight/4), 147, 115);
-        exit.setIcon(new ImageIcon("exit_button.png"));
+        exit.setIcon(new ImageIcon("./Visuals/exit_button.png"));
         exit.setBorderPainted(false);
         exit.setContentAreaFilled(false);
         exit.addActionListener(e-> System.exit(0));

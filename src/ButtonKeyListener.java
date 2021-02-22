@@ -6,12 +6,17 @@ public class ButtonKeyListener implements KeyListener {
     Button button;
     ButtonInteract interact;
     BoardChecker checker;
+    SudokuGenerator generator;
+    ButtonsTemplateCreator creator;
+    SoundClass sound = new SoundClass();
 
 
-    ButtonKeyListener(Button button, ButtonInteract interact, BoardChecker checker) {
+    ButtonKeyListener(Button button, ButtonInteract interact, BoardChecker checker, SudokuGenerator generator, ButtonsTemplateCreator creator) {
         this.button = button;
         this.interact = interact;
         this.checker = checker;
+        this.generator = generator;
+        this.creator = creator;
 
 
     }
@@ -37,6 +42,12 @@ public class ButtonKeyListener implements KeyListener {
                 button.setName("N");
                 button.setBackground(null);
                 button.setFocusable(false);
+                sound.tick();
+                if(generator.isBoardCompleted(creator)){
+                    if(generator.isBoardCompletedCorrectly(creator)){
+
+                    }
+                }
 
             }
         //if backspace or delete has been pressed, remove current value
