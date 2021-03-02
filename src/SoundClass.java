@@ -26,7 +26,7 @@ new Thread(() -> {
         new Thread(() -> {
             try {
                 Clip clip = AudioSystem.getClip();
-                File file = new File("./Sounds/_completed.wav");
+                File file = new File("./Sounds/board_completed.wav");
                 AudioInputStream inputStream = AudioSystem.getAudioInputStream(file);
                 clip.open(inputStream);
                 clip.start();
