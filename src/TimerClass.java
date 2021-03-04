@@ -1,32 +1,36 @@
-import java.sql.Time;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.Timer;
 import java.util.TimerTask;
 
 public class TimerClass {
-    int seconds = 50;
-    int minutes = 59;
+    int seconds = 0;
+    int minutes = 0;
     int hours = 0;
+    StringBuffer time = new StringBuffer();
+    SudokuBoard board;
+
+    public TimerClass(SudokuBoard board){
+        this.board = board;
+    }
 
 
-    public void setTimer(){
+
+
+    public StringBuffer setTimer(){
         Timer timer = new Timer();
-
         timer.schedule(new TimerTask() {
-
-
-
 
             @Override
             public void run() {
+
                 counter();
-                System.out.println(hours+"h" + minutes+"m"+seconds+"s");
+                time.append(String.format("%02d", hours)).append(":").append(String.format("%02d", minutes)).append(":").append(String.format("%02d", seconds));
+                board.setTimerButton(board.sudokuBoardPanel.getComponent(3), String.valueOf(time));
+                time.delete(0, time.capacity());
 
 
             }
-        }, 1000, 1000);
+        }, 0, 1000);
+        return time;
     }
 
     public int counter(){
@@ -42,4 +46,10 @@ public class TimerClass {
         }
         return seconds;
     }
+
+    public StringBuffer getTime(){
+        return time;
+    }
+
+
 }

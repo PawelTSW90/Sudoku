@@ -1,5 +1,7 @@
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
@@ -14,14 +16,12 @@ public class SudokuBoard {
     SudokuGenerator generator = new SudokuGenerator();
 
 
-
-
     public JPanel createSudokuBoard() {
-        TimerClass timer = new TimerClass();
         sudokuBoardPanel.setLayout(null);
-        sudokuBoardPanel.add(exitQuestion());
+        sudokuBoardPanel.add(exitQuestion());;
         sudokuBoardPanel.add(drawSudokuKeypad());
         sudokuBoardPanel.add(drawSudokuBoard());
+        sudokuBoardPanel.add(timerLabel());
         sudokuBoardPanel.add(background());
         sudokuBoardPanel.setFocusable(true);
         generator.displayBoard(buttonsTemplateCreator);
@@ -34,8 +34,11 @@ public class SudokuBoard {
             @Override
             public void keyPressed(KeyEvent e) {
                 int code = e.getKeyCode();
-                if(code == 27){
+                if (code == 27) {
                     sudokuBoardPanel.getComponent(0).setVisible(true);
+                    sudokuBoardPanel.setFocusable(false);
+
+
                 }
 
             }
@@ -45,33 +48,8 @@ public class SudokuBoard {
 
             }
         });
-        timer.setTimer();
+        new TimerClass(this).setTimer();
         return sudokuBoardPanel;
-
-
-/*
-        //temporary button
-        JPanel buttonPanel = new JPanel();
-        buttonPanel.setBounds(1200, 500, 200, 200);
-        Button button = new Button("Generate one board");
-        buttonPanel.add(button);
-        button.addActionListener(e -> {
-            while (!generator.generateFullBoard(buttonsTemplateCreator)) {
-
-            }
-
-        });
-
-
-
-
-        sudokuBoardPanel.add(buttonPanel);
-
-
- */
-
-
-
 
     }
 
@@ -121,33 +99,75 @@ public class SudokuBoard {
         return mainPanel;
     }
 
-    public JPanel exitQuestion(){
+    public JPanel exitQuestion() {
         JPanel mainPanel = new JPanel();
+        mainPanel.addKeyListener(new KeyListener() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+
+            }
+
+            @Override
+            public void keyPressed(KeyEvent e) {
+                int code = e.getKeyCode();
+                if (code == 27) {
+                    sudokuBoardPanel.setFocusable(true);
+                    sudokuBoardPanel.getComponent(0).setVisible(false);
+
+
+                }
+            }
+
+            @Override
+            public void keyReleased(KeyEvent e) {
+
+            }
+        });
         JButton question = new JButton("Are you sure?");
         JButton yes = new JButton("Yes");
         JButton no = new JButton("No");
         question.setFont(new Font(null, Font.PLAIN, 40));
         yes.setFont(new Font(null, Font.PLAIN, 40));
         no.setFont(new Font(null, Font.PLAIN, 40));
-        yes.setBorderPainted(false);
-        yes.setContentAreaFilled(false);
-        no.setBorderPainted(false);
-        no.setContentAreaFilled(false);
-        question.setBorderPainted(false);
-        question.setContentAreaFilled(false);
-        question.setFocusable(false);
-        yes.setFocusable(false);
-        no.setFocusable(false);
+        JButtonConfigure(no);
+        JButtonConfigure(yes);
+        JButtonConfigure(question);
         mainPanel.setLayout(new BorderLayout());
-        mainPanel.setBounds(screenWidth / 2 - 451 / 2, screenHeight/3, 500, 200);
-        mainPanel.setBackground(new Color(247,240,223));
+        mainPanel.setBounds(screenWidth / 2 - 451 / 2, screenHeight / 3, 500, 200);
+        mainPanel.setBackground(new Color(247, 240, 223));
         mainPanel.add(question, BorderLayout.NORTH);
         mainPanel.add(yes, BorderLayout.CENTER);
         mainPanel.add(no, BorderLayout.AFTER_LAST_LINE);
-        yes.addActionListener(e-> System.exit(0));
-        no.addActionListener(e-> mainPanel.setVisible(false));
+        mainPanel.setFocusable(true);
+        yes.addActionListener(e -> System.exit(0));
+        no.addActionListener(e -> {
+            sudokuBoardPanel.setFocusable(true);
+            mainPanel.setVisible(false);
+
+        });
         mainPanel.setVisible(false);
         return mainPanel;
+    }
+
+    public void JButtonConfigure(JButton button) {
+        button.setBorderPainted(false);
+        button.setContentAreaFilled(false);
+        button.setFocusable(false);
+    }
+
+    public JLabel timerLabel(){
+
+
+        JLabel timerLabel = new JLabel();
+        timerLabel.setFont(new Font(null, Font.PLAIN, 80));
+        timerLabel.setBounds((screenWidth/2)+600,(screenHeight/2)+200 , 500, 500);
+        timerLabel.setVisible(true);
+        return timerLabel;
+
+    }
+
+    public void setTimerButton(Component component, String time){
+        ((JLabel)component).setText(time);
     }
 }
 
