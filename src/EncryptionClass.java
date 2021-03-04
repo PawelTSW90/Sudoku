@@ -12,7 +12,7 @@ public class EncryptionClass {
     private static SecretKeySpec secretKey;
 
 
-
+        //method is encrypting given string by using password
     public static String encrypt(String password, String input) {
         byte[] key;
         Cipher cipher;
@@ -28,7 +28,7 @@ public class EncryptionClass {
         }
         return null;
     }
-
+        //method is decrypting given string if correct password is passed
     public static String decrypt(String password, String input)
     {
         byte[] key;

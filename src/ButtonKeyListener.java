@@ -5,17 +5,13 @@ import java.awt.event.KeyListener;
 public class ButtonKeyListener implements KeyListener {
     Button button;
     ButtonInteract interact;
-    BoardChecker checker;
-    SudokuGenerator generator;
     ButtonsTemplateCreator creator;
     SoundClass sound = new SoundClass();
 
 
-    ButtonKeyListener(Button button, ButtonInteract interact, BoardChecker checker, SudokuGenerator generator, ButtonsTemplateCreator creator) {
+    ButtonKeyListener(Button button, ButtonInteract interact, ButtonsTemplateCreator creator) {
         this.button = button;
         this.interact = interact;
-        this.checker = checker;
-        this.generator = generator;
         this.creator = creator;
 
 
@@ -39,14 +35,13 @@ public class ButtonKeyListener implements KeyListener {
         if (checkInput(value)) {
             if (Integer.parseInt(value) != 0) {
                 button.setLabel(value);
-                button.setName("N");
                 button.setBackground(null);
                 button.setFocusable(false);
                 sound.tick();
-                if(generator.isBoardCompleted(creator)){
-                    if(generator.isBoardCompletedCorrectly(creator)){
+                if(interact.generator.isBoardCompleted(creator)){
+                    interact.generator.isBoardCompletedCorrectly(creator);
 
-                    }
+
                 }
 
             }
@@ -57,6 +52,8 @@ public class ButtonKeyListener implements KeyListener {
             button.setBackground(null);
             button.setFocusable(false);
         } else if(code == esc){
+            button.setBackground(null);
+            button.setFocusable(false);
 
 
         }

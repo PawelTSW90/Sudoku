@@ -5,7 +5,7 @@ public class TimerClass {
     int seconds = 0;
     int minutes = 0;
     int hours = 0;
-    StringBuffer time = new StringBuffer();
+    private final StringBuffer time = new StringBuffer();
     SudokuBoard board;
 
     public TimerClass(SudokuBoard board){
@@ -14,7 +14,7 @@ public class TimerClass {
 
 
 
-
+        //method is starting timer and passing it as a value to timer JLabel
     public StringBuffer setTimer(){
         Timer timer = new Timer();
         timer.schedule(new TimerTask() {
@@ -32,7 +32,7 @@ public class TimerClass {
         }, 0, 1000);
         return time;
     }
-
+        //method is incrementing seconds, minutes and hours correctly
     public int counter(){
         seconds++;
         if(seconds == 60){
@@ -46,10 +46,5 @@ public class TimerClass {
         }
         return seconds;
     }
-
-    public StringBuffer getTime(){
-        return time;
-    }
-
 
 }

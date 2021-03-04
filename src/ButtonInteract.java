@@ -4,10 +4,9 @@ import java.awt.event.ActionListener;
 
 public class ButtonInteract implements ActionListener {
     SoundClass sound = new SoundClass();
-    private static String valueToInput;
+    private String valueToInput;
     Button button;
     ButtonsTemplateCreator creator;
-    BoardChecker checker = new BoardChecker();
     SudokuGenerator generator;
 
 
@@ -60,7 +59,7 @@ public class ButtonInteract implements ActionListener {
                 button.setBackground(Color.getHSBColor(80, 80, 80));
                 button.setFocusable(true);
                 button.requestFocus();
-                button.addKeyListener(new ButtonKeyListener(button, this, checker, generator, creator));
+                button.addKeyListener(new ButtonKeyListener(button, this, creator));
 
 
             } else {
@@ -82,7 +81,7 @@ public class ButtonInteract implements ActionListener {
                     button.setBackground(Color.getHSBColor(80, 80, 80));
                     button.setFocusable(true);
                     button.requestFocus();
-                    button.addKeyListener(new ButtonKeyListener(button, this, checker, generator, creator));
+                    button.addKeyListener(new ButtonKeyListener(button, this, creator));
                 }
             }
     }
