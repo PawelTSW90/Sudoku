@@ -12,6 +12,7 @@ public class SudokuBoard {
     ButtonsTemplateCreator buttonsTemplateCreator = new ButtonsTemplateCreator();
     ButtonCreator buttonCreator = new ButtonCreator();
     SudokuGenerator generator = new SudokuGenerator();
+    SoundClass sound = new SoundClass();
 
 
     public JPanel createSudokuBoard() {
@@ -93,7 +94,7 @@ public class SudokuBoard {
         }
 
         // create buttons template
-        buttonsTemplateCreator.createBoardTemplate(buttonCreator.getBoardButtons(), buttonCreator.getKeypadButtons(), generator);
+        buttonsTemplateCreator.createBoardTemplate(buttonCreator.getBoardButtons(), buttonCreator.getKeypadButtons(), generator, sound);
         return mainPanel;
     }
 

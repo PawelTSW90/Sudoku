@@ -6,11 +6,12 @@ public class ButtonsTemplateCreator {
 
     final private List<ButtonCreator> boardButtonsTemplateList = new ArrayList<>();
     final private List<ButtonCreator> keypadButtonsTemplateList = new ArrayList<>();
+    private String buttonValueHolder;
 
 
 //method is creating template keypad buttons list and template board button list, each cell have button and position assigned
 
-    public void createBoardTemplate(List<Button> buttonList, List<Button> keypadButtons, SudokuGenerator generator) {
+    public void createBoardTemplate(List<Button> buttonList, List<Button> keypadButtons, SudokuGenerator generator, SoundClass sound) {
         int columnNumber = 1;
         int rowNumber = 1;
 
@@ -18,7 +19,7 @@ public class ButtonsTemplateCreator {
         for (int y=0; y<9; y++){
             ButtonCreator creator = new ButtonCreator();
             creator.setButton(keypadButtons.get(y));
-            creator.getButton().addActionListener(new ButtonInteract(creator.getButton(), this, generator));
+            creator.getButton().addActionListener(new ButtonInteract(creator.getButton(), this, generator, sound));
             keypadButtonsTemplateList.add(creator);
 
         }
@@ -26,7 +27,7 @@ public class ButtonsTemplateCreator {
         for (int x = 0; x < 9; x++) {
             ButtonCreator creator = new ButtonCreator();
             creator.setButton(buttonList.get(x));
-            creator.getButton().addActionListener(new ButtonInteract(creator.getButton(), this, generator));
+            creator.getButton().addActionListener(new ButtonInteract(creator.getButton(), this, generator, sound));
             creator.setValue("");
             creator.setName("");
             creator.setSquare(1);
@@ -50,7 +51,7 @@ public class ButtonsTemplateCreator {
             ButtonCreator creator = new ButtonCreator();
 
             creator.setButton(buttonList.get(x));
-            creator.getButton().addActionListener(new ButtonInteract(creator.getButton(), this, generator));
+            creator.getButton().addActionListener(new ButtonInteract(creator.getButton(), this, generator, sound));
             creator.setValue("");
             creator.setName("");
             creator.setSquare(2);
@@ -75,7 +76,7 @@ public class ButtonsTemplateCreator {
         for (int x = 18; x < 27; x++) {
             ButtonCreator creator = new ButtonCreator();
             creator.setButton(buttonList.get(x));
-            creator.getButton().addActionListener(new ButtonInteract(creator.getButton(), this, generator));
+            creator.getButton().addActionListener(new ButtonInteract(creator.getButton(), this, generator, sound));
             creator.setValue("");
             creator.setName("");
             creator.setSquare(3);
@@ -99,7 +100,7 @@ public class ButtonsTemplateCreator {
         for (int x = 27; x < 36; x++) {
             ButtonCreator creator = new ButtonCreator();
             creator.setButton(buttonList.get(x));
-            creator.getButton().addActionListener(new ButtonInteract(creator.getButton(), this, generator));
+            creator.getButton().addActionListener(new ButtonInteract(creator.getButton(), this, generator, sound));
             creator.setValue("");
             creator.setName("");
             creator.setSquare(4);
@@ -121,7 +122,7 @@ public class ButtonsTemplateCreator {
         for (int x = 36; x < 45; x++) {
             ButtonCreator creator = new ButtonCreator();
             creator.setButton(buttonList.get(x));
-            creator.getButton().addActionListener(new ButtonInteract(creator.getButton(), this, generator));
+            creator.getButton().addActionListener(new ButtonInteract(creator.getButton(), this, generator, sound));
             creator.setValue("");
             creator.setName("");
             creator.setSquare(5);
@@ -143,7 +144,7 @@ public class ButtonsTemplateCreator {
         for (int x = 45; x < 54; x++) {
             ButtonCreator creator = new ButtonCreator();
             creator.setButton(buttonList.get(x));
-            creator.getButton().addActionListener(new ButtonInteract(creator.getButton(), this, generator));
+            creator.getButton().addActionListener(new ButtonInteract(creator.getButton(), this, generator, sound));
             creator.setValue("");
             creator.setName("");
             creator.setSquare(6);
@@ -166,7 +167,7 @@ public class ButtonsTemplateCreator {
         for (int x = 54; x < 63; x++) {
             ButtonCreator creator = new ButtonCreator();
             creator.setButton(buttonList.get(x));
-            creator.getButton().addActionListener(new ButtonInteract(creator.getButton(), this, generator));
+            creator.getButton().addActionListener(new ButtonInteract(creator.getButton(), this, generator, sound));
             creator.setValue("");
             creator.setName("");
             creator.setSquare(7);
@@ -188,7 +189,7 @@ public class ButtonsTemplateCreator {
         for (int x = 63; x < 72; x++) {
             ButtonCreator creator = new ButtonCreator();
             creator.setButton(buttonList.get(x));
-            creator.getButton().addActionListener(new ButtonInteract(creator.getButton(), this, generator));
+            creator.getButton().addActionListener(new ButtonInteract(creator.getButton(), this, generator, sound));
             creator.setValue("");
             creator.setName("");
             creator.setSquare(8);
@@ -210,7 +211,7 @@ public class ButtonsTemplateCreator {
         for (int x = 72; x < 81; x++) {
             ButtonCreator creator = new ButtonCreator();
             creator.setButton(buttonList.get(x));
-            creator.getButton().addActionListener(new ButtonInteract(creator.getButton(), this, generator));
+            creator.getButton().addActionListener(new ButtonInteract(creator.getButton(), this, generator, sound));
             creator.setValue("");
             creator.setName("");
             creator.setSquare(9);
@@ -237,4 +238,11 @@ public class ButtonsTemplateCreator {
         return keypadButtonsTemplateList;
     }
 
+    public void setButtonValueHolder(String buttonValueHolder) {
+        this.buttonValueHolder = buttonValueHolder;
+    }
+
+    public String getButtonValueHolder(){
+        return buttonValueHolder;
+    }
 }

@@ -3,34 +3,32 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class ButtonInteract implements ActionListener {
-    SoundClass sound = new SoundClass();
-    private String valueToInput;
+    SoundClass sound;
     Button button;
     ButtonsTemplateCreator creator;
     SudokuGenerator generator;
 
 
-
-    public ButtonInteract(Button button, ButtonsTemplateCreator creator, SudokuGenerator generator) {
+    public ButtonInteract(Button button, ButtonsTemplateCreator creator, SudokuGenerator generator, SoundClass sound) {
         this.button = button;
         this.creator = creator;
         this.generator = generator;
+        this.sound = sound;
     }
 
 
     @Override
     public void actionPerformed(ActionEvent e) {
         if (button.getName().contains("Keypad")) {
-            keypadButtonAction();
+            keypadButtonAction(sound);
         } else
-            boardButtonAction();
+            boardButtonAction(sound);
     }
 
     //method responsible for interacting with board buttons by clicking
-    public void boardButtonAction() {
+    public void boardButtonAction(SoundClass sound) {
         //interaction not editable buttons not allowed
-        if (button.getBackground().equals(new Color(225, 199, 149))){
-
+        if (button.getBackground().equals(new Color(225, 199, 149))) {
 
 
         } else
@@ -38,7 +36,7 @@ public class ButtonInteract implements ActionListener {
             //if keypad button is active, set it's value to clicked board button and set both buttons as no-active
             if (isKeypadButtonHighlighted() && !isBoardButtonHighlighted()) {
 
-                button.setLabel(valueToInput);
+                button.setLabel(creator.getButtonValueHolder());
                 for (int y = 0; y < 9; y++) {
                     if (creator.getKeypadButtonsTemplateList().get(y).getButton().isFocusable()) {
                         creator.getKeypadButtonsTemplateList().get(y).getButton().setFocusable(false);
@@ -48,8 +46,8 @@ public class ButtonInteract implements ActionListener {
                     }
                 }
                 sound.tick();
-                if(generator.isBoardCompleted(creator)){
-                    if(generator.isBoardCompletedCorrectly(creator)){
+                if (generator.isBoardCompleted(creator)) {
+                    if (generator.isBoardCompletedCorrectly(creator)) {
 
                     }
                 }
@@ -87,13 +85,13 @@ public class ButtonInteract implements ActionListener {
     }
 
     //method responsible for keypad buttons
-    public void keypadButtonAction() {
+    public void keypadButtonAction(SoundClass sound) {
 
         //if none of the buttons are active, set clicked button as active and save it's value
         if (!isBoardButtonHighlighted() && !isKeypadButtonHighlighted()) {
             button.setBackground(Color.getHSBColor(80, 80, 80));
             button.setFocusable(true);
-            valueToInput = button.getLabel();
+            creator.setButtonValueHolder(button.getLabel());
             button.requestFocus();
 
             //if clicked button is active, set it as no-active
@@ -111,7 +109,7 @@ public class ButtonInteract implements ActionListener {
                     }
 
                 }
-                valueToInput = button.getLabel();
+                creator.setButtonValueHolder(button.getLabel());
                 button.setBackground(Color.getHSBColor(80, 80, 80));
                 button.setFocusable(true);
                 button.requestFocus();
@@ -119,11 +117,11 @@ public class ButtonInteract implements ActionListener {
             }
             //if board button is active, set its value to clicked keypad button value, and set it as no-active
         } else {
-            valueToInput = button.getLabel();
+            creator.setButtonValueHolder(button.getLabel());
 
             for (int x = 0; x < 81; x++) {
                 if (creator.getBoardButtonsTemplateList().get(x).getButton().isFocusable()) {
-                    creator.getBoardButtonsTemplateList().get(x).getButton().setLabel(valueToInput);
+                    creator.getBoardButtonsTemplateList().get(x).getButton().setLabel(creator.getButtonValueHolder());
                     creator.getBoardButtonsTemplateList().get(x).getButton().setFocusable(false);
                     creator.getBoardButtonsTemplateList().get(x).getButton().setBackground(null);
 
@@ -131,8 +129,8 @@ public class ButtonInteract implements ActionListener {
 
             }
             sound.tick();
-            if(generator.isBoardCompleted(creator)){
-                if(generator.isBoardCompletedCorrectly(creator)){
+            if (generator.isBoardCompleted(creator)) {
+                if (generator.isBoardCompletedCorrectly(creator)) {
 
                 }
             }
@@ -168,8 +166,6 @@ public class ButtonInteract implements ActionListener {
         }
         return false;
     }
-
-
 
 
 }
