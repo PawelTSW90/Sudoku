@@ -2,6 +2,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 
 public class SudokuBoard {
@@ -18,11 +20,11 @@ public class SudokuBoard {
 
     public JPanel createSudokuBoard() {
         sudokuBoardPanel.setLayout(null);
-        sudokuBoardPanel.add(exitQuestion());;
+        sudokuBoardPanel.add(exitQuestion());
         sudokuBoardPanel.add(drawSudokuKeypad());
         sudokuBoardPanel.add(drawSudokuBoard());
         sudokuBoardPanel.add(timerLabel());
-        sudokuBoardPanel.add(soundOption());
+        sudokuBoardPanel.add(soundLabel());
         sudokuBoardPanel.add(background());
         sudokuBoardPanel.setFocusable(true);
         generator.displayBoard(buttonsTemplateCreator);
@@ -37,14 +39,12 @@ public class SudokuBoard {
             public void keyPressed(KeyEvent e) {
                 int code = e.getKeyCode();
                 if (code == 27) {
-                    sudokuBoardPanel.getComponent(1).setVisible(false);
-                    sudokuBoardPanel.getComponent(2).setVisible(false);
-                    sudokuBoardPanel.getComponent(4).setVisible(false);
-                    sudokuBoardPanel.getComponent(0).setVisible(true);
 
+                    disableBackground(0);
+                    disableKeypad(sudokuBoardPanel.getComponent(1),0);
+                    sudokuBoardPanel.getComponent(0).setVisible(true);
                     time.pauseThread();
                     sudokuBoardPanel.setFocusable(false);
-
 
 
                 }
@@ -109,7 +109,7 @@ public class SudokuBoard {
 
     public JPanel exitQuestion() {
         JPanel mainPanel = new JPanel();
-        mainPanel.setLayout(new GridLayout(3,1));
+        mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.X_AXIS));
         mainPanel.addKeyListener(new KeyListener() {
             @Override
             public void keyTyped(KeyEvent e) {
@@ -121,6 +121,9 @@ public class SudokuBoard {
                 int code = e.getKeyCode();
                 if (code == 27) {
                     sudokuBoardPanel.setFocusable(true);
+
+                    disableBackground(1);
+                    disableKeypad(sudokuBoardPanel.getComponent(1),1);
                     time.resumeThread();
                     sudokuBoardPanel.getComponent(0).setVisible(false);
 
@@ -133,6 +136,8 @@ public class SudokuBoard {
 
             }
         });
+
+
         JButton question = new JButton("Are you sure?");
         JButton yes = new JButton("Yes");
         JButton no = new JButton("No");
@@ -142,22 +147,22 @@ public class SudokuBoard {
         JButtonConfigure(no);
         JButtonConfigure(yes);
         JButtonConfigure(question);
-        mainPanel.setBounds(screenWidth / 2 - 451 / 2, screenHeight / 3, 500, 300);
-        mainPanel.setBackground(new Color(247, 240, 223));
+
+        mainPanel.setBounds(screenWidth / 2 - 500 / 2, screenHeight / 2-150/2, 500, 150);
         mainPanel.add(question);
         mainPanel.add(yes);
         mainPanel.add(no);
+        yes.setForeground(new Color(54, 121, 34));
         yes.setBackground(new Color(54, 121, 34));
-        yes.setContentAreaFilled(true);
-        no.setBackground(new Color(144, 44, 19));
-        no.setContentAreaFilled(true);
+        no.setForeground(new Color(144, 44, 19));
         mainPanel.setFocusable(true);
+        mainPanel.setBorder(BorderFactory.createLineBorder(Color.black));
         yes.addActionListener(e -> System.exit(0));
         no.addActionListener(e -> {
             sudokuBoardPanel.setFocusable(true);
-            sudokuBoardPanel.getComponent(1).setVisible(true);
-            sudokuBoardPanel.getComponent(2).setVisible(true);
-            sudokuBoardPanel.getComponent(4).setVisible(true);
+
+            disableBackground(1);
+            disableKeypad(sudokuBoardPanel.getComponent(1),1);
             time.resumeThread();
             mainPanel.setVisible(false);
 
@@ -172,27 +177,99 @@ public class SudokuBoard {
         button.setFocusable(false);
     }
 
-    public JLabel timerLabel(){
+    public JLabel timerLabel() {
 
 
         JLabel timerLabel = new JLabel();
         timerLabel.setFont(new Font(null, Font.PLAIN, 80));
-        timerLabel.setBounds((screenWidth/2)+600,(screenHeight/2)+200 , 500, 500);
+        timerLabel.setBounds((screenWidth / 2) + 600, (screenHeight / 2) + 200, 500, 500);
         timerLabel.setVisible(true);
         return timerLabel;
 
     }
 
-    public void setTimerButton(Component component, String time){
-        ((JLabel)component).setText(time);
+    public void setTimerButton(Component component, String time) {
+        ((JLabel) component).setText(time);
     }
 
-    public JLabel soundOption(){
+    public JLabel soundLabel() {
         JLabel sound = new JLabel("Sounds");
         sound.setFont(new Font(null, Font.PLAIN, 80));
-        sound.setBounds((screenWidth/2)+600, (screenHeight/2)-200, 400, 400);
+        sound.setBounds((screenWidth / 2) + 600, (screenHeight / 2) - 200, 400, 400);
         sound.setVisible(true);
         return sound;
     }
+
+    public void disableBackground(int tmp) {
+        ArrayList<Component> sudokuBoardList = new ArrayList<>();
+        ArrayList<Component> sudokuKeypadList = new ArrayList<>();
+        Component sudokuBoard = sudokuBoardPanel.getComponent(2);
+        Component sudokuKeypad = sudokuBoardPanel.getComponent(1);
+
+
+            for (int x = 0; x < ((Container) sudokuBoard).getComponents().length; x++) {
+                Component currentComponent = ((Container) sudokuBoard).getComponent(x);
+
+                    for (int y = 0; y < ((Container) currentComponent).getComponents().length; y++) {
+                        Component currentButton = ((Container) currentComponent).getComponent(y);
+                        sudokuBoardList.add(currentButton);
+                    }
+
+            }
+        for (int x = 0; x < ((Container) sudokuKeypad).getComponents().length; x++) {
+            Component currentComponent = ((Container) sudokuKeypad).getComponent(x);
+            sudokuKeypadList.add(currentComponent);
+        }
+
+
+
+            if(tmp == 0) {
+
+                for (Component component : sudokuBoardList) {
+                    component.setEnabled(false);
+                }for
+                    (Component component2 : sudokuKeypadList) {
+                        component2.setEnabled(false);
+                }
+            } else{
+                for (Component component : sudokuBoardList) {
+                    component.setEnabled(true);
+                }
+                for(Component component2: sudokuKeypadList){
+                    component2.setEnabled(true);
+                }
+
+            }
+
+
+        }
+
+        public void disableKeypad(Component container, int tmp){
+            ArrayList<Component> list = new ArrayList<>();
+
+
+
+            for (int x = 0; x < ((Container) container).getComponents().length; x++) {
+                Component currentComponent = ((Container) container).getComponent(x);
+                list.add(currentComponent);
+
+
+            }
+            if(tmp == 0) {
+
+                for (Component component : list) {
+                    component.setEnabled(false);
+                }
+            } else{
+                for (Component component : list) {
+                    component.setEnabled(true);
+                }
+
+            }
+        }
+
+
 }
+
+
 
