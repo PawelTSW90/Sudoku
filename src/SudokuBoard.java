@@ -2,8 +2,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.event.MouseEvent;
 import java.util.ArrayList;
-import java.util.Arrays;
 
 
 public class SudokuBoard {
@@ -41,7 +41,7 @@ public class SudokuBoard {
                 if (code == 27) {
 
                     disableBackground(0);
-                    disableKeypad(sudokuBoardPanel.getComponent(1),0);
+                    disableKeypad(sudokuBoardPanel.getComponent(1), 0);
                     sudokuBoardPanel.getComponent(0).setVisible(true);
                     time.pauseThread();
                     sudokuBoardPanel.setFocusable(false);
@@ -123,7 +123,7 @@ public class SudokuBoard {
                     sudokuBoardPanel.setFocusable(true);
 
                     disableBackground(1);
-                    disableKeypad(sudokuBoardPanel.getComponent(1),1);
+                    disableKeypad(sudokuBoardPanel.getComponent(1), 1);
                     time.resumeThread();
                     sudokuBoardPanel.getComponent(0).setVisible(false);
 
@@ -147,26 +147,38 @@ public class SudokuBoard {
         JButtonConfigure(no);
         JButtonConfigure(yes);
         JButtonConfigure(question);
-
-        mainPanel.setBounds(screenWidth / 2 - 500 / 2, screenHeight / 2-150/2, 500, 150);
+        mainPanel.setBounds(screenWidth / 2 - 500 / 2, screenHeight / 2 - 150 / 2, 500, 150);
         mainPanel.add(question);
         mainPanel.add(yes);
         mainPanel.add(no);
         yes.setForeground(new Color(54, 121, 34));
-        yes.setBackground(new Color(54, 121, 34));
         no.setForeground(new Color(144, 44, 19));
         mainPanel.setFocusable(true);
         mainPanel.setBorder(BorderFactory.createLineBorder(Color.black));
         yes.addActionListener(e -> System.exit(0));
         no.addActionListener(e -> {
             sudokuBoardPanel.setFocusable(true);
-
             disableBackground(1);
-            disableKeypad(sudokuBoardPanel.getComponent(1),1);
+            disableKeypad(sudokuBoardPanel.getComponent(1), 1);
             time.resumeThread();
             mainPanel.setVisible(false);
 
         });
+        yes.addMouseListener(new MouseListenerClass(mainPanel){
+            @Override
+            public void mouseReleased(MouseEvent e) {
+                panel.getComponent(1).setForeground(new Color(54, 121, 34));
+
+            }
+            @Override
+            public void mousePressed(MouseEvent e) {
+                panel.getComponent(1).setForeground(Color.BLACK);
+                new SoundClass().tick();
+
+
+            }
+        });
+        no.addMouseListener(new MouseListenerClass(mainPanel));
         mainPanel.setVisible(false);
         return mainPanel;
     }
@@ -207,66 +219,65 @@ public class SudokuBoard {
         Component sudokuKeypad = sudokuBoardPanel.getComponent(1);
 
 
-            for (int x = 0; x < ((Container) sudokuBoard).getComponents().length; x++) {
-                Component currentComponent = ((Container) sudokuBoard).getComponent(x);
+        for (int x = 0; x < ((Container) sudokuBoard).getComponents().length; x++) {
+            Component currentComponent = ((Container) sudokuBoard).getComponent(x);
 
-                    for (int y = 0; y < ((Container) currentComponent).getComponents().length; y++) {
-                        Component currentButton = ((Container) currentComponent).getComponent(y);
-                        sudokuBoardList.add(currentButton);
-                    }
-
+            for (int y = 0; y < ((Container) currentComponent).getComponents().length; y++) {
+                Component currentButton = ((Container) currentComponent).getComponent(y);
+                sudokuBoardList.add(currentButton);
             }
+
+        }
         for (int x = 0; x < ((Container) sudokuKeypad).getComponents().length; x++) {
             Component currentComponent = ((Container) sudokuKeypad).getComponent(x);
             sudokuKeypadList.add(currentComponent);
         }
 
 
+        if (tmp == 0) {
 
-            if(tmp == 0) {
-
-                for (Component component : sudokuBoardList) {
-                    component.setEnabled(false);
-                }for
-                    (Component component2 : sudokuKeypadList) {
-                        component2.setEnabled(false);
-                }
-            } else{
-                for (Component component : sudokuBoardList) {
-                    component.setEnabled(true);
-                }
-                for(Component component2: sudokuKeypadList){
-                    component2.setEnabled(true);
-                }
-
+            for (Component component : sudokuBoardList) {
+                component.setEnabled(false);
             }
-
+            for
+            (Component component2 : sudokuKeypadList) {
+                component2.setEnabled(false);
+            }
+        } else {
+            for (Component component : sudokuBoardList) {
+                component.setEnabled(true);
+            }
+            for (Component component2 : sudokuKeypadList) {
+                component2.setEnabled(true);
+            }
 
         }
 
-        public void disableKeypad(Component container, int tmp){
-            ArrayList<Component> list = new ArrayList<>();
+
+    }
+
+    public void disableKeypad(Component container, int tmp) {
+        ArrayList<Component> list = new ArrayList<>();
 
 
+        for (int x = 0; x < ((Container) container).getComponents().length; x++) {
+            Component currentComponent = ((Container) container).getComponent(x);
+            list.add(currentComponent);
 
-            for (int x = 0; x < ((Container) container).getComponents().length; x++) {
-                Component currentComponent = ((Container) container).getComponent(x);
-                list.add(currentComponent);
 
-
-            }
-            if(tmp == 0) {
-
-                for (Component component : list) {
-                    component.setEnabled(false);
-                }
-            } else{
-                for (Component component : list) {
-                    component.setEnabled(true);
-                }
-
-            }
         }
+        if (tmp == 0) {
+
+            for (Component component : list) {
+                component.setEnabled(false);
+            }
+        } else {
+            for (Component component : list) {
+                component.setEnabled(true);
+            }
+
+        }
+    }
 
 
 }
