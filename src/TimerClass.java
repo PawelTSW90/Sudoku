@@ -7,6 +7,7 @@ public class TimerClass {
     int hours = 0;
     private final StringBuffer time = new StringBuffer();
     SudokuBoard board;
+    volatile boolean pauseThread = false;
 
     public TimerClass(SudokuBoard board){
         this.board = board;
@@ -21,13 +22,15 @@ public class TimerClass {
 
             @Override
             public void run() {
+                if (!pauseThread) {
+                    counter();
+                    time.append(String.format("%02d", hours)).append(":").append(String.format("%02d", minutes)).append(":").append(String.format("%02d", seconds));
+                    board.setTimerButton(board.sudokuBoardPanel.getComponent(3), String.valueOf(time));
+                    time.delete(0, time.capacity());
 
-                counter();
-                time.append(String.format("%02d", hours)).append(":").append(String.format("%02d", minutes)).append(":").append(String.format("%02d", seconds));
-                board.setTimerButton(board.sudokuBoardPanel.getComponent(3), String.valueOf(time));
-                time.delete(0, time.capacity());
 
 
+                }
             }
         }, 0, 1000);
         return time;
@@ -45,6 +48,14 @@ public class TimerClass {
             seconds = 0;
         }
         return seconds;
+    }
+
+    public void pauseThread(){
+        pauseThread = true;
+    }
+
+    public void resumeThread(){
+        pauseThread = false;
     }
 
 }
