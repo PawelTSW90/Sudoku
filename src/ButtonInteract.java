@@ -48,7 +48,7 @@ public class ButtonInteract implements ActionListener {
                     }
                 }
                 sound.tick();
-                if (generator.isBoardCompleted(creator, board)) {
+                if (generator.isBoardCompleted(creator)) {
                     if (generator.isBoardCompletedCorrectly(creator, board)) {
 
                     }
@@ -133,7 +133,7 @@ public class ButtonInteract implements ActionListener {
 
             }
             sound.tick();
-            if (generator.isBoardCompleted(creator, board)) {
+            if (generator.isBoardCompleted(creator)) {
                 if (generator.isBoardCompletedCorrectly(creator, board)) {
 
                 }

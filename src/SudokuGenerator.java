@@ -7,7 +7,7 @@ import java.util.Scanner;
 
 public class SudokuGenerator {
     SoundClass sound = new SoundClass();
-    BoardChecker checker = new BoardChecker();
+    BoardCreator checker = new BoardCreator();
     StringBuilder tmpContainer = new StringBuilder();
     char[] boardSolution = new char[81];
     char[] currentBoard = new char[81];
@@ -75,8 +75,8 @@ public class SudokuGenerator {
                 }
             }
             writer.write("*");
-            for (int x = 0; x < BoardChecker.boardSolution.length; x++) {
-                writer.write(BoardChecker.boardSolution[x]);
+            for (int x = 0; x < BoardCreator.boardSolution.length; x++) {
+                writer.write(BoardCreator.boardSolution[x]);
 
             }
             writer.write("\r\n");
@@ -98,8 +98,8 @@ public class SudokuGenerator {
         tmpContainer.append("*");
 
 
-        for (int x = 0; x < BoardChecker.boardSolution.length; x++) {
-            tmpContainer.append(BoardChecker.boardSolution[x]);
+        for (int x = 0; x < BoardCreator.boardSolution.length; x++) {
+            tmpContainer.append(BoardCreator.boardSolution[x]);
 
         }
         tmpContainer.append("\r\n");
@@ -219,7 +219,7 @@ return null;
 
     }
 
-    public boolean isBoardCompleted(ButtonsTemplateCreator creator, SudokuBoard board){
+    public boolean isBoardCompleted(ButtonsTemplateCreator creator){
 
         for (int x = 0; x < 81; x++) {
             if (creator.getBoardButtonsTemplateList().get(x).getButton().getLabel().equals("")) {

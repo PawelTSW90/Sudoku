@@ -1,5 +1,5 @@
 
-public class BoardChecker {
+public class BoardCreator {
     static String[] boardSolution = new String[81];
 
 
@@ -178,16 +178,6 @@ public class BoardChecker {
 
     }
 
-    //method is copying value from button to its template, so back tracker will skip it
-    public void setButtonsToSkip(ButtonsTemplateCreator creator) {
-        for (int x = 0; x < 81; x++) {
-            if (creator.getBoardButtonsTemplateList().get(x).getButton().getName().contains("N")) {
-                String number = creator.getBoardButtonsTemplateList().get(x).getButton().getLabel();
-                creator.getBoardButtonsTemplateList().get(x).setValue(number);
-            }
-        }
-    }
-
     public boolean isBoardCompleted(ButtonsTemplateCreator creator) {
 
 
@@ -201,19 +191,6 @@ public class BoardChecker {
 
     }
 
-
-    //method is passing value from buttons template to buttons and displaying it
-    public void displayNumbers(ButtonsTemplateCreator creator) {
-        for (int x = 0; x < 81; x++) {
-            if (!creator.getBoardButtonsTemplateList().get(x).getButton().getName().contains("N")) {
-
-                String number = creator.getBoardButtonsTemplateList().get(x).getValue();
-                creator.getBoardButtonsTemplateList().get(x).getButton().setLabel(number);
-
-            }
-
-        }
-    }
 
     public void clearBoard(ButtonsTemplateCreator creator) {
         for (int x = 0; x < 81; x++) {
@@ -260,18 +237,6 @@ public class BoardChecker {
 
     }
 
-    public boolean isBoardCompletedCorrectly(ButtonsTemplateCreator creator) {
-        for (int x = 0; x < 81; x++) {
-            String value = creator.getBoardButtonsTemplateList().get(x).getValue();
-            if (value.equals(boardSolution[x])) {
-
-            } else {
-                return false;
-            }
-        }
-        return true;
-
-    }
 
 }
 

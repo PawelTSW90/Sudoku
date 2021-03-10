@@ -271,7 +271,7 @@ public class SudokuBoard {
         wrong.add(startOver);
         wrong.add(goBack);
         wrong.add(quit);
-        wrong.setVisible(true);
+        wrong.setVisible(false);
         wrong.setFocusable(true);
         quit.addActionListener(e -> System.exit(0));
         goBack.addActionListener(e -> {
