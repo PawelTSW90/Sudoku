@@ -25,7 +25,7 @@ public class TimerClass {
                 if (!pauseThread) {
                     counter();
                     time.append(String.format("%02d", hours)).append(":").append(String.format("%02d", minutes)).append(":").append(String.format("%02d", seconds));
-                    board.setTimerButton(board.sudokuBoardPanel.getComponent(3), String.valueOf(time));
+                    board.setTimerButton(board.sudokuBoardPanel.getComponent(4), String.valueOf(time));
                     time.delete(0, time.capacity());
 
 

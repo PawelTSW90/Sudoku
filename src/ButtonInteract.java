@@ -7,13 +7,15 @@ public class ButtonInteract implements ActionListener {
     Button button;
     ButtonsTemplateCreator creator;
     SudokuGenerator generator;
+    SudokuBoard board;
 
 
-    public ButtonInteract(Button button, ButtonsTemplateCreator creator, SudokuGenerator generator, SoundClass sound) {
+    public ButtonInteract(Button button, ButtonsTemplateCreator creator, SudokuGenerator generator, SoundClass sound, SudokuBoard board) {
         this.button = button;
         this.creator = creator;
         this.generator = generator;
         this.sound = sound;
+        this.board = board;
     }
 
 
@@ -46,8 +48,8 @@ public class ButtonInteract implements ActionListener {
                     }
                 }
                 sound.tick();
-                if (generator.isBoardCompleted(creator)) {
-                    if (generator.isBoardCompletedCorrectly(creator)) {
+                if (generator.isBoardCompleted(creator, board)) {
+                    if (generator.isBoardCompletedCorrectly(creator, board)) {
 
                     }
                 }
@@ -93,6 +95,8 @@ public class ButtonInteract implements ActionListener {
             button.setFocusable(true);
             creator.setButtonValueHolder(button.getLabel());
             button.requestFocus();
+            button.addKeyListener(new ButtonKeyListener(button, this, creator));
+
 
             //if clicked button is active, set it as no-active
         } else if (isKeypadButtonHighlighted()) {
@@ -129,8 +133,8 @@ public class ButtonInteract implements ActionListener {
 
             }
             sound.tick();
-            if (generator.isBoardCompleted(creator)) {
-                if (generator.isBoardCompletedCorrectly(creator)) {
+            if (generator.isBoardCompleted(creator, board)) {
+                if (generator.isBoardCompletedCorrectly(creator, board)) {
 
                 }
             }
@@ -166,6 +170,7 @@ public class ButtonInteract implements ActionListener {
         }
         return false;
     }
+
 
 
 }

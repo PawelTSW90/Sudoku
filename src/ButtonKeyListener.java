@@ -38,8 +38,8 @@ public class ButtonKeyListener implements KeyListener {
                 button.setBackground(null);
                 button.setFocusable(false);
                 sound.tick();
-                if(interact.generator.isBoardCompleted(creator)){
-                    interact.generator.isBoardCompletedCorrectly(creator);
+                if(interact.generator.isBoardCompleted(creator, interact.board)){
+                    interact.generator.isBoardCompletedCorrectly(creator, interact.board);
 
 
                 }
@@ -75,5 +75,7 @@ public class ButtonKeyListener implements KeyListener {
             return false;
         }
     }
+
+
 
 }

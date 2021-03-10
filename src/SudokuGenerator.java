@@ -10,6 +10,7 @@ public class SudokuGenerator {
     BoardChecker checker = new BoardChecker();
     StringBuilder tmpContainer = new StringBuilder();
     char[] boardSolution = new char[81];
+    char[] currentBoard = new char[81];
 
     public boolean generateFullBoard(ButtonsTemplateCreator creator) {
 
@@ -197,12 +198,28 @@ return null;
 
        }
         boardSolution = solvedValues;
+       currentBoard = notSolvedValues;
 
 
 
     }
 
-    public boolean isBoardCompleted(ButtonsTemplateCreator creator){
+    public void resetBoard(ButtonsTemplateCreator creator){
+        for(int x = 0; x<81; x++){
+            if(String.valueOf(currentBoard[x]).equals("0")){
+                creator.getBoardButtonsTemplateList().get(x).getButton().setLabel("");
+                continue;
+
+            }else
+                creator.getBoardButtonsTemplateList().get(x).getButton().setBackground(new Color(225, 199, 149));
+            creator.getBoardButtonsTemplateList().get(x).getButton().setLabel(String.valueOf(currentBoard[x]));
+
+
+        }
+
+    }
+
+    public boolean isBoardCompleted(ButtonsTemplateCreator creator, SudokuBoard board){
 
         for (int x = 0; x < 81; x++) {
             if (creator.getBoardButtonsTemplateList().get(x).getButton().getLabel().equals("")) {
@@ -214,10 +231,15 @@ return null;
 
     }
 
-    public boolean isBoardCompletedCorrectly(ButtonsTemplateCreator creator){
+    public boolean isBoardCompletedCorrectly(ButtonsTemplateCreator creator, SudokuBoard board){
         for(int x = 0; x<81; x++){
             if(!creator.getBoardButtonsTemplateList().get(x).getButton().getLabel().equals(String.valueOf(boardSolution[x]))){
                 sound.boardCompletedWrong();
+                board.disableBackground(0);
+                board.time.pauseThread();
+                board.sudokuBoardPanel.getComponent(1).setVisible(true);
+                board.sudokuBoardPanel.setFocusable(false);
+
                 return false;
             }
 
@@ -225,5 +247,6 @@ return null;
         sound.boardCompletedCorrectly();
         return true;
     }
+
 
 }

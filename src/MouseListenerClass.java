@@ -5,10 +5,11 @@ import java.awt.event.MouseEvent;
 public class MouseListenerClass implements java.awt.event.MouseListener {
     JPanel panel;
 
-    MouseListenerClass(JPanel panel){
+    MouseListenerClass(JPanel panel) {
         this.panel = panel;
 
     }
+
     @Override
     public void mouseClicked(MouseEvent e) {
 
@@ -16,7 +17,6 @@ public class MouseListenerClass implements java.awt.event.MouseListener {
 
     @Override
     public void mousePressed(MouseEvent e) {
-        panel.getComponent(2).setForeground(Color.BLACK);
         new SoundClass().tick();
 
 
@@ -24,17 +24,17 @@ public class MouseListenerClass implements java.awt.event.MouseListener {
 
     @Override
     public void mouseReleased(MouseEvent e) {
-        panel.getComponent(2).setForeground(new Color(144, 44, 19));
+
 
     }
 
     @Override
     public void mouseEntered(MouseEvent e) {
-
+        panel.getComponent(2).setForeground(Color.black);
     }
 
     @Override
     public void mouseExited(MouseEvent e) {
-
+        panel.getComponent(2).setForeground(new Color(144, 44, 19));
     }
 }
