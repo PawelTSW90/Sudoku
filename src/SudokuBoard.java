@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 
 public class SudokuBoard {
+    private boolean soundOn = true;
     JPanel sudokuBoardPanel = new JPanel();
     Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
     int screenHeight = screenSize.height;
@@ -202,6 +203,19 @@ public class SudokuBoard {
         sound.setFont(new Font(null, Font.PLAIN, 80));
         sound.setBounds((screenWidth / 2) + 600, (screenHeight / 2) - 200, 400, 400);
         sound.setVisible(true);
+        sound.addMouseListener(new MouseListenerClass(sudokuBoardPanel){
+            @Override
+            public void mousePressed(MouseEvent e){
+                Component component = sudokuBoardPanel.getComponent(5);
+                if(soundOn){
+                    component.setEnabled(false);
+                    setSoundOn(false);
+                }else{
+                    component.setEnabled(true);
+                    setSoundOn(true);
+                }
+            }
+        });
         return sound;
     }
 
@@ -285,6 +299,7 @@ public class SudokuBoard {
             sudokuBoardPanel.setFocusable(true);
             sudokuBoardPanel.getComponent(1).setVisible(false);
             disableBackground(1);
+            time.resumeThread();
             generator.resetBoard(buttonsTemplateCreator);
         });
         return wrong;
@@ -292,6 +307,13 @@ public class SudokuBoard {
 
     }
 
+    public boolean isSoundOn() {
+        return soundOn;
+    }
+
+    public void setSoundOn(boolean soundOn) {
+        this.soundOn = soundOn;
+    }
 }
 
 

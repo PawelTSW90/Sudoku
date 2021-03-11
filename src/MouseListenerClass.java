@@ -4,6 +4,14 @@ import java.awt.event.MouseEvent;
 
 public class MouseListenerClass implements java.awt.event.MouseListener {
     JPanel panel;
+    SudokuBoard board;
+
+
+    public MouseListenerClass(SudokuBoard board){
+        this.board = board;
+    }
+
+
 
     MouseListenerClass(JPanel panel) {
         this.panel = panel;
@@ -17,7 +25,7 @@ public class MouseListenerClass implements java.awt.event.MouseListener {
 
     @Override
     public void mousePressed(MouseEvent e) {
-        new SoundClass().tick();
+        new SoundClass().tick(board);
 
 
     }

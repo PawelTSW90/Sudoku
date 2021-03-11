@@ -234,7 +234,7 @@ return null;
     public boolean isBoardCompletedCorrectly(ButtonsTemplateCreator creator, SudokuBoard board){
         for(int x = 0; x<81; x++){
             if(!creator.getBoardButtonsTemplateList().get(x).getButton().getLabel().equals(String.valueOf(boardSolution[x]))){
-                sound.boardCompletedWrong();
+                sound.boardCompletedWrong(board);
                 board.disableBackground(0);
                 board.time.pauseThread();
                 board.sudokuBoardPanel.getComponent(1).setVisible(true);
@@ -244,7 +244,7 @@ return null;
             }
 
         }
-        sound.boardCompletedCorrectly();
+        sound.boardCompletedCorrectly(board);
         return true;
     }
 

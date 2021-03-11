@@ -46,7 +46,7 @@ public class ButtonKeyListener implements KeyListener {
                     button.setLabel(value);
                     button.setBackground(null);
                     button.setFocusable(false);
-                    sound.tick();
+                    sound.tick(interact.board);
                     if (interact.generator.isBoardCompleted(creator)) {
                         interact.generator.isBoardCompletedCorrectly(creator, interact.board);
 
