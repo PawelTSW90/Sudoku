@@ -6,15 +6,9 @@ public class MouseListenerClass implements java.awt.event.MouseListener {
     JPanel panel;
     SudokuBoard board;
 
-
-    public MouseListenerClass(SudokuBoard board){
-        this.board = board;
-    }
-
-
-
-    MouseListenerClass(JPanel panel) {
+    MouseListenerClass(JPanel panel, SudokuBoard board) {
         this.panel = panel;
+        this.board = board;
 
     }
 

@@ -1,6 +1,10 @@
 
 public class BoardCreator {
-    static String[] boardSolution = new String[81];
+    SudokuGenerator generator;
+
+    public BoardCreator(SudokuGenerator generator){
+        this.generator = generator;
+    }
 
 
     //back tracking main method, checking if current board is solvable
@@ -11,9 +15,6 @@ public class BoardCreator {
         int numberToInput = 1;
         int currentValue;
         boolean boardSolvable = true;
-
-        //call method to mark buttons to skip
-       // setButtonsToSkip(creator);
         try {
 
 
@@ -230,8 +231,9 @@ public class BoardCreator {
 
     public void saveSolution(ButtonsTemplateCreator creator) {
         for (int x = 0; x < 81; x++) {
-            String value = creator.getBoardButtonsTemplateList().get(x).getValue();
-            boardSolution[x] = value;
+            char value = creator.getBoardButtonsTemplateList().get(x).getValue().charAt(0);
+            generator.boardSolution[x] = value;
+
 
         }
 

@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 
 public class SudokuBoard {
+    private boolean helpOn = false;
     private boolean soundOn = true;
     JPanel sudokuBoardPanel = new JPanel();
     Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
@@ -25,7 +26,9 @@ public class SudokuBoard {
         sudokuBoardPanel.add(drawSudokuBoard());
         sudokuBoardPanel.add(timerLabel());
         sudokuBoardPanel.add(soundLabel());
+        sudokuBoardPanel.add(helpLabel());
         sudokuBoardPanel.add(background());
+
         sudokuBoardPanel.setFocusable(true);
         generator.displayBoard(buttonsTemplateCreator);
         //exit question when pressing escape button
@@ -160,7 +163,7 @@ public class SudokuBoard {
             mainPanel.setVisible(false);
 
         });
-        yes.addMouseListener(new MouseListenerClass(mainPanel) {
+        yes.addMouseListener(new MouseListenerClass(mainPanel, this) {
 
             @Override
             public void mouseEntered(MouseEvent e) {
@@ -172,7 +175,7 @@ public class SudokuBoard {
                 panel.getComponent(1).setForeground(new Color(54, 121, 34));
             }
         });
-        no.addMouseListener(new MouseListenerClass(mainPanel));
+        no.addMouseListener(new MouseListenerClass(mainPanel, this));
         mainPanel.setVisible(false);
         return mainPanel;
     }
@@ -200,23 +203,48 @@ public class SudokuBoard {
 
     public JLabel soundLabel() {
         JLabel sound = new JLabel("Sounds");
-        sound.setFont(new Font(null, Font.PLAIN, 80));
-        sound.setBounds((screenWidth / 2) + 600, (screenHeight / 2) - 200, 400, 400);
+        sound.setForeground(new Color(0,102,0));
+        sound.setBackground(Color.BLACK);
+        sound.setFont(new Font(null, Font.ITALIC, 80));
+        sound.setBounds((screenWidth / 2) + 600, (screenHeight / 2) + 50, 400, 100);
         sound.setVisible(true);
-        sound.addMouseListener(new MouseListenerClass(sudokuBoardPanel){
+        sound.addMouseListener(new MouseListenerClass(sudokuBoardPanel, this){
             @Override
             public void mousePressed(MouseEvent e){
                 Component component = sudokuBoardPanel.getComponent(5);
                 if(soundOn){
-                    component.setEnabled(false);
+                    component.setForeground(new Color(102,0,0));
                     setSoundOn(false);
                 }else{
-                    component.setEnabled(true);
+                    sound.setForeground(new Color(0,102,0));
                     setSoundOn(true);
                 }
             }
         });
         return sound;
+    }
+
+    public JLabel helpLabel(){
+        JLabel help = new JLabel("Help");
+        help.setForeground(new Color(102,0,0));
+        help.setFont(new Font(null, Font.ITALIC, 80));
+        help.setBounds((screenWidth / 2) + 600, (screenHeight / 2)+200, 400, 100);
+        help.setVisible(true);
+        help.addMouseListener(new MouseListenerClass(sudokuBoardPanel, this){
+            @Override
+            public void mousePressed(MouseEvent e){
+                Component component = sudokuBoardPanel.getComponent(6);
+                if(helpOn){
+                    component.setForeground(new Color(102,0,0));
+                    setHelpOn(false);
+                }else{
+                    help.setForeground(new Color(0,102,0));
+                    setHelpOn(true);
+                }
+            }
+        });
+        return help;
+
     }
 
     public void disableBackground(int tmp) {
@@ -313,6 +341,14 @@ public class SudokuBoard {
 
     public void setSoundOn(boolean soundOn) {
         this.soundOn = soundOn;
+    }
+
+    public boolean isHelpOn() {
+        return helpOn;
+    }
+
+    public void setHelpOn(boolean helpOn) {
+        this.helpOn = helpOn;
     }
 }
 
