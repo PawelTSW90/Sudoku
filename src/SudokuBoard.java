@@ -16,6 +16,7 @@ public class SudokuBoard {
     SudokuGenerator generator = new SudokuGenerator();
     SoundClass sound = new SoundClass();
     TimerClass time = new TimerClass(this);
+    ErrorChecker error = new ErrorChecker();
 
 
     public JPanel createSudokuBoard() {
@@ -237,9 +238,12 @@ public class SudokuBoard {
                 if(helpOn){
                     component.setForeground(new Color(102,0,0));
                     setHelpOn(false);
+                    error.restoreButtonsColors(buttonsTemplateCreator);
                 }else{
                     help.setForeground(new Color(0,102,0));
                     setHelpOn(true);
+                    error.checkIfThereAreErrors(buttonsTemplateCreator, generator,sound);
+
                 }
             }
         });

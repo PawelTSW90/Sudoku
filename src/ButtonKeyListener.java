@@ -7,6 +7,7 @@ public class ButtonKeyListener implements KeyListener {
     ButtonInteract interact;
     ButtonsTemplateCreator creator;
     SoundClass sound = new SoundClass();
+    ErrorChecker error = new ErrorChecker();
 
 
     ButtonKeyListener(Button button, ButtonInteract interact, ButtonsTemplateCreator creator) {
@@ -47,6 +48,9 @@ public class ButtonKeyListener implements KeyListener {
                     button.setBackground(null);
                     button.setFocusable(false);
                     sound.tick(interact.board);
+                    if(interact.board.isHelpOn()){
+                        error.checkIfThereAreErrors(creator, interact.generator, sound);
+                    }
                     if (interact.generator.isBoardCompleted(creator)) {
                         interact.generator.isBoardCompletedCorrectly(creator, interact.board);
 

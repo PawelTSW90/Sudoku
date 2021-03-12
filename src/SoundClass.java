@@ -64,5 +64,24 @@ public class SoundClass {
         }
     }
 
+    public void error(SudokuBoard board){
+        if (board.isSoundOn()) {
+
+            try {
+                Clip clip = AudioSystem.getClip();
+                File file = new File("./Sounds/error.wav");
+                AudioInputStream inputStream = AudioSystem.getAudioInputStream(file);
+                clip.open(inputStream);
+                clip.start();
+            } catch (LineUnavailableException | IOException | UnsupportedAudioFileException e) {
+                e.printStackTrace();
+            }
+
+
+        }else{
+
+        }
+    }
+
 }
 

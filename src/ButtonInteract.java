@@ -3,6 +3,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class ButtonInteract implements ActionListener {
+    ErrorChecker error = new ErrorChecker();
     SoundClass sound;
     Button button;
     ButtonsTemplateCreator creator;
@@ -43,6 +44,10 @@ public class ButtonInteract implements ActionListener {
                     if (creator.getKeypadButtonsTemplateList().get(y).getButton().isFocusable()) {
                         creator.getKeypadButtonsTemplateList().get(y).getButton().setFocusable(false);
                         creator.getKeypadButtonsTemplateList().get(y).getButton().setBackground(null);
+                        if(board.isHelpOn()){
+                            error.checkIfThereAreErrors(creator,generator, sound);
+                        }
+
 
 
                     }
@@ -128,6 +133,9 @@ public class ButtonInteract implements ActionListener {
                     creator.getBoardButtonsTemplateList().get(x).getButton().setLabel(creator.getButtonValueHolder());
                     creator.getBoardButtonsTemplateList().get(x).getButton().setFocusable(false);
                     creator.getBoardButtonsTemplateList().get(x).getButton().setBackground(null);
+                    if(board.isHelpOn()){
+                        error.checkIfThereAreErrors(creator,generator, sound);
+                    }
 
                 }
 
