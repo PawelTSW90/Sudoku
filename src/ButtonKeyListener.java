@@ -37,7 +37,7 @@ public class ButtonKeyListener implements KeyListener {
 
         if (button.getName().contains("Keypad")) {
             if (code == esc) {
-                button.setBackground(null);
+                button.setBackground(new Color(245,232,211));
                 button.setFocusable(false);
             }
         } else {

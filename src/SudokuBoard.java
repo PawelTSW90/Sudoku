@@ -7,6 +7,7 @@ import java.util.ArrayList;
 public class SudokuBoard {
     private boolean helpOn = false;
     private boolean soundOn = true;
+    private boolean erase = false;
     JPanel sudokuBoardPanel = new JPanel();
     Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
     int screenHeight = screenSize.height;
@@ -28,6 +29,7 @@ public class SudokuBoard {
         sudokuBoardPanel.add(timerLabel());
         sudokuBoardPanel.add(soundLabel());
         sudokuBoardPanel.add(helpLabel());
+        sudokuBoardPanel.add(eraseButton());
         sudokuBoardPanel.add(background());
         sudokuBoardPanel.setFocusable(true);
         generator.displayBoard(buttonsTemplateCreator);
@@ -42,12 +44,22 @@ public class SudokuBoard {
             public void keyPressed(KeyEvent e) {
                 int code = e.getKeyCode();
                 if (code == 27) {
-                    disableBackground(0);
-                    sudokuBoardPanel.getComponent(0).setVisible(true);
-                    time.pauseThread();
-                    System.out.println(sudokuBoardPanel.getComponent(0).isFocusable());
+                    if (erase) {
+                        disableBackground(1);
+                    } else {
+
+                        if (!sudokuBoardPanel.getComponent(0).isVisible()) {
+                            disableBackground(0);
+                            sudokuBoardPanel.getComponent(0).setVisible(true);
+                            time.pauseThread();
+                        } else {
+                            disableBackground(1);
+                            sudokuBoardPanel.getComponent(0).setVisible(false);
+                            time.resumeThread();
+                        }
 
 
+                    }
                 }
 
             }
@@ -112,41 +124,19 @@ public class SudokuBoard {
     public JPanel exitQuestion() {
         JPanel exit = new JPanel();
         exit.setLayout(new BoxLayout(exit, BoxLayout.X_AXIS));
-        exit.addKeyListener(new KeyListener() {
-            @Override
-            public void keyTyped(KeyEvent e) {
-
-            }
-
-            @Override
-            public void keyPressed(KeyEvent e) {
-                int code = e.getKeyCode();
-                if (code == 27) {
-                    System.out.println("Siemano");
-                    sudokuBoardPanel.setFocusable(true);
-                    disableBackground(1);
-                    time.resumeThread();
-                    sudokuBoardPanel.getComponent(0).setVisible(false);
-
-
-                }
-            }
-
-            @Override
-            public void keyReleased(KeyEvent e) {
-
-            }
-        });
-
-
         JPanel question = new JPanel();
+        question.setBackground(new Color(245, 232, 211));
         question.setLayout(new GridLayout(4, 1));
         question.setBorder(BorderFactory.createEtchedBorder(Color.GRAY, Color.PINK));
-        question.setBounds(screenWidth / 2 - 1000 / 2, screenHeight / 2 - 400 / 2, 1000, 400);
+        question.setBounds(screenWidth / 2 - 500 / 2, screenHeight / 2 - 400 / 2, 500, 400);
         JButton qButton = new JButton(" Would you like to:");
+        qButton.setBorderPainted(false);
         JButton startOver = new JButton("Start over");
         JButton goBack = new JButton("Continue");
         JButton quit = new JButton("Exit");
+        startOver.addMouseListener(new MouseListenerClass(exit, this));
+        goBack.addMouseListener(new MouseListenerClass(exit, this));
+        quit.addMouseListener(new MouseListenerClass(exit, this));
         quit.setFont(new Font(null, Font.PLAIN, 40));
         startOver.setFont(new Font(null, Font.PLAIN, 40));
         qButton.setFont(new Font(null, Font.PLAIN, 40));
@@ -168,7 +158,7 @@ public class SudokuBoard {
             sudokuBoardPanel.getComponent(0).setVisible(false);
 
         });
-        startOver.addActionListener(e ->{
+        startOver.addActionListener(e -> {
             sudokuBoardPanel.setFocusable(true);
             sudokuBoardPanel.getComponent(0).setVisible(false);
             disableBackground(1);
@@ -180,7 +170,7 @@ public class SudokuBoard {
     }
 
     public void JButtonConfigure(JButton button) {
-        button.setBorderPainted(false);
+        //button.setBorderPainted(false);
         button.setContentAreaFilled(false);
         button.setFocusable(false);
     }
@@ -202,21 +192,21 @@ public class SudokuBoard {
 
     public JLabel soundLabel() {
         JLabel sound = new JLabel("Sounds");
-        sound.setForeground(new Color(0,102,0));
+        sound.setForeground(new Color(0, 102, 0));
         sound.setBackground(Color.BLACK);
         sound.setFocusable(false);
         sound.setFont(new Font(null, Font.ITALIC, 80));
         sound.setBounds((screenWidth / 2) + 600, (screenHeight / 2) + 50, 400, 100);
         sound.setVisible(true);
-        sound.addMouseListener(new MouseListenerClass(sudokuBoardPanel, this){
+        sound.addMouseListener(new MouseListenerClass(sudokuBoardPanel, this) {
             @Override
-            public void mousePressed(MouseEvent e){
+            public void mousePressed(MouseEvent e) {
                 Component component = sudokuBoardPanel.getComponent(5);
-                if(soundOn){
-                    component.setForeground(new Color(102,0,0));
+                if (soundOn) {
+                    component.setForeground(new Color(102, 0, 0));
                     setSoundOn(false);
-                }else{
-                    sound.setForeground(new Color(0,102,0));
+                } else {
+                    sound.setForeground(new Color(0, 102, 0));
                     setSoundOn(true);
                 }
             }
@@ -224,25 +214,25 @@ public class SudokuBoard {
         return sound;
     }
 
-    public JLabel helpLabel(){
+    public JLabel helpLabel() {
         JLabel help = new JLabel("Help");
         help.setFocusable(false);
-        help.setForeground(new Color(102,0,0));
+        help.setForeground(new Color(102, 0, 0));
         help.setFont(new Font(null, Font.ITALIC, 80));
-        help.setBounds((screenWidth / 2) + 600, (screenHeight / 2)+200, 400, 100);
+        help.setBounds((screenWidth / 2) + 600, (screenHeight / 2) + 200, 400, 100);
         help.setVisible(true);
-        help.addMouseListener(new MouseListenerClass(sudokuBoardPanel, this){
+        help.addMouseListener(new MouseListenerClass(sudokuBoardPanel, this) {
             @Override
-            public void mousePressed(MouseEvent e){
+            public void mousePressed(MouseEvent e) {
                 Component component = sudokuBoardPanel.getComponent(6);
-                if(helpOn){
-                    component.setForeground(new Color(102,0,0));
+                if (helpOn) {
+                    component.setForeground(new Color(102, 0, 0));
                     setHelpOn(false);
                     error.restoreButtonsColors(buttonsTemplateCreator);
-                }else{
-                    help.setForeground(new Color(0,102,0));
+                } else {
+                    help.setForeground(new Color(0, 102, 0));
                     setHelpOn(true);
-                    error.checkIfThereAreErrors(buttonsTemplateCreator, generator,sound);
+                    error.checkIfThereAreErrors(buttonsTemplateCreator, generator, sound);
 
                 }
             }
@@ -258,6 +248,7 @@ public class SudokuBoard {
         Component sudokuKeypad = sudokuBoardPanel.getComponent(2);
         Component sounds = sudokuBoardPanel.getComponent(5);
         Component help = sudokuBoardPanel.getComponent(6);
+        Component delete = sudokuBoardPanel.getComponent(7);
 
 
         for (int x = 0; x < ((Container) sudokuBoard).getComponents().length; x++) {
@@ -277,40 +268,66 @@ public class SudokuBoard {
 
         if (tmp == 0) {
 
-            for (Component component : sudokuBoardList) {
-                component.setEnabled(false);
+            if (erase) {
+
+                for
+                (Component component2 : sudokuKeypadList) {
+                    component2.setEnabled(false);
+                }
+                sounds.setEnabled(false);
+                help.setEnabled(false);
+
+
+            } else {
+
+
+                for (Component component : sudokuBoardList) {
+                    component.setEnabled(false);
+
+                }
+                for
+                (Component component2 : sudokuKeypadList) {
+                    component2.setEnabled(false);
+                }
+                sounds.setEnabled(false);
+                help.setEnabled(false);
+
+                delete.setEnabled(false);
             }
-            for
-            (Component component2 : sudokuKeypadList) {
-                component2.setEnabled(false);
-            }
-            sounds.setEnabled(false);
-            help.setEnabled(false);
         } else {
+
+            erase = false;
             for (Component component : sudokuBoardList) {
                 component.setEnabled(true);
             }
+
             for (Component component2 : sudokuKeypadList) {
                 component2.setEnabled(true);
             }
             sounds.setEnabled(true);
             help.setEnabled(true);
 
+            delete.setEnabled(true);
+
+
         }
-
-
     }
 
 
     public JPanel boardCompletedWrong() {
         JPanel wrong = new JPanel();
+        wrong.setBackground(new Color(245, 232, 211));
         wrong.setLayout(new GridLayout(4, 1));
         wrong.setBorder(BorderFactory.createEtchedBorder(Color.GRAY, Color.PINK));
-        wrong.setBounds(screenWidth / 2 - 1000 / 2, screenHeight / 2 - 400 / 2, 1000, 400);
+        wrong.setBounds(screenWidth / 2 - 500 / 2, screenHeight / 2 - 400 / 2, 500, 400);
         JButton oops = new JButton("Oops! Something went wrong! Would you like to:");
+        oops.setBorderPainted(false);
         JButton startOver = new JButton("Start over");
         JButton goBack = new JButton("Continue");
         JButton quit = new JButton("Exit");
+        startOver.addMouseListener(new MouseListenerClass(wrong, this));
+        goBack.addMouseListener(new MouseListenerClass(wrong, this));
+        quit.addMouseListener(new MouseListenerClass(wrong, this));
         quit.setFont(new Font(null, Font.PLAIN, 40));
         startOver.setFont(new Font(null, Font.PLAIN, 40));
         oops.setFont(new Font(null, Font.PLAIN, 40));
@@ -331,9 +348,9 @@ public class SudokuBoard {
             disableBackground(1);
             time.resumeThread();
             sudokuBoardPanel.getComponent(1).setVisible(false);
-            
+
         });
-        startOver.addActionListener(e ->{
+        startOver.addActionListener(e -> {
             sudokuBoardPanel.setFocusable(true);
             sudokuBoardPanel.getComponent(1).setVisible(false);
             disableBackground(1);
@@ -360,6 +377,34 @@ public class SudokuBoard {
 
     public void setHelpOn(boolean helpOn) {
         this.helpOn = helpOn;
+    }
+
+    public JButton eraseButton() {
+        JButton erase = new JButton();
+        erase.setFocusable(false);
+        erase.setBounds((screenWidth / 2) + 838, (screenHeight / 2) - 135, 100, 75);
+        erase.setIcon(new ImageIcon("./Visuals/erase.png"));
+        erase.setBorderPainted(false);
+        erase.setContentAreaFilled(false);
+        erase.addActionListener(e -> {
+            if (!this.erase) {
+                this.erase = true;
+                disableBackground(0);
+                sound.tick(this);
+            } else {
+                sound.tick(this);
+                disableBackground(1);
+                this.erase = false;
+            }
+
+
+        });
+        return erase;
+    }
+
+
+    public boolean getIsErase() {
+        return erase;
     }
 }
 

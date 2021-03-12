@@ -20,7 +20,7 @@ public class ButtonCreator {
         //method is creating boardButtons
     public Button createBoardButtons(){
         Button button = new Button();
-        button.setFont(new Font("Arial", Font.PLAIN, 30));
+        button.setFont(new Font(null, Font.ITALIC, 30));
         button.setFocusable(false);
         boardButtons.add(button);
         return button;
@@ -28,9 +28,10 @@ public class ButtonCreator {
         //method is creating keypadButtons
     public Button createKeypadButtons(){
         Button button = new Button(String.valueOf(keypadButtonNumber));
+        button.setBackground(new Color(245,232,211));
         button.setFocusable(false);
         button.setName("Keypad");
-        button.setFont(new Font(null, Font.BOLD, 20));
+        button.setFont(new Font(null, Font.ITALIC, 30));
         keypadButtons.add(button);
         keypadButtonNumber++;
         return button;

@@ -34,6 +34,14 @@ public class ButtonInteract implements ActionListener {
         if (button.getBackground().equals(new Color(225, 199, 149))) {
 
 
+        } else if (board.getIsErase()) {
+
+            button.setLabel("");
+            button.setBackground(null);
+            button.setFocusable(false);
+            board.disableBackground(1);
+
+
         } else
 
             //if keypad button is active, set it's value to clicked board button and set both buttons as no-active
@@ -43,11 +51,10 @@ public class ButtonInteract implements ActionListener {
                 for (int y = 0; y < 9; y++) {
                     if (creator.getKeypadButtonsTemplateList().get(y).getButton().isFocusable()) {
                         creator.getKeypadButtonsTemplateList().get(y).getButton().setFocusable(false);
-                        creator.getKeypadButtonsTemplateList().get(y).getButton().setBackground(null);
-                        if(board.isHelpOn()){
-                            error.checkIfThereAreErrors(creator,generator, sound);
+                        creator.getKeypadButtonsTemplateList().get(y).getButton().setBackground(new Color(245,232,211));
+                        if (board.isHelpOn()) {
+                            error.checkIfThereAreErrors(creator, generator, sound);
                         }
-
 
 
                     }
@@ -103,10 +110,11 @@ public class ButtonInteract implements ActionListener {
             button.addKeyListener(new ButtonKeyListener(button, this, creator));
 
 
+
             //if clicked button is active, set it as no-active
         } else if (isKeypadButtonHighlighted()) {
             if (button.isFocusable()) {
-                button.setBackground(null);
+                button.setBackground(new Color(245,232,211));
                 button.setFocusable(false);
 
                 //if other keypad button is active, set it as no-active and set clicked button as active and save its value
@@ -114,7 +122,7 @@ public class ButtonInteract implements ActionListener {
                 for (int y = 0; y < 9; y++) {
                     if (creator.getKeypadButtonsTemplateList().get(y).getButton().isFocusable()) {
                         creator.getKeypadButtonsTemplateList().get(y).getButton().setFocusable(false);
-                        creator.getKeypadButtonsTemplateList().get(y).getButton().setBackground(null);
+                        creator.getKeypadButtonsTemplateList().get(y).getButton().setBackground(new Color(245,232,211));
                     }
 
                 }
@@ -133,8 +141,8 @@ public class ButtonInteract implements ActionListener {
                     creator.getBoardButtonsTemplateList().get(x).getButton().setLabel(creator.getButtonValueHolder());
                     creator.getBoardButtonsTemplateList().get(x).getButton().setFocusable(false);
                     creator.getBoardButtonsTemplateList().get(x).getButton().setBackground(null);
-                    if(board.isHelpOn()){
-                        error.checkIfThereAreErrors(creator,generator, sound);
+                    if (board.isHelpOn()) {
+                        error.checkIfThereAreErrors(creator, generator, sound);
                     }
 
                 }
@@ -178,8 +186,6 @@ public class ButtonInteract implements ActionListener {
         }
         return false;
     }
-
-
 
 }
 
