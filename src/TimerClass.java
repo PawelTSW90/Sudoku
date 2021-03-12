@@ -50,6 +50,7 @@ public class TimerClass {
         return seconds;
     }
 
+
     public void pauseThread(){
         pauseThread = true;
     }
