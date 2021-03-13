@@ -19,8 +19,6 @@ public class SoundClass {
             } catch (LineUnavailableException | IOException | UnsupportedAudioFileException e) {
                 e.printStackTrace();
             }
-        } else{
-
         }
 
 
@@ -38,8 +36,6 @@ public class SoundClass {
             } catch (LineUnavailableException | IOException | UnsupportedAudioFileException e) {
                 e.printStackTrace();
             }
-        }else{
-
         }
 
 
@@ -59,11 +55,9 @@ public class SoundClass {
             }
 
 
-        }else{
-
         }
     }
-
+        //method is playing error sound
     public void error(SudokuBoard board){
         if (board.isSoundOn()) {
 
@@ -78,8 +72,20 @@ public class SoundClass {
             }
 
 
-        }else{
-
+        }
+    }
+        //method is playing erase sound
+    public void erase(SudokuBoard board) {
+        if (board.isSoundOn()) {
+            try {
+                Clip clip = AudioSystem.getClip();
+                File file = new File("./Sounds/erase.wav");
+                AudioInputStream inputStream = AudioSystem.getAudioInputStream(file);
+                clip.open(inputStream);
+                clip.start();
+            } catch (LineUnavailableException | IOException | UnsupportedAudioFileException e) {
+                e.printStackTrace();
+            }
         }
     }
 

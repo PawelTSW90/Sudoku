@@ -30,13 +30,16 @@ public class ButtonInteract implements ActionListener {
 
     //method responsible for interacting with board buttons by clicking
     public void boardButtonAction(SoundClass sound) {
-        //interaction not editable buttons not allowed
+        //interaction with not editable buttons not allowed
         if (button.getBackground().equals(new Color(225, 199, 149))) {
 
-
+        //if erase function is active, erase clicked button
         } else if (board.getIsErase()) {
-
+                if(!button.getLabel().equals("")){
+                    sound.erase(board);
+                }
             button.setLabel("");
+
             button.setBackground(null);
             button.setFocusable(false);
             board.disableBackground(1);
@@ -127,6 +130,7 @@ public class ButtonInteract implements ActionListener {
 
                 }
                 creator.setButtonValueHolder(button.getLabel());
+                button.addKeyListener(new ButtonKeyListener(button, this, creator));
                 button.setBackground(Color.getHSBColor(80, 80, 80));
                 button.setFocusable(true);
                 button.requestFocus();

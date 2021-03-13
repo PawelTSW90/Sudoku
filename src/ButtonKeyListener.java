@@ -60,6 +60,9 @@ public class ButtonKeyListener implements KeyListener {
                 }
                 //if backspace or delete has been pressed, remove current value
             } else if (code == delete || code == backspace) {
+                if(!button.getLabel().equals("")){
+                    sound.erase(interact.board);
+                }
 
                 button.setLabel("");
                 button.setBackground(null);
