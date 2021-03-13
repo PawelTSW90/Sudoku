@@ -22,14 +22,14 @@ public class SudokuBoard {
 
     public JPanel createSudokuBoard() {
         sudokuBoardPanel.setLayout(null);
-        sudokuBoardPanel.add(exitQuestion());
-        sudokuBoardPanel.add(boardCompletedWrong());
+        sudokuBoardPanel.add(drawExitQuestion());
+        sudokuBoardPanel.add(drawBoardCompletedWrongMessage());
         sudokuBoardPanel.add(drawSudokuKeypad());
         sudokuBoardPanel.add(drawSudokuBoard());
-        sudokuBoardPanel.add(timerLabel());
-        sudokuBoardPanel.add(soundLabel());
-        sudokuBoardPanel.add(helpLabel());
-        sudokuBoardPanel.add(eraseButton());
+        sudokuBoardPanel.add(drawTimerLabel());
+        sudokuBoardPanel.add(drawSoundLabel());
+        sudokuBoardPanel.add(drawHelpLabel());
+        sudokuBoardPanel.add(drawEraseButton());
         sudokuBoardPanel.add(background());
         sudokuBoardPanel.setFocusable(true);
         generator.displayBoard(buttonsTemplateCreator);
@@ -121,7 +121,7 @@ public class SudokuBoard {
     }
 
     //creating exit question JPanel
-    public JPanel exitQuestion() {
+    public JPanel drawExitQuestion() {
         JPanel exit = new JPanel();
         exit.setLayout(new BoxLayout(exit, BoxLayout.X_AXIS));
         JPanel question = new JPanel();
@@ -175,7 +175,7 @@ public class SudokuBoard {
         button.setFocusable(false);
     }
 
-    public JLabel timerLabel() {
+    public JLabel drawTimerLabel() {
 
 
         JLabel timerLabel = new JLabel();
@@ -190,7 +190,7 @@ public class SudokuBoard {
         ((JLabel) component).setText(time);
     }
 
-    public JLabel soundLabel() {
+    public JLabel drawSoundLabel() {
         JLabel sound = new JLabel("Sounds");
         sound.setForeground(new Color(0, 102, 0));
         sound.setBackground(Color.BLACK);
@@ -214,7 +214,7 @@ public class SudokuBoard {
         return sound;
     }
 
-    public JLabel helpLabel() {
+    public JLabel drawHelpLabel() {
         JLabel help = new JLabel("Help");
         help.setFocusable(false);
         help.setForeground(new Color(102, 0, 0));
@@ -314,7 +314,7 @@ public class SudokuBoard {
     }
 
 
-    public JPanel boardCompletedWrong() {
+    public JPanel drawBoardCompletedWrongMessage() {
         JPanel wrong = new JPanel();
         wrong.setBackground(new Color(245, 232, 211));
         wrong.setLayout(new GridLayout(4, 1));
@@ -379,7 +379,7 @@ public class SudokuBoard {
         this.helpOn = helpOn;
     }
 
-    public JButton eraseButton() {
+    public JButton drawEraseButton() {
         JButton erase = new JButton();
         erase.setFocusable(false);
         erase.setBounds((screenWidth / 2) + 838, (screenHeight / 2) - 135, 100, 75);
@@ -406,6 +406,8 @@ public class SudokuBoard {
     public boolean getIsErase() {
         return erase;
     }
+
+
 }
 
 

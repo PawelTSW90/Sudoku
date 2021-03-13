@@ -50,7 +50,8 @@ public class MainMenu {
         start.setBorderPainted(false);
         start.setContentAreaFilled(false);
         start.addActionListener(e->{
-            mainMenuFrame.add(new SudokuBoard().createSudokuBoard());
+            //mainMenuFrame.add(new SudokuBoard().createSudokuBoard());
+            mainMenuFrame.add(new boardCompletedJPanel().boardCompletedMessage());
             mainMenuFrame.getContentPane().getComponent(0).setVisible(false);
 
 
