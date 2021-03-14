@@ -20,6 +20,7 @@ public class SudokuBoard {
     SoundClass sound = new SoundClass();
     TimerClass time = new TimerClass(this);
     ErrorChecker error = new ErrorChecker();
+    HighScoresCreator highScoresCreator = new HighScoresCreator();
 
     public SudokuBoard(JFrame mainFrame){
         this.mainFrame = mainFrame;
@@ -37,10 +38,10 @@ public class SudokuBoard {
         sudokuBoardPanel.add(drawSoundLabel());
         sudokuBoardPanel.add(drawHelpLabel());
         sudokuBoardPanel.add(drawEraseButton());
-
         sudokuBoardPanel.add(background());
         sudokuBoardPanel.setFocusable(true);
         generator.displayBoard(buttonsTemplateCreator);
+
         //exit question when pressing escape button
         sudokuBoardPanel.addKeyListener(new KeyListener() {
             @Override
@@ -85,6 +86,7 @@ public class SudokuBoard {
             }
         });
         time.setTimer();
+        highScoresCreator.writeScore("Marta", "00:13:34", 8);
         return sudokuBoardPanel;
 
     }
