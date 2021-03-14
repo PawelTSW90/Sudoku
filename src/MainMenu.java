@@ -1,17 +1,17 @@
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 
 import static javax.swing.WindowConstants.EXIT_ON_CLOSE;
 
 
 public class MainMenu {
+
     Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
     int screenHeight = screenSize.height;
     int screenWidth = screenSize.width;
     private final JPanel mainMenuPanel = new JPanel();
     private final JFrame mainMenuFrame = new JFrame();
+    SudokuBoard board = new SudokuBoard(mainMenuFrame);
 
     public MainMenu() {
         setMainMenu();
@@ -21,7 +21,7 @@ public class MainMenu {
         JLabel background = new JLabel();
         JLabel title = new JLabel();
         JLabel createdBy = new JLabel();
-        createdBy.setBounds(screenWidth-screenWidth/7, screenHeight-screenHeight/6, 355, 93);
+        createdBy.setBounds(screenWidth - screenWidth / 7, screenHeight - screenHeight / 6, 355, 93);
         createdBy.setIcon(new ImageIcon("./Visuals/created_by.png"));
         background.setBounds(0, 0, screenWidth, screenHeight);
         background.setIcon(new ImageIcon("./Visuals/sudoku-background.jpg"));
@@ -40,18 +40,17 @@ public class MainMenu {
         mainMenuFrame.setVisible(true);
 
 
-
     }
 
-    public JButton startButton(){
+    public JButton startButton() {
         JButton start = new JButton();
         start.setBounds(screenWidth / 2 - 177 / 2, screenHeight / 2, 177, 115);
         start.setIcon(new ImageIcon("./Visuals/start_button.png"));
         start.setBorderPainted(false);
         start.setContentAreaFilled(false);
-        start.addActionListener(e->{
-            //mainMenuFrame.add(new SudokuBoard().createSudokuBoard());
-            mainMenuFrame.add(new boardCompletedJPanel().boardCompletedMessage());
+        start.addActionListener(e -> {
+            mainMenuFrame.add(board.createSudokuBoard());
+            //mainMenuFrame.add(new BoardCompletedJPanel(board).boardCompletedMessage());
             mainMenuFrame.getContentPane().getComponent(0).setVisible(false);
 
 
@@ -60,13 +59,13 @@ public class MainMenu {
 
     }
 
-    public JButton exitButton(){
+    public JButton exitButton() {
         JButton exit = new JButton();
-        exit.setBounds(screenWidth / 2 - 147 / 2, screenHeight-(screenHeight/4), 147, 115);
+        exit.setBounds(screenWidth / 2 - 147 / 2, screenHeight - (screenHeight / 4), 147, 115);
         exit.setIcon(new ImageIcon("./Visuals/exit_button.png"));
         exit.setBorderPainted(false);
         exit.setContentAreaFilled(false);
-        exit.addActionListener(e-> System.exit(0));
+        exit.addActionListener(e -> System.exit(0));
         return exit;
 
     }

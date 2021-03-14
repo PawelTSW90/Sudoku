@@ -5,6 +5,8 @@ import java.util.ArrayList;
 
 
 public class SudokuBoard {
+    JFrame mainFrame;
+    StringBuffer timeCounter;
     private boolean helpOn = false;
     private boolean soundOn = true;
     private boolean erase = false;
@@ -19,6 +21,11 @@ public class SudokuBoard {
     TimerClass time = new TimerClass(this);
     ErrorChecker error = new ErrorChecker();
 
+    public SudokuBoard(JFrame mainFrame){
+        this.mainFrame = mainFrame;
+
+    }
+
 
     public JPanel createSudokuBoard() {
         sudokuBoardPanel.setLayout(null);
@@ -30,6 +37,7 @@ public class SudokuBoard {
         sudokuBoardPanel.add(drawSoundLabel());
         sudokuBoardPanel.add(drawHelpLabel());
         sudokuBoardPanel.add(drawEraseButton());
+
         sudokuBoardPanel.add(background());
         sudokuBoardPanel.setFocusable(true);
         generator.displayBoard(buttonsTemplateCreator);
@@ -42,6 +50,7 @@ public class SudokuBoard {
 
             @Override
             public void keyPressed(KeyEvent e) {
+
                 int code = e.getKeyCode();
                 if (code == 27) {
                     if (erase) {
@@ -60,6 +69,12 @@ public class SudokuBoard {
 
 
                     }
+                } if(code == 81){
+                    sudokuBoardPanel.getComponent(1).setVisible(true);
+                    sudokuBoardPanel.setFocusable(false);
+                    BoardCompletedJPanel boardCompletedJPanel = new BoardCompletedJPanel(SudokuBoard.this);
+                    mainFrame.add(boardCompletedJPanel.boardCompletedMessage());
+                    mainFrame.getContentPane().getComponent(1).setVisible(false);
                 }
 
             }
@@ -186,9 +201,7 @@ public class SudokuBoard {
 
     }
 
-    public void setTimerButton(Component component, String time) {
-        ((JLabel) component).setText(time);
-    }
+
 
     public JLabel drawSoundLabel() {
         JLabel sound = new JLabel("Sounds");
@@ -387,6 +400,7 @@ public class SudokuBoard {
         erase.setBorderPainted(false);
         erase.setContentAreaFilled(false);
         erase.addActionListener(e -> {
+
             if (!this.erase) {
                 this.erase = true;
                 disableBackground(0);
@@ -405,6 +419,22 @@ public class SudokuBoard {
 
     public boolean getIsErase() {
         return erase;
+    }
+
+    public void showCompletedMessage(){
+
+        sudokuBoardPanel.getComponent(0).setVisible(false);
+        sudokuBoardPanel.getComponent(1).setVisible(false);
+        sudokuBoardPanel.getComponent(2).setVisible(false);
+        sudokuBoardPanel.getComponent(3).setVisible(false);
+        sudokuBoardPanel.getComponent(4).setVisible(false);
+        sudokuBoardPanel.getComponent(5).setVisible(false);
+        sudokuBoardPanel.getComponent(6).setVisible(false);
+        sudokuBoardPanel.getComponent(7).setVisible(false);
+        sudokuBoardPanel.getComponent(9).setVisible(false);
+        sudokuBoardPanel.getComponent(8).setVisible(true);
+
+
     }
 
 

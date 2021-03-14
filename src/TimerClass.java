@@ -1,3 +1,5 @@
+import javax.swing.*;
+import java.awt.*;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -5,7 +7,7 @@ public class TimerClass {
     int seconds = 0;
     int minutes = 0;
     int hours = 0;
-    private final StringBuffer time = new StringBuffer();
+    private StringBuffer time;
     SudokuBoard board;
     volatile boolean pauseThread = false;
 
@@ -17,16 +19,18 @@ public class TimerClass {
 
         //method is starting timer and passing it as a value to timer JLabel
     public StringBuffer setTimer(){
+        time = new StringBuffer();
         Timer timer = new Timer();
         timer.schedule(new TimerTask() {
 
             @Override
             public void run() {
                 if (!pauseThread) {
+                    time.delete(0, time.capacity());
                     counter();
                     time.append(String.format("%02d", hours)).append(":").append(String.format("%02d", minutes)).append(":").append(String.format("%02d", seconds));
-                    board.setTimerButton(board.sudokuBoardPanel.getComponent(4), String.valueOf(time));
-                    time.delete(0, time.capacity());
+                    setTimerButton(board.sudokuBoardPanel.getComponent(4), String.valueOf(time));
+                    board.timeCounter = time;
 
 
 
@@ -57,6 +61,14 @@ public class TimerClass {
 
     public void resumeThread(){
         pauseThread = false;
+    }
+
+    public void setTimerButton(Component component, String time) {
+        ((JLabel) component).setText(time);
+    }
+
+    public StringBuffer getTime(){
+        return time;
     }
 
 }

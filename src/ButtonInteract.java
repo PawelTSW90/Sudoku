@@ -156,6 +156,7 @@ public class ButtonInteract implements ActionListener {
             if (generator.isBoardCompleted(creator)) {
                 if (generator.isBoardCompletedCorrectly(creator, board)) {
 
+
                 }
             }
 

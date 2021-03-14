@@ -9,6 +9,7 @@ public class SudokuGenerator {
     SoundClass sound = new SoundClass();
     BoardCreator checker = new BoardCreator(this);
     StringBuilder tmpContainer = new StringBuilder();
+    MainMenu menu;
     char[] boardSolution = new char[81];
     char[] currentBoard = new char[81];
 
@@ -239,12 +240,17 @@ return null;
                 board.time.pauseThread();
                 board.sudokuBoardPanel.getComponent(1).setVisible(true);
                 board.sudokuBoardPanel.setFocusable(false);
+                BoardCompletedJPanel boardCompletedJPanel = new BoardCompletedJPanel(board);
+                board.mainFrame.add(boardCompletedJPanel.boardCompletedMessage());
+                board.mainFrame.getContentPane().getComponent(1).setVisible(false);
+
 
                 return false;
             }
 
         }
         sound.boardCompletedCorrectly(board);
+
         return true;
     }
 

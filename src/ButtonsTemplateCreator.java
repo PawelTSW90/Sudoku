@@ -8,11 +8,9 @@ public class ButtonsTemplateCreator {
     private String buttonValueHolder;
     SudokuBoard board;
 
-    public ButtonsTemplateCreator(SudokuBoard board){
+    public ButtonsTemplateCreator(SudokuBoard board) {
         this.board = board;
     }
-
-
 
 
 //method is creating template keypad buttons list and template board button list, each cell have button and position assigned
@@ -23,7 +21,7 @@ public class ButtonsTemplateCreator {
         int rowNumber = 1;
 
 
-        for (int y=0; y<9; y++){
+        for (int y = 0; y < 9; y++) {
             ButtonCreator creator = new ButtonCreator();
             creator.setButton(keypadButtons.get(y));
             creator.getButton().addActionListener(new ButtonInteract(creator.getButton(), this, generator, sound, board));
@@ -243,7 +241,7 @@ public class ButtonsTemplateCreator {
         return boardButtonsTemplateList;
     }
 
-    public List<ButtonCreator> getKeypadButtonsTemplateList(){
+    public List<ButtonCreator> getKeypadButtonsTemplateList() {
         return keypadButtonsTemplateList;
     }
 
@@ -251,7 +249,10 @@ public class ButtonsTemplateCreator {
         this.buttonValueHolder = buttonValueHolder;
     }
 
-    public String getButtonValueHolder(){
+    public String getButtonValueHolder() {
         return buttonValueHolder;
     }
+
+
+
 }
