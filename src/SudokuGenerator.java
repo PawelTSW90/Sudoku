@@ -233,6 +233,7 @@ return null;
     }
 
     public boolean isBoardCompletedCorrectly(ButtonsTemplateCreator creator, SudokuBoard board){
+        BoardCompletedJPanel boardCompletedJPanel = new BoardCompletedJPanel(board, board.highScoresCreator);
         for(int x = 0; x<81; x++){
             if(!creator.getBoardButtonsTemplateList().get(x).getButton().getLabel().equals(String.valueOf(boardSolution[x]))){
                 sound.boardCompletedWrong(board);
@@ -240,7 +241,7 @@ return null;
                 board.time.pauseThread();
                 board.sudokuBoardPanel.getComponent(1).setVisible(true);
                 board.sudokuBoardPanel.setFocusable(false);
-                BoardCompletedJPanel boardCompletedJPanel = new BoardCompletedJPanel(board);
+
                 board.mainFrame.add(boardCompletedJPanel.boardCompletedMessage());
                 board.mainFrame.getContentPane().getComponent(1).setVisible(false);
 

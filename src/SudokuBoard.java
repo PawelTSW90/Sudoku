@@ -73,7 +73,7 @@ public class SudokuBoard {
                 } if(code == 81){
                     sudokuBoardPanel.getComponent(1).setVisible(true);
                     sudokuBoardPanel.setFocusable(false);
-                    BoardCompletedJPanel boardCompletedJPanel = new BoardCompletedJPanel(SudokuBoard.this);
+                    BoardCompletedJPanel boardCompletedJPanel = new BoardCompletedJPanel(SudokuBoard.this, highScoresCreator);
                     mainFrame.add(boardCompletedJPanel.boardCompletedMessage());
                     mainFrame.getContentPane().getComponent(1).setVisible(false);
                 }
@@ -86,7 +86,7 @@ public class SudokuBoard {
             }
         });
         time.setTimer();
-        highScoresCreator.writeScore("Marta", "00:13:34", 8);
+        highScoresCreator.writeScore("Paweł", "00:13:34", 8);
         return sudokuBoardPanel;
 
     }

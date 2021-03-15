@@ -5,13 +5,15 @@ import java.awt.*;
 
 public class BoardCompletedJPanel {
     SudokuBoard board;
+    HighScoresCreator highScoresCreator;
     Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
     int screenHeight = screenSize.height;
     int screenWidth = screenSize.width;
     JPanel boardCompleted = new JPanel();
 
-    public BoardCompletedJPanel(SudokuBoard board){
+    public BoardCompletedJPanel(SudokuBoard board, HighScoresCreator highScoresCreator){
         this.board = board;
+        this.highScoresCreator = highScoresCreator;
     }
 
 
@@ -83,6 +85,7 @@ public class BoardCompletedJPanel {
         setFont(eightName);
         setFont(ninthName);
         setFont(tenthName);
+        highScoresCreator.checkUserTime(board);
         return panel;
     }
 
