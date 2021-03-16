@@ -56,7 +56,7 @@ public class ButtonInteract implements ActionListener {
                         creator.getKeypadButtonsTemplateList().get(y).getButton().setFocusable(false);
                         creator.getKeypadButtonsTemplateList().get(y).getButton().setBackground(new Color(245,232,211));
                         if (board.isHelpOn()) {
-                            error.checkIfThereAreErrors(creator, generator, sound);
+                            error.checkIfThereAreErrors(creator, generator, sound, board.time, board.thread);
                         }
 
 
@@ -146,7 +146,7 @@ public class ButtonInteract implements ActionListener {
                     creator.getBoardButtonsTemplateList().get(x).getButton().setFocusable(false);
                     creator.getBoardButtonsTemplateList().get(x).getButton().setBackground(null);
                     if (board.isHelpOn()) {
-                        error.checkIfThereAreErrors(creator, generator, sound);
+                        error.checkIfThereAreErrors(creator, generator, sound, board.time, board.thread);
                     }
 
                 }

@@ -13,6 +13,8 @@ public class MainMenu {
     private final JFrame mainMenuFrame = new JFrame();
     SudokuBoard board = new SudokuBoard(mainMenuFrame);
 
+
+
     public MainMenu() {
         setMainMenu();
     }

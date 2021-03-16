@@ -21,6 +21,8 @@ public class SudokuBoard {
     TimerClass time = new TimerClass(this);
     ErrorChecker error = new ErrorChecker();
     HighScoresCreator highScoresCreator = new HighScoresCreator();
+    Thread thread = new Thread(new ErrorLabelThread(this, 0));
+
 
     public SudokuBoard(JFrame mainFrame){
         this.mainFrame = mainFrame;
@@ -38,6 +40,7 @@ public class SudokuBoard {
         sudokuBoardPanel.add(drawSoundLabel());
         sudokuBoardPanel.add(drawHelpLabel());
         sudokuBoardPanel.add(drawEraseButton());
+        sudokuBoardPanel.add(errorCounterLabel());
         sudokuBoardPanel.add(background());
         sudokuBoardPanel.setFocusable(true);
         generator.displayBoard(buttonsTemplateCreator);
@@ -87,6 +90,7 @@ public class SudokuBoard {
         });
         time.setTimer();
         highScoresCreator.writeScore("Paweł", "00:13:34", 8);
+
         return sudokuBoardPanel;
 
     }
@@ -187,7 +191,6 @@ public class SudokuBoard {
     }
 
     public void JButtonConfigure(JButton button) {
-        //button.setBorderPainted(false);
         button.setContentAreaFilled(false);
         button.setFocusable(false);
     }
@@ -235,7 +238,6 @@ public class SudokuBoard {
         help.setForeground(new Color(102, 0, 0));
         help.setFont(new Font(null, Font.ITALIC, 80));
         help.setBounds((screenWidth / 2) + 600, (screenHeight / 2) + 200, 400, 100);
-        help.setVisible(true);
         help.addMouseListener(new MouseListenerClass(sudokuBoardPanel, this) {
             @Override
             public void mousePressed(MouseEvent e) {
@@ -247,7 +249,7 @@ public class SudokuBoard {
                 } else {
                     help.setForeground(new Color(0, 102, 0));
                     setHelpOn(true);
-                    error.checkIfThereAreErrors(buttonsTemplateCreator, generator, sound);
+                    error.checkIfThereAreErrors(buttonsTemplateCreator, generator, sound, time, board.thread);
 
                 }
             }
@@ -423,21 +425,18 @@ public class SudokuBoard {
         return erase;
     }
 
-    public void showCompletedMessage(){
+    public JLabel errorCounterLabel(){
+        JLabel errorCounter = new JLabel("NIE ZMIENIONE");
+        errorCounter.setFont(new Font(null, Font.ITALIC, 40));
+        errorCounter.setBorder(BorderFactory.createLineBorder(Color.black));
+        errorCounter.setBounds((screenWidth / 2)-800/2, (screenHeight / 2) + 450, 800, 100);
+        return errorCounter;
+    }
 
-        sudokuBoardPanel.getComponent(0).setVisible(false);
-        sudokuBoardPanel.getComponent(1).setVisible(false);
-        sudokuBoardPanel.getComponent(2).setVisible(false);
-        sudokuBoardPanel.getComponent(3).setVisible(false);
-        sudokuBoardPanel.getComponent(4).setVisible(false);
-        sudokuBoardPanel.getComponent(5).setVisible(false);
-        sudokuBoardPanel.getComponent(6).setVisible(false);
-        sudokuBoardPanel.getComponent(7).setVisible(false);
-        sudokuBoardPanel.getComponent(9).setVisible(false);
-        sudokuBoardPanel.getComponent(8).setVisible(true);
-
+    public void runThread(){
 
     }
+
 
 
 }

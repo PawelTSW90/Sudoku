@@ -44,7 +44,7 @@ public class HighScoresCreator {
         }
     }
         //method compares user time, with high scores
-    public void checkUserTime(SudokuBoard board){
+    public int checkUserTime(SudokuBoard board){
         StringBuilder highScoresString = new StringBuilder();
         StringBuilder singleHighScoresTime;
         String userTime = board.timeCounter.toString();
@@ -52,6 +52,7 @@ public class HighScoresCreator {
         int[] highScores = new int[10];
         int place = 0;
         int scoreIndexStart;
+        int resultPlace = 11;
         Path path = Paths.get("C:\\Users\\Pawel\\Desktop\\Sudoku\\HighScores.brd");
         try {
             List<String> lines = Files.readAllLines(path);
@@ -79,13 +80,25 @@ public class HighScoresCreator {
             String seconds = userTime.substring(6,8);
             singleHighScoresTime.append(hours).append(minutes).append(seconds);
             userTimeInt = Integer.parseInt(singleHighScoresTime.toString());
-            System.out.println(userTimeInt);
+
+            for (int highScore : highScores) {
+                if (userTimeInt < highScore) {
+                    resultPlace--;
+                }
+            }
+            System.out.println(resultPlace);
+
+
+
+
         } catch (IOException e) {
             e.printStackTrace();
         }
 
-
+return resultPlace;
     }
+
+
 
 
 }

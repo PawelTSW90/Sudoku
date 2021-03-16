@@ -49,7 +49,7 @@ public class ButtonKeyListener implements KeyListener {
                     button.setFocusable(false);
                     sound.tick(interact.board);
                     if(interact.board.isHelpOn()){
-                        error.checkIfThereAreErrors(creator, interact.generator, sound);
+                        error.checkIfThereAreErrors(creator, interact.generator, sound,interact.board.time, interact.board.thread);
                     }
                     if (interact.generator.isBoardCompleted(creator)) {
                         interact.generator.isBoardCompletedCorrectly(creator, interact.board);
