@@ -24,7 +24,7 @@ public class SudokuBoard {
     Thread thread = new Thread(new ErrorLabelThread(this, 0));
 
 
-    public SudokuBoard(JFrame mainFrame){
+    public SudokuBoard(JFrame mainFrame) {
         this.mainFrame = mainFrame;
 
     }
@@ -73,12 +73,17 @@ public class SudokuBoard {
 
 
                     }
-                } if(code == 81){
+                }
+                if (code == 81) {
                     sudokuBoardPanel.getComponent(1).setVisible(true);
                     sudokuBoardPanel.setFocusable(false);
                     BoardCompletedJPanel boardCompletedJPanel = new BoardCompletedJPanel(SudokuBoard.this, highScoresCreator);
                     mainFrame.add(boardCompletedJPanel.boardCompletedMessage());
                     mainFrame.getContentPane().getComponent(1).setVisible(false);
+                    //show cursor in textfield automatically
+                    Component component = mainFrame.getContentPane().getComponent(2);
+                    Component component1 = ((Container)component).getComponent(0);
+                    ((Container) component1).getComponent(1).requestFocusInWindow();
                 }
 
             }
@@ -89,8 +94,6 @@ public class SudokuBoard {
             }
         });
         time.setTimer();
-        highScoresCreator.writeScore("Paweł", "00:13:34", 8);
-
         return sudokuBoardPanel;
 
     }
@@ -205,7 +208,6 @@ public class SudokuBoard {
         return timerLabel;
 
     }
-
 
 
     public JLabel drawSoundLabel() {
@@ -425,16 +427,13 @@ public class SudokuBoard {
         return erase;
     }
 
-    public JLabel errorCounterLabel(){
-        JLabel errorCounter = new JLabel("NIE ZMIENIONE");
+    public JLabel errorCounterLabel() {
+        JLabel errorCounter = new JLabel();
+        errorCounter.setVisible(false);
         errorCounter.setFont(new Font(null, Font.ITALIC, 40));
-        errorCounter.setBorder(BorderFactory.createLineBorder(Color.black));
-        errorCounter.setBounds((screenWidth / 2)-800/2, (screenHeight / 2) + 450, 800, 100);
+        errorCounter.setForeground(new Color(102, 0, 0));
+        errorCounter.setBounds((screenWidth / 2) - 800 / 2, (screenHeight / 2) + 450, 800, 100);
         return errorCounter;
-    }
-
-    public void runThread(){
-
     }
 
 

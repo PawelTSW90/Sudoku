@@ -241,9 +241,9 @@ return null;
                 board.time.pauseThread();
                 board.sudokuBoardPanel.getComponent(1).setVisible(true);
                 board.sudokuBoardPanel.setFocusable(false);
-
                 board.mainFrame.add(boardCompletedJPanel.boardCompletedMessage());
                 board.mainFrame.getContentPane().getComponent(1).setVisible(false);
+
 
 
                 return false;
@@ -251,6 +251,9 @@ return null;
 
         }
         sound.boardCompletedCorrectly(board);
+        if(board.highScoresCreator.checkUserTime(board)<11){
+
+        }
 
         return true;
     }
