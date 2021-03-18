@@ -32,6 +32,7 @@ public class MainMenu {
         mainMenuPanel.add(title);
         mainMenuPanel.add(startButton());
         mainMenuPanel.add(exitButton());
+        mainMenuPanel.add(highScoresButton());
         mainMenuPanel.add(createdBy);
         mainMenuPanel.add(background);
         mainMenuPanel.setLayout(null);
@@ -45,14 +46,15 @@ public class MainMenu {
     }
 
     public JButton startButton() {
-        JButton start = new JButton();
-        start.setBounds(screenWidth / 2 - 177 / 2, screenHeight / 2, 177, 115);
-        start.setIcon(new ImageIcon("./Visuals/start_button.png"));
+        JButton start = new JButton("START");
+        start.setFont(new Font(null, Font.PLAIN, 80));
+        start.setBounds(screenWidth / 2 - 300 / 2, screenHeight / 2-150, 300, 115);
         start.setBorderPainted(false);
+        start.setFocusable(false);
         start.setContentAreaFilled(false);
         start.addActionListener(e -> {
+            SudokuBoard board = new SudokuBoard(mainMenuFrame);
             mainMenuFrame.add(board.createSudokuBoard());
-            //mainMenuFrame.add(new BoardCompletedJPanel(board).boardCompletedMessage());
             mainMenuFrame.getContentPane().getComponent(0).setVisible(false);
 
 
@@ -62,14 +64,25 @@ public class MainMenu {
     }
 
     public JButton exitButton() {
-        JButton exit = new JButton();
-        exit.setBounds(screenWidth / 2 - 147 / 2, screenHeight - (screenHeight / 4), 147, 115);
-        exit.setIcon(new ImageIcon("./Visuals/exit_button.png"));
+        JButton exit = new JButton("EXIT");
+        exit.setFont(new Font(null, Font.PLAIN, 80));
+        exit.setBounds(screenWidth / 2 - 300 / 2, screenHeight/2+300, 300, 115);
         exit.setBorderPainted(false);
+        exit.setFocusable(false);
         exit.setContentAreaFilled(false);
         exit.addActionListener(e -> System.exit(0));
         return exit;
 
+    }
+
+    public JButton highScoresButton(){
+        JButton highScores = new JButton("HIGHSCORES");
+        highScores.setFont(new Font(null, Font.PLAIN, 80));
+        highScores.setBounds(screenWidth/2-600/2, screenHeight-screenHeight/2+60, 600, 115);
+        highScores.setBorderPainted(false);
+        highScores.setFocusable(false);
+        highScores.setContentAreaFilled(false);
+        return highScores;
     }
 
 }

@@ -44,7 +44,6 @@ public class SudokuBoard {
         sudokuBoardPanel.add(background());
         sudokuBoardPanel.setFocusable(true);
         generator.displayBoard(buttonsTemplateCreator);
-
         //exit question when pressing escape button
         sudokuBoardPanel.addKeyListener(new KeyListener() {
             @Override
@@ -174,7 +173,10 @@ public class SudokuBoard {
         question.add(goBack);
         question.add(quit);
         question.setVisible(false);
-        quit.addActionListener(e -> System.exit(0));
+        quit.addActionListener(e -> {
+            mainFrame.getContentPane().getComponent(1).setVisible(false);
+            mainFrame.getContentPane().getComponent(0).setVisible(true);
+        });
         goBack.addActionListener(e -> {
             sudokuBoardPanel.setFocusable(true);
             disableBackground(1);
@@ -360,7 +362,7 @@ public class SudokuBoard {
         wrong.add(goBack);
         wrong.add(quit);
         wrong.setVisible(false);
-        wrong.setFocusable(true);
+        wrong.setFocusable(false);
         quit.addActionListener(e -> System.exit(0));
         goBack.addActionListener(e -> {
             sudokuBoardPanel.setFocusable(true);
