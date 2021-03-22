@@ -5,13 +5,11 @@ import static javax.swing.WindowConstants.EXIT_ON_CLOSE;
 
 
 public class MainMenu {
-
     Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
     int screenHeight = screenSize.height;
     int screenWidth = screenSize.width;
     private final JPanel mainMenuPanel = new JPanel();
     private final JFrame mainMenuFrame = new JFrame();
-    SudokuBoard board = new SudokuBoard(mainMenuFrame);
 
 
 
@@ -41,6 +39,7 @@ public class MainMenu {
         mainMenuFrame.setUndecorated(true);
         mainMenuFrame.setExtendedState(JFrame.MAXIMIZED_BOTH);
         mainMenuFrame.setVisible(true);
+        mainMenuPanel.setFocusable(true);
 
 
     }
@@ -50,12 +49,16 @@ public class MainMenu {
         start.setFont(new Font(null, Font.PLAIN, 80));
         start.setBounds(screenWidth / 2 - 300 / 2, screenHeight / 2-150, 300, 115);
         start.setBorderPainted(false);
-        start.setFocusable(false);
+        start.setFocusPainted(false);
         start.setContentAreaFilled(false);
         start.addActionListener(e -> {
             SudokuBoard board = new SudokuBoard(mainMenuFrame);
+            if(mainMenuFrame.getContentPane().getComponents().length>1){
+                mainMenuFrame.getContentPane().remove(1);
+            }
             mainMenuFrame.add(board.createSudokuBoard());
             mainMenuFrame.getContentPane().getComponent(0).setVisible(false);
+
 
 
         });
@@ -68,7 +71,7 @@ public class MainMenu {
         exit.setFont(new Font(null, Font.PLAIN, 80));
         exit.setBounds(screenWidth / 2 - 300 / 2, screenHeight/2+300, 300, 115);
         exit.setBorderPainted(false);
-        exit.setFocusable(false);
+        exit.setFocusPainted(false);
         exit.setContentAreaFilled(false);
         exit.addActionListener(e -> System.exit(0));
         return exit;
@@ -80,7 +83,7 @@ public class MainMenu {
         highScores.setFont(new Font(null, Font.PLAIN, 80));
         highScores.setBounds(screenWidth/2-600/2, screenHeight-screenHeight/2+60, 600, 115);
         highScores.setBorderPainted(false);
-        highScores.setFocusable(false);
+        highScores.setFocusPainted(false);
         highScores.setContentAreaFilled(false);
         return highScores;
     }

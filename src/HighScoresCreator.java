@@ -22,9 +22,9 @@ public class HighScoresCreator {
                 highScoresString.append("\n");
             }
             for (int x = 0; x < highScoresString.length(); x++) {
-                System.out.println(String.valueOf(highScoresString.charAt(x)));
-                System.out.println(String.valueOf(position));
-                if (String.valueOf(highScoresString.charAt(x)).equals(String.valueOf(position))) {
+
+
+                if (String.valueOf(highScoresString.charAt(x)).equals(String.valueOf(position)) && String.valueOf(highScoresString.charAt(x+1)).equals(".")) {
                     positionForEntryStart = x + 3;
                     break;
 

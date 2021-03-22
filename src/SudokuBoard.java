@@ -31,6 +31,7 @@ public class SudokuBoard {
 
 
     public JPanel createSudokuBoard() {
+
         sudokuBoardPanel.setLayout(null);
         sudokuBoardPanel.add(drawExitQuestion());
         sudokuBoardPanel.add(drawBoardCompletedWrongMessage());
@@ -74,8 +75,8 @@ public class SudokuBoard {
                     }
                 }
                 if (code == 81) {
+                    time.pauseThread();
                     sudokuBoardPanel.getComponent(1).setVisible(true);
-                    sudokuBoardPanel.setFocusable(false);
                     BoardCompletedJPanel boardCompletedJPanel = new BoardCompletedJPanel(SudokuBoard.this, highScoresCreator);
                     mainFrame.add(boardCompletedJPanel.boardCompletedMessage());
                     mainFrame.getContentPane().getComponent(1).setVisible(false);
@@ -93,6 +94,7 @@ public class SudokuBoard {
             }
         });
         time.setTimer();
+
         return sudokuBoardPanel;
 
     }

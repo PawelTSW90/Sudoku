@@ -1,8 +1,10 @@
 import javax.swing.*;
+import javax.swing.text.Document;
 import java.awt.*;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.util.regex.Pattern;
 
 
 public class BoardCompletedJPanel {
@@ -33,6 +35,7 @@ public class BoardCompletedJPanel {
         boardCompleted.add(time());
         boardCompleted.add(highScore());
         boardCompleted.add(background());
+        boardCompleted.setVisible(true);
 
 
         return boardCompleted;
@@ -59,7 +62,7 @@ public class BoardCompletedJPanel {
         namePanel.setLayout(new GridLayout(2, 0));
         namePanel.setBounds(screenWidth / 2 - 600 / 2, screenHeight / 2 - 500 / 2, 600, 400);
         namePanel.setBackground(new Color(245, 232, 211));
-        JLabel position = new JLabel("<html>Your result is " +playerPlace+" on the list!<br/>Type your name!</html>");
+        JLabel position = new JLabel("<html>Your result is " + playerPlace + " on the list!<br/>Type your name!</html>");
         position.setFont(new Font(null, Font.ITALIC, 50));
         namePanel.add(position);
         JTextField textField = new JTextField();
@@ -70,8 +73,9 @@ public class BoardCompletedJPanel {
         textField.addKeyListener(new KeyAdapter() {
             @Override
             public void keyTyped(KeyEvent e) {
-                if (textField.getText().length() >= 15) // limit to 3 characters
+                if (textField.getText().length() >= 15)  // limit to 3 characters
                     e.consume();
+
             }
         });
         textField.addKeyListener(new KeyListener() {
@@ -83,10 +87,16 @@ public class BoardCompletedJPanel {
             @Override
             public void keyPressed(KeyEvent e) {
                 int key = e.getKeyCode();
-                if(key ==10){
+
+                if (key == 10) {
                     playerName = textField.getText();
                     System.out.println(playerPlace);
-                    highScoresCreator.writeScore(playerName, board.timeCounter.toString(),playerPlace);
+                    highScoresCreator.writeScore(playerName, board.timeCounter.toString(), playerPlace);
+                    boardCompleted.remove(4);
+                    boardCompleted.remove(3);
+                    boardCompleted.add(highScore());
+                    boardCompleted.add(background());
+                    namePanel.setVisible(false);
 
                 }
             }
@@ -109,7 +119,7 @@ public class BoardCompletedJPanel {
         GridLayout layout = new GridLayout(10, 0);
         layout.setVgap(10);
         panel.setLayout(layout);
-        panel.setBounds(screenWidth / 2 - 500 / 2, 300, 500, 700);
+        panel.setBounds(screenWidth / 2 - 1200 / 2, 300, 800, 700);
         JLabel firstName = new JLabel("1..........");
         JLabel secondName = new JLabel("2..........");
         JLabel thirdName = new JLabel("3..........");
@@ -131,6 +141,15 @@ public class BoardCompletedJPanel {
         panel.add(ninthName);
         panel.add(tenthName);
         setFont(firstName);
+        setFont(secondName);
+        setFont(thirdName);
+        setFont(fourthName);
+        setFont(fifthName);
+        setFont(sixthName);
+        setFont(seventhName);
+        setFont(eightName);
+        setFont(ninthName);
+        setFont(tenthName);
         setText(firstName, 0);
         setText(secondName, 1);
         setText(thirdName, 2);
@@ -141,15 +160,8 @@ public class BoardCompletedJPanel {
         setText(eightName, 7);
         setText(ninthName, 8);
         setText(tenthName, 9);
-        setFont(secondName);
-        setFont(thirdName);
-        setFont(fourthName);
-        setFont(fifthName);
-        setFont(sixthName);
-        setFont(seventhName);
-        setFont(eightName);
-        setFont(ninthName);
-        setFont(tenthName);
+
+
         highScoresCreator.checkUserTime(board);
         return panel;
     }
@@ -164,5 +176,6 @@ public class BoardCompletedJPanel {
         label.setText(text);
 
     }
+
 
 }
