@@ -4,6 +4,7 @@ import java.awt.*;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.util.HashMap;
 import java.util.regex.Pattern;
 
 
@@ -91,7 +92,10 @@ public class BoardCompletedJPanel {
                 if (key == 10) {
                     playerName = textField.getText();
                     System.out.println(playerPlace);
-                    highScoresCreator.writeScore(playerName, board.timeCounter.toString(), playerPlace);
+                    if(playerPlace <=10) {
+                        highScoresCreator.writeScore(playerName, board.timeCounter.toString(), playerPlace);
+                    }
+                    highScoresCreator.updateResult(8);
                     boardCompleted.remove(4);
                     boardCompleted.remove(3);
                     boardCompleted.add(highScore());
@@ -115,53 +119,20 @@ public class BoardCompletedJPanel {
     }
 
     public JLabel highScore() {
+        int labelNr = 1;
         JLabel panel = new JLabel();
         GridLayout layout = new GridLayout(10, 0);
         layout.setVgap(10);
         panel.setLayout(layout);
         panel.setBounds(screenWidth / 2 - 1200 / 2, 300, 800, 700);
-        JLabel firstName = new JLabel("1..........");
-        JLabel secondName = new JLabel("2..........");
-        JLabel thirdName = new JLabel("3..........");
-        JLabel fourthName = new JLabel("4..........");
-        JLabel fifthName = new JLabel("5..........");
-        JLabel sixthName = new JLabel("6..........");
-        JLabel seventhName = new JLabel("7..........");
-        JLabel eightName = new JLabel("8..........");
-        JLabel ninthName = new JLabel("9..........");
-        JLabel tenthName = new JLabel("10..........");
-        panel.add(firstName);
-        panel.add(secondName);
-        panel.add(thirdName);
-        panel.add(fourthName);
-        panel.add(fifthName);
-        panel.add(sixthName);
-        panel.add(seventhName);
-        panel.add(eightName);
-        panel.add(ninthName);
-        panel.add(tenthName);
-        setFont(firstName);
-        setFont(secondName);
-        setFont(thirdName);
-        setFont(fourthName);
-        setFont(fifthName);
-        setFont(sixthName);
-        setFont(seventhName);
-        setFont(eightName);
-        setFont(ninthName);
-        setFont(tenthName);
-        setText(firstName, 0);
-        setText(secondName, 1);
-        setText(thirdName, 2);
-        setText(fourthName, 3);
-        setText(fifthName, 4);
-        setText(sixthName, 5);
-        setText(seventhName, 6);
-        setText(eightName, 7);
-        setText(ninthName, 8);
-        setText(tenthName, 9);
+        for(int x = 0; x<10; x++){
+            JLabel label = new JLabel(labelNr+"..........");
+            setFont(label);
+            setText(label, labelNr-1);
+            panel.add(label);
+            labelNr++;
 
-
+        }
         highScoresCreator.checkUserTime(board);
         return panel;
     }

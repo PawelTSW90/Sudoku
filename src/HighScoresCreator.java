@@ -4,9 +4,31 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.List;
 
 public class HighScoresCreator {
+
+
+    public void updateResult(int position){
+        /*Path path = Paths.get("C:\\Users\\Pawel\\Desktop\\Sudoku\\HighScores.brd");
+        String lineValue;
+        try {
+            List<String> lines = Files.readAllLines(path);
+            List<String> updatedList = new ArrayList<>();
+            List<StringBuilder>linesTmp = new ArrayList<>();
+            if(position<=9){
+                lines.set(9, "");
+                System.out.println(lines.get(9).length());
+                lineValue = lines.get(9).substring(3);
+
+
+
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }*/
+    }
 
 
     //method is saving user result into high score board
@@ -22,22 +44,50 @@ public class HighScoresCreator {
                 highScoresString.append("\n");
             }
             for (int x = 0; x < highScoresString.length(); x++) {
+                if (position == 10) {
+                    if (String.valueOf(highScoresString.charAt(x)).equals(("0")) && String.valueOf(highScoresString.charAt(x + 1)).equals(".")) {
+                        positionForEntryStart = x + 3;
+                        break;
+
+                    }
+                } else {
 
 
-                if (String.valueOf(highScoresString.charAt(x)).equals(String.valueOf(position)) && String.valueOf(highScoresString.charAt(x+1)).equals(".")) {
-                    positionForEntryStart = x + 3;
-                    break;
+                    if (String.valueOf(highScoresString.charAt(x)).equals(String.valueOf(position)) && String.valueOf(highScoresString.charAt(x + 1)).equals(".")) {
+                        positionForEntryStart = x + 3;
+                        break;
 
+                    }
                 }
             }
-            for (int y = positionForEntryStart; y < highScoresString.length(); y++) {
-                if (String.valueOf(highScoresString.charAt(y)).equals(String.valueOf(position + 1))) {
-                    positionForEntryEnd = y;
-                    break;
+            if(position ==9){
+                for (int y = positionForEntryStart; y < highScoresString.length(); y++) {
+                    if (String.valueOf(highScoresString.charAt(y)).equals(String.valueOf(0))&&String.valueOf(highScoresString.charAt(y+1)).equals(".")) {
+                        positionForEntryEnd = y-1;
+                        break;
 
+                    }
+                }
+            }else if(position ==10){
+                positionForEntryEnd = highScoresString.length();
+
+
+
+            }
+
+
+
+            else {
+                for (int y = positionForEntryStart; y < highScoresString.length(); y++) {
+                    if (String.valueOf(highScoresString.charAt(y)).equals(String.valueOf(position + 1)) && String.valueOf(highScoresString.charAt(y + 1)).equals(".")) {
+                        positionForEntryEnd = y;
+                        break;
+
+                    }
                 }
             }
             highScoresString.replace(positionForEntryStart, positionForEntryEnd - 1, name + "  " + "*" + time);
+            System.out.println(highScoresString);
             BufferedWriter writer = new BufferedWriter(new FileWriter("HighScores.brd", false));
             writer.write(highScoresString.toString());
             writer.close();
