@@ -95,7 +95,7 @@ public class BoardCompletedJPanel {
                     if(playerPlace <=10) {
                         highScoresCreator.writeScore(playerName, board.timeCounter.toString(), playerPlace);
                     }
-                    highScoresCreator.updateResult(8);
+                    highScoresCreator.updateResult(2);
                     boardCompleted.remove(4);
                     boardCompleted.remove(3);
                     boardCompleted.add(highScore());

@@ -11,23 +11,43 @@ public class HighScoresCreator {
 
 
     public void updateResult(int position){
-        /*Path path = Paths.get("C:\\Users\\Pawel\\Desktop\\Sudoku\\HighScores.brd");
+        Path path = Paths.get("C:\\Users\\Pawel\\Desktop\\Sudoku\\HighScores.brd");
         String lineValue;
+        StringBuilder[] linesTmp = new StringBuilder[10];
+        for(int x = 0; x<linesTmp.length; x++){
+            linesTmp[x] = new StringBuilder();
+        }
         try {
             List<String> lines = Files.readAllLines(path);
             List<String> updatedList = new ArrayList<>();
-            List<StringBuilder>linesTmp = new ArrayList<>();
+
             if(position<=9){
-                lines.set(9, "");
-                System.out.println(lines.get(9).length());
-                lineValue = lines.get(9).substring(3);
+                lineValue = lines.get(9).substring(0, 4);
+                linesTmp[9].append(lineValue);
+                lineValue = lines.get(8).substring(3);
+                linesTmp[9].append(lineValue);
 
+            }
+            for(int x = 8; x>position-1; x--){
+                lineValue = lines.get(x).substring(0,3);
+                linesTmp[x].append(lineValue);
+                lineValue = lines.get(x-1).substring(3);
+                linesTmp[x].append(lineValue);
 
+            }
 
+            for(int x = 9; x>position-1; x--){
+                lines.set(x, String.valueOf(linesTmp[x]));
+            }
+            for(int x = 0; x<lines.size(); x++){
+                System.out.println(lines.get(x));
             }
         } catch (IOException e) {
             e.printStackTrace();
-        }*/
+        }
+
+
+
     }
 
 
