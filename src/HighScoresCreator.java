@@ -4,68 +4,65 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
 import java.util.List;
 
 public class HighScoresCreator {
 
-
-    public void updateResult(int position){
+    //method prepares HighScores list to enter new result
+    public StringBuilder updateResult(int position) {
         Path path = Paths.get("C:\\Users\\Pawel\\Desktop\\Sudoku\\HighScores.brd");
         String lineValue;
-        StringBuilder[] linesTmp = new StringBuilder[10];
-        for(int x = 0; x<linesTmp.length; x++){
-            linesTmp[x] = new StringBuilder();
+        StringBuilder[] scoreTableArray = new StringBuilder[10];
+        StringBuilder scoreTable = new StringBuilder();
+        for (int x = 0; x < scoreTableArray.length; x++) {
+            scoreTableArray[x] = new StringBuilder();
         }
         try {
             List<String> lines = Files.readAllLines(path);
-            List<String> updatedList = new ArrayList<>();
+            //if result is lesser than ten, move results one position down (depends on players result)
+            if (position <= 9) {
 
-            if(position<=9){
-                lineValue = lines.get(9).substring(0, 4);
-                linesTmp[9].append(lineValue);
-                lineValue = lines.get(8).substring(3);
-                linesTmp[9].append(lineValue);
+                for (int x = 9; x >= 0; x--) {
+                    lineValue = lines.get(x).substring(0, 3);
+                    scoreTableArray[x].append(lineValue);
+                    if (x > 0)
+                        lineValue = lines.get(x - 1).substring(3);
+                    scoreTableArray[x].append(lineValue);
+                }
 
-            }
-            for(int x = 8; x>position-1; x--){
-                lineValue = lines.get(x).substring(0,3);
-                linesTmp[x].append(lineValue);
-                lineValue = lines.get(x-1).substring(3);
-                linesTmp[x].append(lineValue);
+                for (int x = 0; x < scoreTableArray.length; x++) {
+                    scoreTable.append(scoreTableArray[x]);
+                    scoreTable.append("\n");
 
+                }
+                //if result is tenth, moving other results is not required
+            } else {
+                for (int x = 0; x < lines.size(); x++) {
+                    scoreTableArray[x].append(lines.get(x));
+                    scoreTable.append(scoreTableArray[x]);
+                    scoreTable.append("\n");
+                }
             }
 
-            for(int x = 9; x>position-1; x--){
-                lines.set(x, String.valueOf(linesTmp[x]));
-            }
-            for(int x = 0; x<lines.size(); x++){
-                System.out.println(lines.get(x));
-            }
         } catch (IOException e) {
             e.printStackTrace();
         }
 
 
+        return scoreTable;
 
     }
 
 
-    //method is saving user result into high score board
-    public void writeScore(String name, String time, int position) {
-        StringBuilder highScoresString = new StringBuilder();
+    //method saves user result into high score board
+    public void writeScore(String name, String time, int position, StringBuilder scoreList) {
         int positionForEntryStart = 0;
         int positionForEntryEnd = 0;
         try {
-            Path path = Paths.get("C:\\Users\\Pawel\\Desktop\\Sudoku\\HighScores.brd");
-            List<String> lines = Files.readAllLines(path);
-            for (String line : lines) {
-                highScoresString.append(line);
-                highScoresString.append("\n");
-            }
-            for (int x = 0; x < highScoresString.length(); x++) {
+
+            for (int x = 0; x < scoreList.length(); x++) {
                 if (position == 10) {
-                    if (String.valueOf(highScoresString.charAt(x)).equals(("0")) && String.valueOf(highScoresString.charAt(x + 1)).equals(".")) {
+                    if (String.valueOf(scoreList.charAt(x)).equals(("0")) && String.valueOf(scoreList.charAt(x + 1)).equals(".")) {
                         positionForEntryStart = x + 3;
                         break;
 
@@ -73,43 +70,36 @@ public class HighScoresCreator {
                 } else {
 
 
-                    if (String.valueOf(highScoresString.charAt(x)).equals(String.valueOf(position)) && String.valueOf(highScoresString.charAt(x + 1)).equals(".")) {
+                    if (String.valueOf(scoreList.charAt(x)).equals(String.valueOf(position)) && String.valueOf(scoreList.charAt(x + 1)).equals(".")) {
                         positionForEntryStart = x + 3;
                         break;
 
                     }
                 }
             }
-            if(position ==9){
-                for (int y = positionForEntryStart; y < highScoresString.length(); y++) {
-                    if (String.valueOf(highScoresString.charAt(y)).equals(String.valueOf(0))&&String.valueOf(highScoresString.charAt(y+1)).equals(".")) {
-                        positionForEntryEnd = y-1;
+            if (position == 9) {
+                for (int y = positionForEntryStart; y < scoreList.length(); y++) {
+                    if (String.valueOf(scoreList.charAt(y)).equals(String.valueOf(0)) && String.valueOf(scoreList.charAt(y + 1)).equals(".")) {
+                        positionForEntryEnd = y - 1;
                         break;
 
                     }
                 }
-            }else if(position ==10){
-                positionForEntryEnd = highScoresString.length();
+            } else if (position == 10) {
+                positionForEntryEnd = scoreList.length();
 
-
-
-            }
-
-
-
-            else {
-                for (int y = positionForEntryStart; y < highScoresString.length(); y++) {
-                    if (String.valueOf(highScoresString.charAt(y)).equals(String.valueOf(position + 1)) && String.valueOf(highScoresString.charAt(y + 1)).equals(".")) {
+            } else {
+                for (int y = positionForEntryStart; y < scoreList.length(); y++) {
+                    if (String.valueOf(scoreList.charAt(y)).equals(String.valueOf(position + 1)) && String.valueOf(scoreList.charAt(y + 1)).equals(".")) {
                         positionForEntryEnd = y;
                         break;
 
                     }
                 }
             }
-            highScoresString.replace(positionForEntryStart, positionForEntryEnd - 1, name + "  " + "*" + time);
-            System.out.println(highScoresString);
+            scoreList.replace(positionForEntryStart, positionForEntryEnd - 1, name + "  " + "*" + time);
             BufferedWriter writer = new BufferedWriter(new FileWriter("HighScores.brd", false));
-            writer.write(highScoresString.toString());
+            writer.write(scoreList.toString());
             writer.close();
 
         } catch (IOException e) {
@@ -117,7 +107,7 @@ public class HighScoresCreator {
         }
     }
 
-    //method compares user time, with high scores
+    //method compares player time with other results, and returns player position
     public int checkUserTime(SudokuBoard board) {
         StringBuilder highScoresString = new StringBuilder();
         StringBuilder singleHighScoresTime;
@@ -169,12 +159,13 @@ public class HighScoresCreator {
         return resultPlace;
     }
 
+    //method returns line on highScores board corresponding with players position
     public String lineReturn(int line) {
         String lineToChange = null;
         Path path = Paths.get("C:\\Users\\Pawel\\Desktop\\Sudoku\\HighScores.brd");
         try {
             List<String> lines = Files.readAllLines(path);
-                lineToChange=lines.get(line);
+            lineToChange = lines.get(line);
 
         } catch (IOException e) {
             e.printStackTrace();
