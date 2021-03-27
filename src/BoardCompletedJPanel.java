@@ -60,33 +60,30 @@ public class BoardCompletedJPanel {
     public JPanel typeNamePanel() {
         playerPlace = highScoresCreator.checkUserTime(board);
         JPanel namePanel = new JPanel();
+        namePanel.setBorder(BorderFactory.createEtchedBorder(Color.GRAY, Color.PINK));
+        namePanel.setVisible(false);
         namePanel.setLayout(new GridLayout(2, 0));
         namePanel.setBounds(screenWidth / 2 - 600 / 2+600, screenHeight / 2 - 500 / 2, 600, 400);
         namePanel.setBackground(new Color(245, 232, 211));
         JLabel position = new JLabel("<html>Your result is " + playerPlace + " on the list!<br/>Type your name!</html>");
-        JLabel positionOutOfList = new JLabel("<html>Your result is " + playerPlace + " on the list!</html>");
         position.setFont(new Font(null, Font.ITALIC, 50));
-        positionOutOfList.setFont(new Font(null, Font.ITALIC, 50));
-        position.setVisible(false);
-        positionOutOfList.setVisible(false);
         namePanel.add(position);
-        namePanel.add(positionOutOfList);
         JTextField textField = new JTextField();
         textField.setBackground(new Color(245, 232, 211));
         textField.setFont(new Font(null, Font.ITALIC, 50));
         textField.setBorder(null);
         textField.requestFocusInWindow();
-        textField.addKeyListener(new KeyAdapter() {
-            @Override
-            public void keyTyped(KeyEvent e) {
-                if (textField.getText().length() >= 15)  // limit to 3 characters
-                    e.consume();
-
-            }
-        });
         textField.addKeyListener(new KeyListener() {
             @Override
             public void keyTyped(KeyEvent e) {
+                //limit name entry to 15 characters
+                if (textField.getText().length() >= 15)
+                    e.consume();
+                //only letters and digits allowed
+                char key = e.getKeyChar();
+                if(!Character.isAlphabetic(key) && !Character.isDigit(key)){
+                    e.consume();
+                }
 
             }
 
@@ -100,7 +97,6 @@ public class BoardCompletedJPanel {
                         highScoresCreator.writeScore(playerName, board.timeCounter.toString(), playerPlace, highScoresCreator.updateResult(playerPlace));
 
                     }
-
                     boardCompleted.remove(4);
                     boardCompleted.remove(3);
                     boardCompleted.add(highScore());
@@ -114,6 +110,19 @@ public class BoardCompletedJPanel {
             public void keyReleased(KeyEvent e) {
 
             }
+        });
+
+        textField.setInputVerifier(new InputVerifier() {
+            @Override
+            public boolean verify(JComponent input) {
+                String text = ((JTextField) input).getText();
+                if (text.equals("u"))
+                    return true;
+                return false;
+
+
+            }
+
         });
 
 
@@ -155,16 +164,10 @@ public class BoardCompletedJPanel {
 
     public void setUserNameLabel(){
         playerPlace = highScoresCreator.checkUserTime(board);
-        Component component = boardCompleted.getComponent(0);
+        Component enterName = boardCompleted.getComponent(0);
 
-        Component enterName = ((Container)component).getComponent(0);
-        Component doNotEnterName = ((Container)component).getComponent(1);
-        if(playerPlace<10){
-            ((Container) component).remove(1);
+        if(playerPlace<=10){
             enterName.setVisible(true);
-        } else{
-            ((Container) component).remove(0);
-            doNotEnterName.setVisible(true);
         }
 
     }
