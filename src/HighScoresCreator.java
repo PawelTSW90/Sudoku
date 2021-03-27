@@ -19,23 +19,32 @@ public class HighScoresCreator {
         }
         try {
             List<String> lines = Files.readAllLines(path);
-            //if result is lesser than ten, move results one position down (depends on players result)
             if (position <= 9) {
 
-                for (int x = 9; x >= 0; x--) {
-                    lineValue = lines.get(x).substring(0, 3);
-                    scoreTableArray[x].append(lineValue);
+                for (int x = 9; x >=position-1; x--) {
+                    if(x == 9){
+                        lineValue = lines.get(x).substring(0, 4);
+                        scoreTableArray[x].append(lineValue);
+                    } else {
+                        lineValue = lines.get(x).substring(0, 3);
+                        scoreTableArray[x].append(lineValue);
+                    }
                     if (x > 0)
                         lineValue = lines.get(x - 1).substring(3);
                     scoreTableArray[x].append(lineValue);
                 }
+
+                for (int x = 0; x<position-1; x++){
+                    scoreTableArray[x].append(lines.get(x));
+                }
+
 
                 for (int x = 0; x < scoreTableArray.length; x++) {
                     scoreTable.append(scoreTableArray[x]);
                     scoreTable.append("\n");
 
                 }
-                //if result is tenth, moving other results is not required
+                //if result is bigger than tenth, preparing list is not required
             } else {
                 for (int x = 0; x < lines.size(); x++) {
                     scoreTableArray[x].append(lines.get(x));

@@ -61,11 +61,16 @@ public class BoardCompletedJPanel {
         playerPlace = highScoresCreator.checkUserTime(board);
         JPanel namePanel = new JPanel();
         namePanel.setLayout(new GridLayout(2, 0));
-        namePanel.setBounds(screenWidth / 2 - 600 / 2, screenHeight / 2 - 500 / 2, 600, 400);
+        namePanel.setBounds(screenWidth / 2 - 600 / 2+600, screenHeight / 2 - 500 / 2, 600, 400);
         namePanel.setBackground(new Color(245, 232, 211));
         JLabel position = new JLabel("<html>Your result is " + playerPlace + " on the list!<br/>Type your name!</html>");
+        JLabel positionOutOfList = new JLabel("<html>Your result is " + playerPlace + " on the list!</html>");
         position.setFont(new Font(null, Font.ITALIC, 50));
+        positionOutOfList.setFont(new Font(null, Font.ITALIC, 50));
+        position.setVisible(false);
+        positionOutOfList.setVisible(false);
         namePanel.add(position);
+        namePanel.add(positionOutOfList);
         JTextField textField = new JTextField();
         textField.setBackground(new Color(245, 232, 211));
         textField.setFont(new Font(null, Font.ITALIC, 50));
@@ -91,7 +96,6 @@ public class BoardCompletedJPanel {
 
                 if (key == 10) {
                     playerName = textField.getText();
-                    System.out.println(playerPlace);
                     if(playerPlace <=10) {
                         highScoresCreator.writeScore(playerName, board.timeCounter.toString(), playerPlace, highScoresCreator.updateResult(playerPlace));
 
@@ -146,6 +150,22 @@ public class BoardCompletedJPanel {
         String text = highScoresCreator.lineReturn(line);
         text = text.replace("*", "");
         label.setText(text);
+
+    }
+
+    public void setUserNameLabel(){
+        playerPlace = highScoresCreator.checkUserTime(board);
+        Component component = boardCompleted.getComponent(0);
+
+        Component enterName = ((Container)component).getComponent(0);
+        Component doNotEnterName = ((Container)component).getComponent(1);
+        if(playerPlace<10){
+            ((Container) component).remove(1);
+            enterName.setVisible(true);
+        } else{
+            ((Container) component).remove(0);
+            doNotEnterName.setVisible(true);
+        }
 
     }
 

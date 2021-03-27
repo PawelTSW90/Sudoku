@@ -76,10 +76,13 @@ public class SudokuBoard {
                 }
                 if (code == 81) {
                     time.pauseThread();
-                    sudokuBoardPanel.getComponent(1).setVisible(true);
                     BoardCompletedJPanel boardCompletedJPanel = new BoardCompletedJPanel(SudokuBoard.this, highScoresCreator);
+
                     mainFrame.add(boardCompletedJPanel.boardCompletedMessage());
+                    boardCompletedJPanel.setUserNameLabel();
                     mainFrame.getContentPane().getComponent(1).setVisible(false);
+
+
                     //show cursor in textfield automatically
                     Component component = mainFrame.getContentPane().getComponent(2);
                     Component component1 = ((Container)component).getComponent(0);
