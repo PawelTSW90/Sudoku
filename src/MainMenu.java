@@ -1,5 +1,6 @@
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.MouseEvent;
 
 import static javax.swing.WindowConstants.EXIT_ON_CLOSE;
 
@@ -10,7 +11,6 @@ public class MainMenu {
     int screenWidth = screenSize.width;
     private final JPanel mainMenuPanel = new JPanel();
     private final JFrame mainMenuFrame = new JFrame();
-
 
 
     public MainMenu() {
@@ -34,6 +34,7 @@ public class MainMenu {
         mainMenuPanel.add(createdBy);
         mainMenuPanel.add(background);
         mainMenuPanel.setLayout(null);
+
         mainMenuFrame.add(mainMenuPanel);
         mainMenuFrame.setDefaultCloseOperation(EXIT_ON_CLOSE);
         mainMenuFrame.setUndecorated(true);
@@ -47,21 +48,10 @@ public class MainMenu {
     public JButton startButton() {
         JButton start = new JButton("START");
         start.setFont(new Font(null, Font.PLAIN, 80));
-        start.setBounds(screenWidth / 2 - 300 / 2, screenHeight / 2-150, 300, 115);
-        start.setBorderPainted(false);
-        start.setFocusPainted(false);
-        start.setContentAreaFilled(false);
-        start.addActionListener(e -> {
-            SudokuBoard board = new SudokuBoard(mainMenuFrame);
-            if(mainMenuFrame.getContentPane().getComponents().length>1){
-                mainMenuFrame.getContentPane().remove(1);
-            }
-            mainMenuFrame.add(board.createSudokuBoard());
-            mainMenuFrame.getContentPane().getComponent(0).setVisible(false);
+        start.setBounds(screenWidth / 2 - 300 / 2, screenHeight / 2 - 150, 300, 115);
+        setButtons(start);
+        start.addActionListener(e -> generateNewBoard());
 
-
-
-        });
         return start;
 
     }
@@ -69,23 +59,49 @@ public class MainMenu {
     public JButton exitButton() {
         JButton exit = new JButton("EXIT");
         exit.setFont(new Font(null, Font.PLAIN, 80));
-        exit.setBounds(screenWidth / 2 - 300 / 2, screenHeight/2+300, 300, 115);
-        exit.setBorderPainted(false);
-        exit.setFocusPainted(false);
-        exit.setContentAreaFilled(false);
+        exit.setBounds(screenWidth / 2 - 300 / 2, screenHeight / 2 + 300, 300, 115);
+        setButtons(exit);
         exit.addActionListener(e -> System.exit(0));
         return exit;
 
     }
 
-    public JButton highScoresButton(){
+    public JButton highScoresButton() {
         JButton highScores = new JButton("HIGHSCORES");
         highScores.setFont(new Font(null, Font.PLAIN, 80));
-        highScores.setBounds(screenWidth/2-600/2, screenHeight-screenHeight/2+60, 600, 115);
-        highScores.setBorderPainted(false);
-        highScores.setFocusPainted(false);
-        highScores.setContentAreaFilled(false);
+        highScores.setBounds(screenWidth / 2 - 600 / 2, screenHeight - screenHeight / 2 + 60, 600, 115);
+        setButtons(highScores);
         return highScores;
+    }
+
+    public void setButtons(JButton button) {
+        button.setBorderPainted(false);
+        button.setFocusPainted(false);
+        button.setContentAreaFilled(false);
+        button.addMouseListener(new MouseListenerClass(null) {
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                button.setForeground(new Color(80, 50, 10));
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                button.setForeground(Color.BLACK);
+            }
+        });
+
+    }
+
+    public void generateNewBoard() {
+        System.out.println(mainMenuFrame.getContentPane().getComponents().length);
+
+        if (mainMenuFrame.getContentPane().getComponents().length > 1) {
+            while (mainMenuFrame.getContentPane().getComponents().length>1)
+            mainMenuFrame.getContentPane().remove(mainMenuFrame.getContentPane().getComponents().length-1);
+        }
+        SudokuBoard board = new SudokuBoard(mainMenuFrame, this);
+        mainMenuFrame.add(board.createSudokuBoard());
+        mainMenuFrame.getContentPane().getComponent(0).setVisible(false);
     }
 
 }

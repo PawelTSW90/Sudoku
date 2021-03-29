@@ -1,9 +1,7 @@
 import javax.swing.*;
 import javax.swing.text.Document;
 import java.awt.*;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
+import java.awt.event.*;
 import java.util.HashMap;
 import java.util.regex.Pattern;
 
@@ -27,19 +25,21 @@ public class BoardCompletedJPanel {
     public JPanel boardCompletedMessage() {
         boardCompleted.setLayout(null);
         boardCompleted.setFocusable(true);
-        JLabel congratulations = new JLabel();
-        congratulations.setBounds(screenWidth / 2 - 550 / 2, screenHeight / 2 - 1100 / 2, 550, 150);
-        congratulations.setFont(new Font(null, Font.ITALIC, 80));
-        congratulations.setText("WELL DONE!!!");
-        boardCompleted.add(typeNamePanel());
-        boardCompleted.add(congratulations);
-        boardCompleted.add(time());
-        boardCompleted.add(highScore());
-        boardCompleted.add(background());
-        boardCompleted.setVisible(true);
+        JLabel boardCompleted = new JLabel();
+        boardCompleted.setBounds(screenWidth / 2 - 550 / 2, screenHeight / 2 - 1100 / 2, 550, 150);
+        boardCompleted.setFont(new Font(null, Font.ITALIC, 80));
+        boardCompleted.setText("WELL DONE!!!");
+        this.boardCompleted.add(typeNamePanel());
+        this.boardCompleted.add(boardCompleted);
+        this.boardCompleted.add(time());
+        this.boardCompleted.add(highScore());
+        this.boardCompleted.add(newGameButton());
+        this.boardCompleted.add(exitButton());
+        this.boardCompleted.add(background());
+        this.boardCompleted.setVisible(true);
 
 
-        return boardCompleted;
+        return this.boardCompleted;
     }
 
     public JLabel background() {
@@ -63,7 +63,7 @@ public class BoardCompletedJPanel {
         namePanel.setBorder(BorderFactory.createEtchedBorder(Color.GRAY, Color.PINK));
         namePanel.setVisible(false);
         namePanel.setLayout(new GridLayout(2, 0));
-        namePanel.setBounds(screenWidth / 2 - 600 / 2+600, screenHeight / 2 - 500 / 2, 600, 400);
+        namePanel.setBounds(screenWidth / 2 - 600 / 2 + 600, screenHeight / 2 - 500 / 2, 600, 400);
         namePanel.setBackground(new Color(245, 232, 211));
         JLabel position = new JLabel("<html>Your result is " + playerPlace + " on the list!<br/>Type your name!</html>");
         position.setFont(new Font(null, Font.ITALIC, 50));
@@ -73,6 +73,7 @@ public class BoardCompletedJPanel {
         textField.setFont(new Font(null, Font.ITALIC, 50));
         textField.setBorder(null);
         textField.requestFocusInWindow();
+        namePanel.add(textField);
         textField.addKeyListener(new KeyListener() {
             @Override
             public void keyTyped(KeyEvent e) {
@@ -81,7 +82,7 @@ public class BoardCompletedJPanel {
                     e.consume();
                 //only letters and digits allowed
                 char key = e.getKeyChar();
-                if(!Character.isAlphabetic(key) && !Character.isDigit(key)){
+                if (!Character.isAlphabetic(key) && !Character.isDigit(key)) {
                     e.consume();
                 }
 
@@ -90,14 +91,14 @@ public class BoardCompletedJPanel {
             @Override
             public void keyPressed(KeyEvent e) {
                 int key = e.getKeyCode();
-
+                //action when enter is pressed
                 if (key == 10) {
                     playerName = textField.getText();
-                    if(playerPlace <=10) {
+                    if (playerPlace <= 10) {
                         highScoresCreator.writeScore(playerName, board.timeCounter.toString(), playerPlace, highScoresCreator.updateResult(playerPlace));
 
                     }
-                    boardCompleted.remove(4);
+                    boardCompleted.remove(6);
                     boardCompleted.remove(3);
                     boardCompleted.add(highScore());
                     boardCompleted.add(background());
@@ -112,22 +113,6 @@ public class BoardCompletedJPanel {
             }
         });
 
-        textField.setInputVerifier(new InputVerifier() {
-            @Override
-            public boolean verify(JComponent input) {
-                String text = ((JTextField) input).getText();
-                if (text.equals("u"))
-                    return true;
-                return false;
-
-
-            }
-
-        });
-
-
-        namePanel.add(textField);
-
 
         return namePanel;
     }
@@ -139,10 +124,10 @@ public class BoardCompletedJPanel {
         layout.setVgap(10);
         panel.setLayout(layout);
         panel.setBounds(screenWidth / 2 - 1200 / 2, 300, 800, 700);
-        for(int x = 0; x<10; x++){
-            JLabel label = new JLabel(labelNr+"..........");
+        for (int x = 0; x < 10; x++) {
+            JLabel label = new JLabel(labelNr + "..........");
             setFont(label);
-            setText(label, labelNr-1);
+            setText(label, labelNr - 1);
             panel.add(label);
             labelNr++;
 
@@ -162,13 +147,77 @@ public class BoardCompletedJPanel {
 
     }
 
-    public void setUserNameLabel(){
+    public void setUserNameLabel() {
         playerPlace = highScoresCreator.checkUserTime(board);
         Component enterName = boardCompleted.getComponent(0);
 
-        if(playerPlace<=10){
+        if (playerPlace <= 10) {
             enterName.setVisible(true);
         }
+
+    }
+
+    public JButton newGameButton() {
+        JButton newGame = new JButton("MAIN MENU");
+        setButtons(newGame);
+        newGame.setFont(new Font(null, Font.PLAIN, 80));
+        newGame.setBounds(screenWidth / 2 + 700 / 2, screenHeight / 2, 500, 115);
+        newGame.addMouseListener(new MouseListenerClass(board) {
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                newGame.setForeground(new Color(80, 50, 10));
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                newGame.setForeground(Color.BLACK);
+            }
+
+
+        });
+
+        newGame.addActionListener(e -> {
+            board.mainFrame.getContentPane().getComponent(2).setVisible(false);
+            board.mainFrame.getContentPane().getComponent(0).setVisible(true);
+        });
+
+        return newGame;
+
+    }
+
+    public JButton exitButton() {
+        JButton exit = new JButton("EXIT");
+        setButtons(exit);
+        exit.setFont(new Font(null, Font.PLAIN, 80));
+        exit.setBounds(screenWidth / 2 + 1000 / 2, screenHeight / 2 + (115 * 2), 220, 115);
+        exit.addMouseListener(new MouseListenerClass(board) {
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                exit.setForeground(new Color(80, 50, 10));
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                exit.setForeground(Color.BLACK);
+            }
+
+            @Override
+
+            public void mousePressed(MouseEvent e) {
+                board.sound.tick(board);
+                System.exit(1);
+
+            }
+        });
+        return exit;
+
+
+    }
+
+    public void setButtons(JButton button) {
+        button.setBorderPainted(false);
+        button.setFocusPainted(false);
+        button.setContentAreaFilled(false);
 
     }
 

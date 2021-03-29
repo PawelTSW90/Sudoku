@@ -7,6 +7,7 @@ import java.util.ArrayList;
 public class SudokuBoard {
     JFrame mainFrame;
     StringBuffer timeCounter;
+    MainMenu menu;
     private boolean helpOn = false;
     private boolean soundOn = true;
     private boolean erase = false;
@@ -24,8 +25,9 @@ public class SudokuBoard {
     Thread thread = new Thread(new ErrorLabelThread(this, 0));
 
 
-    public SudokuBoard(JFrame mainFrame) {
+    public SudokuBoard(JFrame mainFrame, MainMenu menu) {
         this.mainFrame = mainFrame;
+        this.menu = menu;
 
     }
 
@@ -162,9 +164,9 @@ public class SudokuBoard {
         JButton startOver = new JButton("Start over");
         JButton goBack = new JButton("Continue");
         JButton quit = new JButton("Exit");
-        startOver.addMouseListener(new MouseListenerClass(exit, this));
-        goBack.addMouseListener(new MouseListenerClass(exit, this));
-        quit.addMouseListener(new MouseListenerClass(exit, this));
+        startOver.addMouseListener(new MouseListenerClass(this));
+        goBack.addMouseListener(new MouseListenerClass(this));
+        quit.addMouseListener(new MouseListenerClass(this));
         quit.setFont(new Font(null, Font.PLAIN, 40));
         startOver.setFont(new Font(null, Font.PLAIN, 40));
         qButton.setFont(new Font(null, Font.PLAIN, 40));
@@ -179,10 +181,12 @@ public class SudokuBoard {
         question.add(quit);
         question.setVisible(false);
         quit.addActionListener(e -> {
+            sound.tick(this);
             mainFrame.getContentPane().getComponent(1).setVisible(false);
             mainFrame.getContentPane().getComponent(0).setVisible(true);
         });
         goBack.addActionListener(e -> {
+            sound.tick(this);
             sudokuBoardPanel.setFocusable(true);
             disableBackground(1);
             time.resumeThread();
@@ -190,6 +194,7 @@ public class SudokuBoard {
 
         });
         startOver.addActionListener(e -> {
+            sound.tick(this);
             sudokuBoardPanel.setFocusable(true);
             sudokuBoardPanel.getComponent(0).setVisible(false);
             disableBackground(1);
@@ -225,7 +230,7 @@ public class SudokuBoard {
         sound.setFont(new Font(null, Font.ITALIC, 80));
         sound.setBounds((screenWidth / 2) + 600, (screenHeight / 2) + 50, 400, 100);
         sound.setVisible(true);
-        sound.addMouseListener(new MouseListenerClass(sudokuBoardPanel, this) {
+        sound.addMouseListener(new MouseListenerClass(this) {
             @Override
             public void mousePressed(MouseEvent e) {
                 Component component = sudokuBoardPanel.getComponent(5);
@@ -247,7 +252,7 @@ public class SudokuBoard {
         help.setForeground(new Color(102, 0, 0));
         help.setFont(new Font(null, Font.ITALIC, 80));
         help.setBounds((screenWidth / 2) + 600, (screenHeight / 2) + 200, 400, 100);
-        help.addMouseListener(new MouseListenerClass(sudokuBoardPanel, this) {
+        help.addMouseListener(new MouseListenerClass(this) {
             @Override
             public void mousePressed(MouseEvent e) {
                 Component component = sudokuBoardPanel.getComponent(6);
@@ -351,9 +356,9 @@ public class SudokuBoard {
         JButton startOver = new JButton("Start over");
         JButton goBack = new JButton("Continue");
         JButton quit = new JButton("Exit");
-        startOver.addMouseListener(new MouseListenerClass(wrong, this));
-        goBack.addMouseListener(new MouseListenerClass(wrong, this));
-        quit.addMouseListener(new MouseListenerClass(wrong, this));
+        startOver.addMouseListener(new MouseListenerClass(this));
+        goBack.addMouseListener(new MouseListenerClass(this));
+        quit.addMouseListener(new MouseListenerClass(this));
         quit.setFont(new Font(null, Font.PLAIN, 40));
         startOver.setFont(new Font(null, Font.PLAIN, 40));
         oops.setFont(new Font(null, Font.PLAIN, 40));

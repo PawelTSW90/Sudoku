@@ -1,12 +1,9 @@
-import javax.swing.*;
 import java.awt.event.MouseEvent;
 
 public class MouseListenerClass implements java.awt.event.MouseListener {
-    JPanel panel;
     SudokuBoard board;
 
-    MouseListenerClass(JPanel panel, SudokuBoard board) {
-        this.panel = panel;
+    MouseListenerClass(SudokuBoard board) {
         this.board = board;
 
     }
@@ -18,16 +15,11 @@ public class MouseListenerClass implements java.awt.event.MouseListener {
 
     @Override
     public void mousePressed(MouseEvent e) {
-        new SoundClass().tick(board);
-
-
 
     }
 
     @Override
     public void mouseReleased(MouseEvent e) {
-
-
 
     }
 
