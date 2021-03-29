@@ -21,7 +21,7 @@ public class SudokuBoard {
     SoundClass sound = new SoundClass();
     TimerClass time = new TimerClass(this);
     ErrorChecker error = new ErrorChecker();
-    HighScoresCreator highScoresCreator = new HighScoresCreator();
+    HighScoresCreator highScoresCreator = new HighScoresCreator(this);
     Thread thread = new Thread(new ErrorLabelThread(this, 0));
 
 

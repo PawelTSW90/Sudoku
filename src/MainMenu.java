@@ -1,5 +1,7 @@
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 
 import static javax.swing.WindowConstants.EXIT_ON_CLOSE;
@@ -71,6 +73,19 @@ public class MainMenu {
         highScores.setFont(new Font(null, Font.PLAIN, 80));
         highScores.setBounds(screenWidth / 2 - 600 / 2, screenHeight - screenHeight / 2 + 60, 600, 115);
         setButtons(highScores);
+        highScores.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (mainMenuFrame.getContentPane().getComponents().length > 1) {
+                    while (mainMenuFrame.getContentPane().getComponents().length>1)
+                        mainMenuFrame.getContentPane().remove(mainMenuFrame.getContentPane().getComponents().length-1);
+                }
+                mainMenuFrame.add(new HighScoresPanel().highScorePage());
+                mainMenuFrame.getContentPane().getComponent(0).setVisible(false);
+
+            }
+        });
+
         return highScores;
     }
 

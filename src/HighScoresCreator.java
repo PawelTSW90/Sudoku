@@ -1,3 +1,5 @@
+import javax.swing.*;
+import java.awt.*;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -7,6 +9,11 @@ import java.nio.file.Paths;
 import java.util.List;
 
 public class HighScoresCreator {
+    SudokuBoard board;
+
+    public HighScoresCreator(SudokuBoard board){
+        this.board = board;
+    }
 
     //method prepares HighScores list to enter new result
     public StringBuilder updateResult(int position) {
@@ -183,6 +190,31 @@ public class HighScoresCreator {
 
 
     }
+    public JLabel highScore() {
+        int labelNr = 1;
+        JLabel panel = new JLabel();
+        GridLayout layout = new GridLayout(10, 0);
+        layout.setVgap(10);
+        panel.setLayout(layout);
+        panel.setBounds(ScreenSizeSettings.getScreenWidth() / 2 - 1200 / 2, 300, 800, 700);
+        for (int x = 0; x < 10; x++) {
+            JLabel label = new JLabel(labelNr + "..........");
+            label.setFont(new Font(null, Font.ITALIC, 50));
+            setText(label, labelNr - 1);
+            panel.add(label);
+            labelNr++;
+
+        }
+        return panel;
+    }
+    public void setText(JLabel label, int line) {
+        String text = lineReturn(line);
+        text = text.replace("*", "");
+        label.setText(text);
+
+    }
+
+
 
 
 }

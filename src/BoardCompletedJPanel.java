@@ -1,9 +1,6 @@
 import javax.swing.*;
-import javax.swing.text.Document;
 import java.awt.*;
 import java.awt.event.*;
-import java.util.HashMap;
-import java.util.regex.Pattern;
 
 
 public class BoardCompletedJPanel {
@@ -32,8 +29,8 @@ public class BoardCompletedJPanel {
         this.boardCompleted.add(typeNamePanel());
         this.boardCompleted.add(boardCompleted);
         this.boardCompleted.add(time());
-        this.boardCompleted.add(highScore());
-        this.boardCompleted.add(newGameButton());
+        this.boardCompleted.add(highScoresCreator.highScore());
+        this.boardCompleted.add(mainMenuButton());
         this.boardCompleted.add(exitButton());
         this.boardCompleted.add(background());
         this.boardCompleted.setVisible(true);
@@ -98,9 +95,11 @@ public class BoardCompletedJPanel {
                         highScoresCreator.writeScore(playerName, board.timeCounter.toString(), playerPlace, highScoresCreator.updateResult(playerPlace));
 
                     }
+                    boardCompleted.getComponent(4).setVisible(true);
+                    boardCompleted.getComponent(5).setVisible(true);
                     boardCompleted.remove(6);
                     boardCompleted.remove(3);
-                    boardCompleted.add(highScore());
+                    boardCompleted.add(highScoresCreator.highScore());
                     boardCompleted.add(background());
                     namePanel.setVisible(false);
 
@@ -117,35 +116,9 @@ public class BoardCompletedJPanel {
         return namePanel;
     }
 
-    public JLabel highScore() {
-        int labelNr = 1;
-        JLabel panel = new JLabel();
-        GridLayout layout = new GridLayout(10, 0);
-        layout.setVgap(10);
-        panel.setLayout(layout);
-        panel.setBounds(screenWidth / 2 - 1200 / 2, 300, 800, 700);
-        for (int x = 0; x < 10; x++) {
-            JLabel label = new JLabel(labelNr + "..........");
-            setFont(label);
-            setText(label, labelNr - 1);
-            panel.add(label);
-            labelNr++;
 
-        }
-        highScoresCreator.checkUserTime(board);
-        return panel;
-    }
 
-    public void setFont(JLabel label) {
-        label.setFont(new Font(null, Font.ITALIC, 50));
-    }
 
-    public void setText(JLabel label, int line) {
-        String text = highScoresCreator.lineReturn(line);
-        text = text.replace("*", "");
-        label.setText(text);
-
-    }
 
     public void setUserNameLabel() {
         playerPlace = highScoresCreator.checkUserTime(board);
@@ -157,36 +130,39 @@ public class BoardCompletedJPanel {
 
     }
 
-    public JButton newGameButton() {
-        JButton newGame = new JButton("MAIN MENU");
-        setButtons(newGame);
-        newGame.setFont(new Font(null, Font.PLAIN, 80));
-        newGame.setBounds(screenWidth / 2 + 700 / 2, screenHeight / 2, 500, 115);
-        newGame.addMouseListener(new MouseListenerClass(board) {
+    public JButton mainMenuButton() {
+        JButton mainMenu = new JButton("MAIN MENU");
+        mainMenu.setVisible(false);
+        setButtons(mainMenu);
+        mainMenu.setFont(new Font(null, Font.PLAIN, 80));
+        mainMenu.setBounds(screenWidth / 2 + 700 / 2, screenHeight / 2, 500, 115);
+        mainMenu.addMouseListener(new MouseListenerClass(board) {
             @Override
             public void mouseEntered(MouseEvent e) {
-                newGame.setForeground(new Color(80, 50, 10));
+                mainMenu.setForeground(new Color(80, 50, 10));
             }
 
             @Override
             public void mouseExited(MouseEvent e) {
-                newGame.setForeground(Color.BLACK);
+                mainMenu.setForeground(Color.BLACK);
             }
 
 
         });
 
-        newGame.addActionListener(e -> {
+        mainMenu.addActionListener(e -> {
+            board.sound.tick(board);
             board.mainFrame.getContentPane().getComponent(2).setVisible(false);
             board.mainFrame.getContentPane().getComponent(0).setVisible(true);
         });
 
-        return newGame;
+        return mainMenu;
 
     }
 
     public JButton exitButton() {
         JButton exit = new JButton("EXIT");
+        exit.setVisible(false);
         setButtons(exit);
         exit.setFont(new Font(null, Font.PLAIN, 80));
         exit.setBounds(screenWidth / 2 + 1000 / 2, screenHeight / 2 + (115 * 2), 220, 115);
@@ -220,6 +196,7 @@ public class BoardCompletedJPanel {
         button.setContentAreaFilled(false);
 
     }
+
 
 
 }
