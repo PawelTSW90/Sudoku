@@ -29,8 +29,8 @@ public class TimerClass {
                     time.delete(0, time.capacity());
                     counter();
                     time.append(String.format("%02d", hours)).append(":").append(String.format("%02d", minutes)).append(":").append(String.format("%02d", seconds));
-                    setTimerButton(board.sudokuBoardPanel.getComponent(4), String.valueOf(time));
-                    board.timeCounter = time;
+                    setTimerButton(board.getSudokuBoardPanel().getComponent(4), String.valueOf(time));
+                    board.setTimeCounter(time);
 
 
 

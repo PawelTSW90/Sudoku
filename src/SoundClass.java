@@ -8,7 +8,7 @@ import java.io.IOException;
 public class SoundClass {
         //method is playing tick sound
     public void tick(SudokuBoard board) {
-        if(board.isSoundOn()) {
+        if(board==null || board.isSoundOn()) {
 
             try {
                 Clip clip = AudioSystem.getClip();

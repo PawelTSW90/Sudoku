@@ -19,6 +19,10 @@ public class MainMenu {
         setMainMenu();
     }
 
+    public JFrame getMainMenuFrame(){
+        return mainMenuFrame;
+    }
+
     public void setMainMenu() {
         JLabel background = new JLabel();
         JLabel title = new JLabel();
@@ -52,7 +56,10 @@ public class MainMenu {
         start.setFont(new Font(null, Font.PLAIN, 80));
         start.setBounds(screenWidth / 2 - 300 / 2, screenHeight / 2 - 150, 300, 115);
         setButtons(start);
-        start.addActionListener(e -> generateNewBoard());
+        start.addActionListener(e -> {
+            new SoundClass().tick(null);
+            generateNewBoard();
+        });
 
         return start;
 
@@ -73,17 +80,14 @@ public class MainMenu {
         highScores.setFont(new Font(null, Font.PLAIN, 80));
         highScores.setBounds(screenWidth / 2 - 600 / 2, screenHeight - screenHeight / 2 + 60, 600, 115);
         setButtons(highScores);
-        highScores.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                if (mainMenuFrame.getContentPane().getComponents().length > 1) {
-                    while (mainMenuFrame.getContentPane().getComponents().length>1)
-                        mainMenuFrame.getContentPane().remove(mainMenuFrame.getContentPane().getComponents().length-1);
-                }
-                mainMenuFrame.add(new HighScoresPanel().highScorePage());
-                mainMenuFrame.getContentPane().getComponent(0).setVisible(false);
-
+        highScores.addActionListener(e -> {
+            if (mainMenuFrame.getContentPane().getComponents().length > 1) {
+                while (mainMenuFrame.getContentPane().getComponents().length>1)
+                    mainMenuFrame.getContentPane().remove(mainMenuFrame.getContentPane().getComponents().length-1);
             }
+            mainMenuFrame.add(new HighScoresPanel(this).highScorePage());
+            mainMenuFrame.getContentPane().getComponent(0).setVisible(false);
+
         });
 
         return highScores;

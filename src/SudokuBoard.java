@@ -6,15 +6,11 @@ import java.util.ArrayList;
 
 public class SudokuBoard {
     JFrame mainFrame;
-    StringBuffer timeCounter;
     MainMenu menu;
     private boolean helpOn = false;
     private boolean soundOn = true;
     private boolean erase = false;
-    JPanel sudokuBoardPanel = new JPanel();
-    Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-    int screenHeight = screenSize.height;
-    int screenWidth = screenSize.width;
+    private JPanel sudokuBoardPanel = new JPanel();
     ButtonsTemplateCreator buttonsTemplateCreator = new ButtonsTemplateCreator(this);
     ButtonCreator buttonCreator = new ButtonCreator();
     SudokuGenerator generator = new SudokuGenerator();
@@ -23,6 +19,7 @@ public class SudokuBoard {
     ErrorChecker error = new ErrorChecker();
     HighScoresCreator highScoresCreator = new HighScoresCreator(this);
     Thread thread = new Thread(new ErrorLabelThread(this, 0));
+    private StringBuffer timeCounter;
 
 
     public SudokuBoard(JFrame mainFrame, MainMenu menu) {
@@ -85,7 +82,7 @@ public class SudokuBoard {
                     mainFrame.getContentPane().getComponent(1).setVisible(false);
 
 
-                    //show cursor in textfield automatically
+                    //show cursor in text field automatically
                     Component component = mainFrame.getContentPane().getComponent(2);
                     Component component1 = ((Container)component).getComponent(0);
                     ((Container) component1).getComponent(1).requestFocusInWindow();
@@ -108,7 +105,7 @@ public class SudokuBoard {
     public JLabel background() {
 
         JLabel backgroundLabel = new JLabel();
-        backgroundLabel.setBounds(0, 0, screenWidth, screenHeight);
+        backgroundLabel.setBounds(0, 0, UtilityClass.getScreenWidth(), UtilityClass.getScreenHeight());
         backgroundLabel.setIcon(new ImageIcon("./Visuals/sudoku-background.jpg"));
 
 
@@ -158,7 +155,7 @@ public class SudokuBoard {
         question.setBackground(new Color(245, 232, 211));
         question.setLayout(new GridLayout(4, 1));
         question.setBorder(BorderFactory.createEtchedBorder(Color.GRAY, Color.PINK));
-        question.setBounds(screenWidth / 2 - 500 / 2, screenHeight / 2 - 400 / 2, 500, 400);
+        question.setBounds(UtilityClass.getScreenWidth() / 2 - 500 / 2, UtilityClass.getScreenHeight() / 2 - 400 / 2, 500, 400);
         JButton qButton = new JButton(" Would you like to:");
         qButton.setBorderPainted(false);
         JButton startOver = new JButton("Start over");
@@ -215,7 +212,7 @@ public class SudokuBoard {
 
         JLabel timerLabel = new JLabel();
         timerLabel.setFont(new Font(null, Font.PLAIN, 80));
-        timerLabel.setBounds((screenWidth / 2) + 600, (screenHeight / 2) + 200, 500, 500);
+        timerLabel.setBounds((UtilityClass.getScreenWidth() / 2) + 600, (UtilityClass.getScreenHeight() / 2) + 200, 500, 500);
         timerLabel.setVisible(true);
         return timerLabel;
 
@@ -228,7 +225,7 @@ public class SudokuBoard {
         sound.setBackground(Color.BLACK);
         sound.setFocusable(false);
         sound.setFont(new Font(null, Font.ITALIC, 80));
-        sound.setBounds((screenWidth / 2) + 600, (screenHeight / 2) + 50, 400, 100);
+        sound.setBounds((UtilityClass.getScreenWidth() / 2) + 600, (UtilityClass.getScreenHeight() / 2) + 50, 400, 100);
         sound.setVisible(true);
         sound.addMouseListener(new MouseListenerClass(this) {
             @Override
@@ -251,7 +248,7 @@ public class SudokuBoard {
         help.setFocusable(false);
         help.setForeground(new Color(102, 0, 0));
         help.setFont(new Font(null, Font.ITALIC, 80));
-        help.setBounds((screenWidth / 2) + 600, (screenHeight / 2) + 200, 400, 100);
+        help.setBounds((UtilityClass.getScreenWidth() / 2) + 600, (UtilityClass.getScreenHeight() / 2) + 200, 400, 100);
         help.addMouseListener(new MouseListenerClass(this) {
             @Override
             public void mousePressed(MouseEvent e) {
@@ -350,7 +347,7 @@ public class SudokuBoard {
         wrong.setBackground(new Color(245, 232, 211));
         wrong.setLayout(new GridLayout(4, 1));
         wrong.setBorder(BorderFactory.createEtchedBorder(Color.GRAY, Color.PINK));
-        wrong.setBounds(screenWidth / 2 - 500 / 2, screenHeight / 2 - 400 / 2, 500, 400);
+        wrong.setBounds(UtilityClass.getScreenWidth() / 2 - 500 / 2, UtilityClass.getScreenHeight() / 2 - 400 / 2, 500, 400);
         JButton oops = new JButton("Oops! Something went wrong! Would you like to:");
         oops.setBorderPainted(false);
         JButton startOver = new JButton("Start over");
@@ -413,7 +410,7 @@ public class SudokuBoard {
     public JButton drawEraseButton() {
         JButton erase = new JButton();
         erase.setFocusable(false);
-        erase.setBounds((screenWidth / 2) + 838, (screenHeight / 2) - 135, 100, 75);
+        erase.setBounds((UtilityClass.getScreenWidth() / 2) + 838, (UtilityClass.getScreenHeight() / 2) - 135, 100, 75);
         erase.setIcon(new ImageIcon("./Visuals/erase.png"));
         erase.setBorderPainted(false);
         erase.setContentAreaFilled(false);
@@ -444,12 +441,22 @@ public class SudokuBoard {
         errorCounter.setVisible(false);
         errorCounter.setFont(new Font(null, Font.ITALIC, 40));
         errorCounter.setForeground(new Color(102, 0, 0));
-        errorCounter.setBounds((screenWidth / 2) - 800 / 2, (screenHeight / 2) + 450, 800, 100);
+        errorCounter.setBounds((UtilityClass.getScreenWidth() / 2) - 800 / 2, (UtilityClass.getScreenHeight() / 2) + 450, 800, 100);
         return errorCounter;
     }
 
 
+    public StringBuffer getTimeCounter() {
+        return timeCounter;
+    }
 
+    public void setTimeCounter(StringBuffer timeCounter) {
+        this.timeCounter = timeCounter;
+    }
+
+    public JPanel getSudokuBoardPanel() {
+        return sudokuBoardPanel;
+    }
 }
 
 

@@ -239,8 +239,8 @@ return null;
                 sound.boardCompletedWrong(board);
                 board.disableBackground(0);
                 board.time.pauseThread();
-                board.sudokuBoardPanel.getComponent(1).setVisible(true);
-                board.sudokuBoardPanel.setFocusable(false);
+                board.getSudokuBoardPanel().getComponent(1).setVisible(true);
+                board.getSudokuBoardPanel().setFocusable(false);
                 board.mainFrame.add(boardCompletedJPanel.boardCompletedMessage());
                 board.mainFrame.getContentPane().getComponent(1).setVisible(false);
 

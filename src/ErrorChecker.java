@@ -33,11 +33,7 @@ public class ErrorChecker {
         }
     }
 
-    public void setMistakeLabel(SudokuBoard board, String text) {
-        ((JLabel) board.sudokuBoardPanel.getComponent(8)).setText(text);
 
-
-    }
 
 
 }

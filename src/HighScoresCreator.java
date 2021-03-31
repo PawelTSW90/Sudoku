@@ -127,7 +127,7 @@ public class HighScoresCreator {
     public int checkUserTime(SudokuBoard board) {
         StringBuilder highScoresString = new StringBuilder();
         StringBuilder singleHighScoresTime;
-        String userTime = board.timeCounter.toString();
+        String userTime = board.getTimeCounter().toString();
         int userTimeInt;
         int[] highScores = new int[10];
         int place = 0;
@@ -196,9 +196,14 @@ public class HighScoresCreator {
         GridLayout layout = new GridLayout(10, 0);
         layout.setVgap(10);
         panel.setLayout(layout);
-        panel.setBounds(ScreenSizeSettings.getScreenWidth() / 2 - 1200 / 2, 300, 800, 700);
+        panel.setBounds(UtilityClass.getScreenWidth() / 2 - 1200 / 2, 300, 800, 700);
         for (int x = 0; x < 10; x++) {
             JLabel label = new JLabel(labelNr + "..........");
+            switch (labelNr) {
+                case 1 -> label.setForeground(new Color(218, 165, 32));
+                case 2 -> label.setForeground(new Color(169, 169, 169));
+                case 3 -> label.setForeground(new Color(102, 51, 0));
+            }
             label.setFont(new Font(null, Font.ITALIC, 50));
             setText(label, labelNr - 1);
             panel.add(label);

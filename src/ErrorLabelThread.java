@@ -22,11 +22,11 @@ class ErrorLabelThread extends Thread {
             text = mistakesNumber + " mistakes found! " + mistakesNumber + " minutes added!";
         } else
             text = mistakesNumber + " mistake found! " + mistakesNumber + " minute added!";
-        board.sudokuBoardPanel.getComponent(8).setVisible(true);
-        ((JLabel) board.sudokuBoardPanel.getComponent(8)).setText(text);
+        board.getSudokuBoardPanel().getComponent(8).setVisible(true);
+        ((JLabel) board.getSudokuBoardPanel().getComponent(8)).setText(text);
         try {
             sleep(5000);
-            board.sudokuBoardPanel.getComponent(8).setVisible(false);
+            board.getSudokuBoardPanel().getComponent(8).setVisible(false);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }

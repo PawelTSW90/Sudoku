@@ -48,7 +48,7 @@ public class BoardCompletedJPanel {
 
 
     public JLabel time() {
-        JLabel timeLabel = new JLabel("Total Time:" + "      " + board.timeCounter);
+        JLabel timeLabel = new JLabel("Total Time:" + "      " + board.getTimeCounter());
         timeLabel.setBounds(screenWidth / 2 - 1000 / 2, screenHeight / 2 - 1100 / 2, 1000, 400);
         timeLabel.setFont(new Font(null, Font.ITALIC, 80));
         return timeLabel;
@@ -92,7 +92,7 @@ public class BoardCompletedJPanel {
                 if (key == 10) {
                     playerName = textField.getText();
                     if (playerPlace <= 10) {
-                        highScoresCreator.writeScore(playerName, board.timeCounter.toString(), playerPlace, highScoresCreator.updateResult(playerPlace));
+                        highScoresCreator.writeScore(playerName, board.getTimeCounter().toString(), playerPlace, highScoresCreator.updateResult(playerPlace));
 
                     }
                     boardCompleted.getComponent(4).setVisible(true);
@@ -119,13 +119,16 @@ public class BoardCompletedJPanel {
 
 
 
-
+        //method display or hide user name entry field depends on player score
     public void setUserNameLabel() {
         playerPlace = highScoresCreator.checkUserTime(board);
         Component enterName = boardCompleted.getComponent(0);
 
         if (playerPlace <= 10) {
             enterName.setVisible(true);
+        } else{
+            boardCompleted.getComponent(4).setVisible(true);
+            boardCompleted.getComponent(5).setVisible(true);
         }
 
     }
