@@ -1,3 +1,7 @@
+package pawelDyjak.sudoku;
+
+import pawelDyjak.sudoku.SudokuBoard;
+
 import javax.swing.*;
 import java.awt.*;
 import java.util.Timer;
@@ -51,6 +55,9 @@ public class TimerClass {
             minutes = 0;
             seconds = 0;
         }
+        if(hours == 99){
+            pauseThread();
+        }
         return seconds;
     }
 
@@ -67,8 +74,5 @@ public class TimerClass {
         ((JLabel) component).setText(time);
     }
 
-    public StringBuffer getTime(){
-        return time;
-    }
 
 }

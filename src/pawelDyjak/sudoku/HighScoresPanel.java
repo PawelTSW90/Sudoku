@@ -1,3 +1,5 @@
+package pawelDyjak.sudoku;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseEvent;
@@ -118,5 +120,6 @@ public class HighScoresPanel {
         });
         return back;
     }
+
 
 }

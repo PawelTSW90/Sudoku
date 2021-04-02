@@ -1,3 +1,7 @@
+package pawelDyjak.sudoku;
+
+import pawelDyjak.sudoku.Components.SudokuBoardComponents;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
@@ -10,14 +14,17 @@ public class SudokuBoard {
     private boolean helpOn = false;
     private boolean soundOn = true;
     private boolean erase = false;
-    private JPanel sudokuBoardPanel = new JPanel();
-    ButtonsTemplateCreator buttonsTemplateCreator = new ButtonsTemplateCreator(this);
+    private final JPanel sudokuBoardPanel = new JPanel();
+
     ButtonCreator buttonCreator = new ButtonCreator();
-    SoundClass sound = new SoundClass();
-    TimerClass time = new TimerClass(this);
+    private SoundClass soundClass = new SoundClass();
+    private TimerClass timerClass = new TimerClass(this);
     BoardChecker boardChecker = new BoardChecker();
-    SudokuGenerator generator = new SudokuGenerator(boardChecker);
+    SudokuGenerator sudokuGenerator = new SudokuGenerator(boardChecker);
     HighScoresCreator highScoresCreator = new HighScoresCreator(this);
+    SudokuBoardComponents sudokuBoardComponents = new SudokuBoardComponents(this);
+    ButtonsTemplateCreator buttonsTemplateCreator = new ButtonsTemplateCreator(this, soundClass);
+    ButtonInteract buttonInteract = new ButtonInteract(buttonsTemplateCreator, sudokuGenerator, soundClass, this, boardChecker);
     Thread thread = new Thread(new ErrorLabelThread(this, 0));
     private StringBuffer timeCounter;
 
@@ -39,12 +46,12 @@ public class SudokuBoard {
         sudokuBoardPanel.add(drawTimerLabel());
         sudokuBoardPanel.add(drawSoundLabel());
         sudokuBoardPanel.add(drawHelpLabel());
-        sudokuBoardPanel.add(drawEraseButton());
-        sudokuBoardPanel.add(errorCounterLabel());
-        sudokuBoardPanel.add(drawExitButton());
+        sudokuBoardPanel.add(sudokuBoardComponents.drawEraseButton());
+        sudokuBoardPanel.add(sudokuBoardComponents.drawErrorCounterLabel());
+        sudokuBoardPanel.add(sudokuBoardComponents.drawExitButton());
         sudokuBoardPanel.add(background());
         sudokuBoardPanel.setFocusable(true);
-        generator.displayBoard(buttonsTemplateCreator);
+        sudokuGenerator.displayBoard(buttonsTemplateCreator);
         //exit question when pressing escape button
         sudokuBoardPanel.addKeyListener(new KeyListener() {
             @Override
@@ -64,11 +71,11 @@ public class SudokuBoard {
                         if (!sudokuBoardPanel.getComponent(0).isVisible()) {
                             disableBackground(0);
                             sudokuBoardPanel.getComponent(0).setVisible(true);
-                            time.pauseThread();
+                            timerClass.pauseThread();
                         } else {
                             disableBackground(1);
                             sudokuBoardPanel.getComponent(0).setVisible(false);
-                            time.resumeThread();
+                            timerClass.resumeThread();
                         }
 
 
@@ -82,7 +89,7 @@ public class SudokuBoard {
 
             }
         });
-        time.setTimer();
+        timerClass.setTimer();
 
         return sudokuBoardPanel;
 
@@ -130,7 +137,7 @@ public class SudokuBoard {
         }
 
         // create buttons template
-        buttonsTemplateCreator.createBoardTemplate(buttonCreator.getBoardButtons(), buttonCreator.getKeypadButtons(), generator, sound);
+        buttonsTemplateCreator.createBoardTemplate(buttonCreator.getBoardButtons(), buttonCreator.getKeypadButtons());
         return mainPanel;
     }
 
@@ -165,26 +172,26 @@ public class SudokuBoard {
         question.add(quit);
         question.setVisible(false);
         quit.addActionListener(e -> {
-            sound.tick(this);
+            soundClass.tick(this);
             mainFrame.getContentPane().getComponent(1).setVisible(false);
             mainFrame.getContentPane().getComponent(0).setVisible(true);
         });
         goBack.addActionListener(e -> {
-            sound.tick(this);
+            soundClass.tick(this);
             sudokuBoardPanel.setFocusable(true);
             disableBackground(1);
-            time.resumeThread();
+            timerClass.resumeThread();
             sudokuBoardPanel.getComponent(0).setVisible(false);
 
         });
         startOver.addActionListener(e -> {
-            sound.tick(this);
+            soundClass.tick(this);
             sudokuBoardPanel.setFocusable(true);
             sudokuBoardPanel.getComponent(0).setVisible(false);
             disableBackground(1);
-            time = new TimerClass(this);
-            time.setTimer();
-            generator.resetBoard(buttonsTemplateCreator);
+            timerClass = new TimerClass(this);
+            timerClass.setTimer();
+            sudokuGenerator.resetBoard(buttonsTemplateCreator);
         });
         return question;
     }
@@ -256,7 +263,7 @@ public class SudokuBoard {
                 } else {
                     help.setForeground(new Color(0, 102, 0));
                     setHelpOn(true);
-                    boardChecker.checkIfThereAreErrors(buttonsTemplateCreator, sound, time, board.thread);
+                    boardChecker.checkIfThereAreErrors(buttonsTemplateCreator, soundClass, timerClass, board.thread);
 
                 }
             }
@@ -383,7 +390,7 @@ public class SudokuBoard {
         goBack.addActionListener(e -> {
             sudokuBoardPanel.setFocusable(true);
             disableBackground(1);
-            time.resumeThread();
+            timerClass.resumeThread();
             sudokuBoardPanel.getComponent(1).setVisible(false);
 
         });
@@ -391,12 +398,11 @@ public class SudokuBoard {
             sudokuBoardPanel.setFocusable(true);
             sudokuBoardPanel.getComponent(1).setVisible(false);
             disableBackground(1);
-            time = new TimerClass(this);
-            time.setTimer();
-            generator.resetBoard(buttonsTemplateCreator);
+            timerClass = new TimerClass(this);
+            timerClass.setTimer();
+            sudokuGenerator.resetBoard(buttonsTemplateCreator);
         });
         return wrong;
-
 
     }
 
@@ -416,65 +422,13 @@ public class SudokuBoard {
         this.helpOn = helpOn;
     }
 
-    public JButton drawEraseButton() {
-        JButton erase = new JButton();
-        erase.setFocusable(false);
-        erase.setBounds((UtilityClass.getScreenWidth() / 2) + 838, (UtilityClass.getScreenHeight() / 2) - 135, 100, 75);
-        erase.setIcon(new ImageIcon("./Visuals/erase.png"));
-        erase.setBorderPainted(false);
-        erase.setContentAreaFilled(false);
-        erase.addActionListener(e -> {
-
-            if (!this.erase) {
-                this.erase = true;
-                disableBackground(0);
-                sound.tick(this);
-            } else {
-                sound.tick(this);
-                disableBackground(1);
-                this.erase = false;
-            }
-
-
-        });
+    public boolean isEraseOn() {
         return erase;
     }
 
-
-    public boolean getIsErase() {
-        return erase;
+    public void setErase(boolean erase) {
+        this.erase = erase;
     }
-
-    public JLabel errorCounterLabel() {
-        JLabel errorCounter = new JLabel();
-        errorCounter.setVisible(false);
-        errorCounter.setFont(new Font(null, Font.ITALIC, 40));
-        errorCounter.setForeground(new Color(102, 0, 0));
-        errorCounter.setBounds((UtilityClass.getScreenWidth() / 2) - 800 / 2, (UtilityClass.getScreenHeight() / 2) + 450, 800, 100);
-        return errorCounter;
-    }
-
-    public JButton drawExitButton() {
-        JButton exit = new JButton("X");
-        exit.setFocusable(false);
-        exit.setFont(new Font(null, Font.ITALIC, 60));
-        exit.setBounds(10, 10, 75, 75);
-        exit.addMouseListener(new MouseListenerClass(this) {
-            @Override
-            public void mouseEntered(MouseEvent e) {
-                exit.setForeground(new Color(80, 50, 10));
-            }
-
-            @Override
-            public void mouseExited(MouseEvent e) {
-                exit.setForeground(Color.BLACK);
-
-            }
-        });
-        UtilityClass.buttonConfigure(exit);
-        return exit;
-    }
-
 
     public StringBuffer getTimeCounter() {
         return timeCounter;
@@ -486,6 +440,14 @@ public class SudokuBoard {
 
     public JPanel getSudokuBoardPanel() {
         return sudokuBoardPanel;
+    }
+
+    public TimerClass getTimerClass(){
+        return timerClass;
+    }
+
+    public SoundClass getSoundClass() {
+        return soundClass;
     }
 }
 

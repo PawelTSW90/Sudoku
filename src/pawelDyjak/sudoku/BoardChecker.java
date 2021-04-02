@@ -1,3 +1,5 @@
+package pawelDyjak.sudoku;
+
 import java.awt.*;
 
 public class BoardChecker {
@@ -14,6 +16,10 @@ public class BoardChecker {
                 creator.getBoardButtonsTemplateList().get(x).getButton().setForeground(Color.red);
                 sound.error(creator.sudokuBoard);
                 timer.minutes++;
+                if(timer.minutes>=60){
+                    timer.hours++;
+                    timer.minutes=timer.minutes-60;
+                }
                 mistakesNumber++;
             } else {
                 creator.getBoardButtonsTemplateList().get(x).getButton().setForeground(Color.black);
@@ -52,7 +58,7 @@ public class BoardChecker {
             if (!creator.getBoardButtonsTemplateList().get(x).getButton().getLabel().equals(String.valueOf(boardSolution[x]))) {
                 sound.boardCompletedWrong(board);
                 board.disableBackground(0);
-                board.time.pauseThread();
+                board.getTimerClass().pauseThread();
                 board.getSudokuBoardPanel().getComponent(1).setVisible(true);
                 board.getSudokuBoardPanel().setFocusable(false);
 
@@ -62,7 +68,7 @@ public class BoardChecker {
         }
         //message when board is completed correct
         sound.boardCompletedCorrectly(board);
-        board.time.pauseThread();
+        board.getTimerClass().pauseThread();
         board.mainFrame.add(boardCompletedJPanel.boardCompletedMessage());
         boardCompletedJPanel.setUserNameLabel();
         board.mainFrame.getContentPane().getComponent(1).setVisible(false);

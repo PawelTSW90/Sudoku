@@ -1,3 +1,5 @@
+package pawelDyjak.sudoku;
+
 import javax.swing.*;
 import java.awt.*;
 

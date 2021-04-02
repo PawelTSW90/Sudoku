@@ -1,3 +1,6 @@
+package pawelDyjak.sudoku;
+
+import pawelDyjak.sudoku.BoardChecker;
 
 public class BoardCreator {
     SudokuGenerator generator;

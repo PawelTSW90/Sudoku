@@ -1,4 +1,4 @@
-
+package pawelDyjak.sudoku;
 
 import javax.sound.sampled.*;
 import java.io.File;

@@ -1,3 +1,5 @@
+package pawelDyjak.sudoku;
+
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -26,19 +28,16 @@ public class ButtonKeyListener implements KeyListener {
     //if pressed key is a number different than 0, input allowed
     @Override
     public void keyPressed(KeyEvent e) {
-
-
         int delete = 127;
         int backspace = 8;
         int esc = 27;
-
 
         String value = String.valueOf(e.getKeyChar());
         int code = e.getKeyCode();
 
         if (button.getName().contains("Keypad")) {
             if (code == esc) {
-                button.setBackground(new Color(245,232,211));
+                button.setBackground(new Color(245, 232, 211));
                 button.setFocusable(false);
             }
         } else {
@@ -49,8 +48,8 @@ public class ButtonKeyListener implements KeyListener {
                     button.setBackground(null);
                     button.setFocusable(false);
                     sound.tick(interact.board);
-                    if(interact.board.isHelpOn()){
-                        boardChecker.checkIfThereAreErrors(creator, sound,interact.board.time, interact.board.thread);
+                    if (interact.board.isHelpOn()) {
+                        boardChecker.checkIfThereAreErrors(creator, sound, interact.board.getTimerClass(), interact.board.thread);
                     }
                     if (interact.boardChecker.isBoardCompleted(creator)) {
                         interact.boardChecker.isBoardCompletedCorrectly(creator, interact.board, sound);
@@ -61,13 +60,10 @@ public class ButtonKeyListener implements KeyListener {
                 }
                 //if backspace or delete has been pressed, remove current value
             } else if (code == delete || code == backspace) {
-                if(!button.getLabel().equals("")){
+                if (!button.getLabel().equals("")) {
                     sound.erase(interact.board);
                 }
-
-                button.setLabel("");
-                button.setBackground(null);
-                button.setFocusable(false);
+                interact.eraseButton();
             } else if (code == esc) {
                 button.setBackground(null);
                 button.setFocusable(false);
@@ -78,6 +74,8 @@ public class ButtonKeyListener implements KeyListener {
 
         }
     }
+
+
 
 
     @Override

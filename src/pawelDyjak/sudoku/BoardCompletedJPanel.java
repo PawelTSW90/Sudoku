@@ -1,3 +1,5 @@
+package pawelDyjak.sudoku;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
@@ -154,7 +156,7 @@ public class BoardCompletedJPanel {
         });
 
         mainMenu.addActionListener(e -> {
-            board.sound.tick(board);
+            board.getSoundClass().tick(board);
             board.mainFrame.getContentPane().getComponent(2).setVisible(false);
             board.mainFrame.getContentPane().getComponent(0).setVisible(true);
         });
@@ -183,7 +185,7 @@ public class BoardCompletedJPanel {
             @Override
 
             public void mousePressed(MouseEvent e) {
-                board.sound.tick(board);
+                board.getSoundClass().tick(board);
                 System.exit(1);
 
             }

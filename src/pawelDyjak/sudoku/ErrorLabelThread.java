@@ -1,3 +1,5 @@
+package pawelDyjak.sudoku;
+
 import javax.swing.*;
 
 class ErrorLabelThread extends Thread {

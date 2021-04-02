@@ -1,17 +1,19 @@
+package pawelDyjak.sudoku;
+
 import java.awt.*;
 import java.awt.event.MouseEvent;
 
 public class MouseListenerClass implements java.awt.event.MouseListener {
     SudokuBoard board;
 
-    MouseListenerClass(SudokuBoard board) {
+    public MouseListenerClass(SudokuBoard board) {
         this.board = board;
 
     }
 
     @Override
     public void mouseClicked(MouseEvent e) {
-        board.sound.tick(board);
+        board.getSoundClass().tick(board);
     }
 
     @Override

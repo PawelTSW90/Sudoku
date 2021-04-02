@@ -1,5 +1,6 @@
+package pawelDyjak.sudoku;
+import pawelDyjak.sudoku.Components.*;
 import javax.swing.*;
-
 import static javax.swing.WindowConstants.EXIT_ON_CLOSE;
 
 
@@ -10,13 +11,11 @@ public class MainMenu {
 
 
     public MainMenu() {
-        setMainMenu();
+        setMainMenuPanel();
     }
 
-    public JFrame getMainMenuFrame(){
-        return mainMenuFrame;
-    }
-    public void setMainMenu() {
+        //method prepares main menu panel to display
+    public void setMainMenuPanel() {
         mainMenuPanel.setLayout(null);
         mainMenuPanel.add(mainMenuComponents.titleLabel());
         mainMenuPanel.add(mainMenuComponents.startButton());
@@ -27,24 +26,28 @@ public class MainMenu {
         mainMenuPanel.setFocusable(true);
         setMainMenuFrame();
     }
-
-    public void generateNewBoard() {
-
-        if (mainMenuFrame.getContentPane().getComponents().length > 1) {
-            while (mainMenuFrame.getContentPane().getComponents().length>1)
-            mainMenuFrame.getContentPane().remove(mainMenuFrame.getContentPane().getComponents().length-1);
-        }
-        SudokuBoard board = new SudokuBoard(mainMenuFrame, this);
-        mainMenuFrame.add(board.createSudokuBoard());
-        mainMenuFrame.getContentPane().getComponent(0).setVisible(false);
-    }
-
+        //method prepares main frame
     public void setMainMenuFrame(){
         mainMenuFrame.add(mainMenuPanel);
         mainMenuFrame.setDefaultCloseOperation(EXIT_ON_CLOSE);
         mainMenuFrame.setUndecorated(true);
         mainMenuFrame.setExtendedState(JFrame.MAXIMIZED_BOTH);
         mainMenuFrame.setVisible(true);
+    }
+        //method generates new sudoku board
+    public void generateNewBoard() {
+
+        if (mainMenuFrame.getContentPane().getComponents().length > 1) {
+            while (mainMenuFrame.getContentPane().getComponents().length>1)
+                mainMenuFrame.getContentPane().remove(mainMenuFrame.getContentPane().getComponents().length-1);
+        }
+        SudokuBoard board = new SudokuBoard(mainMenuFrame, this);
+        mainMenuFrame.add(board.createSudokuBoard());
+        mainMenuFrame.getContentPane().getComponent(0).setVisible(false);
+    }
+
+    public JFrame getMainMenuFrame(){
+        return mainMenuFrame;
     }
 
 }

@@ -1,3 +1,10 @@
+package pawelDyjak.sudoku;
+
+import pawelDyjak.sudoku.BoardChecker;
+import pawelDyjak.sudoku.BoardCreator;
+import pawelDyjak.sudoku.ButtonsTemplateCreator;
+import pawelDyjak.sudoku.EncryptionClass;
+
 import java.awt.*;
 import java.io.*;
 import java.util.ArrayList;

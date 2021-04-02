@@ -1,5 +1,8 @@
+package pawelDyjak.sudoku.Components;
+
 import javax.swing.*;
 import java.awt.*;
+import pawelDyjak.sudoku.*;
 
 public class MainMenuComponents {
     MainMenu mainMenu;
@@ -7,7 +10,7 @@ public class MainMenuComponents {
     public MainMenuComponents(MainMenu mainMenu){
         this.mainMenu = mainMenu;
     }
-
+        //method draws exit Button for main menu
     public JButton exitButton() {
         JButton exit = new JButton("EXIT");
         exit.addMouseListener(new MouseListenerClass(null));
@@ -21,7 +24,7 @@ public class MainMenuComponents {
         return exit;
 
     }
-
+        //method draws highScores button for main menu
     public JButton highScoresButton() {
         JButton highScores = new JButton("HIGHSCORES");
         highScores.addMouseListener(new MouseListenerClass(null));
@@ -41,7 +44,7 @@ public class MainMenuComponents {
 
         return highScores;
     }
-
+        //method draws start button for main menu
     public JButton startButton() {
         JButton start = new JButton("START");
         start.addMouseListener(new MouseListenerClass(null));
@@ -56,21 +59,21 @@ public class MainMenuComponents {
         return start;
 
     }
-
+        //method draws title label for main menu
     public JLabel titleLabel(){
         JLabel title = new JLabel();
         title.setBounds(UtilityClass.getScreenWidth() / 2 - 451 / 2, UtilityClass.getScreenHeight() / 8, 451, 198);
         title.setIcon(new ImageIcon("./Visuals/logo.png"));
         return title;
     }
-
+        //method draws background label for main menu
     public JLabel backgroundLabel(){
         JLabel background = new JLabel();
         background.setBounds(0, 0, UtilityClass.getScreenWidth(), UtilityClass.getScreenHeight());
         background.setIcon(new ImageIcon("./Visuals/sudoku-background.jpg"));
         return background;
     }
-
+        //method draws created by label for main menu
     public JLabel createdByLabel(){
         JLabel createdBy = new JLabel();
         createdBy.setBounds(UtilityClass.getScreenWidth() - UtilityClass.getScreenWidth() / 7, UtilityClass.getScreenHeight() - UtilityClass.getScreenHeight() / 6, 355, 93);
