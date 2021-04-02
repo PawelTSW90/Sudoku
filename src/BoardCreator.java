@@ -8,7 +8,7 @@ public class BoardCreator {
 
 
     //back tracking main method, checking if current board is solvable
-    public boolean checkBoard(ButtonsTemplateCreator creator) {
+    public boolean checkBoard(ButtonsTemplateCreator creator, BoardChecker boardChecker) {
         boolean increaseCurrentCell = false;
         boolean changePreviousCell = false;
         boolean skipButton = false;
@@ -79,7 +79,6 @@ public class BoardCreator {
             boardSolvable = false;
 
         }
-        saveSolution(creator);
         return boardSolvable;
     }
 
@@ -229,15 +228,6 @@ public class BoardCreator {
         return numberAllowed;
     }
 
-    public void saveSolution(ButtonsTemplateCreator creator) {
-        for (int x = 0; x < 81; x++) {
-            char value = creator.getBoardButtonsTemplateList().get(x).getValue().charAt(0);
-            generator.boardSolution[x] = value;
-
-
-        }
-
-    }
 
 
 }

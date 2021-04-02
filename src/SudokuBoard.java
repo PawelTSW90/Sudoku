@@ -13,10 +13,10 @@ public class SudokuBoard {
     private JPanel sudokuBoardPanel = new JPanel();
     ButtonsTemplateCreator buttonsTemplateCreator = new ButtonsTemplateCreator(this);
     ButtonCreator buttonCreator = new ButtonCreator();
-    SudokuGenerator generator = new SudokuGenerator();
     SoundClass sound = new SoundClass();
     TimerClass time = new TimerClass(this);
-    ErrorChecker error = new ErrorChecker();
+    BoardChecker boardChecker = new BoardChecker();
+    SudokuGenerator generator = new SudokuGenerator(boardChecker);
     HighScoresCreator highScoresCreator = new HighScoresCreator(this);
     Thread thread = new Thread(new ErrorLabelThread(this, 0));
     private StringBuffer timeCounter;
@@ -41,6 +41,7 @@ public class SudokuBoard {
         sudokuBoardPanel.add(drawHelpLabel());
         sudokuBoardPanel.add(drawEraseButton());
         sudokuBoardPanel.add(errorCounterLabel());
+        sudokuBoardPanel.add(drawExitButton());
         sudokuBoardPanel.add(background());
         sudokuBoardPanel.setFocusable(true);
         generator.displayBoard(buttonsTemplateCreator);
@@ -72,20 +73,6 @@ public class SudokuBoard {
 
 
                     }
-                }
-                if (code == 81) {
-                    time.pauseThread();
-                    BoardCompletedJPanel boardCompletedJPanel = new BoardCompletedJPanel(SudokuBoard.this, highScoresCreator);
-
-                    mainFrame.add(boardCompletedJPanel.boardCompletedMessage());
-                    boardCompletedJPanel.setUserNameLabel();
-                    mainFrame.getContentPane().getComponent(1).setVisible(false);
-
-
-                    //show cursor in text field automatically
-                    Component component = mainFrame.getContentPane().getComponent(2);
-                    Component component1 = ((Container)component).getComponent(0);
-                    ((Container) component1).getComponent(1).requestFocusInWindow();
                 }
 
             }
@@ -156,8 +143,8 @@ public class SudokuBoard {
         question.setLayout(new GridLayout(4, 1));
         question.setBorder(BorderFactory.createEtchedBorder(Color.GRAY, Color.PINK));
         question.setBounds(UtilityClass.getScreenWidth() / 2 - 500 / 2, UtilityClass.getScreenHeight() / 2 - 400 / 2, 500, 400);
-        JButton qButton = new JButton(" Would you like to:");
-        qButton.setBorderPainted(false);
+        JButton questionButton = new JButton(" Would you like to:");
+        questionButton.setBorderPainted(false);
         JButton startOver = new JButton("Start over");
         JButton goBack = new JButton("Continue");
         JButton quit = new JButton("Exit");
@@ -166,13 +153,13 @@ public class SudokuBoard {
         quit.addMouseListener(new MouseListenerClass(this));
         quit.setFont(new Font(null, Font.PLAIN, 40));
         startOver.setFont(new Font(null, Font.PLAIN, 40));
-        qButton.setFont(new Font(null, Font.PLAIN, 40));
+        questionButton.setFont(new Font(null, Font.PLAIN, 40));
         goBack.setFont(new Font(null, Font.PLAIN, 40));
-        JButtonConfigure(startOver);
-        JButtonConfigure(qButton);
-        JButtonConfigure(quit);
-        JButtonConfigure(goBack);
-        question.add(qButton);
+        UtilityClass.buttonConfigure(startOver);
+        UtilityClass.buttonConfigure(questionButton);
+        UtilityClass.buttonConfigure(quit);
+        UtilityClass.buttonConfigure(goBack);
+        question.add(questionButton);
         question.add(startOver);
         question.add(goBack);
         question.add(quit);
@@ -202,10 +189,6 @@ public class SudokuBoard {
         return question;
     }
 
-    public void JButtonConfigure(JButton button) {
-        button.setContentAreaFilled(false);
-        button.setFocusable(false);
-    }
 
     public JLabel drawTimerLabel() {
 
@@ -239,6 +222,19 @@ public class SudokuBoard {
                     setSoundOn(true);
                 }
             }
+            @Override
+            public void mouseEntered(MouseEvent e){
+
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e){
+
+            }
+            @Override
+            public void mouseClicked(MouseEvent e){
+
+            }
         });
         return sound;
     }
@@ -256,13 +252,26 @@ public class SudokuBoard {
                 if (helpOn) {
                     component.setForeground(new Color(102, 0, 0));
                     setHelpOn(false);
-                    error.restoreButtonsColors(buttonsTemplateCreator);
+                    boardChecker.restoreButtonsColors(buttonsTemplateCreator);
                 } else {
                     help.setForeground(new Color(0, 102, 0));
                     setHelpOn(true);
-                    error.checkIfThereAreErrors(buttonsTemplateCreator, generator, sound, time, board.thread);
+                    boardChecker.checkIfThereAreErrors(buttonsTemplateCreator, sound, time, board.thread);
 
                 }
+            }
+            @Override
+            public void mouseEntered(MouseEvent e){
+
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e){
+
+            }
+            @Override
+            public void mouseClicked(MouseEvent e){
+
             }
         });
         return help;
@@ -360,10 +369,10 @@ public class SudokuBoard {
         startOver.setFont(new Font(null, Font.PLAIN, 40));
         oops.setFont(new Font(null, Font.PLAIN, 40));
         goBack.setFont(new Font(null, Font.PLAIN, 40));
-        JButtonConfigure(startOver);
-        JButtonConfigure(oops);
-        JButtonConfigure(quit);
-        JButtonConfigure(goBack);
+        UtilityClass.buttonConfigure(startOver);
+        UtilityClass.buttonConfigure(oops);
+        UtilityClass.buttonConfigure(quit);
+        UtilityClass.buttonConfigure(goBack);
         wrong.add(oops);
         wrong.add(startOver);
         wrong.add(goBack);
@@ -443,6 +452,27 @@ public class SudokuBoard {
         errorCounter.setForeground(new Color(102, 0, 0));
         errorCounter.setBounds((UtilityClass.getScreenWidth() / 2) - 800 / 2, (UtilityClass.getScreenHeight() / 2) + 450, 800, 100);
         return errorCounter;
+    }
+
+    public JButton drawExitButton() {
+        JButton exit = new JButton("X");
+        exit.setFocusable(false);
+        exit.setFont(new Font(null, Font.ITALIC, 60));
+        exit.setBounds(10, 10, 75, 75);
+        exit.addMouseListener(new MouseListenerClass(this) {
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                exit.setForeground(new Color(80, 50, 10));
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                exit.setForeground(Color.BLACK);
+
+            }
+        });
+        UtilityClass.buttonConfigure(exit);
+        return exit;
     }
 
 

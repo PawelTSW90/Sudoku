@@ -7,13 +7,14 @@ public class ButtonKeyListener implements KeyListener {
     ButtonInteract interact;
     ButtonsTemplateCreator creator;
     SoundClass sound = new SoundClass();
-    ErrorChecker error = new ErrorChecker();
+    BoardChecker boardChecker;
 
 
-    ButtonKeyListener(Button button, ButtonInteract interact, ButtonsTemplateCreator creator) {
+    ButtonKeyListener(Button button, ButtonInteract interact, ButtonsTemplateCreator creator, BoardChecker boardChecker) {
         this.button = button;
         this.interact = interact;
         this.creator = creator;
+        this.boardChecker = boardChecker;
 
 
     }
@@ -49,10 +50,10 @@ public class ButtonKeyListener implements KeyListener {
                     button.setFocusable(false);
                     sound.tick(interact.board);
                     if(interact.board.isHelpOn()){
-                        error.checkIfThereAreErrors(creator, interact.generator, sound,interact.board.time, interact.board.thread);
+                        boardChecker.checkIfThereAreErrors(creator, sound,interact.board.time, interact.board.thread);
                     }
-                    if (interact.generator.isBoardCompleted(creator)) {
-                        interact.generator.isBoardCompletedCorrectly(creator, interact.board);
+                    if (interact.boardChecker.isBoardCompleted(creator)) {
+                        interact.boardChecker.isBoardCompletedCorrectly(creator, interact.board, sound);
 
 
                     }

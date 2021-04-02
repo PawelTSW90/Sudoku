@@ -3,7 +3,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class ButtonInteract implements ActionListener {
-    ErrorChecker error = new ErrorChecker();
+    BoardChecker boardChecker;
     SoundClass sound;
     Button button;
     ButtonsTemplateCreator creator;
@@ -11,12 +11,13 @@ public class ButtonInteract implements ActionListener {
     SudokuBoard board;
 
 
-    public ButtonInteract(Button button, ButtonsTemplateCreator creator, SudokuGenerator generator, SoundClass sound, SudokuBoard board) {
+    public ButtonInteract(Button button, ButtonsTemplateCreator creator, SudokuGenerator generator, SoundClass sound, SudokuBoard board, BoardChecker boardChecker) {
         this.button = button;
         this.creator = creator;
         this.generator = generator;
         this.sound = sound;
         this.board = board;
+        this.boardChecker = boardChecker;
     }
 
 
@@ -33,11 +34,11 @@ public class ButtonInteract implements ActionListener {
         //interaction with not editable buttons not allowed
         if (button.getBackground().equals(new Color(225, 199, 149))) {
 
-        //if erase function is active, erase clicked button
+            //if erase function is active, erase clicked button
         } else if (board.getIsErase()) {
-                if(!button.getLabel().equals("")){
-                    sound.erase(board);
-                }
+            if (!button.getLabel().equals("")) {
+                sound.erase(board);
+            }
             button.setLabel("");
 
             button.setBackground(null);
@@ -54,17 +55,17 @@ public class ButtonInteract implements ActionListener {
                 for (int y = 0; y < 9; y++) {
                     if (creator.getKeypadButtonsTemplateList().get(y).getButton().isFocusable()) {
                         creator.getKeypadButtonsTemplateList().get(y).getButton().setFocusable(false);
-                        creator.getKeypadButtonsTemplateList().get(y).getButton().setBackground(new Color(245,232,211));
+                        creator.getKeypadButtonsTemplateList().get(y).getButton().setBackground(new Color(245, 232, 211));
                         if (board.isHelpOn()) {
-                            error.checkIfThereAreErrors(creator, generator, sound, board.time, board.thread);
+                            boardChecker.checkIfThereAreErrors(creator, sound, board.time, board.thread);
                         }
 
 
                     }
                 }
                 sound.tick(board);
-                if (generator.isBoardCompleted(creator)) {
-                    if (generator.isBoardCompletedCorrectly(creator, board)) {
+                if (boardChecker.isBoardCompleted(creator)) {
+                    if (boardChecker.isBoardCompletedCorrectly(creator, board, sound)) {
 
                     }
                 }
@@ -74,7 +75,7 @@ public class ButtonInteract implements ActionListener {
                 button.setBackground(Color.getHSBColor(80, 80, 80));
                 button.setFocusable(true);
                 button.requestFocus();
-                button.addKeyListener(new ButtonKeyListener(button, this, creator));
+                button.addKeyListener(new ButtonKeyListener(button, this, creator, boardChecker));
 
 
             } else {
@@ -96,7 +97,7 @@ public class ButtonInteract implements ActionListener {
                     button.setBackground(Color.getHSBColor(80, 80, 80));
                     button.setFocusable(true);
                     button.requestFocus();
-                    button.addKeyListener(new ButtonKeyListener(button, this, creator));
+                    button.addKeyListener(new ButtonKeyListener(button, this, creator, boardChecker));
                 }
             }
     }
@@ -110,14 +111,13 @@ public class ButtonInteract implements ActionListener {
             button.setFocusable(true);
             creator.setButtonValueHolder(button.getLabel());
             button.requestFocus();
-            button.addKeyListener(new ButtonKeyListener(button, this, creator));
-
+            button.addKeyListener(new ButtonKeyListener(button, this, creator, boardChecker));
 
 
             //if clicked button is active, set it as no-active
         } else if (isKeypadButtonHighlighted()) {
             if (button.isFocusable()) {
-                button.setBackground(new Color(245,232,211));
+                button.setBackground(new Color(245, 232, 211));
                 button.setFocusable(false);
 
                 //if other keypad button is active, set it as no-active and set clicked button as active and save its value
@@ -125,12 +125,12 @@ public class ButtonInteract implements ActionListener {
                 for (int y = 0; y < 9; y++) {
                     if (creator.getKeypadButtonsTemplateList().get(y).getButton().isFocusable()) {
                         creator.getKeypadButtonsTemplateList().get(y).getButton().setFocusable(false);
-                        creator.getKeypadButtonsTemplateList().get(y).getButton().setBackground(new Color(245,232,211));
+                        creator.getKeypadButtonsTemplateList().get(y).getButton().setBackground(new Color(245, 232, 211));
                     }
 
                 }
                 creator.setButtonValueHolder(button.getLabel());
-                button.addKeyListener(new ButtonKeyListener(button, this, creator));
+                button.addKeyListener(new ButtonKeyListener(button, this, creator, boardChecker));
                 button.setBackground(Color.getHSBColor(80, 80, 80));
                 button.setFocusable(true);
                 button.requestFocus();
@@ -146,15 +146,15 @@ public class ButtonInteract implements ActionListener {
                     creator.getBoardButtonsTemplateList().get(x).getButton().setFocusable(false);
                     creator.getBoardButtonsTemplateList().get(x).getButton().setBackground(null);
                     if (board.isHelpOn()) {
-                        error.checkIfThereAreErrors(creator, generator, sound, board.time, board.thread);
+                        boardChecker.checkIfThereAreErrors(creator, sound, board.time, board.thread);
                     }
 
                 }
 
             }
             sound.tick(board);
-            if (generator.isBoardCompleted(creator)) {
-                if (generator.isBoardCompletedCorrectly(creator, board)) {
+            if (boardChecker.isBoardCompleted(creator)) {
+                if (boardChecker.isBoardCompletedCorrectly(creator, board, sound)) {
 
 
                 }

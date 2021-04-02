@@ -6,12 +6,16 @@ import java.util.Random;
 import java.util.Scanner;
 
 public class SudokuGenerator {
-    SoundClass sound = new SoundClass();
+    char[] notSolvedValues = new char[81];
+    char[] solvedValues = new char[81];
     BoardCreator checker = new BoardCreator(this);
     StringBuilder tmpContainer = new StringBuilder();
-    MainMenu menu;
-    char[] boardSolution = new char[81];
-    char[] currentBoard = new char[81];
+    BoardChecker boardChecker;
+
+    public SudokuGenerator(BoardChecker boardChecker){
+        this.boardChecker = boardChecker;
+    }
+
 
     public boolean generateFullBoard(ButtonsTemplateCreator creator) {
 
@@ -27,13 +31,12 @@ public class SudokuGenerator {
             if (checker.isNumberAllowed(randomCell, value, creator)) {
                 creator.getBoardButtonsTemplateList().get(randomCell).setValue(String.valueOf(value));
                 creator.getBoardButtonsTemplateList().get(randomCell).getButton().setName("N");
-                //creator.getBoardButtonsTemplateList().get(randomCell).getButton().setLabel(String.valueOf(value));
                 cellNumbersList.removeIf(s -> (s == randomCell));
 
             }
         }
 
-        if (checker.checkBoard(creator)) {
+        if (checker.checkBoard(creator, boardChecker)) {
             if (!checker.multipleSolvingChecker(creator)) {
                 boardCreated = true;
 
@@ -76,8 +79,8 @@ public class SudokuGenerator {
                 }
             }
             writer.write("*");
-            for (int x = 0; x < boardSolution.length; x++) {
-                writer.write(boardSolution[x]);
+            for (int x = 0; x < boardChecker.getBoardSolution().length; x++) {
+                writer.write(boardChecker.getBoardSolution()[x]);
 
             }
             writer.write("\r\n");
@@ -99,8 +102,8 @@ public class SudokuGenerator {
         tmpContainer.append("*");
 
 
-        for (int x = 0; x < boardSolution.length; x++) {
-            tmpContainer.append(boardSolution[x]);
+        for (int x = 0; x < boardChecker.getBoardSolution().length; x++) {
+            tmpContainer.append(boardChecker.getBoardSolution()[x]);
 
         }
         tmpContainer.append("\r\n");
@@ -174,8 +177,7 @@ return null;
     }
 
     public void displayBoard(ButtonsTemplateCreator creator){
-        char[] notSolvedValues = new char[81];
-        char[] solvedValues = new char[81];
+
        String boardValues = decryptToString();
        StringBuilder builder = new StringBuilder(boardValues);
        for(int x = 1; x<82; x++) {
@@ -198,8 +200,8 @@ return null;
 
 
        }
-        boardSolution = solvedValues;
-       currentBoard = notSolvedValues;
+       boardChecker.setBoardSolution(solvedValues);
+       boardChecker.setCurrentBoard(notSolvedValues);
 
 
 
@@ -207,56 +209,22 @@ return null;
 
     public void resetBoard(ButtonsTemplateCreator creator){
         for(int x = 0; x<81; x++){
-            if(String.valueOf(currentBoard[x]).equals("0")){
+            if(String.valueOf(boardChecker.getCurrentBoard()[x]).equals("0")){
                 creator.getBoardButtonsTemplateList().get(x).getButton().setLabel("");
                 continue;
 
             }else
                 creator.getBoardButtonsTemplateList().get(x).getButton().setBackground(new Color(225, 199, 149));
-            creator.getBoardButtonsTemplateList().get(x).getButton().setLabel(String.valueOf(currentBoard[x]));
+            creator.getBoardButtonsTemplateList().get(x).getButton().setLabel(String.valueOf(boardChecker.getCurrentBoard()[x]));
 
 
         }
 
     }
 
-    public boolean isBoardCompleted(ButtonsTemplateCreator creator){
-
-        for (int x = 0; x < 81; x++) {
-            if (creator.getBoardButtonsTemplateList().get(x).getButton().getLabel().equals("")) {
-                return false;
-
-            }
-        }
-        return true;
-
-    }
-
-    public boolean isBoardCompletedCorrectly(ButtonsTemplateCreator creator, SudokuBoard board){
-        BoardCompletedJPanel boardCompletedJPanel = new BoardCompletedJPanel(board, board.highScoresCreator);
-        for(int x = 0; x<81; x++){
-            if(!creator.getBoardButtonsTemplateList().get(x).getButton().getLabel().equals(String.valueOf(boardSolution[x]))){
-                sound.boardCompletedWrong(board);
-                board.disableBackground(0);
-                board.time.pauseThread();
-                board.getSudokuBoardPanel().getComponent(1).setVisible(true);
-                board.getSudokuBoardPanel().setFocusable(false);
-                board.mainFrame.add(boardCompletedJPanel.boardCompletedMessage());
-                board.mainFrame.getContentPane().getComponent(1).setVisible(false);
 
 
 
-                return false;
-            }
-
-        }
-        sound.boardCompletedCorrectly(board);
-        if(board.highScoresCreator.checkUserTime(board)<11){
-
-        }
-
-        return true;
-    }
 
 
 }

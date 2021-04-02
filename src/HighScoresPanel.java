@@ -24,7 +24,7 @@ public class HighScoresPanel {
         GridLayout layout = new GridLayout(10, 0);
         layout.setVgap(10);
         highScores.setLayout(layout);
-        highScores.setBounds(UtilityClass.getScreenWidth() / 2 - 500 / 2, UtilityClass.getScreenHeight() / 2 - 600 / 2, 800, 700);
+        highScores.setBounds(UtilityClass.getScreenWidth() / 2 - 500 / 2-50, UtilityClass.getScreenHeight() / 2 - 600 / 2, 800, 700);
         for (int x = 0; x < 10; x++) {
             JLabel label = new JLabel(labelNr + "..........");
             switch (labelNr) {

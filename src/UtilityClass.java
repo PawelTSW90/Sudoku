@@ -1,3 +1,4 @@
+import javax.swing.*;
 import java.awt.*;
 
 public final class UtilityClass {
@@ -13,6 +14,12 @@ public final class UtilityClass {
 
     public static int getScreenWidth(){
         return screenWidth;
+    }
+
+    public static void buttonConfigure(JButton button) {
+        button.setContentAreaFilled(false);
+        button.setFocusPainted(false);
+        button.setBorderPainted(false);
     }
 
 }
