@@ -15,8 +15,8 @@ public class BoardCompletedJPanel {
     String playerName;
     int playerPlace;
 
-    public BoardCompletedJPanel(SudokuBoard board, HighScoresCreator highScoresCreator) {
-        this.board = board;
+    public BoardCompletedJPanel(SudokuBoard sudokuBoard, HighScoresCreator highScoresCreator) {
+        this.board = sudokuBoard;
         this.highScoresCreator = highScoresCreator;
     }
 

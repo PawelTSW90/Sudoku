@@ -15,8 +15,8 @@ public class TimerClass {
     SudokuBoard board;
     volatile boolean pauseThread = false;
 
-    public TimerClass(SudokuBoard board){
-        this.board = board;
+    public TimerClass(SudokuBoard sudokuBoard){
+        this.board = sudokuBoard;
     }
 
 

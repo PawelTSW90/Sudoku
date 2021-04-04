@@ -41,8 +41,8 @@ public class MainMenu {
             while (mainMenuFrame.getContentPane().getComponents().length>1)
                 mainMenuFrame.getContentPane().remove(mainMenuFrame.getContentPane().getComponents().length-1);
         }
-        SudokuBoard board = new SudokuBoard(mainMenuFrame, this);
-        mainMenuFrame.add(board.createSudokuBoard());
+        SudokuBoard sudokuBoard = new SudokuBoard(mainMenuFrame, this);
+        mainMenuFrame.add(sudokuBoard.createSudokuBoard());
         mainMenuFrame.getContentPane().getComponent(0).setVisible(false);
     }
 

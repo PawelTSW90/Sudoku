@@ -4,6 +4,7 @@ import pawelDyjak.sudoku.*;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.MouseEvent;
 
 public class SudokuBoardComponents {
     SudokuBoard sudokuBoard;
@@ -11,7 +12,8 @@ public class SudokuBoardComponents {
     public SudokuBoardComponents(SudokuBoard sudokuBoard){
         this.sudokuBoard = sudokuBoard;
     }
-        //method draws exit button for sudoku board
+
+    //method draws exit button for sudoku board
     public JButton drawExitButton() {
         JButton exit = new JButton("X");
         exit.setFocusable(false);
@@ -24,10 +26,12 @@ public class SudokuBoardComponents {
             } else {
 
                 if (!sudokuBoard.getSudokuBoardPanel().getComponent(0).isVisible()) {
+                    sudokuBoard.getSudokuBoardPanel().getComponent(3).setVisible(false);
                     sudokuBoard.disableBackground(0);
                     sudokuBoard.getSudokuBoardPanel().getComponent(0).setVisible(true);
                     sudokuBoard.getTimerClass().pauseThread();
                 } else {
+                    sudokuBoard.getSudokuBoardPanel().getComponent(3).setVisible(true);
                     sudokuBoard.disableBackground(1);
                     sudokuBoard.getSudokuBoardPanel().getComponent(0).setVisible(false);
                     sudokuBoard.getTimerClass().resumeThread();
@@ -71,5 +75,97 @@ public class SudokuBoardComponents {
 
         });
         return erase;
+    }
+        //method draws board completed wrong message panel for sudoku board
+    public JPanel drawBoardCompletedWrongMessage() {
+        JPanel wrong = new JPanel();
+        wrong.setBackground(new Color(245, 232, 211));
+        wrong.setLayout(new GridLayout(4, 1));
+        wrong.setBorder(BorderFactory.createEtchedBorder(Color.GRAY, Color.PINK));
+        wrong.setBounds(UtilityClass.getScreenWidth() / 2 - 500 / 2, UtilityClass.getScreenHeight() / 2 - 400 / 2, 500, 400);
+        JButton oops = new JButton("Oops! Something went wrong! Would you like to:");
+        oops.setBorderPainted(false);
+        JButton startOver = new JButton("Start over");
+        JButton goBack = new JButton("Continue");
+        JButton quit = new JButton("Exit");
+        startOver.addMouseListener(new MouseListenerClass(sudokuBoard));
+        goBack.addMouseListener(new MouseListenerClass(sudokuBoard));
+        quit.addMouseListener(new MouseListenerClass(sudokuBoard));
+        quit.setFont(new Font(null, Font.PLAIN, 40));
+        startOver.setFont(new Font(null, Font.PLAIN, 40));
+        oops.setFont(new Font(null, Font.PLAIN, 40));
+        goBack.setFont(new Font(null, Font.PLAIN, 40));
+        UtilityClass.buttonConfigure(startOver);
+        UtilityClass.buttonConfigure(oops);
+        UtilityClass.buttonConfigure(quit);
+        UtilityClass.buttonConfigure(goBack);
+        wrong.add(oops);
+        wrong.add(startOver);
+        wrong.add(goBack);
+        wrong.add(quit);
+        wrong.setVisible(false);
+        wrong.setFocusable(false);
+        quit.addActionListener(e -> System.exit(0));
+        goBack.addActionListener(e -> {
+            sudokuBoard.getSudokuBoardPanel().getComponent(3).setVisible(true);
+            sudokuBoard.getSudokuBoardPanel().setFocusable(true);
+            sudokuBoard.disableBackground(1);
+            sudokuBoard.getTimerClass().resumeThread();
+            sudokuBoard.getSudokuBoardPanel().getComponent(1).setVisible(false);
+
+        });
+        startOver.addActionListener(e -> {
+            sudokuBoard.getSudokuBoardPanel().getComponent(3).setVisible(true);
+            sudokuBoard.getSudokuBoardPanel().setFocusable(true);
+            sudokuBoard.getSudokuBoardPanel().getComponent(1).setVisible(false);
+            sudokuBoard.disableBackground(1);
+            sudokuBoard.getSudokuBoardPanel().getComponent(3).setVisible(true);
+            TimerClass timerClass = new TimerClass(sudokuBoard);
+            sudokuBoard.setTimerClass(timerClass);
+            sudokuBoard.getTimerClass().setTimer();
+            sudokuBoard.getSudokuGenerator().resetBoard(sudokuBoard.getButtonsTemplateCreator());
+        });
+        return wrong;
+
+    }
+
+    //method draws help label panel for sudoku board
+    public JLabel drawHelpLabel() {
+        JLabel help = new JLabel("Help");
+        help.setFocusable(false);
+        help.setForeground(new Color(102, 0, 0));
+        help.setFont(new Font(null, Font.ITALIC, 80));
+        help.setBounds((UtilityClass.getScreenWidth() / 2) + 600, (UtilityClass.getScreenHeight() / 2) + 200, 400, 100);
+        help.addMouseListener(new MouseListenerClass(sudokuBoard) {
+            @Override
+            public void mousePressed(MouseEvent e) {
+                Component component = sudokuBoard.getSudokuBoardPanel().getComponent(6);
+                if (sudokuBoard.isHelpOn()) {
+                    component.setForeground(new Color(102, 0, 0));
+                    sudokuBoard.setHelpOn(false);
+                    sudokuBoard.getBoardChecker().restoreButtonsColors(sudokuBoard.getButtonsTemplateCreator());
+                } else {
+                    help.setForeground(new Color(0, 102, 0));
+                    sudokuBoard.setHelpOn(true);
+                    sudokuBoard.getBoardChecker().checkIfThereAreErrors(sudokuBoard.getButtonsTemplateCreator(), sudokuBoard.getSoundClass(), sudokuBoard.getTimerClass(), sudokuBoard.getErrorLabelThread());
+
+                }
+            }
+            @Override
+            public void mouseEntered(MouseEvent e){
+
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e){
+
+            }
+            @Override
+            public void mouseClicked(MouseEvent e){
+
+            }
+        });
+        return help;
+
     }
 }

@@ -1,10 +1,5 @@
 package pawelDyjak.sudoku;
 
-import pawelDyjak.sudoku.BoardChecker;
-import pawelDyjak.sudoku.BoardCreator;
-import pawelDyjak.sudoku.ButtonsTemplateCreator;
-import pawelDyjak.sudoku.EncryptionClass;
-
 import java.awt.*;
 import java.io.*;
 import java.util.ArrayList;
@@ -15,7 +10,7 @@ import java.util.Scanner;
 public class SudokuGenerator {
     char[] notSolvedValues = new char[81];
     char[] solvedValues = new char[81];
-    BoardCreator checker = new BoardCreator(this);
+    BoardCreator boardCreator = new BoardCreator(this);
     StringBuilder tmpContainer = new StringBuilder();
     BoardChecker boardChecker;
 
@@ -24,7 +19,7 @@ public class SudokuGenerator {
     }
 
 
-    public boolean generateFullBoard(ButtonsTemplateCreator creator) {
+    public boolean generateFullBoard(ButtonsTemplateCreator buttonsTemplateCreator) {
 
         boolean boardCreated = false;
         Random randomCellValue = new Random();
@@ -35,16 +30,16 @@ public class SudokuGenerator {
         while (cellNumbersList.size() > 49) {
             int value = randomCellValue.nextInt(9 - 1 + 1) + 1;
             int randomCell = cellNumbersList.get(randomCellValue.nextInt(cellNumbersList.size()));
-            if (checker.isNumberAllowed(randomCell, value, creator)) {
-                creator.getBoardButtonsTemplateList().get(randomCell).setValue(String.valueOf(value));
-                creator.getBoardButtonsTemplateList().get(randomCell).getButton().setName("N");
+            if (boardCreator.isNumberAllowed(randomCell, value, buttonsTemplateCreator)) {
+                buttonsTemplateCreator.getBoardButtonsTemplateList().get(randomCell).setValue(String.valueOf(value));
+                buttonsTemplateCreator.getBoardButtonsTemplateList().get(randomCell).getButton().setName("N");
                 cellNumbersList.removeIf(s -> (s == randomCell));
 
             }
         }
 
-        if (checker.checkBoard(creator, boardChecker)) {
-            if (!checker.multipleSolvingChecker(creator)) {
+        if (boardCreator.checkBoard(buttonsTemplateCreator, boardChecker)) {
+            if (!boardCreator.multipleSolvingChecker(buttonsTemplateCreator)) {
                 boardCreated = true;
 
             }
@@ -52,22 +47,22 @@ public class SudokuGenerator {
         }
         if (boardCreated) {
             for (int x = 0; x < 81; x++) {
-                if (!creator.getBoardButtonsTemplateList().get(x).getValue().equals("")) {
-                    creator.getBoardButtonsTemplateList().get(x).getButton().setBackground(Color.lightGray);
-                    creator.getBoardButtonsTemplateList().get(x).getButton().setFocusable(false);
+                if (!buttonsTemplateCreator.getBoardButtonsTemplateList().get(x).getValue().equals("")) {
+                    buttonsTemplateCreator.getBoardButtonsTemplateList().get(x).getButton().setBackground(Color.lightGray);
+                    buttonsTemplateCreator.getBoardButtonsTemplateList().get(x).getButton().setFocusable(false);
                 }
             }
 
-            generateBoardsToFile(creator);
+            generateBoardsToFile(buttonsTemplateCreator);
 
 
             return true;
         }
-        checker.clearBoard(creator);
+        boardCreator.clearBoard(buttonsTemplateCreator);
         return false;
     }
 
-    public String generateBoardsToFile(ButtonsTemplateCreator creator) {
+    public String generateBoardsToFile(ButtonsTemplateCreator buttonsTemplateCreator) {
         try {
 
 
@@ -77,9 +72,9 @@ public class SudokuGenerator {
             file.getParentFile().mkdirs();
             file.createNewFile();
             BufferedWriter writer = new BufferedWriter(new FileWriter(file, true));
-            for (int x = 0; x < creator.getBoardButtonsTemplateList().size(); x++) {
-                if (creator.getBoardButtonsTemplateList().get(x).getButton().getName().contains("N")) {
-                    writer.write(creator.getBoardButtonsTemplateList().get(x).getValue());
+            for (int x = 0; x < buttonsTemplateCreator.getBoardButtonsTemplateList().size(); x++) {
+                if (buttonsTemplateCreator.getBoardButtonsTemplateList().get(x).getButton().getName().contains("N")) {
+                    writer.write(buttonsTemplateCreator.getBoardButtonsTemplateList().get(x).getValue());
                 } else {
                     writer.write("0");
 
@@ -98,9 +93,9 @@ public class SudokuGenerator {
             e.printStackTrace();
         }
 
-        for (int x = 0; x < creator.getBoardButtonsTemplateList().size(); x++) {
-            if (creator.getBoardButtonsTemplateList().get(x).getButton().getName().contains("N")) {
-                tmpContainer.append(creator.getBoardButtonsTemplateList().get(x).getValue());
+        for (int x = 0; x < buttonsTemplateCreator.getBoardButtonsTemplateList().size(); x++) {
+            if (buttonsTemplateCreator.getBoardButtonsTemplateList().get(x).getButton().getName().contains("N")) {
+                tmpContainer.append(buttonsTemplateCreator.getBoardButtonsTemplateList().get(x).getValue());
             } else {
                 tmpContainer.append(0);
 
@@ -183,7 +178,7 @@ public class SudokuGenerator {
 return null;
     }
 
-    public void displayBoard(ButtonsTemplateCreator creator){
+    public void displayBoard(ButtonsTemplateCreator buttonsTemplateCreator){
 
        String boardValues = decryptToString();
        StringBuilder builder = new StringBuilder(boardValues);
@@ -198,12 +193,12 @@ return null;
 
        for(int x = 0; x<81; x++){
            if(String.valueOf(notSolvedValues[x]).equals("0")){
-            creator.getBoardButtonsTemplateList().get(x).getButton().setLabel("");
+            buttonsTemplateCreator.getBoardButtonsTemplateList().get(x).getButton().setLabel("");
             continue;
 
            }else
-               creator.getBoardButtonsTemplateList().get(x).getButton().setBackground(new Color(225, 199, 149));
-           creator.getBoardButtonsTemplateList().get(x).getButton().setLabel(String.valueOf(notSolvedValues[x]));
+               buttonsTemplateCreator.getBoardButtonsTemplateList().get(x).getButton().setBackground(new Color(225, 199, 149));
+           buttonsTemplateCreator.getBoardButtonsTemplateList().get(x).getButton().setLabel(String.valueOf(notSolvedValues[x]));
 
 
        }
@@ -214,15 +209,15 @@ return null;
 
     }
 
-    public void resetBoard(ButtonsTemplateCreator creator){
+    public void resetBoard(ButtonsTemplateCreator buttonsTemplateCreator){
         for(int x = 0; x<81; x++){
             if(String.valueOf(boardChecker.getCurrentBoard()[x]).equals("0")){
-                creator.getBoardButtonsTemplateList().get(x).getButton().setLabel("");
+                buttonsTemplateCreator.getBoardButtonsTemplateList().get(x).getButton().setLabel("");
                 continue;
 
             }else
-                creator.getBoardButtonsTemplateList().get(x).getButton().setBackground(new Color(225, 199, 149));
-            creator.getBoardButtonsTemplateList().get(x).getButton().setLabel(String.valueOf(boardChecker.getCurrentBoard()[x]));
+                buttonsTemplateCreator.getBoardButtonsTemplateList().get(x).getButton().setBackground(new Color(225, 199, 149));
+            buttonsTemplateCreator.getBoardButtonsTemplateList().get(x).getButton().setLabel(String.valueOf(boardChecker.getCurrentBoard()[x]));
 
 
         }

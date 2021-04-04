@@ -5,8 +5,8 @@ import pawelDyjak.sudoku.BoardChecker;
 public class BoardCreator {
     SudokuGenerator generator;
 
-    public BoardCreator(SudokuGenerator generator){
-        this.generator = generator;
+    public BoardCreator(SudokuGenerator sudokuGenerator){
+        this.generator = sudokuGenerator;
     }
 
 
@@ -86,7 +86,7 @@ public class BoardCreator {
     }
 
 
-    public boolean multipleSolvingChecker(ButtonsTemplateCreator creator) {
+    public boolean multipleSolvingChecker(ButtonsTemplateCreator buttonsTemplateCreator) {
         boolean goBackward = true;
         boolean multipleSolving = false;
         boolean goToPreviousButton;
@@ -97,7 +97,7 @@ public class BoardCreator {
 
 
                 //if button is not editable, skip it by going back
-                if (creator.getBoardButtonsTemplateList().get(x).getButton().getName().contains("N")) {
+                if (buttonsTemplateCreator.getBoardButtonsTemplateList().get(x).getButton().getName().contains("N")) {
                     if (goBackward) {
                         goToPreviousButton = true;
 
@@ -105,14 +105,14 @@ public class BoardCreator {
 
                 }
                 //if button has no value, try to enter new one starting by 1
-                else if (creator.getBoardButtonsTemplateList().get(x).getValue().equals("")) {
+                else if (buttonsTemplateCreator.getBoardButtonsTemplateList().get(x).getValue().equals("")) {
                     for (int y = 1; y < 10; y++) {
                         //if new value is allowed, entry value,
-                        if (isNumberAllowed(x, y, creator)) {
-                            creator.getBoardButtonsTemplateList().get(x).setValue(String.valueOf(y));
+                        if (isNumberAllowed(x, y, buttonsTemplateCreator)) {
+                            buttonsTemplateCreator.getBoardButtonsTemplateList().get(x).setValue(String.valueOf(y));
 
                             //if board is completed, start everything from beginning
-                            if (isBoardCompleted(creator)) {
+                            if (isBoardCompleted(buttonsTemplateCreator)) {
                                 multipleSolving = true;
                                 break;
                                 //if not, continue with next button
@@ -133,16 +133,16 @@ public class BoardCreator {
 
                 //if button value is different than 9, clear it, increase its value by one and check if it's allowed here
 
-                else if (Integer.parseInt(creator.getBoardButtonsTemplateList().get(x).getValue()) != 9) {
-                    for (int y = Integer.parseInt(creator.getBoardButtonsTemplateList().get(x).getValue()) + 1; y < 10; y++) {
-                        creator.getBoardButtonsTemplateList().get(x).setValue("");
+                else if (Integer.parseInt(buttonsTemplateCreator.getBoardButtonsTemplateList().get(x).getValue()) != 9) {
+                    for (int y = Integer.parseInt(buttonsTemplateCreator.getBoardButtonsTemplateList().get(x).getValue()) + 1; y < 10; y++) {
+                        buttonsTemplateCreator.getBoardButtonsTemplateList().get(x).setValue("");
 
                         //if new value is allowed, entry value,
-                        if (isNumberAllowed(x, y, creator)) {
-                            creator.getBoardButtonsTemplateList().get(x).setValue(String.valueOf(y));
+                        if (isNumberAllowed(x, y, buttonsTemplateCreator)) {
+                            buttonsTemplateCreator.getBoardButtonsTemplateList().get(x).setValue(String.valueOf(y));
 
                             //if board is completed, start everything from beginning
-                            if (isBoardCompleted(creator)) {
+                            if (isBoardCompleted(buttonsTemplateCreator)) {
                                 multipleSolving = true;
                                 break;
                                 //if not, continue with next button
@@ -164,7 +164,7 @@ public class BoardCreator {
                 }
                 //if button value equals 9, clear it and go to previous button
                 else {
-                    creator.getBoardButtonsTemplateList().get(x).setValue("");
+                    buttonsTemplateCreator.getBoardButtonsTemplateList().get(x).setValue("");
                     goToPreviousButton = true;
                     goBackward = true;
 
@@ -181,11 +181,11 @@ public class BoardCreator {
 
     }
 
-    public boolean isBoardCompleted(ButtonsTemplateCreator creator) {
+    public boolean isBoardCompleted(ButtonsTemplateCreator buttonsTemplateCreator) {
 
 
         for (int x = 0; x < 81; x++) {
-            if (creator.getBoardButtonsTemplateList().get(x).getValue().equals("")) {
+            if (buttonsTemplateCreator.getBoardButtonsTemplateList().get(x).getValue().equals("")) {
                 return false;
 
             }
@@ -206,24 +206,24 @@ public class BoardCreator {
 
 
     //checking if value is allowed in current cell
-    public boolean isNumberAllowed(int buttonIndex, int value, ButtonsTemplateCreator creator) {
+    public boolean isNumberAllowed(int buttonIndex, int value, ButtonsTemplateCreator buttonsTemplateCreator) {
         boolean numberAllowed = true;
 
 
         for (int x = 0; x < 81; x++) {
-            int square = creator.getBoardButtonsTemplateList().get(buttonIndex).getSquare();
-            int column = creator.getBoardButtonsTemplateList().get(buttonIndex).getColumn();
-            int row = creator.getBoardButtonsTemplateList().get(buttonIndex).getRow();
-            if (creator.getBoardButtonsTemplateList().get(x).getSquare() == square) {
-                if (creator.getBoardButtonsTemplateList().get(x).getValue().equals(String.valueOf(value))) {
+            int square = buttonsTemplateCreator.getBoardButtonsTemplateList().get(buttonIndex).getSquare();
+            int column = buttonsTemplateCreator.getBoardButtonsTemplateList().get(buttonIndex).getColumn();
+            int row = buttonsTemplateCreator.getBoardButtonsTemplateList().get(buttonIndex).getRow();
+            if (buttonsTemplateCreator.getBoardButtonsTemplateList().get(x).getSquare() == square) {
+                if (buttonsTemplateCreator.getBoardButtonsTemplateList().get(x).getValue().equals(String.valueOf(value))) {
                     numberAllowed = false;
                 }
-            } else if (creator.getBoardButtonsTemplateList().get(x).getColumn() == column) {
-                if (creator.getBoardButtonsTemplateList().get(x).getValue().equals(String.valueOf(value))) {
+            } else if (buttonsTemplateCreator.getBoardButtonsTemplateList().get(x).getColumn() == column) {
+                if (buttonsTemplateCreator.getBoardButtonsTemplateList().get(x).getValue().equals(String.valueOf(value))) {
                     numberAllowed = false;
                 }
-            } else if (creator.getBoardButtonsTemplateList().get(x).getRow() == row) {
-                if (creator.getBoardButtonsTemplateList().get(x).getValue().equals(String.valueOf(value))) {
+            } else if (buttonsTemplateCreator.getBoardButtonsTemplateList().get(x).getRow() == row) {
+                if (buttonsTemplateCreator.getBoardButtonsTemplateList().get(x).getValue().equals(String.valueOf(value))) {
                     numberAllowed = false;
                 }
             }

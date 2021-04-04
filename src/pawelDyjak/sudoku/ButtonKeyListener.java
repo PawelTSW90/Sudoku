@@ -12,10 +12,10 @@ public class ButtonKeyListener implements KeyListener {
     BoardChecker boardChecker;
 
 
-    ButtonKeyListener(Button button, ButtonInteract interact, ButtonsTemplateCreator creator, BoardChecker boardChecker) {
+    ButtonKeyListener(Button button, ButtonInteract buttonInteract, ButtonsTemplateCreator buttonsTemplateCreator, BoardChecker boardChecker) {
         this.button = button;
-        this.interact = interact;
-        this.creator = creator;
+        this.interact = buttonInteract;
+        this.creator = buttonsTemplateCreator;
         this.boardChecker = boardChecker;
 
 
@@ -47,12 +47,12 @@ public class ButtonKeyListener implements KeyListener {
                     button.setLabel(value);
                     button.setBackground(null);
                     button.setFocusable(false);
-                    sound.tick(interact.board);
-                    if (interact.board.isHelpOn()) {
-                        boardChecker.checkIfThereAreErrors(creator, sound, interact.board.getTimerClass(), interact.board.thread);
+                    sound.tick(interact.sudokuBoard);
+                    if (interact.sudokuBoard.isHelpOn()) {
+                        boardChecker.checkIfThereAreErrors(creator, sound, interact.sudokuBoard.getTimerClass(), interact.sudokuBoard.getErrorLabelThread());
                     }
-                    if (interact.boardChecker.isBoardCompleted(creator)) {
-                        interact.boardChecker.isBoardCompletedCorrectly(creator, interact.board, sound);
+                    if (interact.boardChecker.isBoardCompleted(creator.sudokuBoard, creator)) {
+                        interact.boardChecker.isBoardCompletedCorrectly(creator, interact.sudokuBoard, sound);
 
 
                     }
@@ -61,7 +61,7 @@ public class ButtonKeyListener implements KeyListener {
                 //if backspace or delete has been pressed, remove current value
             } else if (code == delete || code == backspace) {
                 if (!button.getLabel().equals("")) {
-                    sound.erase(interact.board);
+                    sound.erase(interact.sudokuBoard);
                 }
                 interact.eraseButton();
             } else if (code == esc) {

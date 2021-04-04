@@ -6,8 +6,8 @@ class ErrorLabelThread extends Thread {
     int mistakesNumber;
     SudokuBoard board;
 
-    public ErrorLabelThread(SudokuBoard board, int mistakesNumber) {
-        this.board = board;
+    public ErrorLabelThread(SudokuBoard sudokuBoard, int mistakesNumber) {
+        this.board = sudokuBoard;
         this.mistakesNumber = mistakesNumber;
     }
 
@@ -16,19 +16,26 @@ class ErrorLabelThread extends Thread {
 
     }
 
-    public void setMistakeLabel(SudokuBoard board, int mistakesNumber) {
+    public void setMistakeLabel(SudokuBoard sudokuBoard, int mistakesNumber) {
         String text;
         if (mistakesNumber == 0) {
             text = "No mistakes found";
         } else if (mistakesNumber > 1) {
+            if(sudokuBoard.getTimerClass().hours>=99){
+                text = mistakesNumber + " mistakes found! ";
+            } else
             text = mistakesNumber + " mistakes found! " + mistakesNumber + " minutes added!";
         } else
-            text = mistakesNumber + " mistake found! " + mistakesNumber + " minute added!";
-        board.getSudokuBoardPanel().getComponent(8).setVisible(true);
-        ((JLabel) board.getSudokuBoardPanel().getComponent(8)).setText(text);
+            if(sudokuBoard.getTimerClass().hours>=99){
+                text = mistakesNumber + " mistake found! ";
+            } else {
+                text = mistakesNumber + " mistake found! " + mistakesNumber + " minute added!";
+            }
+        sudokuBoard.getSudokuBoardPanel().getComponent(8).setVisible(true);
+        ((JLabel) sudokuBoard.getSudokuBoardPanel().getComponent(8)).setText(text);
         try {
             sleep(5000);
-            board.getSudokuBoardPanel().getComponent(8).setVisible(false);
+            sudokuBoard.getSudokuBoardPanel().getComponent(8).setVisible(false);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }

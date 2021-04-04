@@ -7,8 +7,8 @@ import java.io.IOException;
 
 public class SoundClass {
         //method is playing tick sound
-    public void tick(SudokuBoard board) {
-        if(board==null || board.isSoundOn()) {
+    public void tick(SudokuBoard sudokuBoard) {
+        if(sudokuBoard==null || sudokuBoard.isSoundOn()) {
 
             try {
                 Clip clip = AudioSystem.getClip();
@@ -24,8 +24,8 @@ public class SoundClass {
 
     }
         //method is playing board completed correctly sound
-    public void boardCompletedCorrectly(SudokuBoard board) {
-        if(board.isSoundOn()) {
+    public void boardCompletedCorrectly(SudokuBoard sudokuBoard) {
+        if(sudokuBoard.isSoundOn()) {
 
             try {
                 Clip clip = AudioSystem.getClip();
@@ -41,8 +41,8 @@ public class SoundClass {
 
     }
         //method is playing board completed incorrectly sound
-    public void boardCompletedWrong(SudokuBoard board) {
-        if (board.isSoundOn()) {
+    public void boardCompletedWrong(SudokuBoard sudokuBoard) {
+        if (sudokuBoard.isSoundOn()) {
 
             try {
                 Clip clip = AudioSystem.getClip();
@@ -58,8 +58,8 @@ public class SoundClass {
         }
     }
         //method is playing error sound
-    public void error(SudokuBoard board){
-        if (board.isSoundOn()) {
+    public void error(SudokuBoard sudokuBoard){
+        if (sudokuBoard.isSoundOn()) {
 
             try {
                 Clip clip = AudioSystem.getClip();
@@ -75,8 +75,8 @@ public class SoundClass {
         }
     }
         //method is playing erase sound
-        public void erase(SudokuBoard board) {
-            if (board.isSoundOn()) {
+        public void erase(SudokuBoard sudokuBoard) {
+            if (sudokuBoard.isSoundOn()) {
 
                 try {
                     Clip clip = AudioSystem.getClip();

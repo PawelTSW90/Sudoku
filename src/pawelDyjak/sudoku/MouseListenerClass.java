@@ -6,8 +6,8 @@ import java.awt.event.MouseEvent;
 public class MouseListenerClass implements java.awt.event.MouseListener {
     SudokuBoard board;
 
-    public MouseListenerClass(SudokuBoard board) {
-        this.board = board;
+    public MouseListenerClass(SudokuBoard sudokuBoard) {
+        this.board = sudokuBoard;
 
     }
 

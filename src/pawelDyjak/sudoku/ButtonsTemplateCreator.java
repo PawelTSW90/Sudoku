@@ -14,8 +14,8 @@ public class ButtonsTemplateCreator {
     SudokuBoard sudokuBoard;
     SoundClass soundClass;
 
-    public ButtonsTemplateCreator(SudokuBoard board, SoundClass soundClass) {
-        this.sudokuBoard = board;
+    public ButtonsTemplateCreator(SudokuBoard sudokuBoard, SoundClass soundClass) {
+        this.sudokuBoard = sudokuBoard;
         this.soundClass = soundClass;
     }
 

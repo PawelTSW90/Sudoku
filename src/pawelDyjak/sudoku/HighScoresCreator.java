@@ -11,10 +11,10 @@ import java.nio.file.Paths;
 import java.util.List;
 
 public class HighScoresCreator {
-    SudokuBoard board;
+    SudokuBoard sudokuBoard;
 
-    public HighScoresCreator(SudokuBoard board){
-        this.board = board;
+    public HighScoresCreator(SudokuBoard sudokuBoard){
+        this.sudokuBoard = sudokuBoard;
     }
 
     //method prepares HighScores list to enter new result
@@ -126,10 +126,10 @@ public class HighScoresCreator {
     }
 
     //method compares player time with other results, and returns player position
-    public int checkUserTime(SudokuBoard board) {
+    public int checkUserTime(SudokuBoard sudokuBoard) {
         StringBuilder highScoresString = new StringBuilder();
         StringBuilder singleHighScoresTime;
-        String userTime = board.getTimeCounter().toString();
+        String userTime = sudokuBoard.getTimeCounter().toString();
         int userTimeInt;
         int[] highScores = new int[10];
         int place = 0;
