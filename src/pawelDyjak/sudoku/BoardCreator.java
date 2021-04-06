@@ -83,7 +83,7 @@ public class BoardCreator {
         return boardSolvable;
     }
 
-
+        //method checks if current board can be solved only once. If yes, board accepted
     public boolean multipleSolvingChecker() {
         boolean goBackward = true;
         boolean multipleSolving = false;
@@ -178,7 +178,7 @@ public class BoardCreator {
         return multipleSolving;
 
     }
-
+        //method checks if tested board is filled
     public boolean isBoardCompleted() {
 
 
@@ -192,12 +192,12 @@ public class BoardCreator {
 
     }
 
-
-    public void clearBoard(ButtonsTemplateCreator creator) {
+        //method clears board for new one
+    public void clearBoard() {
         for (int x = 0; x < 81; x++) {
-            creator.getBoardButtonsTemplateList().get(x).setValue("");
-            creator.getBoardButtonsTemplateList().get(x).getButton().setLabel("");
-            creator.getBoardButtonsTemplateList().get(x).getButton().setName("");
+            buttonsTemplateCreator.getBoardButtonsTemplateList().get(x).setValue("");
+            buttonsTemplateCreator.getBoardButtonsTemplateList().get(x).getButton().setLabel("");
+            buttonsTemplateCreator.getBoardButtonsTemplateList().get(x).getButton().setName("");
         }
 
     }

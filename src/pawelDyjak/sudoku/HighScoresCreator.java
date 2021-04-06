@@ -1,7 +1,5 @@
 package pawelDyjak.sudoku;
 
-import javax.swing.*;
-import java.awt.*;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -11,11 +9,6 @@ import java.nio.file.Paths;
 import java.util.List;
 
 public class HighScoresCreator {
-    SudokuBoard sudokuBoard;
-
-    public HighScoresCreator(SudokuBoard sudokuBoard){
-        this.sudokuBoard = sudokuBoard;
-    }
 
     //method prepares HighScores list to enter new result
     public StringBuilder updateResult(int position) {
@@ -30,26 +23,25 @@ public class HighScoresCreator {
             List<String> lines = Files.readAllLines(path);
             if (position <= 9) {
 
-                for (int x = 9; x >=position-1; x--) {
-                    if(x == 9){
+                for (int x = 9; x >= position - 1; x--) {
+                    if (x == 9) {
                         lineValue = lines.get(x).substring(0, 4);
-                        scoreTableArray[x].append(lineValue);
                     } else {
                         lineValue = lines.get(x).substring(0, 3);
-                        scoreTableArray[x].append(lineValue);
                     }
+                    scoreTableArray[x].append(lineValue);
                     if (x > 0)
                         lineValue = lines.get(x - 1).substring(3);
                     scoreTableArray[x].append(lineValue);
                 }
 
-                for (int x = 0; x<position-1; x++){
+                for (int x = 0; x < position - 1; x++) {
                     scoreTableArray[x].append(lines.get(x));
                 }
 
 
-                for (int x = 0; x < scoreTableArray.length; x++) {
-                    scoreTable.append(scoreTableArray[x]);
+                for (StringBuilder stringBuilder : scoreTableArray) {
+                    scoreTable.append(stringBuilder);
                     scoreTable.append("\n");
 
                 }
@@ -176,52 +168,5 @@ public class HighScoresCreator {
 
         return resultPlace;
     }
-
-    //method returns line on highScores board corresponding with players position
-    public String lineReturn(int line) {
-        String lineToChange = null;
-        Path path = Paths.get("C:\\Users\\Pawel\\Desktop\\Sudoku\\HighScores.brd");
-        try {
-            List<String> lines = Files.readAllLines(path);
-            lineToChange = lines.get(line);
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return lineToChange;
-
-
-    }
-    public JLabel highScore() {
-        int labelNr = 1;
-        JLabel panel = new JLabel();
-        GridLayout layout = new GridLayout(10, 0);
-        layout.setVgap(10);
-        panel.setLayout(layout);
-        panel.setBounds(UtilityClass.getScreenWidth() / 2 - 1200 / 2, 300, 800, 700);
-        for (int x = 0; x < 10; x++) {
-            JLabel label = new JLabel(labelNr + "..........");
-            switch (labelNr) {
-                case 1 -> label.setForeground(new Color(218, 165, 32));
-                case 2 -> label.setForeground(new Color(169, 169, 169));
-                case 3 -> label.setForeground(new Color(102, 51, 0));
-            }
-            label.setFont(new Font(null, Font.ITALIC, 50));
-            setText(label, labelNr - 1);
-            panel.add(label);
-            labelNr++;
-
-        }
-        return panel;
-    }
-    public void setText(JLabel label, int line) {
-        String text = lineReturn(line);
-        text = text.replace("*", "");
-        label.setText(text);
-
-    }
-
-
-
 
 }

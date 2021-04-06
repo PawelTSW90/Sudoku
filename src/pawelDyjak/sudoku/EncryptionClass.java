@@ -1,12 +1,8 @@
 package pawelDyjak.sudoku;
-
 import javax.crypto.Cipher;
-
 import javax.crypto.spec.SecretKeySpec;
-import java.io.UnsupportedEncodingException;
 import java.nio.charset.StandardCharsets;
 import java.security.GeneralSecurityException;
-
 import java.util.Arrays;
 import java.util.Base64;
 

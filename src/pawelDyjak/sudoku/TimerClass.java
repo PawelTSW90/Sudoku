@@ -10,8 +10,8 @@ public class TimerClass {
     private int minutes = 0;
     private int hours = 0;
     private StringBuffer time;
-    private SudokuBoard board;
-    volatile boolean pauseThread = false;
+    private final SudokuBoard board;
+    boolean pauseThread = false;
 
     public TimerClass(SudokuBoard sudokuBoard){
         this.board = sudokuBoard;
@@ -19,8 +19,8 @@ public class TimerClass {
 
 
 
-        //method is starting timer and passing it as a value to timer JLabel
-    public StringBuffer setTimer(){
+        //method starts timer and passing it as a value to timer JLabel
+    public void setTimer(){
         time = new StringBuffer();
         Timer timer = new Timer();
         timer.schedule(new TimerTask() {
@@ -39,10 +39,10 @@ public class TimerClass {
                 }
             }
         }, 0, 1000);
-        return time;
+
     }
-        //method is incrementing seconds, minutes and hours
-    public int counter(){
+        //method increments seconds, minutes and hours
+    public void counter(){
         seconds++;
         if(seconds == 60){
             minutes++;
@@ -56,7 +56,6 @@ public class TimerClass {
         if(hours == 99){
             pauseThread();
         }
-        return seconds;
     }
 
 

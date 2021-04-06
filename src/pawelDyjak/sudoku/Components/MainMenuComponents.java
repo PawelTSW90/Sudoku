@@ -6,9 +6,9 @@ import pawelDyjak.sudoku.*;
 
 public class MainMenuComponents {
    private final MainMenu mainMenu;
-
     public MainMenuComponents(MainMenu mainMenu){
         this.mainMenu = mainMenu;
+
     }
         //method draws exit Button for main menu
     public JButton exitButton() {
@@ -26,7 +26,7 @@ public class MainMenuComponents {
     }
         //method draws highScores button for main menu
     public JButton highScoresButton() {
-        JButton highScores = new JButton("HIGHSCORES");
+        JButton highScores = new JButton("HIGH SCORES");
         highScores.addMouseListener(new MouseListenerClass(null));
         highScores.setFont(new Font(null, Font.PLAIN, 80));
         highScores.setBounds(UtilityClass.getScreenWidth() / 2 - 600 / 2, UtilityClass.getScreenHeight() - UtilityClass.getScreenHeight() / 2 + 60, 600, 115);
@@ -37,7 +37,7 @@ public class MainMenuComponents {
                 while (mainMenu.getMainMenuFrame().getContentPane().getComponents().length>1)
                     mainMenu.getMainMenuFrame().getContentPane().remove(mainMenu.getMainMenuFrame().getContentPane().getComponents().length-1);
             }
-            mainMenu.getMainMenuFrame().add(new HighScoresPanel(mainMenu).highScorePage());
+            mainMenu.getMainMenuFrame().add(new HighScoresJPanel(mainMenu,mainMenu.getHighScoresComponents()).drawHighScorePanel());
             mainMenu.getMainMenuFrame().getContentPane().getComponent(0).setVisible(false);
 
         });

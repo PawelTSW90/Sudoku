@@ -64,7 +64,7 @@ public class SudokuGenerator {
 
             return true;
         }
-        boardCreator.clearBoard(buttonsTemplateCreator);
+        boardCreator.clearBoard();
         return false;
     }
 

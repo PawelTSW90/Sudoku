@@ -7,14 +7,21 @@ import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.List;
 
 public class BoardCompletedComponents {
     private final SudokuBoard sudokuBoard;
     private final BoardCompletedJPanel boardCompletedJPanel;
+    HighScoresComponents highScoresComponents;
 
-    public BoardCompletedComponents(SudokuBoard sudokuBoard, BoardCompletedJPanel boardCompletedJPanel) {
+    public BoardCompletedComponents(SudokuBoard sudokuBoard, BoardCompletedJPanel boardCompletedJPanel, HighScoresComponents highScoresComponents) {
         this.sudokuBoard = sudokuBoard;
         this.boardCompletedJPanel = boardCompletedJPanel;
+        this.highScoresComponents = highScoresComponents;
     }
 
     //method draws exit button for board completed panel
@@ -125,7 +132,7 @@ public class BoardCompletedComponents {
                     boardCompletedJPanel.getBoardCompleted().getComponent(5).setVisible(true);
                     boardCompletedJPanel.getBoardCompleted().remove(6);
                     boardCompletedJPanel.getBoardCompleted().remove(3);
-                    boardCompletedJPanel.getBoardCompleted().add(sudokuBoard.getHighScoresCreator().highScore());
+                    boardCompletedJPanel.getBoardCompleted().add(sudokuBoard.getBoardCompletedComponents().highScore());
                     boardCompletedJPanel.getBoardCompleted().add(drawBackground());
                     namePanel.setVisible(false);
 
@@ -156,5 +163,50 @@ public class BoardCompletedComponents {
         background.setBounds(0, 0, UtilityClass.getScreenWidth(), UtilityClass.getScreenHeight());
         background.setIcon(new ImageIcon("./Visuals/sudoku-background.jpg"));
         return background;
+    }
+        //method draws high score label for board completed panel
+    public JLabel highScore() {
+        int labelNr = 1;
+        JLabel panel = new JLabel();
+        GridLayout layout = new GridLayout(10, 0);
+        layout.setVgap(10);
+        panel.setLayout(layout);
+        panel.setBounds(UtilityClass.getScreenWidth() / 2 - 800 / 2, 300, 800, 700);
+        for (int x = 0; x < 10; x++) {
+            JLabel label = new JLabel(labelNr + "..........");
+            switch (labelNr) {
+                case 1 -> label.setForeground(new Color(218, 165, 32));
+                case 2 -> label.setForeground(new Color(169, 169, 169));
+                case 3 -> label.setForeground(new Color(102, 51, 0));
+            }
+            label.setFont(new Font(null, Font.ITALIC, 50));
+            setText(label, labelNr - 1);
+            panel.add(label);
+            labelNr++;
+
+        }
+        return panel;
+    }
+        //method returns
+    public void setText(JLabel label, int line) {
+        String text = lineReturn(line);
+        text = text.replace("*", "");
+        label.setText(text);
+
+    }
+    //method returns line on highScores board corresponding with players position
+    public String lineReturn(int line) {
+        String lineToChange = null;
+        Path path = Paths.get("C:\\Users\\Pawel\\Desktop\\Sudoku\\HighScores.brd");
+        try {
+            List<String> lines = Files.readAllLines(path);
+            lineToChange = lines.get(line);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return lineToChange;
+
+
     }
 }

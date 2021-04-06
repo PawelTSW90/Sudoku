@@ -1,4 +1,6 @@
 package pawelDyjak.sudoku;
+import pawelDyjak.sudoku.Components.HighScoresComponents;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -6,14 +8,18 @@ import java.awt.*;
 public class BoardCompletedJPanel {
     private final SudokuBoard sudokuBoard;
     private final HighScoresCreator highScoresCreator;
+    HighScoresComponents highScoresComponents;
+    HighScoresJPanel highScoresJPanel;
     private final JPanel boardCompleted = new JPanel();
     private String playerName;
     private int playerPlace;
 
 
-    public BoardCompletedJPanel(SudokuBoard sudokuBoard, HighScoresCreator highScoresCreator) {
+    public BoardCompletedJPanel(SudokuBoard sudokuBoard, HighScoresCreator highScoresCreator, HighScoresJPanel highScoresJPanel, HighScoresComponents highScoresComponents) {
         this.sudokuBoard = sudokuBoard;
         this.highScoresCreator = highScoresCreator;
+        this.highScoresJPanel = highScoresJPanel;
+        this.highScoresComponents = highScoresComponents;
     }
 
         //method draws board completed panel
@@ -27,7 +33,7 @@ public class BoardCompletedJPanel {
         this.boardCompleted.add(sudokuBoard.getBoardCompletedComponents().drawTypeNamePanel());
         this.boardCompleted.add(boardCompleted);
         this.boardCompleted.add(sudokuBoard.getBoardCompletedComponents().drawTime());
-        this.boardCompleted.add(highScoresCreator.highScore());
+        this.boardCompleted.add(sudokuBoard.getBoardCompletedComponents().highScore());
         this.boardCompleted.add(sudokuBoard.getBoardCompletedComponents().drawMainMenuButton());
         this.boardCompleted.add(sudokuBoard.getBoardCompletedComponents().drawExitButton());
         this.boardCompleted.add(sudokuBoard.getBoardCompletedComponents().drawBackground());

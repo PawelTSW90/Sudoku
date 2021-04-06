@@ -5,17 +5,15 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class ButtonInteract implements ActionListener {
-    BoardChecker boardChecker;
-    SoundClass soundClass;
-    Button button;
-    ButtonsTemplateCreator buttonsTemplateCreator;
-    SudokuGenerator sudokuGenerator;
-    SudokuBoard sudokuBoard;
+    private final BoardChecker boardChecker;
+    private final SoundClass soundClass;
+    private Button button;
+    private final ButtonsTemplateCreator buttonsTemplateCreator;
+    private final SudokuBoard sudokuBoard;
 
 
-    public ButtonInteract(ButtonsTemplateCreator buttonsTemplateCreator, SudokuGenerator sudokuGenerator, SoundClass soundClass, SudokuBoard sudokuBoard, BoardChecker boardChecker) {
+    public ButtonInteract(ButtonsTemplateCreator buttonsTemplateCreator, SoundClass soundClass, SudokuBoard sudokuBoard, BoardChecker boardChecker) {
         this.buttonsTemplateCreator = buttonsTemplateCreator;
-        this.sudokuGenerator = sudokuGenerator;
         this.soundClass = soundClass;
         this.sudokuBoard = sudokuBoard;
         this.boardChecker = boardChecker;
@@ -162,7 +160,7 @@ public class ButtonInteract implements ActionListener {
         }
     }
 
-    //method is checking if any board button is active
+    //method checks if any board button is active
     public boolean isBoardButtonHighlighted() {
 
         for (int x = 0; x < 81; x++) {
@@ -178,7 +176,7 @@ public class ButtonInteract implements ActionListener {
 
     }
 
-    //method is checking if any keypad button is active
+    //method checks if any keypad button is active
     public boolean isKeypadButtonHighlighted() {
         for (int y = 0; y < 9; y++) {
             if (buttonsTemplateCreator.getKeypadButtonsTemplateList().get(y).getButton().isFocusable()) {
@@ -190,14 +188,14 @@ public class ButtonInteract implements ActionListener {
         }
         return false;
     }
-
+            //method erases selected button
     public void eraseButton() {
         soundClass.erase(sudokuBoard);
         button.setLabel("");
         button.setBackground(null);
         button.setFocusable(false);
     }
-
+        //method identifies and sets clicked button
     public void findButtonByHashCode(ActionEvent e) {
         int hashCode = e.getSource().hashCode();
         for (int x = 0; x < buttonsTemplateCreator.getBoardButtonsTemplateList().size(); x++) {
@@ -212,7 +210,9 @@ public class ButtonInteract implements ActionListener {
         }
     }
 
-
+    public SudokuBoard getSudokuBoard() {
+        return sudokuBoard;
+    }
 }
 
 

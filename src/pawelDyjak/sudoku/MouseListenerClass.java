@@ -4,16 +4,16 @@ import java.awt.*;
 import java.awt.event.MouseEvent;
 
 public class MouseListenerClass implements java.awt.event.MouseListener {
-    SudokuBoard board;
+    SudokuBoard sudokuBoard;
 
     public MouseListenerClass(SudokuBoard sudokuBoard) {
-        this.board = sudokuBoard;
+        this.sudokuBoard = sudokuBoard;
 
     }
 
     @Override
     public void mouseClicked(MouseEvent e) {
-        board.getSoundClass().tick(board);
+        sudokuBoard.getSoundClass().tick(sudokuBoard);
     }
 
     @Override

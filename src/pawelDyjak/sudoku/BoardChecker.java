@@ -6,14 +6,12 @@ public class BoardChecker {
     private char[] boardSolution = new char[81];
     private char[] currentBoard = new char[81];
     private final SudokuBoard sudokuBoard;
-    private final ButtonsTemplateCreator buttonsTemplateCreator;
     private final SoundClass soundClass;
     private final TimerClass timerClass;
     private Thread errorLabelThread;
 
-    public BoardChecker(SudokuBoard sudokuBoard, ButtonsTemplateCreator buttonsTemplateCreator, SoundClass soundClass, TimerClass timerClass, Thread errorLabelThread){
+    public BoardChecker(SudokuBoard sudokuBoard,SoundClass soundClass, TimerClass timerClass, Thread errorLabelThread){
         this.sudokuBoard = sudokuBoard;
-        this.buttonsTemplateCreator = buttonsTemplateCreator;
         this.soundClass = soundClass;
         this.timerClass = timerClass;
         this.errorLabelThread = errorLabelThread;
@@ -24,9 +22,9 @@ public class BoardChecker {
 
         int mistakesNumber = 0;
         for (int x = 0; x < 81; x++) {
-            String buttonValue = buttonsTemplateCreator.getBoardButtonsTemplateList().get(x).getButton().getLabel();
+            String buttonValue = sudokuBoard.getButtonsTemplateCreator().getBoardButtonsTemplateList().get(x).getButton().getLabel();
             if (!buttonValue.equals(String.valueOf(boardSolution[x])) && !buttonValue.equals("")) {
-                buttonsTemplateCreator.getBoardButtonsTemplateList().get(x).getButton().setForeground(Color.red);
+                sudokuBoard.getButtonsTemplateCreator().getBoardButtonsTemplateList().get(x).getButton().setForeground(Color.red);
                 soundClass.error(sudokuBoard);
                 timerClass.setMinutes(timerClass.getMinutes()+1);
                 if (timerClass.getMinutes() >= 60) {
@@ -35,7 +33,7 @@ public class BoardChecker {
                 }
                 mistakesNumber++;
             } else {
-                buttonsTemplateCreator.getBoardButtonsTemplateList().get(x).getButton().setForeground(Color.black);
+                sudokuBoard.getButtonsTemplateCreator().getBoardButtonsTemplateList().get(x).getButton().setForeground(Color.black);
             }
 
 
@@ -48,13 +46,13 @@ public class BoardChecker {
         //method restores wrong number color to default, when error detecting is turned off
     public void restoreButtonsColors() {
         for (int x = 0; x < 81; x++) {
-            buttonsTemplateCreator.getBoardButtonsTemplateList().get(x).getButton().setForeground(Color.black);
+            sudokuBoard.getButtonsTemplateCreator().getBoardButtonsTemplateList().get(x).getButton().setForeground(Color.black);
         }
     }
         //method checks if board is full
     public boolean isBoardCompleted() {
         for (int x = 0; x < 81; x++) {
-            if (buttonsTemplateCreator.getBoardButtonsTemplateList().get(x).getButton().getLabel().equals("")) {
+            if (sudokuBoard.getButtonsTemplateCreator().getBoardButtonsTemplateList().get(x).getButton().getLabel().equals("")) {
                 return false;
 
             }
@@ -68,7 +66,7 @@ public class BoardChecker {
 
         //message when board is completed wrong
         for (int x = 0; x < 81; x++) {
-            if (!buttonsTemplateCreator.getBoardButtonsTemplateList().get(x).getButton().getLabel().equals(String.valueOf(boardSolution[x]))) {
+            if (!sudokuBoard.getButtonsTemplateCreator().getBoardButtonsTemplateList().get(x).getButton().getLabel().equals(String.valueOf(boardSolution[x]))) {
                 soundClass.boardCompletedWrong(getSudokuBoard());
                 sudokuBoard.disableBackground(0);
                 sudokuBoard.getTimerClass().pauseThread();

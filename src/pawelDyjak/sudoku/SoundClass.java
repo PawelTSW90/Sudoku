@@ -6,7 +6,7 @@ import java.io.IOException;
 
 
 public class SoundClass {
-        //method is playing tick sound
+        //method plays tick sound
     public void tick(SudokuBoard sudokuBoard) {
         if(sudokuBoard==null || sudokuBoard.isSoundOn()) {
 
@@ -23,7 +23,7 @@ public class SoundClass {
 
 
     }
-        //method is playing board completed correctly sound
+        //method plays board completed correctly sound
     public void boardCompletedCorrectly(SudokuBoard sudokuBoard) {
         if(sudokuBoard.isSoundOn()) {
 
@@ -40,7 +40,7 @@ public class SoundClass {
 
 
     }
-        //method is playing board completed incorrectly sound
+        //method plays board completed incorrectly sound
     public void boardCompletedWrong(SudokuBoard sudokuBoard) {
         if (sudokuBoard.isSoundOn()) {
 
@@ -57,7 +57,7 @@ public class SoundClass {
 
         }
     }
-        //method is playing error sound
+        //method plays error sound
     public void error(SudokuBoard sudokuBoard){
         if (sudokuBoard.isSoundOn()) {
 
@@ -74,7 +74,7 @@ public class SoundClass {
 
         }
     }
-        //method is playing erase sound
+        //method plays erase sound
         public void erase(SudokuBoard sudokuBoard) {
             if (sudokuBoard.isSoundOn()) {
 

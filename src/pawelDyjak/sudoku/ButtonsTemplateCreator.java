@@ -7,16 +7,15 @@ import java.util.List;
 
 public class ButtonsTemplateCreator {
 
-
     final private List<ButtonCreator> boardButtonsTemplateList = new ArrayList<>();
     final private List<ButtonCreator> keypadButtonsTemplateList = new ArrayList<>();
     private String buttonValueHolder;
-    SudokuBoard sudokuBoard;
-    SoundClass soundClass;
+    private final SudokuBoard sudokuBoard;
+    private final BoardChecker boardChecker;
 
-    public ButtonsTemplateCreator(SudokuBoard sudokuBoard, SoundClass soundClass) {
+    public ButtonsTemplateCreator(SudokuBoard sudokuBoard,BoardChecker boardChecker) {
         this.sudokuBoard = sudokuBoard;
-        this.soundClass = soundClass;
+        this.boardChecker = boardChecker;
     }
 
 //method is creating template keypad buttons list and template board button list, each cell have button and position assigned
@@ -25,14 +24,15 @@ public class ButtonsTemplateCreator {
     public void createBoardTemplate(List<Button> buttonList, List<Button> keypadButtons) {
         List<ButtonCreator> boardButtonCreatorList = new ArrayList<>();
         List<ButtonCreator> keypadButtonCreatorList = new ArrayList<>();
-
+        //creating object holders for board buttons
         for(int x = 0; x<81; x++){
             boardButtonCreatorList.add(new ButtonCreator());
         }
-
+        //creating object holders for keypad buttons
         for(int x = 0; x<9; x++){
             keypadButtonCreatorList.add(new ButtonCreator());
         }
+
         ButtonInteract buttonInteract = sudokuBoard.getButtonInteract();
         int columnNumber = 1;
         int rowNumber = 1;
@@ -42,7 +42,7 @@ public class ButtonsTemplateCreator {
             ButtonCreator creator = keypadButtonCreatorList.get(y);
             creator.setButton(keypadButtons.get(y));
             creator.getButton().addActionListener(buttonInteract);
-            creator.getButton().addKeyListener(new ButtonsKeyListener(creator.getButton(), buttonInteract, buttonInteract.buttonsTemplateCreator, buttonInteract.boardChecker));
+            creator.getButton().addKeyListener(new ButtonsKeyListener(sudokuBoard,creator.getButton(), buttonInteract, this,boardChecker));
             keypadButtonsTemplateList.add(creator);
 
         }
@@ -53,9 +53,7 @@ public class ButtonsTemplateCreator {
             ButtonCreator creator = boardButtonCreatorList.get(x);
             creator.setButton(buttonList.get(x));
             creator.getButton().addActionListener(buttonInteract);
-            creator.getButton().addKeyListener(new ButtonsKeyListener(creator.getButton(), buttonInteract, buttonInteract.buttonsTemplateCreator, buttonInteract.boardChecker));
-            creator.setValue("");
-            creator.setName("");
+            creator.getButton().addKeyListener(new ButtonsKeyListener(sudokuBoard,creator.getButton(), buttonInteract, this, boardChecker));
             creator.setSquare(1);
             if (columnNumber == 4) {
                 columnNumber = 1;
@@ -78,9 +76,7 @@ public class ButtonsTemplateCreator {
 
             creator.setButton(buttonList.get(x));
             creator.getButton().addActionListener(buttonInteract);
-            creator.getButton().addKeyListener(new ButtonsKeyListener(creator.getButton(), buttonInteract, buttonInteract.buttonsTemplateCreator, buttonInteract.boardChecker));
-            creator.setValue("");
-            creator.setName("");
+            creator.getButton().addKeyListener(new ButtonsKeyListener(sudokuBoard,creator.getButton(), buttonInteract, this, boardChecker));
             creator.setSquare(2);
             if (columnNumber == 7) {
                 columnNumber = 4;
@@ -104,9 +100,7 @@ public class ButtonsTemplateCreator {
             ButtonCreator creator = boardButtonCreatorList.get(x);
             creator.setButton(buttonList.get(x));
             creator.getButton().addActionListener(buttonInteract);
-            creator.getButton().addKeyListener(new ButtonsKeyListener(creator.getButton(), buttonInteract, buttonInteract.buttonsTemplateCreator, buttonInteract.boardChecker));
-            creator.setValue("");
-            creator.setName("");
+            creator.getButton().addKeyListener(new ButtonsKeyListener(sudokuBoard,creator.getButton(), buttonInteract, this, boardChecker));
             creator.setSquare(3);
             if (columnNumber == 10) {
                 columnNumber = 7;
@@ -129,9 +123,7 @@ public class ButtonsTemplateCreator {
             ButtonCreator creator = boardButtonCreatorList.get(x);
             creator.setButton(buttonList.get(x));
             creator.getButton().addActionListener(buttonInteract);
-            creator.getButton().addKeyListener(new ButtonsKeyListener(creator.getButton(), buttonInteract, buttonInteract.buttonsTemplateCreator, buttonInteract.boardChecker));
-            creator.setValue("");
-            creator.setName("");
+            creator.getButton().addKeyListener(new ButtonsKeyListener(sudokuBoard,creator.getButton(), buttonInteract, this, boardChecker));
             creator.setSquare(4);
             if (columnNumber == 4) {
                 columnNumber = 1;
@@ -149,12 +141,10 @@ public class ButtonsTemplateCreator {
         columnNumber = 4;
         rowNumber = 4;
         for (int x = 36; x < 45; x++) {
-            ButtonCreator creator = boardButtonCreatorList.get(x);;
+            ButtonCreator creator = boardButtonCreatorList.get(x);
             creator.setButton(buttonList.get(x));
             creator.getButton().addActionListener(buttonInteract);
-            creator.getButton().addKeyListener(new ButtonsKeyListener(creator.getButton(), buttonInteract, buttonInteract.buttonsTemplateCreator, buttonInteract.boardChecker));
-            creator.setValue("");
-            creator.setName("");
+            creator.getButton().addKeyListener(new ButtonsKeyListener(sudokuBoard,creator.getButton(), buttonInteract, this, boardChecker));
             creator.setSquare(5);
             if (columnNumber == 7) {
                 columnNumber = 4;
@@ -175,9 +165,7 @@ public class ButtonsTemplateCreator {
             ButtonCreator creator = boardButtonCreatorList.get(x);
             creator.setButton(buttonList.get(x));
             creator.getButton().addActionListener(buttonInteract);
-            creator.getButton().addKeyListener(new ButtonsKeyListener(creator.getButton(), buttonInteract, buttonInteract.buttonsTemplateCreator, buttonInteract.boardChecker));
-            creator.setValue("");
-            creator.setName("");
+            creator.getButton().addKeyListener(new ButtonsKeyListener(sudokuBoard,creator.getButton(), buttonInteract, this, boardChecker));
             creator.setSquare(6);
             if (columnNumber == 10) {
                 columnNumber = 7;
@@ -199,9 +187,7 @@ public class ButtonsTemplateCreator {
             ButtonCreator creator = boardButtonCreatorList.get(x);
             creator.setButton(buttonList.get(x));
             creator.getButton().addActionListener(buttonInteract);
-            creator.getButton().addKeyListener(new ButtonsKeyListener(creator.getButton(), buttonInteract, buttonInteract.buttonsTemplateCreator, buttonInteract.boardChecker));
-            creator.setValue("");
-            creator.setName("");
+            creator.getButton().addKeyListener(new ButtonsKeyListener(sudokuBoard,creator.getButton(), buttonInteract, this, boardChecker));
             creator.setSquare(7);
             if (columnNumber == 4) {
                 columnNumber = 1;
@@ -222,9 +208,7 @@ public class ButtonsTemplateCreator {
             ButtonCreator creator = boardButtonCreatorList.get(x);
             creator.setButton(buttonList.get(x));
             creator.getButton().addActionListener(buttonInteract);
-            creator.getButton().addKeyListener(new ButtonsKeyListener(creator.getButton(), buttonInteract, buttonInteract.buttonsTemplateCreator, buttonInteract.boardChecker));
-            creator.setValue("");
-            creator.setName("");
+            creator.getButton().addKeyListener(new ButtonsKeyListener(sudokuBoard,creator.getButton(), buttonInteract, this, boardChecker));
             creator.setSquare(8);
             if (columnNumber == 7) {
                 columnNumber = 4;
@@ -245,9 +229,7 @@ public class ButtonsTemplateCreator {
             ButtonCreator creator = boardButtonCreatorList.get(x);
             creator.setButton(buttonList.get(x));
             creator.getButton().addActionListener(buttonInteract);
-            creator.getButton().addKeyListener(new ButtonsKeyListener(creator.getButton(), buttonInteract, buttonInteract.buttonsTemplateCreator, buttonInteract.boardChecker));
-            creator.setValue("");
-            creator.setName("");
+            creator.getButton().addKeyListener(new ButtonsKeyListener(sudokuBoard,creator.getButton(), buttonInteract, this, boardChecker));
             creator.setSquare(9);
             if (columnNumber == 10) {
                 columnNumber = 7;

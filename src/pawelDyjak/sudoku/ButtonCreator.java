@@ -5,15 +5,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ButtonCreator {
-    int keypadButtonNumber = 1;
+    private int keypadButtonNumber = 1;
     private int square;
     private int column;
     private int row;
-    private String name;
     private String value;
     private Button button;
-    final private List<Button> boardButtons = new ArrayList<>();
-    final private List<Button> keypadButtons = new ArrayList<>();
+    private final List<Button> boardButtons = new ArrayList<>();
+    private final List<Button> keypadButtons = new ArrayList<>();
 
 
 
@@ -60,10 +59,6 @@ public class ButtonCreator {
 
     public void setRow(int row) {
         this.row = row;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     public String getValue() {

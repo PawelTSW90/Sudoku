@@ -10,13 +10,15 @@ public class ButtonsKeyListener implements KeyListener {
     ButtonsTemplateCreator creator;
     SoundClass sound = new SoundClass();
     BoardChecker boardChecker;
+    SudokuBoard sudokuBoard;
 
 
-    ButtonsKeyListener(Button button, ButtonInteract buttonInteract, ButtonsTemplateCreator buttonsTemplateCreator, BoardChecker boardChecker) {
+    ButtonsKeyListener(SudokuBoard sudokuBoard, Button button, ButtonInteract buttonInteract, ButtonsTemplateCreator buttonsTemplateCreator, BoardChecker boardChecker) {
         this.button = button;
         this.interact = buttonInteract;
         this.creator = buttonsTemplateCreator;
         this.boardChecker = boardChecker;
+        this.sudokuBoard = sudokuBoard;
 
 
     }
@@ -43,16 +45,16 @@ public class ButtonsKeyListener implements KeyListener {
         } else {
 
             if (checkInput(value)) {
-                sound.tick(interact.sudokuBoard);
+                sound.tick(sudokuBoard);
                 if (Integer.parseInt(value) != 0) {
                     button.setLabel(value);
                     button.setBackground(null);
                     button.setFocusable(false);
-                    if (interact.sudokuBoard.isHelpOn()) {
+                    if (sudokuBoard.isHelpOn()) {
                         boardChecker.checkIfThereAreErrors();
                     }
-                    if (interact.boardChecker.isBoardCompleted()) {
-                        interact.boardChecker.isBoardCompletedCorrectly();
+                    if (boardChecker.isBoardCompleted()) {
+                        boardChecker.isBoardCompletedCorrectly();
 
 
                     }
@@ -61,7 +63,7 @@ public class ButtonsKeyListener implements KeyListener {
                 //if backspace or delete has been pressed, remove current value
             } else if (code == delete || code == backspace) {
                 if (!button.getLabel().equals("")) {
-                    sound.erase(interact.sudokuBoard);
+                    sound.erase(sudokuBoard);
                 }
                 interact.eraseButton();
             } else if (code == esc) {

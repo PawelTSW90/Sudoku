@@ -3,19 +3,19 @@ package pawelDyjak.sudoku;
 import javax.swing.*;
 
 class ErrorLabelThread extends Thread {
-    int mistakesNumber;
-    SudokuBoard board;
+    private final int mistakesNumber;
+    private final SudokuBoard sudokuBoard;
 
     public ErrorLabelThread(SudokuBoard sudokuBoard, int mistakesNumber) {
-        this.board = sudokuBoard;
+        this.sudokuBoard = sudokuBoard;
         this.mistakesNumber = mistakesNumber;
     }
 
     public void run() {
-        setMistakeLabel(board, mistakesNumber);
+        setMistakeLabel(sudokuBoard, mistakesNumber);
 
     }
-
+        //method sets correct format and displaying time of mistakes label
     public void setMistakeLabel(SudokuBoard sudokuBoard, int mistakesNumber) {
         String text;
         if (mistakesNumber == 0) {

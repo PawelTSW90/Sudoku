@@ -1,6 +1,7 @@
 package pawelDyjak.sudoku;
 
 import pawelDyjak.sudoku.Components.BoardCompletedComponents;
+import pawelDyjak.sudoku.Components.HighScoresComponents;
 import pawelDyjak.sudoku.Components.SudokuBoardComponents;
 
 import javax.swing.*;
@@ -14,25 +15,29 @@ public class SudokuBoard {
     private boolean helpOn = false;
     private boolean soundOn = true;
     private boolean eraseOn = false;
+    private HighScoresJPanel highScoresJPanel;
+    private HighScoresComponents highScoresComponents;
     private StringBuffer timeCounter;
     private final Thread errorLabelThread = new Thread(new ErrorLabelThread(this, 0));
     private final JPanel sudokuBoardPanel = new JPanel();
     private final ButtonCreator buttonCreator = new ButtonCreator();
     private final SoundClass soundClass = new SoundClass();
+    private final HighScoresCreator highScoresCreator = new HighScoresCreator();
     private TimerClass timerClass = new TimerClass(this);
-    private final HighScoresCreator highScoresCreator = new HighScoresCreator(this);
     private final SudokuBoardComponents sudokuBoardComponents = new SudokuBoardComponents(this);
-    private final ButtonsTemplateCreator buttonsTemplateCreator = new ButtonsTemplateCreator(this, soundClass);
-    private final BoardChecker boardChecker = new BoardChecker(this, buttonsTemplateCreator, soundClass, timerClass, errorLabelThread);
+    private final BoardChecker boardChecker = new BoardChecker(this, soundClass, timerClass, errorLabelThread);
+    private final ButtonsTemplateCreator buttonsTemplateCreator = new ButtonsTemplateCreator(this, boardChecker);
     private final BoardCreator boardCreator = new BoardCreator(buttonsTemplateCreator);
-    private final SudokuGenerator sudokuGenerator = new SudokuGenerator(this,boardCreator,boardChecker);
-    private final ButtonInteract buttonInteract = new ButtonInteract(buttonsTemplateCreator, sudokuGenerator, soundClass, this, boardChecker);
-    private final BoardCompletedJPanel boardCompletedJPanel = new BoardCompletedJPanel(this, highScoresCreator);
-    private final BoardCompletedComponents boardCompletedComponents = new BoardCompletedComponents(this, boardCompletedJPanel);
+    private final SudokuGenerator sudokuGenerator = new SudokuGenerator(this, boardCreator, boardChecker);
+    private final ButtonInteract buttonInteract = new ButtonInteract(buttonsTemplateCreator, soundClass, this, boardChecker);
+    private final BoardCompletedJPanel boardCompletedJPanel = new BoardCompletedJPanel(this, highScoresCreator, highScoresJPanel, highScoresComponents);
+    private final BoardCompletedComponents boardCompletedComponents = new BoardCompletedComponents(this, boardCompletedJPanel, highScoresComponents);
 
 
-    public SudokuBoard(JFrame mainFrame) {
+    public SudokuBoard(JFrame mainFrame, HighScoresJPanel highScoresJPanel, HighScoresComponents highScoresComponents) {
         this.mainFrame = mainFrame;
+        this.highScoresJPanel = highScoresJPanel;
+        this.highScoresComponents = highScoresComponents;
 
     }
 
@@ -65,6 +70,7 @@ public class SudokuBoard {
 
                 int code = e.getKeyCode();
                 int escapeButton = 27;
+
                 //open menu
                 if (code == escapeButton) {
                     if (eraseOn) {
@@ -251,7 +257,7 @@ public class SudokuBoard {
         return highScoresCreator;
     }
 
-    public SudokuBoard getSudokuBoard(){
+    public SudokuBoard getSudokuBoard() {
         return this;
     }
 
@@ -262,6 +268,7 @@ public class SudokuBoard {
     public BoardCompletedJPanel getBoardCompletedJPanel() {
         return boardCompletedJPanel;
     }
+
 }
 
 

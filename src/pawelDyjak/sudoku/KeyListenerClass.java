@@ -1,3 +1,5 @@
+//key listener class template
+
 package pawelDyjak.sudoku;
 
 import java.awt.event.KeyEvent;
