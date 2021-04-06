@@ -1,17 +1,16 @@
 package pawelDyjak.sudoku;
 
-import pawelDyjak.sudoku.BoardChecker;
 
 public class BoardCreator {
-    SudokuGenerator generator;
+    private final ButtonsTemplateCreator buttonsTemplateCreator;
 
-    public BoardCreator(SudokuGenerator sudokuGenerator){
-        this.generator = sudokuGenerator;
+    public BoardCreator(ButtonsTemplateCreator buttonsTemplateCreator){
+        this.buttonsTemplateCreator = buttonsTemplateCreator;
     }
 
 
     //back tracking main method, checking if current board is solvable
-    public boolean checkBoard(ButtonsTemplateCreator creator, BoardChecker boardChecker) {
+    public boolean checkBoard() {
         boolean increaseCurrentCell = false;
         boolean changePreviousCell = false;
         boolean skipButton = false;
@@ -20,45 +19,44 @@ public class BoardCreator {
         boolean boardSolvable = true;
         try {
 
-
             for (int x = 0; x < 81; x++) {
 
                 if (changePreviousCell) {
-                    currentValue = Integer.parseInt(creator.getBoardButtonsTemplateList().get(x).getValue());
+                    currentValue = Integer.parseInt(buttonsTemplateCreator.getBoardButtonsTemplateList().get(x).getValue());
                     //if button is not editable, skip it by going back
-                    if (creator.getBoardButtonsTemplateList().get(x).getButton().getName().contains("N")) {
+                    if (buttonsTemplateCreator.getBoardButtonsTemplateList().get(x).getButton().getName().contains("N")) {
                         x = x - 2;
                         skipButton = true;
                         //if you cant increase value anymore, empty cell, and go back one more cell
                     } else if (currentValue == 9) {
-                        creator.getBoardButtonsTemplateList().get(x).setValue("");
-                        numberToInput = Integer.parseInt(creator.getBoardButtonsTemplateList().get(x - 1).getValue());
+                        buttonsTemplateCreator.getBoardButtonsTemplateList().get(x).setValue("");
+                        numberToInput = Integer.parseInt(buttonsTemplateCreator.getBoardButtonsTemplateList().get(x - 1).getValue());
                         x--;
                         skipButton = false;
                         //empty current cell, and try again with value increased by 1
                     } else {
                         numberToInput = currentValue + 1;
-                        creator.getBoardButtonsTemplateList().get(x).setValue("");
+                        buttonsTemplateCreator.getBoardButtonsTemplateList().get(x).setValue("");
                         changePreviousCell = false;
                         increaseCurrentCell = false;
                         skipButton = false;
                     }
 
                     //if button is not editable, skip it going forward
-                } else if (creator.getBoardButtonsTemplateList().get(x).getButton().getName().contains("N")) {
+                } else if (buttonsTemplateCreator.getBoardButtonsTemplateList().get(x).getButton().getName().contains("N")) {
                     skipButton = true;
                 }
 
                 //if value is not allowed, start increase current cell process
-                if (!skipButton && !isNumberAllowed(x, numberToInput, creator)) {
+                if (!skipButton && !isNumberAllowed(x, numberToInput)) {
                     x--;
                     increaseCurrentCell = true;
                 }
                 //if value is allowed, entry value, jump to next cell, and reset number to input to 1
                 if (!increaseCurrentCell && !skipButton) {
-                    creator.getBoardButtonsTemplateList().get(x).setValue(String.valueOf(numberToInput));
+                    buttonsTemplateCreator.getBoardButtonsTemplateList().get(x).setValue(String.valueOf(numberToInput));
                     numberToInput = 1;
-                    if (isBoardCompleted(creator)) {
+                    if (isBoardCompleted()) {
                         break;
                     }
                     //if value is not allowed,
@@ -86,7 +84,7 @@ public class BoardCreator {
     }
 
 
-    public boolean multipleSolvingChecker(ButtonsTemplateCreator buttonsTemplateCreator) {
+    public boolean multipleSolvingChecker() {
         boolean goBackward = true;
         boolean multipleSolving = false;
         boolean goToPreviousButton;
@@ -108,11 +106,11 @@ public class BoardCreator {
                 else if (buttonsTemplateCreator.getBoardButtonsTemplateList().get(x).getValue().equals("")) {
                     for (int y = 1; y < 10; y++) {
                         //if new value is allowed, entry value,
-                        if (isNumberAllowed(x, y, buttonsTemplateCreator)) {
+                        if (isNumberAllowed(x, y)) {
                             buttonsTemplateCreator.getBoardButtonsTemplateList().get(x).setValue(String.valueOf(y));
 
                             //if board is completed, start everything from beginning
-                            if (isBoardCompleted(buttonsTemplateCreator)) {
+                            if (isBoardCompleted()) {
                                 multipleSolving = true;
                                 break;
                                 //if not, continue with next button
@@ -138,11 +136,11 @@ public class BoardCreator {
                         buttonsTemplateCreator.getBoardButtonsTemplateList().get(x).setValue("");
 
                         //if new value is allowed, entry value,
-                        if (isNumberAllowed(x, y, buttonsTemplateCreator)) {
+                        if (isNumberAllowed(x, y)) {
                             buttonsTemplateCreator.getBoardButtonsTemplateList().get(x).setValue(String.valueOf(y));
 
                             //if board is completed, start everything from beginning
-                            if (isBoardCompleted(buttonsTemplateCreator)) {
+                            if (isBoardCompleted()) {
                                 multipleSolving = true;
                                 break;
                                 //if not, continue with next button
@@ -173,7 +171,7 @@ public class BoardCreator {
                     x = x - 2;
                 }
             }
-        } catch (IndexOutOfBoundsException e) {
+        } catch (IndexOutOfBoundsException ignored) {
 
         }
 
@@ -181,7 +179,7 @@ public class BoardCreator {
 
     }
 
-    public boolean isBoardCompleted(ButtonsTemplateCreator buttonsTemplateCreator) {
+    public boolean isBoardCompleted() {
 
 
         for (int x = 0; x < 81; x++) {
@@ -206,7 +204,7 @@ public class BoardCreator {
 
 
     //checking if value is allowed in current cell
-    public boolean isNumberAllowed(int buttonIndex, int value, ButtonsTemplateCreator buttonsTemplateCreator) {
+    public boolean isNumberAllowed(int buttonIndex, int value) {
         boolean numberAllowed = true;
 
 

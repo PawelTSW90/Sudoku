@@ -1,6 +1,8 @@
 package pawelDyjak.sudoku;
 import pawelDyjak.sudoku.Components.*;
 import javax.swing.*;
+import java.awt.event.KeyEvent;
+
 import static javax.swing.WindowConstants.EXIT_ON_CLOSE;
 
 
@@ -17,6 +19,17 @@ public class MainMenu {
         //method prepares main menu panel to display
     public void setMainMenuPanel() {
         mainMenuPanel.setLayout(null);
+        mainMenuPanel.addKeyListener(new KeyListenerClass(){
+
+            @Override
+            public void keyPressed(KeyEvent e){
+                int keyCode = e.getKeyCode();
+                int escapeButton = 27;
+                if(keyCode == escapeButton){
+                    System.exit(0);
+                }
+            }
+        });
         mainMenuPanel.add(mainMenuComponents.titleLabel());
         mainMenuPanel.add(mainMenuComponents.startButton());
         mainMenuPanel.add(mainMenuComponents.exitButton());
@@ -41,7 +54,7 @@ public class MainMenu {
             while (mainMenuFrame.getContentPane().getComponents().length>1)
                 mainMenuFrame.getContentPane().remove(mainMenuFrame.getContentPane().getComponents().length-1);
         }
-        SudokuBoard sudokuBoard = new SudokuBoard(mainMenuFrame, this);
+        SudokuBoard sudokuBoard = new SudokuBoard(mainMenuFrame);
         mainMenuFrame.add(sudokuBoard.createSudokuBoard());
         mainMenuFrame.getContentPane().getComponent(0).setVisible(false);
     }

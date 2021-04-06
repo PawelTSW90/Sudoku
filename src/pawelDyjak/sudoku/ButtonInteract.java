@@ -13,10 +13,10 @@ public class ButtonInteract implements ActionListener {
     SudokuBoard sudokuBoard;
 
 
-    public ButtonInteract(ButtonsTemplateCreator buttonsTemplateCreator, SudokuGenerator sudokuGenerator, SoundClass sound, SudokuBoard sudokuBoard, BoardChecker boardChecker) {
+    public ButtonInteract(ButtonsTemplateCreator buttonsTemplateCreator, SudokuGenerator sudokuGenerator, SoundClass soundClass, SudokuBoard sudokuBoard, BoardChecker boardChecker) {
         this.buttonsTemplateCreator = buttonsTemplateCreator;
         this.sudokuGenerator = sudokuGenerator;
-        this.soundClass = sound;
+        this.soundClass = soundClass;
         this.sudokuBoard = sudokuBoard;
         this.boardChecker = boardChecker;
     }
@@ -28,19 +28,19 @@ public class ButtonInteract implements ActionListener {
         if (button.getName().contains("Keypad")) {
             keypadButtonAction(soundClass);
         } else
-            boardButtonAction(soundClass);
+            boardButtonAction();
 
     }
 
     //method responsible for interacting with board buttons by clicking
-    public void boardButtonAction(SoundClass sound) {
+    public void boardButtonAction() {
         //interaction with not editable buttons not allowed
         if (button.getBackground().equals(new Color(225, 199, 149))) {
 
             //if erase function is active, erase clicked button
         } else if (sudokuBoard.isEraseOn()) {
             if (!button.getLabel().equals("")) {
-                sound.erase(sudokuBoard);
+                soundClass.erase(sudokuBoard);
             }
             button.setLabel("");
 
@@ -60,15 +60,15 @@ public class ButtonInteract implements ActionListener {
                         buttonsTemplateCreator.getKeypadButtonsTemplateList().get(y).getButton().setFocusable(false);
                         buttonsTemplateCreator.getKeypadButtonsTemplateList().get(y).getButton().setBackground(new Color(245, 232, 211));
                         if (sudokuBoard.isHelpOn()) {
-                            boardChecker.checkIfThereAreErrors(buttonsTemplateCreator, sound, sudokuBoard.getTimerClass(), sudokuBoard.getErrorLabelThread());
+                            boardChecker.checkIfThereAreErrors();
                         }
 
 
                     }
                 }
-                sound.tick(sudokuBoard);
-                if (boardChecker.isBoardCompleted(buttonsTemplateCreator.sudokuBoard, buttonsTemplateCreator)) {
-                    if (boardChecker.isBoardCompletedCorrectly(buttonsTemplateCreator, sudokuBoard, sound)) {
+                soundClass.tick(sudokuBoard);
+                if (boardChecker.isBoardCompleted()) {
+                    if (boardChecker.isBoardCompletedCorrectly()) {
 
                     }
                 }
@@ -145,15 +145,15 @@ public class ButtonInteract implements ActionListener {
                     buttonsTemplateCreator.getBoardButtonsTemplateList().get(x).getButton().setFocusable(false);
                     buttonsTemplateCreator.getBoardButtonsTemplateList().get(x).getButton().setBackground(null);
                     if (sudokuBoard.isHelpOn()) {
-                        boardChecker.checkIfThereAreErrors(buttonsTemplateCreator, sound, sudokuBoard.getTimerClass(), sudokuBoard.getErrorLabelThread());
+                        boardChecker.checkIfThereAreErrors();
                     }
 
                 }
 
             }
             sound.tick(sudokuBoard);
-            if (boardChecker.isBoardCompleted(sudokuBoard, buttonsTemplateCreator)) {
-                if (boardChecker.isBoardCompletedCorrectly(buttonsTemplateCreator, sudokuBoard, sound)) {
+            if (boardChecker.isBoardCompleted()) {
+                if (boardChecker.isBoardCompletedCorrectly()) {
 
 
                 }

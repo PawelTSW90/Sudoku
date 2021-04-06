@@ -7,7 +7,7 @@ import java.awt.*;
 import java.awt.event.MouseEvent;
 
 public class SudokuBoardComponents {
-    SudokuBoard sudokuBoard;
+   private final SudokuBoard sudokuBoard;
 
     public SudokuBoardComponents(SudokuBoard sudokuBoard) {
         this.sudokuBoard = sudokuBoard;
@@ -67,7 +67,7 @@ public class SudokuBoardComponents {
                 if (sudokuBoard.getButtonInteract().isBoardButtonHighlighted()) {
                     sudokuBoard.getButtonInteract().eraseButton();
                 } else {
-                    sudokuBoard.setErase(true);
+                    sudokuBoard.setEraseOn(true);
                     sudokuBoard.disableBackground(0);
                     sudokuBoard.getSoundClass().tick(sudokuBoard);
                 }
@@ -75,7 +75,7 @@ public class SudokuBoardComponents {
 
                 sudokuBoard.getSoundClass().tick(sudokuBoard);
                 sudokuBoard.disableBackground(1);
-                sudokuBoard.setErase(false);
+                sudokuBoard.setEraseOn(false);
 
             }
 
@@ -150,11 +150,11 @@ public class SudokuBoardComponents {
                 if (sudokuBoard.isHelpOn()) {
                     component.setForeground(new Color(102, 0, 0));
                     sudokuBoard.setHelpOn(false);
-                    sudokuBoard.getBoardChecker().restoreButtonsColors(sudokuBoard.getButtonsTemplateCreator());
+                    sudokuBoard.getBoardChecker().restoreButtonsColors();
                 } else {
                     help.setForeground(new Color(0, 102, 0));
                     sudokuBoard.setHelpOn(true);
-                    sudokuBoard.getBoardChecker().checkIfThereAreErrors(sudokuBoard.getButtonsTemplateCreator(), sudokuBoard.getSoundClass(), sudokuBoard.getTimerClass(), sudokuBoard.getErrorLabelThread());
+                    sudokuBoard.getBoardChecker().checkIfThereAreErrors();
 
                 }
             }
@@ -261,6 +261,7 @@ public class SudokuBoardComponents {
         question.add(quit);
         question.setVisible(false);
         quit.addActionListener(e -> {
+            quit.setFocusable(false);
             sudokuBoard.getSoundClass().tick(sudokuBoard);
             sudokuBoard.getMainFrame().getContentPane().getComponent(1).setVisible(false);
             sudokuBoard.getMainFrame().getContentPane().getComponent(0).setVisible(true);

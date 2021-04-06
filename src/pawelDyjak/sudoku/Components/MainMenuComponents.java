@@ -5,7 +5,7 @@ import java.awt.*;
 import pawelDyjak.sudoku.*;
 
 public class MainMenuComponents {
-    MainMenu mainMenu;
+   private final MainMenu mainMenu;
 
     public MainMenuComponents(MainMenu mainMenu){
         this.mainMenu = mainMenu;

@@ -8,14 +8,20 @@ import java.util.Random;
 import java.util.Scanner;
 
 public class SudokuGenerator {
+    SudokuBoard sudokuBoard;
     char[] notSolvedValues = new char[81];
     char[] solvedValues = new char[81];
-    BoardCreator boardCreator = new BoardCreator(this);
     StringBuilder tmpContainer = new StringBuilder();
+    BoardCreator boardCreator;
     BoardChecker boardChecker;
 
-    public SudokuGenerator(BoardChecker boardChecker){
+
+    public SudokuGenerator(SudokuBoard sudokuBoard,BoardCreator boardCreator, BoardChecker boardChecker){
+        this.boardCreator = boardCreator;
+        this.sudokuBoard = sudokuBoard;
         this.boardChecker = boardChecker;
+
+
     }
 
 
@@ -30,7 +36,7 @@ public class SudokuGenerator {
         while (cellNumbersList.size() > 49) {
             int value = randomCellValue.nextInt(9 - 1 + 1) + 1;
             int randomCell = cellNumbersList.get(randomCellValue.nextInt(cellNumbersList.size()));
-            if (boardCreator.isNumberAllowed(randomCell, value, buttonsTemplateCreator)) {
+            if (boardCreator.isNumberAllowed(randomCell, value)) {
                 buttonsTemplateCreator.getBoardButtonsTemplateList().get(randomCell).setValue(String.valueOf(value));
                 buttonsTemplateCreator.getBoardButtonsTemplateList().get(randomCell).getButton().setName("N");
                 cellNumbersList.removeIf(s -> (s == randomCell));
@@ -38,8 +44,8 @@ public class SudokuGenerator {
             }
         }
 
-        if (boardCreator.checkBoard(buttonsTemplateCreator, boardChecker)) {
-            if (!boardCreator.multipleSolvingChecker(buttonsTemplateCreator)) {
+        if (boardCreator.checkBoard()) {
+            if (!boardCreator.multipleSolvingChecker()) {
                 boardCreated = true;
 
             }

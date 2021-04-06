@@ -1,5 +1,6 @@
 package pawelDyjak.sudoku;
 
+import pawelDyjak.sudoku.Components.BoardCompletedComponents;
 import pawelDyjak.sudoku.Components.SudokuBoardComponents;
 
 import javax.swing.*;
@@ -9,31 +10,33 @@ import java.util.ArrayList;
 
 
 public class SudokuBoard {
-    private JFrame mainFrame;
-    private MainMenu mainMenu;
+    private final JFrame mainFrame;
     private boolean helpOn = false;
     private boolean soundOn = true;
-    private boolean erase = false;
+    private boolean eraseOn = false;
+    private StringBuffer timeCounter;
+    private final Thread errorLabelThread = new Thread(new ErrorLabelThread(this, 0));
     private final JPanel sudokuBoardPanel = new JPanel();
     private final ButtonCreator buttonCreator = new ButtonCreator();
     private final SoundClass soundClass = new SoundClass();
     private TimerClass timerClass = new TimerClass(this);
-    private final BoardChecker boardChecker = new BoardChecker();
-    private final SudokuGenerator sudokuGenerator = new SudokuGenerator(boardChecker);
-    private HighScoresCreator highScoresCreator = new HighScoresCreator(this);
-    private SudokuBoardComponents sudokuBoardComponents = new SudokuBoardComponents(this);
+    private final HighScoresCreator highScoresCreator = new HighScoresCreator(this);
+    private final SudokuBoardComponents sudokuBoardComponents = new SudokuBoardComponents(this);
     private final ButtonsTemplateCreator buttonsTemplateCreator = new ButtonsTemplateCreator(this, soundClass);
+    private final BoardChecker boardChecker = new BoardChecker(this, buttonsTemplateCreator, soundClass, timerClass, errorLabelThread);
+    private final BoardCreator boardCreator = new BoardCreator(buttonsTemplateCreator);
+    private final SudokuGenerator sudokuGenerator = new SudokuGenerator(this,boardCreator,boardChecker);
     private final ButtonInteract buttonInteract = new ButtonInteract(buttonsTemplateCreator, sudokuGenerator, soundClass, this, boardChecker);
-    private final Thread errorLabelThread = new Thread(new ErrorLabelThread(this, 0));
-    private StringBuffer timeCounter;
+    private final BoardCompletedJPanel boardCompletedJPanel = new BoardCompletedJPanel(this, highScoresCreator);
+    private final BoardCompletedComponents boardCompletedComponents = new BoardCompletedComponents(this, boardCompletedJPanel);
 
 
-    public SudokuBoard(JFrame mainFrame, MainMenu mainMenu) {
+    public SudokuBoard(JFrame mainFrame) {
         this.mainFrame = mainFrame;
-        this.mainMenu = mainMenu;
 
     }
 
+    //method creates sudoku board
     public JPanel createSudokuBoard() {
 
         sudokuBoardPanel.setLayout(null);
@@ -61,16 +64,10 @@ public class SudokuBoard {
             public void keyPressed(KeyEvent e) {
 
                 int code = e.getKeyCode();
-                if (code == 81) {
-                    BoardCompletedJPanel boardCompletedJPanel = new BoardCompletedJPanel(SudokuBoard.this, getHighScoresCreator());
-                    soundClass.boardCompletedCorrectly(SudokuBoard.this);
-                    getTimerClass().pauseThread();
-                    getMainFrame().add(boardCompletedJPanel.boardCompletedMessage());
-                    boardCompletedJPanel.setUserNameLabel();
-                    getMainFrame().getContentPane().getComponent(1).setVisible(false);
-                }
-                if (code == 27) {
-                    if (erase) {
+                int escapeButton = 27;
+                //open menu
+                if (code == escapeButton) {
+                    if (eraseOn) {
                         disableBackground(1);
                     } else {
 
@@ -103,6 +100,7 @@ public class SudokuBoard {
 
     }
 
+    //disable background components when displaying menu/using erase
     public void disableBackground(int tmp) {
         ArrayList<Component> sudokuBoardList = new ArrayList<>();
         ArrayList<Component> sudokuKeypadList = new ArrayList<>();
@@ -130,7 +128,7 @@ public class SudokuBoard {
 
         if (tmp == 0) {
 
-            if (erase) {
+            if (eraseOn) {
 
                 for
                 (Component component2 : sudokuKeypadList) {
@@ -158,7 +156,7 @@ public class SudokuBoard {
             }
         } else {
 
-            erase = false;
+            eraseOn = false;
             for (Component component : sudokuBoardList) {
                 component.setEnabled(true);
             }
@@ -193,11 +191,11 @@ public class SudokuBoard {
     }
 
     public boolean isEraseOn() {
-        return erase;
+        return eraseOn;
     }
 
-    public void setErase(boolean erase) {
-        this.erase = erase;
+    public void setEraseOn(boolean eraseOn) {
+        this.eraseOn = eraseOn;
     }
 
     public StringBuffer getTimeCounter() {
@@ -236,9 +234,6 @@ public class SudokuBoard {
         return boardChecker;
     }
 
-    public Thread getErrorLabelThread() {
-        return errorLabelThread;
-    }
 
     public ButtonInteract getButtonInteract() {
         return buttonInteract;
@@ -252,16 +247,20 @@ public class SudokuBoard {
         return buttonCreator;
     }
 
-    public MainMenu getMainMenu() {
-        return mainMenu;
-    }
-
     public HighScoresCreator getHighScoresCreator() {
         return highScoresCreator;
     }
 
-    public SudokuBoardComponents getSudokuBoardComponents() {
-        return sudokuBoardComponents;
+    public SudokuBoard getSudokuBoard(){
+        return this;
+    }
+
+    public BoardCompletedComponents getBoardCompletedComponents() {
+        return boardCompletedComponents;
+    }
+
+    public BoardCompletedJPanel getBoardCompletedJPanel() {
+        return boardCompletedJPanel;
     }
 }
 

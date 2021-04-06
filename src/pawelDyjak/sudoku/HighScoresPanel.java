@@ -2,6 +2,8 @@ package pawelDyjak.sudoku;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -19,6 +21,20 @@ public class HighScoresPanel {
 
     public JPanel highScorePage() {
         JPanel highScorePanel = new JPanel();
+        highScorePanel.setFocusable(true);
+        highScorePanel.addKeyListener(new KeyListenerClass(){
+            @Override
+
+            public void keyPressed(KeyEvent e){
+                int code = e.getKeyCode();
+                int escape = 27;
+                if(code == escape){
+                    highScorePanel.setFocusable(false);
+                    menu.getMainMenuFrame().getContentPane().getComponent(1).setVisible(false);
+                    menu.getMainMenuFrame().getContentPane().getComponent(0).setVisible(true);
+                }
+            }
+        });
         int labelNr = 1;
         highScorePanel.setLayout(null);
         JPanel highScores = new JPanel();
@@ -98,6 +114,7 @@ public class HighScoresPanel {
         back.setBorderPainted(false);
         back.setBounds(UtilityClass.getScreenWidth() / 2 + 700, UtilityClass.getScreenHeight() / 2 + 400, 200, 100);
         back.addActionListener(e -> {
+            back.setFocusable(false);
             new SoundClass().tick(null);
             menu.getMainMenuFrame().getContentPane().getComponent(1).setVisible(false);
             menu.getMainMenuFrame().getContentPane().getComponent(0).setVisible(true);

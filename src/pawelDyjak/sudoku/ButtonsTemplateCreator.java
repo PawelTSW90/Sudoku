@@ -42,7 +42,7 @@ public class ButtonsTemplateCreator {
             ButtonCreator creator = keypadButtonCreatorList.get(y);
             creator.setButton(keypadButtons.get(y));
             creator.getButton().addActionListener(buttonInteract);
-            creator.getButton().addKeyListener(new ButtonKeyListener(creator.getButton(), buttonInteract, buttonInteract.buttonsTemplateCreator, buttonInteract.boardChecker));
+            creator.getButton().addKeyListener(new ButtonsKeyListener(creator.getButton(), buttonInteract, buttonInteract.buttonsTemplateCreator, buttonInteract.boardChecker));
             keypadButtonsTemplateList.add(creator);
 
         }
@@ -53,7 +53,7 @@ public class ButtonsTemplateCreator {
             ButtonCreator creator = boardButtonCreatorList.get(x);
             creator.setButton(buttonList.get(x));
             creator.getButton().addActionListener(buttonInteract);
-            creator.getButton().addKeyListener(new ButtonKeyListener(creator.getButton(), buttonInteract, buttonInteract.buttonsTemplateCreator, buttonInteract.boardChecker));
+            creator.getButton().addKeyListener(new ButtonsKeyListener(creator.getButton(), buttonInteract, buttonInteract.buttonsTemplateCreator, buttonInteract.boardChecker));
             creator.setValue("");
             creator.setName("");
             creator.setSquare(1);
@@ -78,7 +78,7 @@ public class ButtonsTemplateCreator {
 
             creator.setButton(buttonList.get(x));
             creator.getButton().addActionListener(buttonInteract);
-            creator.getButton().addKeyListener(new ButtonKeyListener(creator.getButton(), buttonInteract, buttonInteract.buttonsTemplateCreator, buttonInteract.boardChecker));
+            creator.getButton().addKeyListener(new ButtonsKeyListener(creator.getButton(), buttonInteract, buttonInteract.buttonsTemplateCreator, buttonInteract.boardChecker));
             creator.setValue("");
             creator.setName("");
             creator.setSquare(2);
@@ -104,7 +104,7 @@ public class ButtonsTemplateCreator {
             ButtonCreator creator = boardButtonCreatorList.get(x);
             creator.setButton(buttonList.get(x));
             creator.getButton().addActionListener(buttonInteract);
-            creator.getButton().addKeyListener(new ButtonKeyListener(creator.getButton(), buttonInteract, buttonInteract.buttonsTemplateCreator, buttonInteract.boardChecker));
+            creator.getButton().addKeyListener(new ButtonsKeyListener(creator.getButton(), buttonInteract, buttonInteract.buttonsTemplateCreator, buttonInteract.boardChecker));
             creator.setValue("");
             creator.setName("");
             creator.setSquare(3);
@@ -129,7 +129,7 @@ public class ButtonsTemplateCreator {
             ButtonCreator creator = boardButtonCreatorList.get(x);
             creator.setButton(buttonList.get(x));
             creator.getButton().addActionListener(buttonInteract);
-            creator.getButton().addKeyListener(new ButtonKeyListener(creator.getButton(), buttonInteract, buttonInteract.buttonsTemplateCreator, buttonInteract.boardChecker));
+            creator.getButton().addKeyListener(new ButtonsKeyListener(creator.getButton(), buttonInteract, buttonInteract.buttonsTemplateCreator, buttonInteract.boardChecker));
             creator.setValue("");
             creator.setName("");
             creator.setSquare(4);
@@ -152,7 +152,7 @@ public class ButtonsTemplateCreator {
             ButtonCreator creator = boardButtonCreatorList.get(x);;
             creator.setButton(buttonList.get(x));
             creator.getButton().addActionListener(buttonInteract);
-            creator.getButton().addKeyListener(new ButtonKeyListener(creator.getButton(), buttonInteract, buttonInteract.buttonsTemplateCreator, buttonInteract.boardChecker));
+            creator.getButton().addKeyListener(new ButtonsKeyListener(creator.getButton(), buttonInteract, buttonInteract.buttonsTemplateCreator, buttonInteract.boardChecker));
             creator.setValue("");
             creator.setName("");
             creator.setSquare(5);
@@ -175,7 +175,7 @@ public class ButtonsTemplateCreator {
             ButtonCreator creator = boardButtonCreatorList.get(x);
             creator.setButton(buttonList.get(x));
             creator.getButton().addActionListener(buttonInteract);
-            creator.getButton().addKeyListener(new ButtonKeyListener(creator.getButton(), buttonInteract, buttonInteract.buttonsTemplateCreator, buttonInteract.boardChecker));
+            creator.getButton().addKeyListener(new ButtonsKeyListener(creator.getButton(), buttonInteract, buttonInteract.buttonsTemplateCreator, buttonInteract.boardChecker));
             creator.setValue("");
             creator.setName("");
             creator.setSquare(6);
@@ -199,7 +199,7 @@ public class ButtonsTemplateCreator {
             ButtonCreator creator = boardButtonCreatorList.get(x);
             creator.setButton(buttonList.get(x));
             creator.getButton().addActionListener(buttonInteract);
-            creator.getButton().addKeyListener(new ButtonKeyListener(creator.getButton(), buttonInteract, buttonInteract.buttonsTemplateCreator, buttonInteract.boardChecker));
+            creator.getButton().addKeyListener(new ButtonsKeyListener(creator.getButton(), buttonInteract, buttonInteract.buttonsTemplateCreator, buttonInteract.boardChecker));
             creator.setValue("");
             creator.setName("");
             creator.setSquare(7);
@@ -222,7 +222,7 @@ public class ButtonsTemplateCreator {
             ButtonCreator creator = boardButtonCreatorList.get(x);
             creator.setButton(buttonList.get(x));
             creator.getButton().addActionListener(buttonInteract);
-            creator.getButton().addKeyListener(new ButtonKeyListener(creator.getButton(), buttonInteract, buttonInteract.buttonsTemplateCreator, buttonInteract.boardChecker));
+            creator.getButton().addKeyListener(new ButtonsKeyListener(creator.getButton(), buttonInteract, buttonInteract.buttonsTemplateCreator, buttonInteract.boardChecker));
             creator.setValue("");
             creator.setName("");
             creator.setSquare(8);
@@ -245,7 +245,7 @@ public class ButtonsTemplateCreator {
             ButtonCreator creator = boardButtonCreatorList.get(x);
             creator.setButton(buttonList.get(x));
             creator.getButton().addActionListener(buttonInteract);
-            creator.getButton().addKeyListener(new ButtonKeyListener(creator.getButton(), buttonInteract, buttonInteract.buttonsTemplateCreator, buttonInteract.boardChecker));
+            creator.getButton().addKeyListener(new ButtonsKeyListener(creator.getButton(), buttonInteract, buttonInteract.buttonsTemplateCreator, buttonInteract.boardChecker));
             creator.setValue("");
             creator.setName("");
             creator.setSquare(9);

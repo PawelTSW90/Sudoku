@@ -4,7 +4,7 @@ import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
-public class ButtonKeyListener implements KeyListener {
+public class ButtonsKeyListener implements KeyListener {
     Button button;
     ButtonInteract interact;
     ButtonsTemplateCreator creator;
@@ -12,7 +12,7 @@ public class ButtonKeyListener implements KeyListener {
     BoardChecker boardChecker;
 
 
-    ButtonKeyListener(Button button, ButtonInteract buttonInteract, ButtonsTemplateCreator buttonsTemplateCreator, BoardChecker boardChecker) {
+    ButtonsKeyListener(Button button, ButtonInteract buttonInteract, ButtonsTemplateCreator buttonsTemplateCreator, BoardChecker boardChecker) {
         this.button = button;
         this.interact = buttonInteract;
         this.creator = buttonsTemplateCreator;
@@ -49,10 +49,10 @@ public class ButtonKeyListener implements KeyListener {
                     button.setBackground(null);
                     button.setFocusable(false);
                     if (interact.sudokuBoard.isHelpOn()) {
-                        boardChecker.checkIfThereAreErrors(creator, sound, interact.sudokuBoard.getTimerClass(), interact.sudokuBoard.getErrorLabelThread());
+                        boardChecker.checkIfThereAreErrors();
                     }
-                    if (interact.boardChecker.isBoardCompleted(creator.sudokuBoard, creator)) {
-                        interact.boardChecker.isBoardCompletedCorrectly(creator, interact.sudokuBoard, sound);
+                    if (interact.boardChecker.isBoardCompleted()) {
+                        interact.boardChecker.isBoardCompletedCorrectly();
 
 
                     }

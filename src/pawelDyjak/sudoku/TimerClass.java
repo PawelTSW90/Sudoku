@@ -1,18 +1,16 @@
 package pawelDyjak.sudoku;
 
-import pawelDyjak.sudoku.SudokuBoard;
-
 import javax.swing.*;
 import java.awt.*;
 import java.util.Timer;
 import java.util.TimerTask;
 
 public class TimerClass {
-    int seconds = 0;
-    int minutes = 0;
-    int hours = 0;
+    private int seconds = 0;
+    private int minutes = 0;
+    private int hours = 0;
     private StringBuffer time;
-    SudokuBoard board;
+    private SudokuBoard board;
     volatile boolean pauseThread = false;
 
     public TimerClass(SudokuBoard sudokuBoard){
@@ -43,7 +41,7 @@ public class TimerClass {
         }, 0, 1000);
         return time;
     }
-        //method is incrementing seconds, minutes and hours correctly
+        //method is incrementing seconds, minutes and hours
     public int counter(){
         seconds++;
         if(seconds == 60){
@@ -69,10 +67,24 @@ public class TimerClass {
     public void resumeThread(){
         pauseThread = false;
     }
-
+        //method sets time label in sudoku board to display time
     public void setTimerButton(Component component, String time) {
         ((JLabel) component).setText(time);
     }
 
+    public int getMinutes() {
+        return minutes;
+    }
 
+    public void setMinutes(int minutes) {
+        this.minutes = minutes;
+    }
+
+    public int getHours() {
+        return hours;
+    }
+
+    public void setHours(int hours) {
+        this.hours = hours;
+    }
 }
