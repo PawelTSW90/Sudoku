@@ -52,7 +52,7 @@ public class BoardChecker {
     }
 
     public boolean isBoardCompletedCorrectly(ButtonsTemplateCreator buttonsTemplateCreator, SudokuBoard sudokuBoard, SoundClass soundClass) {
-        BoardCompletedJPanel boardCompletedJPanel = new BoardCompletedJPanel(sudokuBoard, sudokuBoard.highScoresCreator);
+        BoardCompletedJPanel boardCompletedJPanel = new BoardCompletedJPanel(sudokuBoard, sudokuBoard.getHighScoresCreator());
         //message when board is completed wrong
         for (int x = 0; x < 81; x++) {
             if (!buttonsTemplateCreator.getBoardButtonsTemplateList().get(x).getButton().getLabel().equals(String.valueOf(boardSolution[x]))) {
@@ -69,11 +69,11 @@ public class BoardChecker {
         //message when board is completed correct
         soundClass.boardCompletedCorrectly(sudokuBoard);
         sudokuBoard.getTimerClass().pauseThread();
-        sudokuBoard.mainFrame.add(boardCompletedJPanel.boardCompletedMessage());
+        sudokuBoard.getMainFrame().add(boardCompletedJPanel.boardCompletedMessage());
         boardCompletedJPanel.setUserNameLabel();
-        sudokuBoard.mainFrame.getContentPane().getComponent(1).setVisible(false);
+        sudokuBoard.getMainFrame().getContentPane().getComponent(1).setVisible(false);
         //show cursor in text field automatically
-        Component component = sudokuBoard.mainFrame.getContentPane().getComponent(2);
+        Component component = sudokuBoard.getMainFrame().getContentPane().getComponent(2);
         Component component1 = ((Container) component).getComponent(0);
         ((Container) component1).getComponent(1).requestFocusInWindow();
         return true;

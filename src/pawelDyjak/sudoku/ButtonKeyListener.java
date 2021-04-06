@@ -43,11 +43,11 @@ public class ButtonKeyListener implements KeyListener {
         } else {
 
             if (checkInput(value)) {
+                sound.tick(interact.sudokuBoard);
                 if (Integer.parseInt(value) != 0) {
                     button.setLabel(value);
                     button.setBackground(null);
                     button.setFocusable(false);
-                    sound.tick(interact.sudokuBoard);
                     if (interact.sudokuBoard.isHelpOn()) {
                         boardChecker.checkIfThereAreErrors(creator, sound, interact.sudokuBoard.getTimerClass(), interact.sudokuBoard.getErrorLabelThread());
                     }
@@ -74,8 +74,6 @@ public class ButtonKeyListener implements KeyListener {
 
         }
     }
-
-
 
 
     @Override

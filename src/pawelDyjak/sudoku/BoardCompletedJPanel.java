@@ -76,12 +76,15 @@ public class BoardCompletedJPanel {
         textField.addKeyListener(new KeyListener() {
             @Override
             public void keyTyped(KeyEvent e) {
+                char key = e.getKeyChar();
+                int keyCode = e.getKeyCode();
+                System.out.println(keyCode);
                 //limit name entry to 15 characters
                 if (textField.getText().length() >= 15)
                     e.consume();
-                //only letters and digits allowed
-                char key = e.getKeyChar();
-                if (!Character.isAlphabetic(key) && !Character.isDigit(key)) {
+                //only letters, space and digits allowed
+
+                if (!Character.isAlphabetic(key) && !Character.isDigit(key) && keyCode != 0) {
                     e.consume();
                 }
 
@@ -93,10 +96,7 @@ public class BoardCompletedJPanel {
                 //action when enter is pressed
                 if (key == 10) {
                     playerName = textField.getText();
-                    if (playerPlace <= 10) {
-                        highScoresCreator.writeScore(playerName, board.getTimeCounter().toString(), playerPlace, highScoresCreator.updateResult(playerPlace));
-
-                    }
+                    highScoresCreator.writeScore(playerName, board.getTimeCounter().toString(), playerPlace, highScoresCreator.updateResult(playerPlace));
                     boardCompleted.getComponent(4).setVisible(true);
                     boardCompleted.getComponent(5).setVisible(true);
                     boardCompleted.remove(6);
@@ -119,16 +119,14 @@ public class BoardCompletedJPanel {
     }
 
 
-
-
-        //method display or hide user name entry field depends on player score
+    //method display or hide user name entry field depends on player score
     public void setUserNameLabel() {
         playerPlace = highScoresCreator.checkUserTime(board);
         Component enterName = boardCompleted.getComponent(0);
 
         if (playerPlace <= 10) {
             enterName.setVisible(true);
-        } else{
+        } else {
             boardCompleted.getComponent(4).setVisible(true);
             boardCompleted.getComponent(5).setVisible(true);
         }
@@ -157,8 +155,8 @@ public class BoardCompletedJPanel {
 
         mainMenu.addActionListener(e -> {
             board.getSoundClass().tick(board);
-            board.mainFrame.getContentPane().getComponent(2).setVisible(false);
-            board.mainFrame.getContentPane().getComponent(0).setVisible(true);
+            board.getMainFrame().getContentPane().getComponent(2).setVisible(false);
+            board.getMainFrame().getContentPane().getComponent(0).setVisible(true);
         });
 
         return mainMenu;
@@ -201,7 +199,6 @@ public class BoardCompletedJPanel {
         button.setContentAreaFilled(false);
 
     }
-
 
 
 }

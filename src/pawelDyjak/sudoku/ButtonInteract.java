@@ -78,7 +78,6 @@ public class ButtonInteract implements ActionListener {
                 button.setBackground(Color.getHSBColor(80, 80, 80));
                 button.setFocusable(true);
                 button.requestFocus();
-                button.addKeyListener(new ButtonKeyListener(button, this, buttonsTemplateCreator, boardChecker));
 
 
             } else {
@@ -100,7 +99,6 @@ public class ButtonInteract implements ActionListener {
                     button.setBackground(Color.getHSBColor(80, 80, 80));
                     button.setFocusable(true);
                     button.requestFocus();
-                    button.addKeyListener(new ButtonKeyListener(button, this, buttonsTemplateCreator, boardChecker));
                 }
             }
     }
@@ -114,7 +112,6 @@ public class ButtonInteract implements ActionListener {
             button.setFocusable(true);
             buttonsTemplateCreator.setButtonValueHolder(button.getLabel());
             button.requestFocus();
-            button.addKeyListener(new ButtonKeyListener(button, this, buttonsTemplateCreator, boardChecker));
 
 
             //if clicked button is active, set it as no-active
@@ -133,7 +130,6 @@ public class ButtonInteract implements ActionListener {
 
                 }
                 buttonsTemplateCreator.setButtonValueHolder(button.getLabel());
-                button.addKeyListener(new ButtonKeyListener(button, this, buttonsTemplateCreator, boardChecker));
                 button.setBackground(Color.getHSBColor(80, 80, 80));
                 button.setFocusable(true);
                 button.requestFocus();
@@ -207,6 +203,11 @@ public class ButtonInteract implements ActionListener {
         for (int x = 0; x < buttonsTemplateCreator.getBoardButtonsTemplateList().size(); x++) {
             if (buttonsTemplateCreator.getBoardButtonsTemplateList().get(x).getButton().hashCode() == hashCode) {
                 button = buttonsTemplateCreator.getBoardButtonsTemplateList().get(x).getButton();
+            }
+        }
+        for(int x = 0; x<buttonsTemplateCreator.getKeypadButtonsTemplateList().size(); x++){
+            if(buttonsTemplateCreator.getKeypadButtonsTemplateList().get(x).getButton().hashCode() == hashCode){
+                button = buttonsTemplateCreator.getKeypadButtonsTemplateList().get(x).getButton();
             }
         }
     }

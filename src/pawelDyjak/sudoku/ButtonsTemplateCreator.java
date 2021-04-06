@@ -23,15 +23,26 @@ public class ButtonsTemplateCreator {
 
     //creating keypad buttons
     public void createBoardTemplate(List<Button> buttonList, List<Button> keypadButtons) {
-        ButtonInteract buttonInteract = sudokuBoard.buttonInteract;
+        List<ButtonCreator> boardButtonCreatorList = new ArrayList<>();
+        List<ButtonCreator> keypadButtonCreatorList = new ArrayList<>();
+
+        for(int x = 0; x<81; x++){
+            boardButtonCreatorList.add(new ButtonCreator());
+        }
+
+        for(int x = 0; x<9; x++){
+            keypadButtonCreatorList.add(new ButtonCreator());
+        }
+        ButtonInteract buttonInteract = sudokuBoard.getButtonInteract();
         int columnNumber = 1;
         int rowNumber = 1;
 
 
         for (int y = 0; y < 9; y++) {
-            ButtonCreator creator = new ButtonCreator();
+            ButtonCreator creator = keypadButtonCreatorList.get(y);
             creator.setButton(keypadButtons.get(y));
             creator.getButton().addActionListener(buttonInteract);
+            creator.getButton().addKeyListener(new ButtonKeyListener(creator.getButton(), buttonInteract, buttonInteract.buttonsTemplateCreator, buttonInteract.boardChecker));
             keypadButtonsTemplateList.add(creator);
 
         }
@@ -39,9 +50,10 @@ public class ButtonsTemplateCreator {
         //creating template board buttons
 
         for (int x = 0; x < 9; x++) {
-            ButtonCreator creator = new ButtonCreator();
+            ButtonCreator creator = boardButtonCreatorList.get(x);
             creator.setButton(buttonList.get(x));
             creator.getButton().addActionListener(buttonInteract);
+            creator.getButton().addKeyListener(new ButtonKeyListener(creator.getButton(), buttonInteract, buttonInteract.buttonsTemplateCreator, buttonInteract.boardChecker));
             creator.setValue("");
             creator.setName("");
             creator.setSquare(1);
@@ -62,10 +74,11 @@ public class ButtonsTemplateCreator {
         columnNumber = 4;
         rowNumber = 1;
         for (int x = 9; x < 18; x++) {
-            ButtonCreator creator = new ButtonCreator();
+            ButtonCreator creator = boardButtonCreatorList.get(x);
 
             creator.setButton(buttonList.get(x));
             creator.getButton().addActionListener(buttonInteract);
+            creator.getButton().addKeyListener(new ButtonKeyListener(creator.getButton(), buttonInteract, buttonInteract.buttonsTemplateCreator, buttonInteract.boardChecker));
             creator.setValue("");
             creator.setName("");
             creator.setSquare(2);
@@ -88,9 +101,10 @@ public class ButtonsTemplateCreator {
         columnNumber = 7;
         rowNumber = 1;
         for (int x = 18; x < 27; x++) {
-            ButtonCreator creator = new ButtonCreator();
+            ButtonCreator creator = boardButtonCreatorList.get(x);
             creator.setButton(buttonList.get(x));
             creator.getButton().addActionListener(buttonInteract);
+            creator.getButton().addKeyListener(new ButtonKeyListener(creator.getButton(), buttonInteract, buttonInteract.buttonsTemplateCreator, buttonInteract.boardChecker));
             creator.setValue("");
             creator.setName("");
             creator.setSquare(3);
@@ -112,9 +126,10 @@ public class ButtonsTemplateCreator {
         columnNumber = 1;
         rowNumber = 4;
         for (int x = 27; x < 36; x++) {
-            ButtonCreator creator = new ButtonCreator();
+            ButtonCreator creator = boardButtonCreatorList.get(x);
             creator.setButton(buttonList.get(x));
             creator.getButton().addActionListener(buttonInteract);
+            creator.getButton().addKeyListener(new ButtonKeyListener(creator.getButton(), buttonInteract, buttonInteract.buttonsTemplateCreator, buttonInteract.boardChecker));
             creator.setValue("");
             creator.setName("");
             creator.setSquare(4);
@@ -134,9 +149,10 @@ public class ButtonsTemplateCreator {
         columnNumber = 4;
         rowNumber = 4;
         for (int x = 36; x < 45; x++) {
-            ButtonCreator creator = new ButtonCreator();
+            ButtonCreator creator = boardButtonCreatorList.get(x);;
             creator.setButton(buttonList.get(x));
             creator.getButton().addActionListener(buttonInteract);
+            creator.getButton().addKeyListener(new ButtonKeyListener(creator.getButton(), buttonInteract, buttonInteract.buttonsTemplateCreator, buttonInteract.boardChecker));
             creator.setValue("");
             creator.setName("");
             creator.setSquare(5);
@@ -156,9 +172,10 @@ public class ButtonsTemplateCreator {
         columnNumber = 7;
         rowNumber = 4;
         for (int x = 45; x < 54; x++) {
-            ButtonCreator creator = new ButtonCreator();
+            ButtonCreator creator = boardButtonCreatorList.get(x);
             creator.setButton(buttonList.get(x));
             creator.getButton().addActionListener(buttonInteract);
+            creator.getButton().addKeyListener(new ButtonKeyListener(creator.getButton(), buttonInteract, buttonInteract.buttonsTemplateCreator, buttonInteract.boardChecker));
             creator.setValue("");
             creator.setName("");
             creator.setSquare(6);
@@ -179,9 +196,10 @@ public class ButtonsTemplateCreator {
         columnNumber = 1;
         rowNumber = 7;
         for (int x = 54; x < 63; x++) {
-            ButtonCreator creator = new ButtonCreator();
+            ButtonCreator creator = boardButtonCreatorList.get(x);
             creator.setButton(buttonList.get(x));
             creator.getButton().addActionListener(buttonInteract);
+            creator.getButton().addKeyListener(new ButtonKeyListener(creator.getButton(), buttonInteract, buttonInteract.buttonsTemplateCreator, buttonInteract.boardChecker));
             creator.setValue("");
             creator.setName("");
             creator.setSquare(7);
@@ -201,9 +219,10 @@ public class ButtonsTemplateCreator {
         columnNumber = 4;
         rowNumber = 7;
         for (int x = 63; x < 72; x++) {
-            ButtonCreator creator = new ButtonCreator();
+            ButtonCreator creator = boardButtonCreatorList.get(x);
             creator.setButton(buttonList.get(x));
             creator.getButton().addActionListener(buttonInteract);
+            creator.getButton().addKeyListener(new ButtonKeyListener(creator.getButton(), buttonInteract, buttonInteract.buttonsTemplateCreator, buttonInteract.boardChecker));
             creator.setValue("");
             creator.setName("");
             creator.setSquare(8);
@@ -223,9 +242,10 @@ public class ButtonsTemplateCreator {
         columnNumber = 7;
         rowNumber = 7;
         for (int x = 72; x < 81; x++) {
-            ButtonCreator creator = new ButtonCreator();
+            ButtonCreator creator = boardButtonCreatorList.get(x);
             creator.setButton(buttonList.get(x));
             creator.getButton().addActionListener(buttonInteract);
+            creator.getButton().addKeyListener(new ButtonKeyListener(creator.getButton(), buttonInteract, buttonInteract.buttonsTemplateCreator, buttonInteract.boardChecker));
             creator.setValue("");
             creator.setName("");
             creator.setSquare(9);
