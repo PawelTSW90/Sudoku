@@ -10,7 +10,8 @@ public class BoardCreator {
 
 
     //back tracking main method, checking if current board is solvable
-    public boolean checkBoard() {
+    public boolean checkBoard(BoardChecker boardChecker) {
+        setCurrentBoard(boardChecker);
         boolean increaseCurrentCell = false;
         boolean changePreviousCell = false;
         boolean skipButton = false;
@@ -80,11 +81,13 @@ public class BoardCreator {
             boardSolvable = false;
 
         }
+
         return boardSolvable;
     }
 
         //method checks if current board can be solved only once. If yes, board accepted
-    public boolean multipleSolvingChecker() {
+    public boolean multipleSolvingChecker(BoardChecker boardChecker) {
+        setBoardSolution(boardChecker);
         boolean goBackward = true;
         boolean multipleSolving = false;
         boolean goToPreviousButton;
@@ -228,6 +231,36 @@ public class BoardCreator {
         }
         return numberAllowed;
     }
+
+    public void setBoardSolution(BoardChecker boardChecker){
+        char[] boardSolution = new char[81];
+        String tmp;
+        for (int x = 0; x<81; x++){
+            tmp = buttonsTemplateCreator.getBoardButtonsTemplateList().get(x).getValue();
+            boardSolution[x] = tmp.charAt(0);
+
+        }
+       boardChecker.setBoardSolution(boardSolution);
+
+    }
+
+    public void setCurrentBoard(BoardChecker boardChecker){
+        String zero = "0";
+        String tmp;
+        char[] currentBoard = new char[81];
+        for(int x = 0; x<81; x++){
+           if(buttonsTemplateCreator.getBoardButtonsTemplateList().get(x).getValue().equals("")){
+               currentBoard[x] = zero.charAt(0);
+
+           }else{
+               tmp = buttonsTemplateCreator.getBoardButtonsTemplateList().get(x).getValue();
+               currentBoard[x] = tmp.charAt(0);
+           }
+
+        }
+        boardChecker.setCurrentBoard(currentBoard);
+    }
+
 
 
 

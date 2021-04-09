@@ -51,6 +51,7 @@ public class ButtonsTemplateCreator {
 
         for (int x = 0; x < 9; x++) {
             ButtonCreator creator = boardButtonCreatorList.get(x);
+            creator.setValue("");
             creator.setButton(buttonList.get(x));
             creator.getButton().addActionListener(buttonInteract);
             creator.getButton().addKeyListener(new ButtonsKeyListener(sudokuBoard,creator.getButton(), buttonInteract, this, boardChecker));
@@ -73,7 +74,7 @@ public class ButtonsTemplateCreator {
         rowNumber = 1;
         for (int x = 9; x < 18; x++) {
             ButtonCreator creator = boardButtonCreatorList.get(x);
-
+            creator.setValue("");
             creator.setButton(buttonList.get(x));
             creator.getButton().addActionListener(buttonInteract);
             creator.getButton().addKeyListener(new ButtonsKeyListener(sudokuBoard,creator.getButton(), buttonInteract, this, boardChecker));
@@ -98,6 +99,7 @@ public class ButtonsTemplateCreator {
         rowNumber = 1;
         for (int x = 18; x < 27; x++) {
             ButtonCreator creator = boardButtonCreatorList.get(x);
+            creator.setValue("");
             creator.setButton(buttonList.get(x));
             creator.getButton().addActionListener(buttonInteract);
             creator.getButton().addKeyListener(new ButtonsKeyListener(sudokuBoard,creator.getButton(), buttonInteract, this, boardChecker));
@@ -121,6 +123,7 @@ public class ButtonsTemplateCreator {
         rowNumber = 4;
         for (int x = 27; x < 36; x++) {
             ButtonCreator creator = boardButtonCreatorList.get(x);
+            creator.setValue("");
             creator.setButton(buttonList.get(x));
             creator.getButton().addActionListener(buttonInteract);
             creator.getButton().addKeyListener(new ButtonsKeyListener(sudokuBoard,creator.getButton(), buttonInteract, this, boardChecker));
@@ -142,6 +145,7 @@ public class ButtonsTemplateCreator {
         rowNumber = 4;
         for (int x = 36; x < 45; x++) {
             ButtonCreator creator = boardButtonCreatorList.get(x);
+            creator.setValue("");
             creator.setButton(buttonList.get(x));
             creator.getButton().addActionListener(buttonInteract);
             creator.getButton().addKeyListener(new ButtonsKeyListener(sudokuBoard,creator.getButton(), buttonInteract, this, boardChecker));
@@ -163,6 +167,7 @@ public class ButtonsTemplateCreator {
         rowNumber = 4;
         for (int x = 45; x < 54; x++) {
             ButtonCreator creator = boardButtonCreatorList.get(x);
+            creator.setValue("");
             creator.setButton(buttonList.get(x));
             creator.getButton().addActionListener(buttonInteract);
             creator.getButton().addKeyListener(new ButtonsKeyListener(sudokuBoard,creator.getButton(), buttonInteract, this, boardChecker));
@@ -185,6 +190,7 @@ public class ButtonsTemplateCreator {
         rowNumber = 7;
         for (int x = 54; x < 63; x++) {
             ButtonCreator creator = boardButtonCreatorList.get(x);
+            creator.setValue("");
             creator.setButton(buttonList.get(x));
             creator.getButton().addActionListener(buttonInteract);
             creator.getButton().addKeyListener(new ButtonsKeyListener(sudokuBoard,creator.getButton(), buttonInteract, this, boardChecker));
@@ -206,6 +212,7 @@ public class ButtonsTemplateCreator {
         rowNumber = 7;
         for (int x = 63; x < 72; x++) {
             ButtonCreator creator = boardButtonCreatorList.get(x);
+            creator.setValue("");
             creator.setButton(buttonList.get(x));
             creator.getButton().addActionListener(buttonInteract);
             creator.getButton().addKeyListener(new ButtonsKeyListener(sudokuBoard,creator.getButton(), buttonInteract, this, boardChecker));
@@ -227,6 +234,7 @@ public class ButtonsTemplateCreator {
         rowNumber = 7;
         for (int x = 72; x < 81; x++) {
             ButtonCreator creator = boardButtonCreatorList.get(x);
+            creator.setValue("");
             creator.setButton(buttonList.get(x));
             creator.getButton().addActionListener(buttonInteract);
             creator.getButton().addKeyListener(new ButtonsKeyListener(sudokuBoard,creator.getButton(), buttonInteract, this, boardChecker));

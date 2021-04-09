@@ -109,7 +109,6 @@ public class BoardCompletedComponents {
             public void keyTyped(KeyEvent e) {
                 char key = e.getKeyChar();
                 int keyCode = e.getKeyCode();
-                System.out.println(keyCode);
                 //limit name entry to 15 characters
                 if (textField.getText().length() >= 15)
                     e.consume();

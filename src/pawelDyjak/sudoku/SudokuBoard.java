@@ -57,7 +57,8 @@ public class SudokuBoard {
         sudokuBoardPanel.add(sudokuBoardComponents.drawExitButton());
         sudokuBoardPanel.add(sudokuBoardComponents.drawBackground());
         sudokuBoardPanel.setFocusable(true);
-        sudokuGenerator.displayBoard(buttonsTemplateCreator);
+       // sudokuGenerator.displayBoard(buttonsTemplateCreator);
+        sudokuGenerator.generateFullBoard(buttonsTemplateCreator, 49, 3);
         //exit question when pressing escape button
         sudokuBoardPanel.addKeyListener(new KeyListener() {
             @Override
