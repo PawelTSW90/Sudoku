@@ -11,7 +11,7 @@ public class EncryptionClass {
 
 
         //method is encrypting given string by using password
-    public static String encrypt(String password, String input) {
+    public String encrypt(String password, String input) {
         byte[] key;
         Cipher cipher;
         try {
@@ -27,7 +27,7 @@ public class EncryptionClass {
         return null;
     }
         //method is decrypting given string if correct password is passed
-    public static String decrypt(String password, String input)
+    public String decrypt(String password, String input)
     {
         byte[] key;
         try

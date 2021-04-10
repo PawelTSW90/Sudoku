@@ -12,12 +12,13 @@ public class SudokuGenerator {
 
     BoardCreator boardCreator;
     BoardChecker boardChecker;
+    EncryptionClass encryptionClass;
 
-
-    public SudokuGenerator(SudokuBoard sudokuBoard, BoardCreator boardCreator, BoardChecker boardChecker) {
+    public SudokuGenerator(SudokuBoard sudokuBoard, BoardCreator boardCreator, BoardChecker boardChecker, EncryptionClass encryptionClass) {
         this.boardCreator = boardCreator;
         this.sudokuBoard = sudokuBoard;
         this.boardChecker = boardChecker;
+        this.encryptionClass = encryptionClass;
 
 
     }
@@ -69,6 +70,7 @@ public class SudokuGenerator {
             boardCreator.clearBoard();
 
         }
+
         return true;
     }
 
@@ -78,7 +80,7 @@ public class SudokuGenerator {
         String boardsContainer;
         try {
 
-            BufferedWriter writer = new BufferedWriter(new FileWriter("BoardsList.brd", true));
+            BufferedWriter writer = new BufferedWriter(new FileWriter("board_lists_template.brd", true));
             for (int x = 0; x < buttonsTemplateCreator.getBoardButtonsTemplateList().size(); x++) {
                 if (buttonsTemplateCreator.getBoardButtonsTemplateList().get(x).getButton().getName().contains("N")) {
                     writer.write(buttonsTemplateCreator.getBoardButtonsTemplateList().get(x).getValue());
@@ -127,7 +129,7 @@ public class SudokuGenerator {
     public String stringCreator() {
         String boardsContainer = null;
         try {
-            BufferedReader reader = new BufferedReader(new FileReader("BoardsList.brd"));
+            BufferedReader reader = new BufferedReader(new FileReader("board_lists_template.brd"));
             StringBuilder builder = new StringBuilder();
             String line = reader.readLine();
             while (line != null) {
@@ -146,11 +148,11 @@ public class SudokuGenerator {
     //method encrypt sudoku board to file
     public void encryptBoardToFile(String boardToEncrypt) {
         try {
-            BufferedWriter writer = new BufferedWriter(new FileWriter("encrypted_file.brd", true));
-            writer.write(Objects.requireNonNull(EncryptionClass.encrypt("123", boardToEncrypt)));
+            BufferedWriter writer = new BufferedWriter(new FileWriter("encrypted_list.brd", true));
+            writer.write(Objects.requireNonNull(encryptionClass.encrypt("123", boardToEncrypt)));
             writer.newLine();
             writer.close();
-            writer = new BufferedWriter(new FileWriter("BoardsList.brd"));
+            writer = new BufferedWriter(new FileWriter("board_lists_template.brd"));
             writer.write("");
             writer.close();
         } catch (IOException e) {
@@ -160,39 +162,51 @@ public class SudokuGenerator {
     }
 
 
-    //method returns random board to display from decrypted sudoku boards file
-    /*public String decryptToString() {
+    //method returns random board to display from encrypted sudoku boards file
+    public String pickBoardToDecryptAndDisplay() {
         Random random = new Random();
-        int randomLine = random.nextInt(100 - 2 + 2) + 2;
-
+        String boardToDisplay = null;
+        StringBuilder boardAfterDelete = new StringBuilder();
+        int randomLine = random.nextInt(countBoards()) + 1;
         try {
-            BufferedWriter writer = new BufferedWriter(new FileWriter("decrypted_list.brd"));
-            writer.write(EncryptionClass.decrypt("123", EncryptionClass.encrypt("123", stringCreator())));
-            Scanner scanner = new Scanner(new File("decrypted_list.brd"));
-            for (int x = 1; x < 101; x++) {
+
+            Scanner scanner = new Scanner(new File("encrypted_list.brd"));
+            for (int x = 1; x <= countBoards(); x++) {
 
 
                 if (x == randomLine) {
-                    return scanner.next();
+                    boardToDisplay = scanner.nextLine();
+
 
                 } else {
-                    scanner.nextLine();
+                    boardAfterDelete.append(scanner.nextLine());
+                    boardAfterDelete.append("\n");
+
                 }
 
 
             }
+            BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter("encrypted_list.brd"));
+            bufferedWriter.write(boardAfterDelete.toString());
+            bufferedWriter.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
 
 
-        return null;
-    }*/
+        return boardToDisplay;
+    }
 
-    //method prepares board to be saved into file
-    /*public void prepareBoardForSavingIntoFile(ButtonsTemplateCreator buttonsTemplateCreator) {
+    public String decryptBoardForDisplay(String boardToDecrypt) {
+        String decryptedBoard;
+        decryptedBoard = encryptionClass.decrypt("123", boardToDecrypt);
+        return decryptedBoard;
+    }
 
-        String boardValues = decryptToString();
+    //method prepares board to be displayed
+    public void displayBoard(ButtonsTemplateCreator buttonsTemplateCreator) {
+
+        String boardValues = decryptBoardForDisplay(pickBoardToDecryptAndDisplay());
         StringBuilder builder = new StringBuilder(boardValues);
         for (int x = 1; x < 82; x++) {
             builder.getChars(x - 1, x, notSolvedValues, x - 1);
@@ -216,10 +230,9 @@ public class SudokuGenerator {
         }
         boardChecker.setBoardSolution(solvedValues);
         boardChecker.setCurrentBoard(notSolvedValues);
-        encryptBoardToFile();
 
 
-    }*/
+    }
 
     //method resets button templates if user start sudoku board from beginning
     public void resetBoard(ButtonsTemplateCreator buttonsTemplateCreator) {
@@ -235,6 +248,21 @@ public class SudokuGenerator {
 
         }
 
+    }
+
+    public int countBoards() {
+        int lines = 0;
+        try {
+            BufferedReader bufferedReader = new BufferedReader(new FileReader("encrypted_list.brd"));
+
+            while (bufferedReader.readLine() != null) {
+                lines++;
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return lines;
     }
 
 

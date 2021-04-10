@@ -20,6 +20,7 @@ public class SudokuBoard {
     private StringBuffer timeCounter;
     private final Thread errorLabelThread = new Thread(new ErrorLabelThread(this, 0));
     private final JPanel sudokuBoardPanel = new JPanel();
+    private final EncryptionClass encryptionClass = new EncryptionClass();
     private final ButtonCreator buttonCreator = new ButtonCreator();
     private final SoundClass soundClass = new SoundClass();
     private final HighScoresCreator highScoresCreator = new HighScoresCreator();
@@ -28,7 +29,7 @@ public class SudokuBoard {
     private final BoardChecker boardChecker = new BoardChecker(this, soundClass, timerClass, errorLabelThread);
     private final ButtonsTemplateCreator buttonsTemplateCreator = new ButtonsTemplateCreator(this, boardChecker);
     private final BoardCreator boardCreator = new BoardCreator(buttonsTemplateCreator);
-    private final SudokuGenerator sudokuGenerator = new SudokuGenerator(this, boardCreator, boardChecker);
+    private final SudokuGenerator sudokuGenerator = new SudokuGenerator(this, boardCreator, boardChecker, encryptionClass);
     private final ButtonInteract buttonInteract = new ButtonInteract(buttonsTemplateCreator, soundClass, this, boardChecker);
     private final BoardCompletedJPanel boardCompletedJPanel = new BoardCompletedJPanel(this, highScoresCreator, highScoresJPanel, highScoresComponents);
     private final BoardCompletedComponents boardCompletedComponents = new BoardCompletedComponents(this, boardCompletedJPanel, highScoresComponents);
@@ -58,7 +59,9 @@ public class SudokuBoard {
         sudokuBoardPanel.add(sudokuBoardComponents.drawBackground());
         sudokuBoardPanel.setFocusable(true);
        // sudokuGenerator.displayBoard(buttonsTemplateCreator);
-        sudokuGenerator.generateFullBoard(buttonsTemplateCreator, 49, 3);
+        sudokuGenerator.decryptBoardForDisplay(sudokuGenerator.pickBoardToDecryptAndDisplay());
+        sudokuGenerator.displayBoard(buttonsTemplateCreator);
+
         //exit question when pressing escape button
         sudokuBoardPanel.addKeyListener(new KeyListener() {
             @Override
@@ -270,6 +273,9 @@ public class SudokuBoard {
         return boardCompletedJPanel;
     }
 
+    public EncryptionClass getEncryptionClass() {
+        return encryptionClass;
+    }
 }
 
 
