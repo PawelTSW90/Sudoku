@@ -24,7 +24,7 @@ public class HighScoresComponents {
         GridLayout layout = new GridLayout(10, 0);
         layout.setVgap(10);
         panel.setLayout(layout);
-        panel.setBounds(UtilityClass.getScreenWidth() / 2 - 600 / 2, 300, 800, 700);
+        panel.setBounds(UtilityClass.getScreenWidth() / 2 - 600 / 2, 250, 800, 700);
         for (int x = 0; x < 10; x++) {
             JLabel label = new JLabel(labelNr + "..........");
             switch (labelNr) {
@@ -84,7 +84,7 @@ public class HighScoresComponents {
     //method returns line on high scores board corresponding with players position
     public String lineReturn(int line) {
         String lineToChange = null;
-        Path path = Paths.get("C:\\Users\\Pawel\\Desktop\\Sudoku\\HighScores.brd");
+        Path path = Paths.get("./high_scores.brd");
         try {
             List<String> lines = Files.readAllLines(path);
             lineToChange = lines.get(line);

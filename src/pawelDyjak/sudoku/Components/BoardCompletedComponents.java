@@ -104,20 +104,13 @@ public class BoardCompletedComponents {
             @Override
             public void keyTyped(KeyEvent e) {
                 char key = e.getKeyChar();
-                int keyCode = e.getKeyCode();
-                if (!Character.isAlphabetic(key) && !Character.isDigit(key) && keyCode != 0) {
+                //only letters, space and digits allowed
+                if (!Character.isAlphabetic(key) && !Character.isDigit(key)) {
                     e.consume();
-
                 }
-
                 //limit name entry to 15 characters
                 if (textField.getText().length() >= 15)
                     e.consume();
-                //only letters, space and digits allowed
-
-
-
-
 
             }
 
@@ -201,7 +194,7 @@ public class BoardCompletedComponents {
     //method returns line on highScores board corresponding with players position
     public String lineReturn(int line) {
         String lineToChange = null;
-        Path path = Paths.get("C:\\Users\\Pawel\\Desktop\\Sudoku\\HighScores.brd");
+        Path path = Paths.get("C:\\Users\\Pawel\\Desktop\\Sudoku\\high_scores.brd");
         try {
             List<String> lines = Files.readAllLines(path);
             lineToChange = lines.get(line);

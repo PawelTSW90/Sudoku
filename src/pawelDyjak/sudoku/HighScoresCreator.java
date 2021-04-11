@@ -12,7 +12,7 @@ public class HighScoresCreator {
 
     //method prepares HighScores list to enter new result
     public StringBuilder updateResult(int position) {
-        Path path = Paths.get("C:\\Users\\Pawel\\Desktop\\Sudoku\\HighScores.brd");
+        Path path = Paths.get("C:\\Users\\Pawel\\Desktop\\Sudoku\\high_scores.brd");
         String lineValue;
         StringBuilder[] scoreTableArray = new StringBuilder[10];
         StringBuilder scoreTable = new StringBuilder();
@@ -108,7 +108,7 @@ public class HighScoresCreator {
                 }
             }
             scoreList.replace(positionForEntryStart, positionForEntryEnd - 1, name + "  " + "*" + time);
-            BufferedWriter writer = new BufferedWriter(new FileWriter("HighScores.brd", false));
+            BufferedWriter writer = new BufferedWriter(new FileWriter("high_scores.brd", false));
             writer.write(scoreList.toString());
             writer.close();
 
@@ -127,7 +127,7 @@ public class HighScoresCreator {
         int place = 0;
         int scoreIndexStart;
         int resultPlace = 11;
-        Path path = Paths.get("C:\\Users\\Pawel\\Desktop\\Sudoku\\HighScores.brd");
+        Path path = Paths.get("C:\\Users\\Pawel\\Desktop\\Sudoku\\high_scores.brd");
         try {
             List<String> lines = Files.readAllLines(path);
             for (String line : lines) {
