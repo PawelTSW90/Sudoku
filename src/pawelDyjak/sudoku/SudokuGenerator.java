@@ -6,17 +6,14 @@ import java.util.*;
 import java.util.List;
 
 public class SudokuGenerator {
-    SudokuBoard sudokuBoard;
-    char[] notSolvedValues = new char[81];
-    char[] solvedValues = new char[81];
-
+    char[] boardStartValues = new char[81];
+    char[] fullBoardValues = new char[81];
     BoardCreator boardCreator;
     BoardChecker boardChecker;
     EncryptionClass encryptionClass;
 
-    public SudokuGenerator(SudokuBoard sudokuBoard, BoardCreator boardCreator, BoardChecker boardChecker, EncryptionClass encryptionClass) {
+    public SudokuGenerator(BoardCreator boardCreator, BoardChecker boardChecker, EncryptionClass encryptionClass) {
         this.boardCreator = boardCreator;
-        this.sudokuBoard = sudokuBoard;
         this.boardChecker = boardChecker;
         this.encryptionClass = encryptionClass;
 
@@ -24,7 +21,7 @@ public class SudokuGenerator {
     }
 
     //method generates specified number of sudoku boards, with specified empty cell numbers
-    public boolean generateFullBoard(ButtonsTemplateCreator buttonsTemplateCreator, int emptyCellsNumbers, int numberOfBoards) {
+    public void generateFullBoard(ButtonsTemplateCreator buttonsTemplateCreator, int emptyCellsNumbers, int numberOfBoards) {
         int numberOfBoardsCreated = 0;
         while (numberOfBoardsCreated != numberOfBoards) {
             boolean boardCreated = false;
@@ -38,29 +35,22 @@ public class SudokuGenerator {
                 int value = randomCellValue.nextInt(9 - 1 + 1) + 1;
                 int randomCell = cellNumbersList.get(randomCellValue.nextInt(cellNumbersList.size()));
                 if (boardCreator.isNumberAllowed(randomCell, value)) {
-                    buttonsTemplateCreator.getBoardButtonsTemplateList().get(randomCell).setValue(String.valueOf(value));
-                    buttonsTemplateCreator.getBoardButtonsTemplateList().get(randomCell).getButton().setName("N");
+                    buttonsTemplateCreator.getBoardButtonsTemplateListForSudokuGenerator().get(randomCell).setValue(String.valueOf(value));
+                    buttonsTemplateCreator.getBoardButtonsTemplateListForSudokuGenerator().get(randomCell).getButton().setName("N");
                     cellNumbersList.removeIf(s -> (s == randomCell));
 
                 }
             }
 
-            if (boardCreator.checkBoard(boardChecker)) {
-
-                if (!boardCreator.multipleSolvingChecker(boardChecker)) {
+            if (boardCreator.checkBoard()) {
+                if (!boardCreator.multipleSolvingChecker()) {
                     boardCreated = true;
+                    System.out.println("Board Created!");
 
                 }
 
             }
             if (boardCreated) {
-                for (int x = 0; x < 81; x++) {
-                    if (!buttonsTemplateCreator.getBoardButtonsTemplateList().get(x).getValue().equals("")) {
-                        buttonsTemplateCreator.getBoardButtonsTemplateList().get(x).getButton().setBackground(Color.lightGray);
-                        buttonsTemplateCreator.getBoardButtonsTemplateList().get(x).getButton().setFocusable(false);
-                    }
-                }
-
                 generateBoardsToFile(buttonsTemplateCreator);
                 boardCreator.clearBoard();
                 numberOfBoardsCreated++;
@@ -71,27 +61,26 @@ public class SudokuGenerator {
 
         }
 
-        return true;
     }
 
     //method saves generated sudoku board to file
-    public String generateBoardsToFile(ButtonsTemplateCreator buttonsTemplateCreator) {
+    public void generateBoardsToFile(ButtonsTemplateCreator buttonsTemplateCreator) {
         StringBuilder tmpContainer = new StringBuilder();
         String boardsContainer;
         try {
 
             BufferedWriter writer = new BufferedWriter(new FileWriter("board_lists_template.brd", true));
-            for (int x = 0; x < buttonsTemplateCreator.getBoardButtonsTemplateList().size(); x++) {
-                if (buttonsTemplateCreator.getBoardButtonsTemplateList().get(x).getButton().getName().contains("N")) {
-                    writer.write(buttonsTemplateCreator.getBoardButtonsTemplateList().get(x).getValue());
+            for (int x = 0; x < buttonsTemplateCreator.getBoardButtonsTemplateListForSudokuGenerator().size(); x++) {
+                if (buttonsTemplateCreator.getBoardButtonsTemplateListForSudokuGenerator().get(x).getButton().getName().contains("N")) {
+                    writer.write(buttonsTemplateCreator.getBoardButtonsTemplateListForSudokuGenerator().get(x).getValue());
                 } else {
                     writer.write("0");
 
                 }
             }
             writer.write("*");
-            for (int x = 0; x < boardChecker.getBoardSolution().length; x++) {
-                writer.write(boardChecker.getBoardSolution()[x]);
+            for (int x = 0; x < boardCreator.getCreatedBoardSolution().length; x++) {
+                writer.write(boardCreator.getCreatedBoardSolution()[x]);
 
             }
             writer.write("\r\n");
@@ -102,9 +91,9 @@ public class SudokuGenerator {
             e.printStackTrace();
         }
 
-        for (int x = 0; x < buttonsTemplateCreator.getBoardButtonsTemplateList().size(); x++) {
-            if (buttonsTemplateCreator.getBoardButtonsTemplateList().get(x).getButton().getName().contains("N")) {
-                tmpContainer.append(buttonsTemplateCreator.getBoardButtonsTemplateList().get(x).getValue());
+        for (int x = 0; x < buttonsTemplateCreator.getBoardButtonsTemplateListForSudokuGenerator().size(); x++) {
+            if (buttonsTemplateCreator.getBoardButtonsTemplateListForSudokuGenerator().get(x).getButton().getName().contains("N")) {
+                tmpContainer.append(buttonsTemplateCreator.getBoardButtonsTemplateListForSudokuGenerator().get(x).getValue());
             } else {
                 tmpContainer.append(0);
 
@@ -113,37 +102,15 @@ public class SudokuGenerator {
         tmpContainer.append("*");
 
 
-        for (int x = 0; x < boardChecker.getBoardSolution().length; x++) {
-            tmpContainer.append(boardChecker.getBoardSolution()[x]);
+        for (int x = 0; x < boardCreator.getCreatedBoardSolution().length; x++) {
+            tmpContainer.append(boardCreator.getCreatedBoardSolution()[x]);
 
         }
         tmpContainer.append("\r\n");
         boardsContainer = tmpContainer.toString();
         encryptBoardToFile(boardsContainer);
-        return boardsContainer;
-
 
     }
-
-    //method saves sudoku boards from file into string for decryption
-    public String stringCreator() {
-        String boardsContainer = null;
-        try {
-            BufferedReader reader = new BufferedReader(new FileReader("board_lists_template.brd"));
-            StringBuilder builder = new StringBuilder();
-            String line = reader.readLine();
-            while (line != null) {
-                builder.append(line);
-                builder.append(System.getProperty("line.separator"));
-                line = reader.readLine();
-            }
-            boardsContainer = builder.toString();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return boardsContainer;
-    }
-
 
     //method encrypt sudoku board to file
     public void encryptBoardToFile(String boardToEncrypt) {
@@ -162,7 +129,7 @@ public class SudokuGenerator {
     }
 
 
-    //method returns random board to display from encrypted sudoku boards file
+    //method returns random board and prepare it for decryption
     public String pickBoardToDecryptAndDisplay() {
         Random random = new Random();
         String boardToDisplay = null;
@@ -196,40 +163,39 @@ public class SudokuGenerator {
 
         return boardToDisplay;
     }
-
+        //method decrypts random board and prepare it for display
     public String decryptBoardForDisplay(String boardToDecrypt) {
         String decryptedBoard;
         decryptedBoard = encryptionClass.decrypt("123", boardToDecrypt);
         return decryptedBoard;
     }
 
-    //method prepares board to be displayed
+    //method displays random board
     public void displayBoard(ButtonsTemplateCreator buttonsTemplateCreator) {
 
         String boardValues = decryptBoardForDisplay(pickBoardToDecryptAndDisplay());
         StringBuilder builder = new StringBuilder(boardValues);
         for (int x = 1; x < 82; x++) {
-            builder.getChars(x - 1, x, notSolvedValues, x - 1);
+            builder.getChars(x - 1, x, boardStartValues, x - 1);
 
         }
 
         for (int x = 83; x < 164; x++) {
-            builder.getChars(x - 1, x, solvedValues, x - 83);
+            builder.getChars(x - 1, x, fullBoardValues, x - 83);
         }
 
         for (int x = 0; x < 81; x++) {
-            if (String.valueOf(notSolvedValues[x]).equals("0")) {
+            if (String.valueOf(boardStartValues[x]).equals("0")) {
                 buttonsTemplateCreator.getBoardButtonsTemplateList().get(x).getButton().setLabel("");
                 continue;
 
             } else
                 buttonsTemplateCreator.getBoardButtonsTemplateList().get(x).getButton().setBackground(new Color(225, 199, 149));
-            buttonsTemplateCreator.getBoardButtonsTemplateList().get(x).getButton().setLabel(String.valueOf(notSolvedValues[x]));
+            buttonsTemplateCreator.getBoardButtonsTemplateList().get(x).getButton().setLabel(String.valueOf(boardStartValues[x]));
 
 
         }
-        boardChecker.setBoardSolution(solvedValues);
-        boardChecker.setCurrentBoard(notSolvedValues);
+        boardCreator.setCurrentBoardSolution(fullBoardValues);
 
 
     }
@@ -237,19 +203,19 @@ public class SudokuGenerator {
     //method resets button templates if user start sudoku board from beginning
     public void resetBoard(ButtonsTemplateCreator buttonsTemplateCreator) {
         for (int x = 0; x < 81; x++) {
-            if (String.valueOf(boardChecker.getCurrentBoard()[x]).equals("0")) {
+            if (String.valueOf(boardStartValues[x]).equals("0")) {
                 buttonsTemplateCreator.getBoardButtonsTemplateList().get(x).getButton().setLabel("");
                 continue;
 
             } else
                 buttonsTemplateCreator.getBoardButtonsTemplateList().get(x).getButton().setBackground(new Color(225, 199, 149));
-            buttonsTemplateCreator.getBoardButtonsTemplateList().get(x).getButton().setLabel(String.valueOf(boardChecker.getCurrentBoard()[x]));
+            buttonsTemplateCreator.getBoardButtonsTemplateList().get(x).getButton().setLabel(String.valueOf(boardStartValues[x]));
 
 
         }
 
     }
-
+        //method returns number of random boards ready to display
     public int countBoards() {
         int lines = 0;
         try {

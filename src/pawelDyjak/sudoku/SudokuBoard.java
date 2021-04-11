@@ -26,20 +26,19 @@ public class SudokuBoard {
     private final HighScoresCreator highScoresCreator = new HighScoresCreator();
     private TimerClass timerClass = new TimerClass(this);
     private final SudokuBoardComponents sudokuBoardComponents = new SudokuBoardComponents(this);
-    private final BoardChecker boardChecker = new BoardChecker(this, soundClass, timerClass, errorLabelThread);
-    private final ButtonsTemplateCreator buttonsTemplateCreator = new ButtonsTemplateCreator(this, boardChecker);
+    private final ButtonsTemplateCreator buttonsTemplateCreator = new ButtonsTemplateCreator(this);
     private final BoardCreator boardCreator = new BoardCreator(buttonsTemplateCreator);
-    private final SudokuGenerator sudokuGenerator = new SudokuGenerator(this, boardCreator, boardChecker, encryptionClass);
+    private final BoardChecker boardChecker = new BoardChecker(this, soundClass, timerClass, errorLabelThread, boardCreator);
+    private final SudokuGenerator sudokuGenerator = new SudokuGenerator(boardCreator, boardChecker, encryptionClass);
     private final ButtonInteract buttonInteract = new ButtonInteract(buttonsTemplateCreator, soundClass, this, boardChecker);
     private final BoardCompletedJPanel boardCompletedJPanel = new BoardCompletedJPanel(this, highScoresCreator, highScoresJPanel, highScoresComponents);
     private final BoardCompletedComponents boardCompletedComponents = new BoardCompletedComponents(this, boardCompletedJPanel, highScoresComponents);
-
+    Thread sudokuGeneratorThread = new Thread(new SudokuGeneratorThread(this));
 
     public SudokuBoard(JFrame mainFrame, HighScoresJPanel highScoresJPanel, HighScoresComponents highScoresComponents) {
         this.mainFrame = mainFrame;
         this.highScoresJPanel = highScoresJPanel;
         this.highScoresComponents = highScoresComponents;
-
     }
 
     //method creates sudoku board
@@ -58,8 +57,7 @@ public class SudokuBoard {
         sudokuBoardPanel.add(sudokuBoardComponents.drawExitButton());
         sudokuBoardPanel.add(sudokuBoardComponents.drawBackground());
         sudokuBoardPanel.setFocusable(true);
-       // sudokuGenerator.displayBoard(buttonsTemplateCreator);
-        sudokuGenerator.decryptBoardForDisplay(sudokuGenerator.pickBoardToDecryptAndDisplay());
+        sudokuGenerator.generateFullBoard(buttonsTemplateCreator, 49, 5);
         sudokuGenerator.displayBoard(buttonsTemplateCreator);
 
         //exit question when pressing escape button
@@ -74,6 +72,10 @@ public class SudokuBoard {
 
                 int code = e.getKeyCode();
                 int escapeButton = 27;
+
+                if (code == 81) {
+
+                }
 
                 //open menu
                 if (code == escapeButton) {
@@ -273,9 +275,6 @@ public class SudokuBoard {
         return boardCompletedJPanel;
     }
 
-    public EncryptionClass getEncryptionClass() {
-        return encryptionClass;
-    }
 }
 
 

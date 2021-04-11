@@ -308,7 +308,10 @@ public class SudokuBoardComponents {
         }
 
         // create buttons template
-        sudokuBoard.getButtonsTemplateCreator().createBoardTemplate(sudokuBoard.getButtonCreator().getBoardButtons(), sudokuBoard.getButtonCreator().getKeypadButtons());
+        sudokuBoard.getButtonCreator().createBoardButtonsForGenerator();
+        sudokuBoard.getButtonCreator().createKeypadButtonsForGenerator();
+        sudokuBoard.getButtonsTemplateCreator().createBoardTemplate(sudokuBoard.getButtonCreator().getBoardButtons(), sudokuBoard.getButtonCreator().getKeypadButtons(), sudokuBoard.getButtonCreator().getBoardButtonsForGenerator(), sudokuBoard.getButtonCreator().getKeypadButtonsForGenerator());
+
         return mainPanel;
     }
 

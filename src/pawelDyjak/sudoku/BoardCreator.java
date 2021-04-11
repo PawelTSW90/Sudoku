@@ -3,15 +3,16 @@ package pawelDyjak.sudoku;
 
 public class BoardCreator {
     private final ButtonsTemplateCreator buttonsTemplateCreator;
+    private char[] createdBoardSolution = new char[81];
+    char[] currentBoardSolution = new char[81];
 
-    public BoardCreator(ButtonsTemplateCreator buttonsTemplateCreator){
+    public BoardCreator(ButtonsTemplateCreator buttonsTemplateCreator) {
         this.buttonsTemplateCreator = buttonsTemplateCreator;
     }
 
 
     //back tracking main method, checking if current board is solvable
-    public boolean checkBoard(BoardChecker boardChecker) {
-        setCurrentBoard(boardChecker);
+    public boolean checkBoard() {
         boolean increaseCurrentCell = false;
         boolean changePreviousCell = false;
         boolean skipButton = false;
@@ -23,28 +24,28 @@ public class BoardCreator {
             for (int x = 0; x < 81; x++) {
 
                 if (changePreviousCell) {
-                    currentValue = Integer.parseInt(buttonsTemplateCreator.getBoardButtonsTemplateList().get(x).getValue());
+                    currentValue = Integer.parseInt(buttonsTemplateCreator.getBoardButtonsTemplateListForSudokuGenerator().get(x).getValue());
                     //if button is not editable, skip it by going back
-                    if (buttonsTemplateCreator.getBoardButtonsTemplateList().get(x).getButton().getName().contains("N")) {
+                    if (buttonsTemplateCreator.getBoardButtonsTemplateListForSudokuGenerator().get(x).getButton().getName().contains("N")) {
                         x = x - 2;
                         skipButton = true;
                         //if you cant increase value anymore, empty cell, and go back one more cell
                     } else if (currentValue == 9) {
-                        buttonsTemplateCreator.getBoardButtonsTemplateList().get(x).setValue("");
-                        numberToInput = Integer.parseInt(buttonsTemplateCreator.getBoardButtonsTemplateList().get(x - 1).getValue());
+                        buttonsTemplateCreator.getBoardButtonsTemplateListForSudokuGenerator().get(x).setValue("");
+                        numberToInput = Integer.parseInt(buttonsTemplateCreator.getBoardButtonsTemplateListForSudokuGenerator().get(x - 1).getValue());
                         x--;
                         skipButton = false;
                         //empty current cell, and try again with value increased by 1
                     } else {
                         numberToInput = currentValue + 1;
-                        buttonsTemplateCreator.getBoardButtonsTemplateList().get(x).setValue("");
+                        buttonsTemplateCreator.getBoardButtonsTemplateListForSudokuGenerator().get(x).setValue("");
                         changePreviousCell = false;
                         increaseCurrentCell = false;
                         skipButton = false;
                     }
 
                     //if button is not editable, skip it going forward
-                } else if (buttonsTemplateCreator.getBoardButtonsTemplateList().get(x).getButton().getName().contains("N")) {
+                } else if (buttonsTemplateCreator.getBoardButtonsTemplateListForSudokuGenerator().get(x).getButton().getName().contains("N")) {
                     skipButton = true;
                 }
 
@@ -55,7 +56,7 @@ public class BoardCreator {
                 }
                 //if value is allowed, entry value, jump to next cell, and reset number to input to 1
                 if (!increaseCurrentCell && !skipButton) {
-                    buttonsTemplateCreator.getBoardButtonsTemplateList().get(x).setValue(String.valueOf(numberToInput));
+                    buttonsTemplateCreator.getBoardButtonsTemplateListForSudokuGenerator().get(x).setValue(String.valueOf(numberToInput));
                     numberToInput = 1;
                     if (isBoardCompleted()) {
                         break;
@@ -85,9 +86,9 @@ public class BoardCreator {
         return boardSolvable;
     }
 
-        //method checks if current board can be solved only once. If yes, board accepted
-    public boolean multipleSolvingChecker(BoardChecker boardChecker) {
-        setBoardSolution(boardChecker);
+    //method checks if current board can be solved only once. If yes, board accepted
+    public boolean multipleSolvingChecker() {
+        setUpBoardSolution();
         boolean goBackward = true;
         boolean multipleSolving = false;
         boolean goToPreviousButton;
@@ -98,7 +99,7 @@ public class BoardCreator {
 
 
                 //if button is not editable, skip it by going back
-                if (buttonsTemplateCreator.getBoardButtonsTemplateList().get(x).getButton().getName().contains("N")) {
+                if (buttonsTemplateCreator.getBoardButtonsTemplateListForSudokuGenerator().get(x).getButton().getName().contains("N")) {
                     if (goBackward) {
                         goToPreviousButton = true;
 
@@ -106,11 +107,11 @@ public class BoardCreator {
 
                 }
                 //if button has no value, try to enter new one starting by 1
-                else if (buttonsTemplateCreator.getBoardButtonsTemplateList().get(x).getValue().equals("")) {
+                else if (buttonsTemplateCreator.getBoardButtonsTemplateListForSudokuGenerator().get(x).getValue().equals("")) {
                     for (int y = 1; y < 10; y++) {
                         //if new value is allowed, entry value,
                         if (isNumberAllowed(x, y)) {
-                            buttonsTemplateCreator.getBoardButtonsTemplateList().get(x).setValue(String.valueOf(y));
+                            buttonsTemplateCreator.getBoardButtonsTemplateListForSudokuGenerator().get(x).setValue(String.valueOf(y));
 
                             //if board is completed, start everything from beginning
                             if (isBoardCompleted()) {
@@ -134,13 +135,13 @@ public class BoardCreator {
 
                 //if button value is different than 9, clear it, increase its value by one and check if it's allowed here
 
-                else if (Integer.parseInt(buttonsTemplateCreator.getBoardButtonsTemplateList().get(x).getValue()) != 9) {
-                    for (int y = Integer.parseInt(buttonsTemplateCreator.getBoardButtonsTemplateList().get(x).getValue()) + 1; y < 10; y++) {
-                        buttonsTemplateCreator.getBoardButtonsTemplateList().get(x).setValue("");
+                else if (Integer.parseInt(buttonsTemplateCreator.getBoardButtonsTemplateListForSudokuGenerator().get(x).getValue()) != 9) {
+                    for (int y = Integer.parseInt(buttonsTemplateCreator.getBoardButtonsTemplateListForSudokuGenerator().get(x).getValue()) + 1; y < 10; y++) {
+                        buttonsTemplateCreator.getBoardButtonsTemplateListForSudokuGenerator().get(x).setValue("");
 
                         //if new value is allowed, entry value,
                         if (isNumberAllowed(x, y)) {
-                            buttonsTemplateCreator.getBoardButtonsTemplateList().get(x).setValue(String.valueOf(y));
+                            buttonsTemplateCreator.getBoardButtonsTemplateListForSudokuGenerator().get(x).setValue(String.valueOf(y));
 
                             //if board is completed, start everything from beginning
                             if (isBoardCompleted()) {
@@ -165,7 +166,7 @@ public class BoardCreator {
                 }
                 //if button value equals 9, clear it and go to previous button
                 else {
-                    buttonsTemplateCreator.getBoardButtonsTemplateList().get(x).setValue("");
+                    buttonsTemplateCreator.getBoardButtonsTemplateListForSudokuGenerator().get(x).setValue("");
                     goToPreviousButton = true;
                     goBackward = true;
 
@@ -181,12 +182,13 @@ public class BoardCreator {
         return multipleSolving;
 
     }
-        //method checks if tested board is filled
+
+    //method checks if tested board is filled
     public boolean isBoardCompleted() {
 
 
         for (int x = 0; x < 81; x++) {
-            if (buttonsTemplateCreator.getBoardButtonsTemplateList().get(x).getValue().equals("")) {
+            if (buttonsTemplateCreator.getBoardButtonsTemplateListForSudokuGenerator().get(x).getValue().equals("")) {
                 return false;
 
             }
@@ -195,12 +197,12 @@ public class BoardCreator {
 
     }
 
-        //method clears board for new one
+    //method clears board for new one
     public void clearBoard() {
         for (int x = 0; x < 81; x++) {
-            buttonsTemplateCreator.getBoardButtonsTemplateList().get(x).setValue("");
-            buttonsTemplateCreator.getBoardButtonsTemplateList().get(x).getButton().setLabel("");
-            buttonsTemplateCreator.getBoardButtonsTemplateList().get(x).getButton().setName("");
+            buttonsTemplateCreator.getBoardButtonsTemplateListForSudokuGenerator().get(x).setValue("");
+            buttonsTemplateCreator.getBoardButtonsTemplateListForSudokuGenerator().get(x).getButton().setLabel("");
+            buttonsTemplateCreator.getBoardButtonsTemplateListForSudokuGenerator().get(x).getButton().setName("");
         }
 
     }
@@ -211,58 +213,52 @@ public class BoardCreator {
         boolean numberAllowed = true;
 
 
-        for (int x = 0; x < 81; x++) {
-            int square = buttonsTemplateCreator.getBoardButtonsTemplateList().get(buttonIndex).getSquare();
-            int column = buttonsTemplateCreator.getBoardButtonsTemplateList().get(buttonIndex).getColumn();
-            int row = buttonsTemplateCreator.getBoardButtonsTemplateList().get(buttonIndex).getRow();
-            if (buttonsTemplateCreator.getBoardButtonsTemplateList().get(x).getSquare() == square) {
-                if (buttonsTemplateCreator.getBoardButtonsTemplateList().get(x).getValue().equals(String.valueOf(value))) {
-                    numberAllowed = false;
-                }
-            } else if (buttonsTemplateCreator.getBoardButtonsTemplateList().get(x).getColumn() == column) {
-                if (buttonsTemplateCreator.getBoardButtonsTemplateList().get(x).getValue().equals(String.valueOf(value))) {
-                    numberAllowed = false;
-                }
-            } else if (buttonsTemplateCreator.getBoardButtonsTemplateList().get(x).getRow() == row) {
-                if (buttonsTemplateCreator.getBoardButtonsTemplateList().get(x).getValue().equals(String.valueOf(value))) {
-                    numberAllowed = false;
+
+            for (int x = 0; x < 81; x++) {
+                int square = buttonsTemplateCreator.getBoardButtonsTemplateListForSudokuGenerator().get(buttonIndex).getSquare();
+                int column = buttonsTemplateCreator.getBoardButtonsTemplateListForSudokuGenerator().get(buttonIndex).getColumn();
+                int row = buttonsTemplateCreator.getBoardButtonsTemplateListForSudokuGenerator().get(buttonIndex).getRow();
+                if (buttonsTemplateCreator.getBoardButtonsTemplateListForSudokuGenerator().get(x).getSquare() == square) {
+                    if (buttonsTemplateCreator.getBoardButtonsTemplateListForSudokuGenerator().get(x).getValue().equals(String.valueOf(value))) {
+                        numberAllowed = false;
+                    }
+                } else if (buttonsTemplateCreator.getBoardButtonsTemplateListForSudokuGenerator().get(x).getColumn() == column) {
+                    if (buttonsTemplateCreator.getBoardButtonsTemplateListForSudokuGenerator().get(x).getValue().equals(String.valueOf(value))) {
+                        numberAllowed = false;
+                    }
+                } else if (buttonsTemplateCreator.getBoardButtonsTemplateListForSudokuGenerator().get(x).getRow() == row) {
+                    if (buttonsTemplateCreator.getBoardButtonsTemplateListForSudokuGenerator().get(x).getValue().equals(String.valueOf(value))) {
+                        numberAllowed = false;
+                    }
                 }
             }
-        }
+
         return numberAllowed;
     }
 
-    public void setBoardSolution(BoardChecker boardChecker){
-        char[] boardSolution = new char[81];
+    public void setUpBoardSolution() {
+        char[] boardSolutionTmp = new char[81];
         String tmp;
-        for (int x = 0; x<81; x++){
-            tmp = buttonsTemplateCreator.getBoardButtonsTemplateList().get(x).getValue();
-            boardSolution[x] = tmp.charAt(0);
+        for (int x = 0; x < 81; x++) {
+            tmp = buttonsTemplateCreator.getBoardButtonsTemplateListForSudokuGenerator().get(x).getValue();
+            boardSolutionTmp[x] = tmp.charAt(0);
 
         }
-       boardChecker.setBoardSolution(boardSolution);
+        createdBoardSolution = boardSolutionTmp;
 
     }
 
-    public void setCurrentBoard(BoardChecker boardChecker){
-        String zero = "0";
-        String tmp;
-        char[] currentBoard = new char[81];
-        for(int x = 0; x<81; x++){
-           if(buttonsTemplateCreator.getBoardButtonsTemplateList().get(x).getValue().equals("")){
-               currentBoard[x] = zero.charAt(0);
-
-           }else{
-               tmp = buttonsTemplateCreator.getBoardButtonsTemplateList().get(x).getValue();
-               currentBoard[x] = tmp.charAt(0);
-           }
-
-        }
-        boardChecker.setCurrentBoard(currentBoard);
+    public char[] getCreatedBoardSolution(){
+        return createdBoardSolution;
     }
 
+    public void setCurrentBoardSolution(char[] currentBoard){
+        currentBoardSolution = currentBoard;
+    }
 
-
+    public char[] getCurrentBoardSolution(){
+        return currentBoardSolution;
+    }
 
 }
 

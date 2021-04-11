@@ -41,7 +41,6 @@ public class ButtonInteract implements ActionListener {
                 soundClass.erase(sudokuBoard);
             }
             button.setLabel("");
-
             button.setBackground(null);
             button.setFocusable(false);
             sudokuBoard.disableBackground(1);

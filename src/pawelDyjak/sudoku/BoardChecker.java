@@ -3,18 +3,18 @@ package pawelDyjak.sudoku;
 import java.awt.*;
 
 public class BoardChecker {
-    private char[] boardSolution = new char[81];
-    private char[] currentBoard = new char[81];
     private final SudokuBoard sudokuBoard;
     private final SoundClass soundClass;
     private final TimerClass timerClass;
     private Thread errorLabelThread;
+    BoardCreator boardCreator;
 
-    public BoardChecker(SudokuBoard sudokuBoard,SoundClass soundClass, TimerClass timerClass, Thread errorLabelThread){
+    public BoardChecker(SudokuBoard sudokuBoard,SoundClass soundClass, TimerClass timerClass, Thread errorLabelThread, BoardCreator boardCreator){
         this.sudokuBoard = sudokuBoard;
         this.soundClass = soundClass;
         this.timerClass = timerClass;
         this.errorLabelThread = errorLabelThread;
+        this.boardCreator = boardCreator;
     }
 
         //method checks if there are wrong numbers entered
@@ -23,7 +23,8 @@ public class BoardChecker {
         int mistakesNumber = 0;
         for (int x = 0; x < 81; x++) {
             String buttonValue = sudokuBoard.getButtonsTemplateCreator().getBoardButtonsTemplateList().get(x).getButton().getLabel();
-            if (!buttonValue.equals(String.valueOf(boardSolution[x])) && !buttonValue.equals("")) {
+            if (!buttonValue.equals(String.valueOf(boardCreator.getCurrentBoardSolution()[x])) && !buttonValue.equals("")) {
+
                 sudokuBoard.getButtonsTemplateCreator().getBoardButtonsTemplateList().get(x).getButton().setForeground(Color.red);
                 soundClass.error(sudokuBoard);
                 timerClass.setMinutes(timerClass.getMinutes()+1);
@@ -66,7 +67,7 @@ public class BoardChecker {
 
         //message when board is completed wrong
         for (int x = 0; x < 81; x++) {
-            if (!sudokuBoard.getButtonsTemplateCreator().getBoardButtonsTemplateList().get(x).getButton().getLabel().equals(String.valueOf(boardSolution[x]))) {
+            if (!sudokuBoard.getButtonsTemplateCreator().getBoardButtonsTemplateList().get(x).getButton().getLabel().equals(String.valueOf(boardCreator.getCurrentBoardSolution()[x]))) {
                 soundClass.boardCompletedWrong(getSudokuBoard());
                 sudokuBoard.disableBackground(0);
                 sudokuBoard.getTimerClass().pauseThread();
@@ -90,21 +91,6 @@ public class BoardChecker {
         return true;
     }
 
-    public char[] getBoardSolution() {
-        return boardSolution;
-    }
-
-    public void setBoardSolution(char[] boardSolution) {
-        this.boardSolution = boardSolution;
-    }
-
-    public char[] getCurrentBoard() {
-        return currentBoard;
-    }
-
-    public void setCurrentBoard(char[] currentBoard) {
-        this.currentBoard = currentBoard;
-    }
 
     public SudokuBoard getSudokuBoard() {
         return sudokuBoard;

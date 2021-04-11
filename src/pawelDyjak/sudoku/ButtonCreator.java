@@ -13,7 +13,8 @@ public class ButtonCreator {
     private Button button;
     private final List<Button> boardButtons = new ArrayList<>();
     private final List<Button> keypadButtons = new ArrayList<>();
-
+    private final List<Button> boardButtonsForGenerator = new ArrayList<>();
+    private final List<Button> keypadButtonsForGenerator = new ArrayList<>();
 
 
         //method is creating boardButtons
@@ -35,6 +36,32 @@ public class ButtonCreator {
         keypadButtonNumber++;
         return button;
     }
+
+    public void createBoardButtonsForGenerator(){
+        for(int x = 0; x<81; x++) {
+            Button button = new Button();
+            button.setFont(new Font(null, Font.ITALIC, 30));
+            button.setFocusable(false);
+            boardButtonsForGenerator.add(button);
+        }
+
+    }
+    //method is creating keypadButtons
+    public void createKeypadButtonsForGenerator(){
+        for(int x = 0; x<9; x++) {
+            Button button = new Button(String.valueOf(keypadButtonNumber));
+            button.setBackground(new Color(245, 232, 211));
+            button.setFocusable(false);
+            button.setName("Keypad");
+            button.setFont(new Font(null, Font.ITALIC, 30));
+            keypadButtonsForGenerator.add(button);
+            keypadButtonNumber++;
+        }
+
+    }
+
+
+
 
 
     public int getSquare() {
@@ -85,5 +112,11 @@ public class ButtonCreator {
         this.button = button;
     }
 
+    public List<Button> getBoardButtonsForGenerator() {
+        return boardButtonsForGenerator;
+    }
 
+    public List<Button> getKeypadButtonsForGenerator() {
+        return keypadButtonsForGenerator;
+    }
 }

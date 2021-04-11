@@ -72,6 +72,7 @@ public class MainMenu {
     public HighScoresComponents getHighScoresComponents(){
         return highScoresComponents;
     }
+
 }
 
 
