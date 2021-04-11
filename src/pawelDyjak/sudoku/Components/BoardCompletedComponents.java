@@ -104,20 +104,13 @@ public class BoardCompletedComponents {
             @Override
             public void keyTyped(KeyEvent e) {
                 char key = e.getKeyChar();
-                int keyCode = e.getKeyCode();
-                if (!Character.isAlphabetic(key) && !Character.isDigit(key) && keyCode != 0) {
+                //only letters, space and digits allowed
+                if (!Character.isAlphabetic(key) && !Character.isDigit(key)) {
                     e.consume();
-
                 }
-
                 //limit name entry to 15 characters
                 if (textField.getText().length() >= 15)
                     e.consume();
-                //only letters, space and digits allowed
-
-
-
-
 
             }
 
