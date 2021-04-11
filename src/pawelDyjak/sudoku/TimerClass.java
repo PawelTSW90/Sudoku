@@ -13,14 +13,13 @@ public class TimerClass {
     private final SudokuBoard board;
     boolean pauseThread = false;
 
-    public TimerClass(SudokuBoard sudokuBoard){
+    public TimerClass(SudokuBoard sudokuBoard) {
         this.board = sudokuBoard;
     }
 
 
-
-        //method starts timer and passing it as a value to timer JLabel
-    public void setTimer(){
+    //method starts timer and passing it as a value to timer JLabel
+    public void setTimer() {
         time = new StringBuffer();
         Timer timer = new Timer();
         timer.schedule(new TimerTask() {
@@ -35,38 +34,39 @@ public class TimerClass {
                     board.setTimeCounter(time);
 
 
-
                 }
             }
         }, 0, 1000);
 
     }
-        //method increments seconds, minutes and hours
-    public void counter(){
+
+    //method increments seconds, minutes and hours
+    public void counter() {
         seconds++;
-        if(seconds == 60){
+        if (seconds == 60) {
             minutes++;
             seconds = 0;
         }
-        if(minutes == 60){
+        if (minutes == 60) {
             hours++;
             minutes = 0;
             seconds = 0;
         }
-        if(hours == 99){
+        if (hours == 99) {
             pauseThread();
         }
     }
 
 
-    public void pauseThread(){
+    public void pauseThread() {
         pauseThread = true;
     }
 
-    public void resumeThread(){
+    public void resumeThread() {
         pauseThread = false;
     }
-        //method sets time label in sudoku board to display time
+
+    //method sets time label in sudoku board to display time
     public void setTimerButton(Component component, String time) {
         ((JLabel) component).setText(time);
     }

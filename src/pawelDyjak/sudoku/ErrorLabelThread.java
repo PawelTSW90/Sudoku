@@ -15,22 +15,22 @@ class ErrorLabelThread extends Thread {
         setMistakeLabel(sudokuBoard, mistakesNumber);
 
     }
-        //method sets correct format and displaying time of mistakes label
+
+    //method sets correct format and displaying time of mistakes label
     public void setMistakeLabel(SudokuBoard sudokuBoard, int mistakesNumber) {
         String text;
         if (mistakesNumber == 0) {
             text = "No mistakes found";
         } else if (mistakesNumber > 1) {
-            if(sudokuBoard.getTimerClass().getHours()>=99){
+            if (sudokuBoard.getTimerClass().getHours() >= 99) {
                 text = mistakesNumber + " mistakes found! ";
             } else
-            text = mistakesNumber + " mistakes found! " + mistakesNumber + " minutes added!";
-        } else
-            if(sudokuBoard.getTimerClass().getHours()>=99){
-                text = mistakesNumber + " mistake found! ";
-            } else {
-                text = mistakesNumber + " mistake found! " + mistakesNumber + " minute added!";
-            }
+                text = mistakesNumber + " mistakes found! " + mistakesNumber + " minutes added!";
+        } else if (sudokuBoard.getTimerClass().getHours() >= 99) {
+            text = mistakesNumber + " mistake found! ";
+        } else {
+            text = mistakesNumber + " mistake found! " + mistakesNumber + " minute added!";
+        }
         sudokuBoard.getSudokuBoardPanel().getComponent(8).setVisible(true);
         ((JLabel) sudokuBoard.getSudokuBoardPanel().getComponent(8)).setText(text);
         try {

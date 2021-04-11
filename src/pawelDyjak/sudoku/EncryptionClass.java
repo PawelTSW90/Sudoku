@@ -1,4 +1,5 @@
 package pawelDyjak.sudoku;
+
 import javax.crypto.Cipher;
 import javax.crypto.spec.SecretKeySpec;
 import java.nio.charset.StandardCharsets;
@@ -10,7 +11,7 @@ public class EncryptionClass {
     private static SecretKeySpec secretKey;
 
 
-        //method is encrypting given string by using password
+    //method is encrypting given string by using password
     public String encrypt(String password, String input) {
         byte[] key;
         Cipher cipher;
@@ -26,12 +27,11 @@ public class EncryptionClass {
         }
         return null;
     }
-        //method is decrypting given string if correct password is passed
-    public String decrypt(String password, String input)
-    {
+
+    //method is decrypting given string if correct password is passed
+    public String decrypt(String password, String input) {
         byte[] key;
-        try
-        {
+        try {
             key = password.getBytes(StandardCharsets.UTF_8);
             key = Arrays.copyOf(key, 16);
             secretKey = new SecretKeySpec(key, "AES");
@@ -39,9 +39,7 @@ public class EncryptionClass {
             cipher.init(Cipher.DECRYPT_MODE, secretKey);
             return new String(cipher.doFinal(Base64.getDecoder().decode(input)));
 
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             System.out.println("Error while decrypting: " + e.toString());
         }
 

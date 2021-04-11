@@ -1,19 +1,21 @@
 package pawelDyjak.sudoku;
+
 import pawelDyjak.sudoku.Components.HighScoresComponents;
+
 import javax.swing.*;
 import java.awt.event.KeyEvent;
 
 
 public class HighScoresJPanel {
-    MainMenu menu;
-    HighScoresComponents highScoresComponents;
+    private final MainMenu menu;
+    private final HighScoresComponents highScoresComponents;
 
     public HighScoresJPanel(MainMenu menu, HighScoresComponents highScoresComponents) {
         this.menu = menu;
         this.highScoresComponents = highScoresComponents;
     }
 
-        //method draws high score panel
+    //method draws high score panel
     public JPanel drawHighScorePanel() {
         JPanel highScorePanel = new JPanel();
         highScorePanel.setFocusable(true);
@@ -39,8 +41,6 @@ public class HighScoresJPanel {
         return highScorePanel;
 
     }
-
-
 
 
 }

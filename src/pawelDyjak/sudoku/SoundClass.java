@@ -6,9 +6,9 @@ import java.io.IOException;
 
 
 public class SoundClass {
-        //method plays tick sound
+    //method plays tick sound
     public void tick(SudokuBoard sudokuBoard) {
-        if(sudokuBoard==null || sudokuBoard.isSoundOn()) {
+        if (sudokuBoard == null || sudokuBoard.isSoundOn()) {
 
             try {
                 Clip clip = AudioSystem.getClip();
@@ -23,9 +23,10 @@ public class SoundClass {
 
 
     }
-        //method plays board completed correctly sound
+
+    //method plays board completed correctly sound
     public void boardCompletedCorrectly(SudokuBoard sudokuBoard) {
-        if(sudokuBoard.isSoundOn()) {
+        if (sudokuBoard.isSoundOn()) {
 
             try {
                 Clip clip = AudioSystem.getClip();
@@ -40,7 +41,8 @@ public class SoundClass {
 
 
     }
-        //method plays board completed incorrectly sound
+
+    //method plays board completed incorrectly sound
     public void boardCompletedWrong(SudokuBoard sudokuBoard) {
         if (sudokuBoard.isSoundOn()) {
 
@@ -57,8 +59,9 @@ public class SoundClass {
 
         }
     }
-        //method plays error sound
-    public void error(SudokuBoard sudokuBoard){
+
+    //method plays error sound
+    public void error(SudokuBoard sudokuBoard) {
         if (sudokuBoard.isSoundOn()) {
 
             try {
@@ -74,21 +77,22 @@ public class SoundClass {
 
         }
     }
-        //method plays erase sound
-        public void erase(SudokuBoard sudokuBoard) {
-            if (sudokuBoard.isSoundOn()) {
 
-                try {
-                    Clip clip = AudioSystem.getClip();
-                    File file = new File("./Sounds/erase.wav");
-                    AudioInputStream inputStream = AudioSystem.getAudioInputStream(file);
-                    clip.open(inputStream);
-                    clip.start();
-                } catch (LineUnavailableException | IOException | UnsupportedAudioFileException e) {
-                    e.printStackTrace();
-                }
+    //method plays erase sound
+    public void erase(SudokuBoard sudokuBoard) {
+        if (sudokuBoard.isSoundOn()) {
+
+            try {
+                Clip clip = AudioSystem.getClip();
+                File file = new File("./Sounds/erase.wav");
+                AudioInputStream inputStream = AudioSystem.getAudioInputStream(file);
+                clip.open(inputStream);
+                clip.start();
+            } catch (LineUnavailableException | IOException | UnsupportedAudioFileException e) {
+                e.printStackTrace();
             }
         }
+    }
 
 }
 

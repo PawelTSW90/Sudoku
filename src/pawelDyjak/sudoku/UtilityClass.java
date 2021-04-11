@@ -9,12 +9,11 @@ public final class UtilityClass {
     private static final int screenWidth = screenSize.width;
 
 
-
-    public static int getScreenHeight(){
+    public static int getScreenHeight() {
         return screenHeight;
     }
 
-    public static int getScreenWidth(){
+    public static int getScreenWidth() {
         return screenWidth;
     }
 

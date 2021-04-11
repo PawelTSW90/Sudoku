@@ -1,7 +1,6 @@
 package pawelDyjak.sudoku;
 
 import pawelDyjak.sudoku.Components.BoardCompletedComponents;
-import pawelDyjak.sudoku.Components.HighScoresComponents;
 import pawelDyjak.sudoku.Components.SudokuBoardComponents;
 
 import javax.swing.*;
@@ -12,33 +11,30 @@ import java.util.ArrayList;
 
 public class SudokuBoard {
     private final JFrame mainFrame;
+    private StringBuffer timeCounter;
     private boolean helpOn = false;
     private boolean soundOn = true;
     private boolean eraseOn = false;
-    private HighScoresJPanel highScoresJPanel;
-    private HighScoresComponents highScoresComponents;
-    private StringBuffer timeCounter;
     private final Thread errorLabelThread = new Thread(new ErrorLabelThread(this, 0));
+    private Thread sudokuGeneratorThread = new Thread(new SudokuGeneratorThread(this));
     private final JPanel sudokuBoardPanel = new JPanel();
     private final EncryptionClass encryptionClass = new EncryptionClass();
     private final ButtonCreator buttonCreator = new ButtonCreator();
     private final SoundClass soundClass = new SoundClass();
     private final HighScoresCreator highScoresCreator = new HighScoresCreator();
+
     private TimerClass timerClass = new TimerClass(this);
     private final SudokuBoardComponents sudokuBoardComponents = new SudokuBoardComponents(this);
     private final ButtonsTemplateCreator buttonsTemplateCreator = new ButtonsTemplateCreator(this);
     private final BoardCreator boardCreator = new BoardCreator(buttonsTemplateCreator);
     private final BoardChecker boardChecker = new BoardChecker(this, soundClass, timerClass, errorLabelThread, boardCreator);
-    private final SudokuGenerator sudokuGenerator = new SudokuGenerator(boardCreator, boardChecker, encryptionClass);
+    private final SudokuGenerator sudokuGenerator = new SudokuGenerator(boardCreator, encryptionClass);
     private final ButtonInteract buttonInteract = new ButtonInteract(buttonsTemplateCreator, soundClass, this, boardChecker);
-    private final BoardCompletedJPanel boardCompletedJPanel = new BoardCompletedJPanel(this, highScoresCreator, highScoresJPanel, highScoresComponents);
-    private final BoardCompletedComponents boardCompletedComponents = new BoardCompletedComponents(this, boardCompletedJPanel, highScoresComponents);
-    Thread sudokuGeneratorThread = new Thread(new SudokuGeneratorThread(this));
+    private final BoardCompletedJPanel boardCompletedJPanel = new BoardCompletedJPanel(this, highScoresCreator);
+    private final BoardCompletedComponents boardCompletedComponents = new BoardCompletedComponents(this, boardCompletedJPanel);
 
-    public SudokuBoard(JFrame mainFrame, HighScoresJPanel highScoresJPanel, HighScoresComponents highScoresComponents) {
+    public SudokuBoard(JFrame mainFrame) {
         this.mainFrame = mainFrame;
-        this.highScoresJPanel = highScoresJPanel;
-        this.highScoresComponents = highScoresComponents;
     }
 
     //method creates sudoku board
@@ -55,10 +51,11 @@ public class SudokuBoard {
         sudokuBoardPanel.add(sudokuBoardComponents.drawEraseButton());
         sudokuBoardPanel.add(sudokuBoardComponents.drawErrorCounterLabel());
         sudokuBoardPanel.add(sudokuBoardComponents.drawExitButton());
+        sudokuBoardPanel.add(sudokuBoardComponents.generatingBoardLabel());
         sudokuBoardPanel.add(sudokuBoardComponents.drawBackground());
         sudokuBoardPanel.setFocusable(true);
-        sudokuGenerator.generateFullBoard(buttonsTemplateCreator, 49, 5);
-        sudokuGenerator.displayBoard(buttonsTemplateCreator);
+        timerClass.setTimer();
+
 
         //exit question when pressing escape button
         sudokuBoardPanel.addKeyListener(new KeyListener() {
@@ -74,6 +71,19 @@ public class SudokuBoard {
                 int escapeButton = 27;
 
                 if (code == 81) {
+                    disableBackground(0);
+                    getTimerClass().pauseThread();
+                    getSudokuBoardPanel().getComponent(1).setVisible(true);
+                    getSudokuBoardPanel().setFocusable(false);
+                    soundClass.boardCompletedCorrectly(getSudokuBoard());
+                    getTimerClass().pauseThread();
+                    getMainFrame().add(getBoardCompletedJPanel().boardCompletedMessage());
+                    getBoardCompletedJPanel().setUserNameLabel();
+                    getMainFrame().getContentPane().getComponent(1).setVisible(false);
+                    //show cursor in user name text field automatically
+                    Component component = getMainFrame().getContentPane().getComponent(2);
+                    Component component1 = ((Container) component).getComponent(0);
+                    ((Container) component1).getComponent(1).requestFocusInWindow();
 
                 }
 
@@ -95,7 +105,6 @@ public class SudokuBoard {
                             timerClass.resumeThread();
                         }
 
-
                     }
                 }
 
@@ -106,9 +115,15 @@ public class SudokuBoard {
 
             }
         });
-        timerClass.setTimer();
+        if (!sudokuBoardAvailableDetector()) {
+        } else {
+            sudokuGenerator.displayBoard(buttonsTemplateCreator);
+            sudokuGeneratorThread = new Thread(new SudokuGeneratorThread(this));
+            sudokuGeneratorThread.start();
 
+        }
         return sudokuBoardPanel;
+
 
     }
 
@@ -273,6 +288,18 @@ public class SudokuBoard {
 
     public BoardCompletedJPanel getBoardCompletedJPanel() {
         return boardCompletedJPanel;
+    }
+
+    //method checks if there are any boards available to display. If not, board background gets disabled and generator thread starts
+    public boolean sudokuBoardAvailableDetector() {
+        if (sudokuGenerator.countBoards() == 0) {
+            disableBackground(0);
+            timerClass.pauseThread();
+            getSudokuBoardPanel().getComponent(4).setEnabled(false);
+            sudokuGeneratorThread.start();
+            return false;
+        }
+        return true;
     }
 
 }

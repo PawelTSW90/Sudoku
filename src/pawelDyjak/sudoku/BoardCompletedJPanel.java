@@ -1,28 +1,23 @@
 package pawelDyjak.sudoku;
-import pawelDyjak.sudoku.Components.HighScoresComponents;
 
 import javax.swing.*;
 import java.awt.*;
 
-
 public class BoardCompletedJPanel {
     private final SudokuBoard sudokuBoard;
     private final HighScoresCreator highScoresCreator;
-    HighScoresComponents highScoresComponents;
-    HighScoresJPanel highScoresJPanel;
     private final JPanel boardCompleted = new JPanel();
     private String playerName;
     private int playerPlace;
 
 
-    public BoardCompletedJPanel(SudokuBoard sudokuBoard, HighScoresCreator highScoresCreator, HighScoresJPanel highScoresJPanel, HighScoresComponents highScoresComponents) {
+    public BoardCompletedJPanel(SudokuBoard sudokuBoard, HighScoresCreator highScoresCreator) {
         this.sudokuBoard = sudokuBoard;
         this.highScoresCreator = highScoresCreator;
-        this.highScoresJPanel = highScoresJPanel;
-        this.highScoresComponents = highScoresComponents;
+
     }
 
-        //method draws board completed panel
+    //method draws board completed panel
     public JPanel boardCompletedMessage() {
         boardCompleted.setLayout(null);
         boardCompleted.setFocusable(true);
@@ -42,7 +37,6 @@ public class BoardCompletedJPanel {
 
         return this.boardCompleted;
     }
-
 
 
     //method display or hide user name entry field depends on player score

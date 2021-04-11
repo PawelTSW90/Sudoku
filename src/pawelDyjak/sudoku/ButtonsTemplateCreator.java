@@ -10,7 +10,6 @@ public class ButtonsTemplateCreator {
     final private List<ButtonCreator> boardButtonsTemplateList = new ArrayList<>();
     final private List<ButtonCreator> keypadButtonsTemplateList = new ArrayList<>();
     final private List<ButtonCreator> boardButtonsTemplateListForSudokuGenerator = new ArrayList<>();
-    final private List<ButtonCreator> keypadButtonsTemplateListForSudokuGenerator = new ArrayList<>();
     private String buttonValueHolder;
     private final SudokuBoard sudokuBoard;
 
@@ -20,8 +19,8 @@ public class ButtonsTemplateCreator {
 
 //method is creating template keypad buttons list and template board button list, each cell have button and position assigned
 
-    //creating keypad buttons
-    public void createBoardTemplate(List<Button> buttonList, List<Button> keypadButtons, List<Button> buttonListForGenerator, List<Button> keypadListForGenerator) {
+    //creating board buttons and keypad buttons lists
+    public void createBoardTemplate(List<Button> buttonList, List<Button> keypadButtons, List<Button> buttonListForGenerator) {
         ButtonInteract buttonInteract = sudokuBoard.getButtonInteract();
         List<ButtonCreator> boardButtonCreatorList = new ArrayList<>();
         List<ButtonCreator> boardButtonCreatorListForGenerator = new ArrayList<>();
@@ -44,14 +43,14 @@ public class ButtonsTemplateCreator {
             ButtonCreator creator = keypadButtonCreatorList.get(y);
             creator.setButton(keypadButtons.get(y));
             creator.getButton().addActionListener(buttonInteract);
-            creator.getButton().addKeyListener(new ButtonsKeyListener(sudokuBoard,creator.getButton(), buttonInteract, this, sudokuBoard.getBoardChecker()));
+            creator.getButton().addKeyListener(new ButtonsKeyListener(sudokuBoard,creator.getButton(), buttonInteract, sudokuBoard.getBoardChecker()));
 
                 keypadButtonsTemplateList.add(creator);
 
 
         }
 
-        //creating template board buttons
+        //creating object holders for board buttons and for sudoku generator buttons
 
         for (int x = 0; x < 9; x++) {
             ButtonCreator creator = boardButtonCreatorList.get(x);
@@ -62,8 +61,8 @@ public class ButtonsTemplateCreator {
             creatorForGenerator.setButton(buttonListForGenerator.get(x));
             creator.getButton().addActionListener(buttonInteract);
             creatorForGenerator.getButton().addActionListener(buttonInteract);
-            creator.getButton().addKeyListener(new ButtonsKeyListener(sudokuBoard,creator.getButton(), buttonInteract, this, sudokuBoard.getBoardChecker()));
-            creatorForGenerator.getButton().addKeyListener(new ButtonsKeyListener(sudokuBoard,creator.getButton(), buttonInteract, this, sudokuBoard.getBoardChecker()));
+            creator.getButton().addKeyListener(new ButtonsKeyListener(sudokuBoard,creator.getButton(), buttonInteract, sudokuBoard.getBoardChecker()));
+            creatorForGenerator.getButton().addKeyListener(new ButtonsKeyListener(sudokuBoard,creator.getButton(), buttonInteract, sudokuBoard.getBoardChecker()));
             creator.setSquare(1);
             creatorForGenerator.setSquare(1);
             if (columnNumber == 4) {
@@ -94,8 +93,8 @@ public class ButtonsTemplateCreator {
             creatorForGenerator.setButton(buttonListForGenerator.get(x));
             creator.getButton().addActionListener(buttonInteract);
             creatorForGenerator.getButton().addActionListener(buttonInteract);
-            creator.getButton().addKeyListener(new ButtonsKeyListener(sudokuBoard,creator.getButton(), buttonInteract, this, sudokuBoard.getBoardChecker()));
-            creatorForGenerator.getButton().addKeyListener(new ButtonsKeyListener(sudokuBoard,creator.getButton(), buttonInteract, this, sudokuBoard.getBoardChecker()));
+            creator.getButton().addKeyListener(new ButtonsKeyListener(sudokuBoard,creator.getButton(), buttonInteract, sudokuBoard.getBoardChecker()));
+            creatorForGenerator.getButton().addKeyListener(new ButtonsKeyListener(sudokuBoard,creator.getButton(), buttonInteract, sudokuBoard.getBoardChecker()));
             creator.setSquare(2);
             creatorForGenerator.setSquare(2);
             if (columnNumber == 7) {
@@ -128,8 +127,8 @@ public class ButtonsTemplateCreator {
             creatorForGenerator.setButton(buttonListForGenerator.get(x));
             creator.getButton().addActionListener(buttonInteract);
             creatorForGenerator.getButton().addActionListener(buttonInteract);
-            creator.getButton().addKeyListener(new ButtonsKeyListener(sudokuBoard,creator.getButton(), buttonInteract, this, sudokuBoard.getBoardChecker()));
-            creatorForGenerator.getButton().addKeyListener(new ButtonsKeyListener(sudokuBoard,creator.getButton(), buttonInteract, this, sudokuBoard.getBoardChecker()));
+            creator.getButton().addKeyListener(new ButtonsKeyListener(sudokuBoard,creator.getButton(), buttonInteract, sudokuBoard.getBoardChecker()));
+            creatorForGenerator.getButton().addKeyListener(new ButtonsKeyListener(sudokuBoard,creator.getButton(), buttonInteract, sudokuBoard.getBoardChecker()));
             creator.setSquare(3);
             creatorForGenerator.setSquare(3);
             if (columnNumber == 10) {
@@ -161,8 +160,8 @@ public class ButtonsTemplateCreator {
             creatorForGenerator.setButton(buttonListForGenerator.get(x));
             creator.getButton().addActionListener(buttonInteract);
             creatorForGenerator.getButton().addActionListener(buttonInteract);
-            creator.getButton().addKeyListener(new ButtonsKeyListener(sudokuBoard,creator.getButton(), buttonInteract, this, sudokuBoard.getBoardChecker()));
-            creatorForGenerator.getButton().addKeyListener(new ButtonsKeyListener(sudokuBoard,creator.getButton(), buttonInteract, this, sudokuBoard.getBoardChecker()));
+            creator.getButton().addKeyListener(new ButtonsKeyListener(sudokuBoard,creator.getButton(), buttonInteract, sudokuBoard.getBoardChecker()));
+            creatorForGenerator.getButton().addKeyListener(new ButtonsKeyListener(sudokuBoard,creator.getButton(), buttonInteract, sudokuBoard.getBoardChecker()));
             creator.setSquare(4);
             creatorForGenerator.setSquare(4);
             if (columnNumber == 4) {
@@ -192,8 +191,8 @@ public class ButtonsTemplateCreator {
             creatorForGenerator.setButton(buttonListForGenerator.get(x));
             creator.getButton().addActionListener(buttonInteract);
             creatorForGenerator.getButton().addActionListener(buttonInteract);
-            creator.getButton().addKeyListener(new ButtonsKeyListener(sudokuBoard,creator.getButton(), buttonInteract, this, sudokuBoard.getBoardChecker()));
-            creatorForGenerator.getButton().addKeyListener(new ButtonsKeyListener(sudokuBoard,creator.getButton(), buttonInteract, this, sudokuBoard.getBoardChecker()));
+            creator.getButton().addKeyListener(new ButtonsKeyListener(sudokuBoard,creator.getButton(), buttonInteract, sudokuBoard.getBoardChecker()));
+            creatorForGenerator.getButton().addKeyListener(new ButtonsKeyListener(sudokuBoard,creator.getButton(), buttonInteract,  sudokuBoard.getBoardChecker()));
             creator.setSquare(5);
             creatorForGenerator.setSquare(5);
             if (columnNumber == 7) {
@@ -208,7 +207,7 @@ public class ButtonsTemplateCreator {
                 rowNumber = 6;
             }
             creator.setRow(rowNumber);
-            creator.setRow(rowNumber);
+            creatorForGenerator.setRow(rowNumber);
             boardButtonsTemplateList.add(creator);
             boardButtonsTemplateListForSudokuGenerator.add(creatorForGenerator);
         }
@@ -223,8 +222,8 @@ public class ButtonsTemplateCreator {
             creatorForGenerator.setButton(buttonListForGenerator.get(x));
             creator.getButton().addActionListener(buttonInteract);
             creatorForGenerator.getButton().addActionListener(buttonInteract);
-            creator.getButton().addKeyListener(new ButtonsKeyListener(sudokuBoard,creator.getButton(), buttonInteract, this, sudokuBoard.getBoardChecker()));
-            creatorForGenerator.getButton().addKeyListener(new ButtonsKeyListener(sudokuBoard,creator.getButton(), buttonInteract, this, sudokuBoard.getBoardChecker()));
+            creator.getButton().addKeyListener(new ButtonsKeyListener(sudokuBoard,creator.getButton(), buttonInteract, sudokuBoard.getBoardChecker()));
+            creatorForGenerator.getButton().addKeyListener(new ButtonsKeyListener(sudokuBoard,creator.getButton(), buttonInteract, sudokuBoard.getBoardChecker()));
             creator.setSquare(6);
             creatorForGenerator.setSquare(6);
             if (columnNumber == 10) {
@@ -255,8 +254,8 @@ public class ButtonsTemplateCreator {
             creatorForGenerator.setButton(buttonListForGenerator.get(x));
             creator.getButton().addActionListener(buttonInteract);
             creatorForGenerator.getButton().addActionListener(buttonInteract);
-            creator.getButton().addKeyListener(new ButtonsKeyListener(sudokuBoard,creator.getButton(), buttonInteract, this, sudokuBoard.getBoardChecker()));
-            creatorForGenerator.getButton().addKeyListener(new ButtonsKeyListener(sudokuBoard,creator.getButton(), buttonInteract, this, sudokuBoard.getBoardChecker()));
+            creator.getButton().addKeyListener(new ButtonsKeyListener(sudokuBoard,creator.getButton(), buttonInteract, sudokuBoard.getBoardChecker()));
+            creatorForGenerator.getButton().addKeyListener(new ButtonsKeyListener(sudokuBoard,creator.getButton(), buttonInteract,  sudokuBoard.getBoardChecker()));
             creator.setSquare(7);
             creatorForGenerator.setSquare(7);
             if (columnNumber == 4) {
@@ -286,8 +285,8 @@ public class ButtonsTemplateCreator {
             creatorForGenerator.setButton(buttonListForGenerator.get(x));
             creator.getButton().addActionListener(buttonInteract);
             creatorForGenerator.getButton().addActionListener(buttonInteract);
-            creator.getButton().addKeyListener(new ButtonsKeyListener(sudokuBoard,creator.getButton(), buttonInteract, this, sudokuBoard.getBoardChecker()));
-            creatorForGenerator.getButton().addKeyListener(new ButtonsKeyListener(sudokuBoard,creator.getButton(), buttonInteract, this, sudokuBoard.getBoardChecker()));
+            creator.getButton().addKeyListener(new ButtonsKeyListener(sudokuBoard,creator.getButton(), buttonInteract,  sudokuBoard.getBoardChecker()));
+            creatorForGenerator.getButton().addKeyListener(new ButtonsKeyListener(sudokuBoard,creator.getButton(), buttonInteract,  sudokuBoard.getBoardChecker()));
             creator.setSquare(8);
             creatorForGenerator.setSquare(8);
             if (columnNumber == 7) {
@@ -317,8 +316,8 @@ public class ButtonsTemplateCreator {
             creatorForGenerator.setButton(buttonListForGenerator.get(x));
             creator.getButton().addActionListener(buttonInteract);
             creatorForGenerator.getButton().addActionListener(buttonInteract);
-            creator.getButton().addKeyListener(new ButtonsKeyListener(sudokuBoard,creator.getButton(), buttonInteract, this, sudokuBoard.getBoardChecker()));
-            creatorForGenerator.getButton().addKeyListener(new ButtonsKeyListener(sudokuBoard,creator.getButton(), buttonInteract, this, sudokuBoard.getBoardChecker()));
+            creator.getButton().addKeyListener(new ButtonsKeyListener(sudokuBoard,creator.getButton(), buttonInteract, sudokuBoard.getBoardChecker()));
+            creatorForGenerator.getButton().addKeyListener(new ButtonsKeyListener(sudokuBoard,creator.getButton(), buttonInteract, sudokuBoard.getBoardChecker()));
             creator.setSquare(9);
             creatorForGenerator.setSquare(9);
             if (columnNumber == 10) {
@@ -336,7 +335,9 @@ public class ButtonsTemplateCreator {
             creatorForGenerator.setRow(rowNumber);
             boardButtonsTemplateList.add(creator);
             boardButtonsTemplateListForSudokuGenerator.add(creatorForGenerator);
+
         }
+
     }
 
     public List<ButtonCreator> getBoardButtonsTemplateList() {
@@ -359,7 +360,4 @@ public class ButtonsTemplateCreator {
         return boardButtonsTemplateListForSudokuGenerator;
     }
 
-    public List<ButtonCreator> getKeypadButtonsTemplateListForSudokuGenerator() {
-        return keypadButtonsTemplateListForSudokuGenerator;
-    }
 }

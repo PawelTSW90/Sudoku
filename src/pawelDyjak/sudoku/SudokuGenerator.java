@@ -6,15 +6,13 @@ import java.util.*;
 import java.util.List;
 
 public class SudokuGenerator {
-    char[] boardStartValues = new char[81];
-    char[] fullBoardValues = new char[81];
-    BoardCreator boardCreator;
-    BoardChecker boardChecker;
-    EncryptionClass encryptionClass;
+    private final char[] boardStartValues = new char[81];
+    private final char[] fullBoardValues = new char[81];
+    private final BoardCreator boardCreator;
+    private final EncryptionClass encryptionClass;
 
-    public SudokuGenerator(BoardCreator boardCreator, BoardChecker boardChecker, EncryptionClass encryptionClass) {
+    public SudokuGenerator(BoardCreator boardCreator, EncryptionClass encryptionClass) {
         this.boardCreator = boardCreator;
-        this.boardChecker = boardChecker;
         this.encryptionClass = encryptionClass;
 
 
@@ -43,9 +41,10 @@ public class SudokuGenerator {
             }
 
             if (boardCreator.checkBoard()) {
+
                 if (!boardCreator.multipleSolvingChecker()) {
                     boardCreated = true;
-                    System.out.println("Board Created!");
+
 
                 }
 
@@ -63,33 +62,10 @@ public class SudokuGenerator {
 
     }
 
-    //method saves generated sudoku board to file
+    //method saves generated sudoku board to string
     public void generateBoardsToFile(ButtonsTemplateCreator buttonsTemplateCreator) {
         StringBuilder tmpContainer = new StringBuilder();
         String boardsContainer;
-        try {
-
-            BufferedWriter writer = new BufferedWriter(new FileWriter("board_lists_template.brd", true));
-            for (int x = 0; x < buttonsTemplateCreator.getBoardButtonsTemplateListForSudokuGenerator().size(); x++) {
-                if (buttonsTemplateCreator.getBoardButtonsTemplateListForSudokuGenerator().get(x).getButton().getName().contains("N")) {
-                    writer.write(buttonsTemplateCreator.getBoardButtonsTemplateListForSudokuGenerator().get(x).getValue());
-                } else {
-                    writer.write("0");
-
-                }
-            }
-            writer.write("*");
-            for (int x = 0; x < boardCreator.getCreatedBoardSolution().length; x++) {
-                writer.write(boardCreator.getCreatedBoardSolution()[x]);
-
-            }
-            writer.write("\r\n");
-            writer.close();
-
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
 
         for (int x = 0; x < buttonsTemplateCreator.getBoardButtonsTemplateListForSudokuGenerator().size(); x++) {
             if (buttonsTemplateCreator.getBoardButtonsTemplateListForSudokuGenerator().get(x).getButton().getName().contains("N")) {
@@ -112,15 +88,12 @@ public class SudokuGenerator {
 
     }
 
-    //method encrypt sudoku board to file
+    //method encrypt sudoku board from string to file
     public void encryptBoardToFile(String boardToEncrypt) {
         try {
             BufferedWriter writer = new BufferedWriter(new FileWriter("encrypted_list.brd", true));
             writer.write(Objects.requireNonNull(encryptionClass.encrypt("123", boardToEncrypt)));
             writer.newLine();
-            writer.close();
-            writer = new BufferedWriter(new FileWriter("board_lists_template.brd"));
-            writer.write("");
             writer.close();
         } catch (IOException e) {
             e.printStackTrace();
@@ -129,7 +102,7 @@ public class SudokuGenerator {
     }
 
 
-    //method returns random board and prepare it for decryption
+    //method picks random board from file and change it to string
     public String pickBoardToDecryptAndDisplay() {
         Random random = new Random();
         String boardToDisplay = null;
@@ -151,7 +124,6 @@ public class SudokuGenerator {
 
                 }
 
-
             }
             BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter("encrypted_list.brd"));
             bufferedWriter.write(boardAfterDelete.toString());
@@ -163,14 +135,15 @@ public class SudokuGenerator {
 
         return boardToDisplay;
     }
-        //method decrypts random board and prepare it for display
+
+    //method decrypts board from string
     public String decryptBoardForDisplay(String boardToDecrypt) {
         String decryptedBoard;
         decryptedBoard = encryptionClass.decrypt("123", boardToDecrypt);
         return decryptedBoard;
     }
 
-    //method displays random board
+    //method displays board from string
     public void displayBoard(ButtonsTemplateCreator buttonsTemplateCreator) {
 
         String boardValues = decryptBoardForDisplay(pickBoardToDecryptAndDisplay());
@@ -215,7 +188,8 @@ public class SudokuGenerator {
         }
 
     }
-        //method returns number of random boards ready to display
+
+    //method returns number of random boards ready to display
     public int countBoards() {
         int lines = 0;
         try {

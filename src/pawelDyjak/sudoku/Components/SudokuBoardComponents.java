@@ -7,7 +7,7 @@ import java.awt.*;
 import java.awt.event.MouseEvent;
 
 public class SudokuBoardComponents {
-   private final SudokuBoard sudokuBoard;
+    private final SudokuBoard sudokuBoard;
 
     public SudokuBoardComponents(SudokuBoard sudokuBoard) {
         this.sudokuBoard = sudokuBoard;
@@ -289,7 +289,7 @@ public class SudokuBoardComponents {
         return question;
     }
 
-    //method draws sudoku board panel for sudoku board
+    //method draws sudoku board panel for sudoku board and creates sudoku board buttons
     public JPanel drawSudokuBoard() {
 
         JPanel mainPanel = new JPanel();
@@ -307,10 +307,9 @@ public class SudokuBoardComponents {
             mainPanel.add(panel);
         }
 
-        // create buttons template
+        // create buttons template for sudoku board and buttons with buttons template  for sudoku generator
         sudokuBoard.getButtonCreator().createBoardButtonsForGenerator();
-        sudokuBoard.getButtonCreator().createKeypadButtonsForGenerator();
-        sudokuBoard.getButtonsTemplateCreator().createBoardTemplate(sudokuBoard.getButtonCreator().getBoardButtons(), sudokuBoard.getButtonCreator().getKeypadButtons(), sudokuBoard.getButtonCreator().getBoardButtonsForGenerator(), sudokuBoard.getButtonCreator().getKeypadButtonsForGenerator());
+        sudokuBoard.getButtonsTemplateCreator().createBoardTemplate(sudokuBoard.getButtonCreator().getBoardButtons(), sudokuBoard.getButtonCreator().getKeypadButtons(), sudokuBoard.getButtonCreator().getBoardButtonsForGenerator());
 
         return mainPanel;
     }
@@ -336,5 +335,14 @@ public class SudokuBoardComponents {
 
         return backgroundLabel;
 
+    }
+
+    //method draws "generating label" label for main menu
+    public JLabel generatingBoardLabel() {
+        JLabel generatingBoard = new JLabel("Board generating in progress...");
+        generatingBoard.setVisible(false);
+        generatingBoard.setFont(new Font(null, Font.PLAIN, 30));
+        generatingBoard.setBounds(UtilityClass.getScreenWidth() - UtilityClass.getScreenWidth() / 2 - 410 / 2, UtilityClass.getScreenHeight() - UtilityClass.getScreenHeight() / 4, 410, 500);
+        return generatingBoard;
     }
 }

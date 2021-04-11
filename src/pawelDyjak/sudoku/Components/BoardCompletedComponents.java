@@ -4,9 +4,7 @@ import pawelDyjak.sudoku.*;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-import java.awt.event.MouseEvent;
+import java.awt.event.*;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -16,12 +14,10 @@ import java.util.List;
 public class BoardCompletedComponents {
     private final SudokuBoard sudokuBoard;
     private final BoardCompletedJPanel boardCompletedJPanel;
-    HighScoresComponents highScoresComponents;
 
-    public BoardCompletedComponents(SudokuBoard sudokuBoard, BoardCompletedJPanel boardCompletedJPanel, HighScoresComponents highScoresComponents) {
+    public BoardCompletedComponents(SudokuBoard sudokuBoard, BoardCompletedJPanel boardCompletedJPanel) {
         this.sudokuBoard = sudokuBoard;
         this.boardCompletedJPanel = boardCompletedJPanel;
-        this.highScoresComponents = highScoresComponents;
     }
 
     //method draws exit button for board completed panel
@@ -109,20 +105,26 @@ public class BoardCompletedComponents {
             public void keyTyped(KeyEvent e) {
                 char key = e.getKeyChar();
                 int keyCode = e.getKeyCode();
+                if (!Character.isAlphabetic(key) && !Character.isDigit(key) && keyCode != 0) {
+                    e.consume();
+
+                }
+
                 //limit name entry to 15 characters
                 if (textField.getText().length() >= 15)
                     e.consume();
                 //only letters, space and digits allowed
 
-                if (!Character.isAlphabetic(key) && !Character.isDigit(key) && keyCode != 0) {
-                    e.consume();
-                }
+
+
+
 
             }
 
             @Override
             public void keyPressed(KeyEvent e) {
                 int key = e.getKeyCode();
+
                 //when enter is pressed, hide board completed components, display updated high scores board
                 if (key == 10) {
                     boardCompletedJPanel.setPlayerName(textField.getText());
@@ -163,7 +165,8 @@ public class BoardCompletedComponents {
         background.setIcon(new ImageIcon("./Visuals/sudoku-background.jpg"));
         return background;
     }
-        //method draws high score label for board completed panel
+
+    //method draws high score label for board completed panel
     public JLabel highScore() {
         int labelNr = 1;
         JLabel panel = new JLabel();
@@ -186,13 +189,15 @@ public class BoardCompletedComponents {
         }
         return panel;
     }
-        //method returns
+
+    //method returns
     public void setText(JLabel label, int line) {
         String text = lineReturn(line);
         text = text.replace("*", "");
         label.setText(text);
 
     }
+
     //method returns line on highScores board corresponding with players position
     public String lineReturn(int line) {
         String lineToChange = null;

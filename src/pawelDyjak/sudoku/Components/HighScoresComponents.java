@@ -1,6 +1,7 @@
 package pawelDyjak.sudoku.Components;
 
 import pawelDyjak.sudoku.*;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseEvent;
@@ -11,7 +12,7 @@ import java.nio.file.Paths;
 import java.util.List;
 
 public class HighScoresComponents {
-    MainMenu mainMenu;
+    private final MainMenu mainMenu;
 
     public HighScoresComponents(MainMenu mainMenu) {
         this.mainMenu = mainMenu;
@@ -39,7 +40,8 @@ public class HighScoresComponents {
         }
         return panel;
     }
-        //method draws back button for high score panel
+
+    //method draws back button for high score panel
     public JButton drawBackButton() {
         JButton back = new JButton("BACK");
         back.setFont(new Font(null, Font.PLAIN, 60));
@@ -70,14 +72,16 @@ public class HighScoresComponents {
         });
         return back;
     }
-        //method fills high scores board line with user name and time
+
+    //method fills high scores board line with user name and time
     public void setText(JLabel label, int line) {
         String text = lineReturn(line);
         text = text.replace("*", "");
         label.setText(text);
 
     }
-        //method returns line on high scores board corresponding with players position
+
+    //method returns line on high scores board corresponding with players position
     public String lineReturn(int line) {
         String lineToChange = null;
         Path path = Paths.get("C:\\Users\\Pawel\\Desktop\\Sudoku\\HighScores.brd");
@@ -92,7 +96,8 @@ public class HighScoresComponents {
 
 
     }
-        //method draws background label for high scores panel
+
+    //method draws background label for high scores panel
     public JLabel drawBackground() {
 
         JLabel backgroundLabel = new JLabel();
@@ -103,7 +108,8 @@ public class HighScoresComponents {
         return backgroundLabel;
 
     }
-        //method draws title label for high scores panel
+
+    //method draws title label for high scores panel
     public JLabel drawTitle() {
         JLabel title = new JLabel("HIGH SCORES");
         title.setFont(new Font(null, Font.PLAIN, 80));

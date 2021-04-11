@@ -14,21 +14,21 @@ public class ButtonCreator {
     private final List<Button> boardButtons = new ArrayList<>();
     private final List<Button> keypadButtons = new ArrayList<>();
     private final List<Button> boardButtonsForGenerator = new ArrayList<>();
-    private final List<Button> keypadButtonsForGenerator = new ArrayList<>();
 
 
-        //method is creating boardButtons
-    public Button createBoardButtons(){
+    //method created boardButtons
+    public Button createBoardButtons() {
         Button button = new Button();
         button.setFont(new Font(null, Font.ITALIC, 30));
         button.setFocusable(false);
         boardButtons.add(button);
         return button;
     }
-        //method is creating keypadButtons
-    public Button createKeypadButtons(){
+
+    //method creates keypadButtons
+    public Button createKeypadButtons() {
         Button button = new Button(String.valueOf(keypadButtonNumber));
-        button.setBackground(new Color(245,232,211));
+        button.setBackground(new Color(245, 232, 211));
         button.setFocusable(false);
         button.setName("Keypad");
         button.setFont(new Font(null, Font.ITALIC, 30));
@@ -37,8 +37,9 @@ public class ButtonCreator {
         return button;
     }
 
-    public void createBoardButtonsForGenerator(){
-        for(int x = 0; x<81; x++) {
+    //method created board buttons for sudoku generator
+    public void createBoardButtonsForGenerator() {
+        for (int x = 0; x < 81; x++) {
             Button button = new Button();
             button.setFont(new Font(null, Font.ITALIC, 30));
             button.setFocusable(false);
@@ -46,23 +47,6 @@ public class ButtonCreator {
         }
 
     }
-    //method is creating keypadButtons
-    public void createKeypadButtonsForGenerator(){
-        for(int x = 0; x<9; x++) {
-            Button button = new Button(String.valueOf(keypadButtonNumber));
-            button.setBackground(new Color(245, 232, 211));
-            button.setFocusable(false);
-            button.setName("Keypad");
-            button.setFont(new Font(null, Font.ITALIC, 30));
-            keypadButtonsForGenerator.add(button);
-            keypadButtonNumber++;
-        }
-
-    }
-
-
-
-
 
     public int getSquare() {
         return square;
@@ -116,7 +100,5 @@ public class ButtonCreator {
         return boardButtonsForGenerator;
     }
 
-    public List<Button> getKeypadButtonsForGenerator() {
-        return keypadButtonsForGenerator;
-    }
+
 }

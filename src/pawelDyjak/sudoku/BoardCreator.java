@@ -4,7 +4,7 @@ package pawelDyjak.sudoku;
 public class BoardCreator {
     private final ButtonsTemplateCreator buttonsTemplateCreator;
     private char[] createdBoardSolution = new char[81];
-    char[] currentBoardSolution = new char[81];
+    private char[] currentBoardSolution = new char[81];
 
     public BoardCreator(ButtonsTemplateCreator buttonsTemplateCreator) {
         this.buttonsTemplateCreator = buttonsTemplateCreator;
@@ -213,29 +213,29 @@ public class BoardCreator {
         boolean numberAllowed = true;
 
 
-
-            for (int x = 0; x < 81; x++) {
-                int square = buttonsTemplateCreator.getBoardButtonsTemplateListForSudokuGenerator().get(buttonIndex).getSquare();
-                int column = buttonsTemplateCreator.getBoardButtonsTemplateListForSudokuGenerator().get(buttonIndex).getColumn();
-                int row = buttonsTemplateCreator.getBoardButtonsTemplateListForSudokuGenerator().get(buttonIndex).getRow();
-                if (buttonsTemplateCreator.getBoardButtonsTemplateListForSudokuGenerator().get(x).getSquare() == square) {
-                    if (buttonsTemplateCreator.getBoardButtonsTemplateListForSudokuGenerator().get(x).getValue().equals(String.valueOf(value))) {
-                        numberAllowed = false;
-                    }
-                } else if (buttonsTemplateCreator.getBoardButtonsTemplateListForSudokuGenerator().get(x).getColumn() == column) {
-                    if (buttonsTemplateCreator.getBoardButtonsTemplateListForSudokuGenerator().get(x).getValue().equals(String.valueOf(value))) {
-                        numberAllowed = false;
-                    }
-                } else if (buttonsTemplateCreator.getBoardButtonsTemplateListForSudokuGenerator().get(x).getRow() == row) {
-                    if (buttonsTemplateCreator.getBoardButtonsTemplateListForSudokuGenerator().get(x).getValue().equals(String.valueOf(value))) {
-                        numberAllowed = false;
-                    }
+        for (int x = 0; x < 81; x++) {
+            int square = buttonsTemplateCreator.getBoardButtonsTemplateListForSudokuGenerator().get(buttonIndex).getSquare();
+            int column = buttonsTemplateCreator.getBoardButtonsTemplateListForSudokuGenerator().get(buttonIndex).getColumn();
+            int row = buttonsTemplateCreator.getBoardButtonsTemplateListForSudokuGenerator().get(buttonIndex).getRow();
+            if (buttonsTemplateCreator.getBoardButtonsTemplateListForSudokuGenerator().get(x).getSquare() == square) {
+                if (buttonsTemplateCreator.getBoardButtonsTemplateListForSudokuGenerator().get(x).getValue().equals(String.valueOf(value))) {
+                    numberAllowed = false;
+                }
+            } else if (buttonsTemplateCreator.getBoardButtonsTemplateListForSudokuGenerator().get(x).getColumn() == column) {
+                if (buttonsTemplateCreator.getBoardButtonsTemplateListForSudokuGenerator().get(x).getValue().equals(String.valueOf(value))) {
+                    numberAllowed = false;
+                }
+            } else if (buttonsTemplateCreator.getBoardButtonsTemplateListForSudokuGenerator().get(x).getRow() == row) {
+                if (buttonsTemplateCreator.getBoardButtonsTemplateListForSudokuGenerator().get(x).getValue().equals(String.valueOf(value))) {
+                    numberAllowed = false;
                 }
             }
+        }
 
         return numberAllowed;
     }
 
+    //methods saves solution of created board
     public void setUpBoardSolution() {
         char[] boardSolutionTmp = new char[81];
         String tmp;
@@ -248,15 +248,15 @@ public class BoardCreator {
 
     }
 
-    public char[] getCreatedBoardSolution(){
+    public char[] getCreatedBoardSolution() {
         return createdBoardSolution;
     }
 
-    public void setCurrentBoardSolution(char[] currentBoard){
+    public void setCurrentBoardSolution(char[] currentBoard) {
         currentBoardSolution = currentBoard;
     }
 
-    public char[] getCurrentBoardSolution(){
+    public char[] getCurrentBoardSolution() {
         return currentBoardSolution;
     }
 

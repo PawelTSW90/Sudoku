@@ -11,7 +11,6 @@ import static javax.swing.WindowConstants.EXIT_ON_CLOSE;
 public class MainMenu {
     private final MainMenuComponents mainMenuComponents = new MainMenuComponents(this);
     private final HighScoresComponents highScoresComponents = new HighScoresComponents(this);
-    private final HighScoresJPanel highScoresJPanel = new HighScoresJPanel(this, highScoresComponents);
     private final JPanel mainMenuPanel = new JPanel();
     private final JFrame mainMenuFrame = new JFrame();
 
@@ -60,7 +59,7 @@ public class MainMenu {
             while (mainMenuFrame.getContentPane().getComponents().length > 1)
                 mainMenuFrame.getContentPane().remove(mainMenuFrame.getContentPane().getComponents().length - 1);
         }
-        SudokuBoard sudokuBoard = new SudokuBoard(mainMenuFrame, highScoresJPanel, highScoresComponents);
+        SudokuBoard sudokuBoard = new SudokuBoard(mainMenuFrame);
         mainMenuFrame.add(sudokuBoard.createSudokuBoard());
         mainMenuFrame.getContentPane().getComponent(0).setVisible(false);
     }
@@ -69,7 +68,7 @@ public class MainMenu {
         return mainMenuFrame;
     }
 
-    public HighScoresComponents getHighScoresComponents(){
+    public HighScoresComponents getHighScoresComponents() {
         return highScoresComponents;
     }
 

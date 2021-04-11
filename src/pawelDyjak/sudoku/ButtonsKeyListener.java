@@ -5,18 +5,16 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 public class ButtonsKeyListener implements KeyListener {
-    Button button;
-    ButtonInteract interact;
-    ButtonsTemplateCreator creator;
-    SoundClass sound = new SoundClass();
-    BoardChecker boardChecker;
-    SudokuBoard sudokuBoard;
+    private final Button button;
+    private final ButtonInteract interact;
+    private final SoundClass sound = new SoundClass();
+    private final BoardChecker boardChecker;
+    private final SudokuBoard sudokuBoard;
 
 
-    ButtonsKeyListener(SudokuBoard sudokuBoard, Button button, ButtonInteract buttonInteract, ButtonsTemplateCreator buttonsTemplateCreator, BoardChecker boardChecker) {
+    ButtonsKeyListener(SudokuBoard sudokuBoard, Button button, ButtonInteract buttonInteract, BoardChecker boardChecker) {
         this.button = button;
         this.interact = buttonInteract;
-        this.creator = buttonsTemplateCreator;
         this.boardChecker = boardChecker;
         this.sudokuBoard = sudokuBoard;
 
