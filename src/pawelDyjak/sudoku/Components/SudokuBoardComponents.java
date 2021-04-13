@@ -112,7 +112,13 @@ public class SudokuBoardComponents {
         wrong.add(quit);
         wrong.setVisible(false);
         wrong.setFocusable(false);
-        quit.addActionListener(e -> System.exit(0));
+        quit.addActionListener(e -> {
+            quit.setFocusable(false);
+            sudokuBoard.getSoundClass().tick(sudokuBoard);
+            sudokuBoard.getMainFrame().getContentPane().getComponent(2).setVisible(false);
+            sudokuBoard.getMainFrame().getContentPane().getComponent(1).setVisible(true);
+            sudokuBoard.getMainFrame().getContentPane().getComponent(0).setVisible(true);
+        });
         goBack.addActionListener(e -> {
             sudokuBoard.getSudokuBoardPanel().getComponent(3).setVisible(true);
             sudokuBoard.getSudokuBoardPanel().setFocusable(true);
@@ -263,7 +269,8 @@ public class SudokuBoardComponents {
         quit.addActionListener(e -> {
             quit.setFocusable(false);
             sudokuBoard.getSoundClass().tick(sudokuBoard);
-            sudokuBoard.getMainFrame().getContentPane().getComponent(1).setVisible(false);
+            sudokuBoard.getMainFrame().getContentPane().getComponent(2).setVisible(false);
+            sudokuBoard.getMainFrame().getContentPane().getComponent(1).setVisible(true);
             sudokuBoard.getMainFrame().getContentPane().getComponent(0).setVisible(true);
         });
         goBack.addActionListener(e -> {

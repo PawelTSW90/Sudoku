@@ -24,8 +24,9 @@ class ErrorLabelThread extends Thread {
         } else if (mistakesNumber > 1) {
             if (sudokuBoard.getTimerClass().getHours() >= 99) {
                 text = mistakesNumber + " mistakes found! ";
-            } else
+            } else {
                 text = mistakesNumber + " mistakes found! " + mistakesNumber + " minutes added!";
+            }
         } else if (sudokuBoard.getTimerClass().getHours() >= 99) {
             text = mistakesNumber + " mistake found! ";
         } else {

@@ -52,7 +52,7 @@ public class TimerClass {
             minutes = 0;
             seconds = 0;
         }
-        if (hours == 99) {
+        if (hours >= 99) {
             pauseThread();
         }
     }

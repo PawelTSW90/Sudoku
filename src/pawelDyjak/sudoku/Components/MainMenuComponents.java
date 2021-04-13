@@ -18,8 +18,7 @@ public class MainMenuComponents {
     public JButton exitButton() {
         JButton exit = new JButton("EXIT");
         exit.addMouseListener(new MouseListenerClass(null));
-        exit.setFont(new Font(null, Font.PLAIN, 80));
-        exit.setBounds(UtilityClass.getScreenWidth() / 2 - 300 / 2, UtilityClass.getScreenHeight() / 2 + 300, 300, 115);
+        exit.setFont(new Font(null, Font.PLAIN, UtilityClass.getScreenHeight()/15));
         UtilityClass.buttonConfigure(exit);
         exit.addActionListener(e -> {
             new SoundClass().tick(null);
@@ -33,8 +32,7 @@ public class MainMenuComponents {
     public JButton highScoresButton() {
         JButton highScores = new JButton("HIGH SCORES");
         highScores.addMouseListener(new MouseListenerClass(null));
-        highScores.setFont(new Font(null, Font.PLAIN, 80));
-        highScores.setBounds(UtilityClass.getScreenWidth() / 2 - 600 / 2, UtilityClass.getScreenHeight() - UtilityClass.getScreenHeight() / 2 + 60, 600, 115);
+        highScores.setFont(new Font(null, Font.PLAIN, UtilityClass.getScreenHeight()/15));
         UtilityClass.buttonConfigure(highScores);
         highScores.addActionListener(e -> {
             new SoundClass().tick(null);
@@ -54,8 +52,7 @@ public class MainMenuComponents {
     public JButton startButton() {
         JButton start = new JButton("START");
         start.addMouseListener(new MouseListenerClass(null));
-        start.setFont(new Font(null, Font.PLAIN, 80));
-        start.setBounds(UtilityClass.getScreenWidth() / 2 - 300 / 2, UtilityClass.getScreenHeight() / 2 - 150, 300, 115);
+        start.setFont(new Font(null, Font.PLAIN, UtilityClass.getScreenHeight()/15));
         UtilityClass.buttonConfigure(start);
         start.addActionListener(e -> {
             new SoundClass().tick(null);
@@ -69,10 +66,17 @@ public class MainMenuComponents {
 
     //method draws title label for main menu
     public JLabel titleLabel() {
-        JLabel title = new JLabel();
-        title.setBounds(UtilityClass.getScreenWidth() / 2 - 451 / 2, UtilityClass.getScreenHeight() / 8, 451, 198);
-        title.setIcon(new ImageIcon("./Visuals/logo.png"));
+
+
+        JLabel title = new JLabel("SUDOKU");
+        title.setFont(new Font(null, Font.ITALIC, UtilityClass.getScreenHeight()/10));
+        title.setForeground(new Color(80,44,17));
+
         return title;
+
+
+
+
     }
 
     //method draws background label for main menu
@@ -85,9 +89,8 @@ public class MainMenuComponents {
 
     //method draws "created by" label for main menu
     public JLabel createdByLabel() {
-        JLabel createdBy = new JLabel();
-        createdBy.setBounds(UtilityClass.getScreenWidth() - UtilityClass.getScreenWidth() / 7, UtilityClass.getScreenHeight() - UtilityClass.getScreenHeight() / 6, 355, 93);
-        createdBy.setIcon(new ImageIcon("./Visuals/created_by.png"));
+        JLabel createdBy = new JLabel("Created by Pawel Dyjak", SwingConstants.RIGHT);
+        createdBy.setFont(new Font(null, Font.ITALIC, UtilityClass.getScreenHeight()/25));
         return createdBy;
     }
 

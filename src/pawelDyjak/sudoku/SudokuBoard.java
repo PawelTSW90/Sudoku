@@ -22,7 +22,6 @@ public class SudokuBoard {
     private final ButtonCreator buttonCreator = new ButtonCreator();
     private final SoundClass soundClass = new SoundClass();
     private final HighScoresCreator highScoresCreator = new HighScoresCreator();
-
     private TimerClass timerClass = new TimerClass(this);
     private final SudokuBoardComponents sudokuBoardComponents = new SudokuBoardComponents(this);
     private final ButtonsTemplateCreator buttonsTemplateCreator = new ButtonsTemplateCreator(this);
