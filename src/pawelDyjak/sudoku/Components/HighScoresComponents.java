@@ -52,8 +52,9 @@ public class HighScoresComponents {
         back.addActionListener(e -> {
             back.setFocusable(false);
             new SoundClass().tick(null);
-            mainMenu.getMainMenuFrame().getContentPane().getComponent(1).setVisible(false);
+            mainMenu.getMainMenuFrame().getContentPane().remove(mainMenu.getMainMenuFrame().getContentPane().getComponents().length-1);
             mainMenu.getMainMenuFrame().getContentPane().getComponent(0).setVisible(true);
+            mainMenu.getMainMenuFrame().getContentPane().getComponent(1).setVisible(true);
         });
         back.addMouseListener(new MouseListenerClass(null) {
             @Override

@@ -14,7 +14,7 @@ public class MainMenu {
     private final HighScoresComponents highScoresComponents = new HighScoresComponents(this);
     private final JPanel mainMenuPanel = new JPanel();
     private final JFrame mainMenuFrame = new JFrame();
-    JPanel tryPanel = new JPanel();
+
 
 
     public MainMenu() {
@@ -24,10 +24,7 @@ public class MainMenu {
     //method prepares main menu panel to display
     public void setMainMenuPanel() {
 
-        GridBagConstraints gbc = new GridBagConstraints();
-        GridBagConstraints gbc2 = new GridBagConstraints();
         mainMenuPanel.setLayout(new GridBagLayout());
-        //mainMenuPanel.add(Box.createHorizontalStrut(10));
         mainMenuPanel.setBounds(0, 0, UtilityClass.getScreenWidth(), UtilityClass.getScreenHeight());
         mainMenuPanel.addKeyListener(new KeyListenerClass() {
 
@@ -41,41 +38,19 @@ public class MainMenu {
             }
         });
 
-
-        //gbc.insets = new Insets(0, 20, UtilityClass.getScreenHeight() / 2 + UtilityClass.getScreenHeight() / 4, 20);
-        gbc.ipadx = 10;
-        gbc.gridx = 0;
-        gbc.gridy = 0;
-        gbc.weightx = 0.5;
-        gbc.weighty = 0.5;
-        mainMenuPanel.add(mainMenuComponents.titleLabel(), gbc);
-        gbc.gridx = 0;
-        gbc.gridy = 1;
-        mainMenuPanel.add(mainMenuComponents.startButton(),gbc);
-        gbc.gridx = 0;
-        gbc.gridy = 2;
-        mainMenuPanel.add(mainMenuComponents.highScoresButton(),gbc);
-        gbc.gridx = 0;
-        gbc.gridy = 3;
-        mainMenuPanel.add(mainMenuComponents.exitButton(),gbc);
-        gbc.gridx = 0;
-        gbc.gridy = 4;
-        gbc.insets = new Insets(0,UtilityClass.getScreenHeight()/2+UtilityClass.getScreenWidth()/4,0,0);
-        mainMenuPanel.add(mainMenuComponents.createdByLabel(),gbc);
         mainMenuPanel.setOpaque(false);
         mainMenuPanel.setFocusable(true);
-
+        configureAndAddMainMenuComponents();
         setMainMenuFrame();
     }
 
     //method prepares main frame
     public void setMainMenuFrame() {
-
-
-        tryPanel.setLayout(null);
-        tryPanel.add(mainMenuComponents.backgroundLabel());
+        JPanel backgroundPanel = new JPanel();
+        backgroundPanel.setLayout(null);
+        backgroundPanel.add(mainMenuComponents.backgroundLabel());
         mainMenuFrame.add(mainMenuPanel);
-        mainMenuFrame.add(tryPanel);
+        mainMenuFrame.add(backgroundPanel);
         mainMenuFrame.setDefaultCloseOperation(EXIT_ON_CLOSE);
         mainMenuFrame.setUndecorated(true);
         mainMenuFrame.setExtendedState(JFrame.MAXIMIZED_BOTH);
@@ -101,6 +76,30 @@ public class MainMenu {
 
     public HighScoresComponents getHighScoresComponents() {
         return highScoresComponents;
+    }
+
+    public void configureAndAddMainMenuComponents() {
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.ipadx = 10;
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        gbc.weightx = 0.5;
+        gbc.weighty = 0.5;
+        mainMenuPanel.add(mainMenuComponents.titleLabel(), gbc);
+        gbc.gridx = 0;
+        gbc.gridy = 1;
+        mainMenuPanel.add(mainMenuComponents.startButton(), gbc);
+        gbc.gridx = 0;
+        gbc.gridy = 2;
+        mainMenuPanel.add(mainMenuComponents.highScoresButton(), gbc);
+        gbc.gridx = 0;
+        gbc.gridy = 3;
+        mainMenuPanel.add(mainMenuComponents.exitButton(), gbc);
+        gbc.gridx = 0;
+        gbc.gridy = 4;
+        gbc.insets = new Insets(0, UtilityClass.getScreenHeight() / 2 + UtilityClass.getScreenWidth() / 4, 0, 0);
+        mainMenuPanel.add(mainMenuComponents.createdByLabel(), gbc);
+
     }
 
 }

@@ -36,12 +36,9 @@ public class MainMenuComponents {
         UtilityClass.buttonConfigure(highScores);
         highScores.addActionListener(e -> {
             new SoundClass().tick(null);
-            if (mainMenu.getMainMenuFrame().getContentPane().getComponents().length > 1) {
-                while (mainMenu.getMainMenuFrame().getContentPane().getComponents().length > 1)
-                    mainMenu.getMainMenuFrame().getContentPane().remove(mainMenu.getMainMenuFrame().getContentPane().getComponents().length - 1);
-            }
             mainMenu.getMainMenuFrame().add(new HighScoresJPanel(mainMenu, mainMenu.getHighScoresComponents()).drawHighScorePanel());
             mainMenu.getMainMenuFrame().getContentPane().getComponent(0).setVisible(false);
+            mainMenu.getMainMenuFrame().getContentPane().getComponent(1).setVisible(false);
 
         });
 

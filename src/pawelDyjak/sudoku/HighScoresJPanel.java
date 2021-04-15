@@ -7,11 +7,11 @@ import java.awt.event.KeyEvent;
 
 
 public class HighScoresJPanel {
-    private final MainMenu menu;
+    private final MainMenu mainMenu;
     private final HighScoresComponents highScoresComponents;
 
-    public HighScoresJPanel(MainMenu menu, HighScoresComponents highScoresComponents) {
-        this.menu = menu;
+    public HighScoresJPanel(MainMenu mainMenu, HighScoresComponents highScoresComponents) {
+        this.mainMenu = mainMenu;
         this.highScoresComponents = highScoresComponents;
     }
 
@@ -27,8 +27,10 @@ public class HighScoresJPanel {
                 int escape = 27;
                 if (code == escape) {
                     highScorePanel.setFocusable(false);
-                    menu.getMainMenuFrame().getContentPane().getComponent(1).setVisible(false);
-                    menu.getMainMenuFrame().getContentPane().getComponent(0).setVisible(true);
+                    mainMenu.getMainMenuFrame().getContentPane().remove(mainMenu.getMainMenuFrame().getContentPane().getComponents().length-1);
+                    mainMenu.getMainMenuFrame().getContentPane().getComponent(0).setVisible(true);
+                    mainMenu.getMainMenuFrame().getContentPane().getComponent(1).setVisible(true);
+
                 }
             }
         });
