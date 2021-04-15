@@ -189,7 +189,9 @@ public class ButtonInteract implements ActionListener {
     }
             //method erases selected button
     public void eraseButton() {
-        soundClass.erase(sudokuBoard);
+        if(!button.getLabel().equals("")) {
+            soundClass.erase(sudokuBoard);
+        }
         button.setLabel("");
         button.setBackground(null);
         button.setFocusable(false);

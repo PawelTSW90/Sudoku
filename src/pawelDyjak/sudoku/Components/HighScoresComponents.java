@@ -22,9 +22,8 @@ public class HighScoresComponents {
         int labelNr = 1;
         JLabel panel = new JLabel();
         GridLayout layout = new GridLayout(10, 0);
-        layout.setVgap(10);
         panel.setLayout(layout);
-        panel.setBounds(UtilityClass.getScreenWidth() / 2 - 600 / 2, 250, 800, 700);
+        panel.setBounds(UtilityClass.getScreenWidth() / 2 - UtilityClass.getScreenWidth() / 6, UtilityClass.getScreenHeight()/5, UtilityClass.getScreenWidth() / 2 - UtilityClass.getScreenWidth() / 6, UtilityClass.getScreenWidth() / 3 + UtilityClass.getScreenWidth() / 10);
         for (int x = 0; x < 10; x++) {
             JLabel label = new JLabel(labelNr + "..........");
             switch (labelNr) {
@@ -32,7 +31,7 @@ public class HighScoresComponents {
                 case 2 -> label.setForeground(new Color(169, 169, 169));
                 case 3 -> label.setForeground(new Color(102, 51, 0));
             }
-            label.setFont(new Font(null, Font.ITALIC, 50));
+            label.setFont(new Font(null, Font.ITALIC, UtilityClass.getScreenWidth() / 50));
             setText(label, labelNr - 1);
             panel.add(label);
             labelNr++;
@@ -44,15 +43,15 @@ public class HighScoresComponents {
     //method draws back button for high score panel
     public JButton drawBackButton() {
         JButton back = new JButton("BACK");
-        back.setFont(new Font(null, Font.PLAIN, 60));
+        back.setFont(new Font(null, Font.PLAIN, UtilityClass.getScreenWidth()/31));
         back.setContentAreaFilled(false);
         back.setFocusPainted(false);
         back.setBorderPainted(false);
-        back.setBounds(UtilityClass.getScreenWidth() / 2 + 700, UtilityClass.getScreenHeight() / 2 + 400, 200, 100);
+        back.setBounds(UtilityClass.getScreenWidth() / 2 + UtilityClass.getScreenWidth()/3, UtilityClass.getScreenHeight()/2 + UtilityClass.getScreenHeight()/3, UtilityClass.getScreenWidth()/7, UtilityClass.getScreenWidth()/28);
         back.addActionListener(e -> {
             back.setFocusable(false);
             new SoundClass().tick(null);
-            mainMenu.getMainMenuFrame().getContentPane().remove(mainMenu.getMainMenuFrame().getContentPane().getComponents().length-1);
+            mainMenu.getMainMenuFrame().getContentPane().remove(mainMenu.getMainMenuFrame().getContentPane().getComponents().length - 1);
             mainMenu.getMainMenuFrame().getContentPane().getComponent(0).setVisible(true);
             mainMenu.getMainMenuFrame().getContentPane().getComponent(1).setVisible(true);
         });
@@ -113,8 +112,12 @@ public class HighScoresComponents {
     //method draws title label for high scores panel
     public JLabel drawTitle() {
         JLabel title = new JLabel("HIGH SCORES");
-        title.setFont(new Font(null, Font.PLAIN, 80));
-        title.setBounds(UtilityClass.getScreenWidth() / 2 - 600 / 2, 50, 600, 115);
+        int titleWidth = UtilityClass.getScreenWidth() / 4 + UtilityClass.getScreenWidth() / 30;
+        int titleHeight = UtilityClass.getScreenWidth()/17;
+        int titleX = UtilityClass.getScreenWidth() / 2 - titleWidth/2;
+        int titleY = UtilityClass.getScreenWidth()/40;
+        title.setFont(new Font(null, Font.PLAIN, UtilityClass.getScreenWidth() / 25));
+        title.setBounds(titleX, titleY, titleWidth,titleHeight );
         return title;
     }
 }
