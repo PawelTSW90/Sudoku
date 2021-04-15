@@ -74,8 +74,9 @@ public class BoardCompletedComponents {
 
         mainMenu.addActionListener(e -> {
             sudokuBoard.getSoundClass().tick(sudokuBoard);
-            sudokuBoard.getMainFrame().getContentPane().getComponent(2).setVisible(false);
+            sudokuBoard.getMainFrame().getContentPane().getComponent(1).setVisible(true);
             sudokuBoard.getMainFrame().getContentPane().getComponent(0).setVisible(true);
+            sudokuBoard.getMainFrame().getContentPane().remove(3);
         });
 
         return mainMenu;
@@ -194,7 +195,7 @@ public class BoardCompletedComponents {
     //method returns line on highScores board corresponding with players position
     public String lineReturn(int line) {
         String lineToChange = null;
-        Path path = Paths.get("C:\\Users\\Pawel\\Desktop\\Sudoku\\high_scores.brd");
+        Path path = Paths.get("./high_scores.brd");
         try {
             List<String> lines = Files.readAllLines(path);
             lineToChange = lines.get(line);

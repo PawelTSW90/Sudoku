@@ -69,6 +69,7 @@ public class SudokuBoard {
                 int code = e.getKeyCode();
                 int escapeButton = 27;
 
+
                 //open menu
                 if (code == escapeButton) {
                     if (eraseOn) {
