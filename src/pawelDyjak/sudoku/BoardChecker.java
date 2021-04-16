@@ -89,7 +89,7 @@ public class BoardChecker {
         sudokuBoard.getMainFrame().getContentPane().getComponent(1).setVisible(false);
         sudokuBoard.getMainFrame().getContentPane().getComponent(0).setVisible(false);
         //show cursor in user name text field automatically
-        Component component = sudokuBoard.getMainFrame().getContentPane().getComponent(2);
+        Component component = sudokuBoard.getMainFrame().getContentPane().getComponent(3);
         Component component1 = ((Container) component).getComponent(0);
         ((Container) component1).getComponent(1).requestFocusInWindow();
         return true;

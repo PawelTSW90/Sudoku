@@ -64,7 +64,6 @@ public class MainMenuComponents {
     //method draws title label for main menu
     public JLabel titleLabel() {
 
-
         JLabel title = new JLabel("SUDOKU");
         title.setFont(new Font(null, Font.ITALIC, UtilityClass.getScreenHeight()/10));
         title.setForeground(new Color(80,44,17));
