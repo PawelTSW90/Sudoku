@@ -21,12 +21,8 @@ public class BoardCompletedJPanel {
     public JPanel boardCompletedMessage() {
         boardCompleted.setLayout(null);
         boardCompleted.setFocusable(true);
-        JLabel boardCompleted = new JLabel();
-        boardCompleted.setBounds(UtilityClass.getScreenWidth() / 2 - 550 / 2, UtilityClass.getScreenHeight() / 2 - 1100 / 2, 550, 150);
-        boardCompleted.setFont(new Font(null, Font.ITALIC, 80));
-        boardCompleted.setText("WELL DONE!!!");
         this.boardCompleted.add(sudokuBoard.getBoardCompletedComponents().drawTypeNamePanel());
-        this.boardCompleted.add(boardCompleted);
+        this.boardCompleted.add(sudokuBoard.getBoardCompletedComponents().drawTitleLabel());
         this.boardCompleted.add(sudokuBoard.getBoardCompletedComponents().drawTime());
         this.boardCompleted.add(sudokuBoard.getBoardCompletedComponents().highScore());
         this.boardCompleted.add(sudokuBoard.getBoardCompletedComponents().drawMainMenuButton());

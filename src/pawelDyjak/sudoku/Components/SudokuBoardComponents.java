@@ -90,8 +90,8 @@ public class SudokuBoardComponents {
         wrong.setBackground(new Color(245, 232, 211));
         wrong.setLayout(new GridLayout(4, 1));
         wrong.setBorder(BorderFactory.createEtchedBorder(Color.GRAY, Color.PINK));
-        wrong.setBounds(UtilityClass.getScreenWidth() / 2 - 500 / 2, UtilityClass.getScreenHeight() / 2 - 400 / 2, 500, 400);
-        JButton oops = new JButton("Oops! Something went wrong! Would you like to:");
+        wrong.setBounds(UtilityClass.getScreenWidth() / 2 - 600 / 2, UtilityClass.getScreenHeight() / 2 - 400 / 2, 600, 400);
+        JButton oops = new JButton("Oops! Something went wrong!");
         oops.setBorderPainted(false);
         JButton startOver = new JButton("Start over");
         JButton goBack = new JButton("Continue");
@@ -228,10 +228,6 @@ public class SudokuBoardComponents {
 
     //method draws timer label panel for sudoku board
     public JLabel drawTimerLabel() {
-
-        //x - 1560  y - 740
-
-
 
         JLabel timerLabel = new JLabel();
         timerLabel.setFont(new Font(null, Font.PLAIN, UtilityClass.getScreenHeight()/15));

@@ -1,7 +1,6 @@
 package pawelDyjak.sudoku.Components;
 
 import pawelDyjak.sudoku.*;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
@@ -25,8 +24,8 @@ public class BoardCompletedComponents {
         JButton exit = new JButton("EXIT");
         exit.setVisible(false);
         UtilityClass.buttonConfigure(exit);
-        exit.setFont(new Font(null, Font.PLAIN, 80));
-        exit.setBounds(UtilityClass.getScreenWidth() / 2 + 1000 / 2, UtilityClass.getScreenHeight() / 2 + (115 * 2), 220, 115);
+        exit.setFont(new Font(null, Font.PLAIN, UtilityClass.getScreenWidth()/25));
+        exit.setBounds(UtilityClass.getScreenWidth() / 2 + UtilityClass.getScreenWidth()/7, UtilityClass.getScreenWidth()/3+UtilityClass.getScreenWidth()/20, UtilityClass.getScreenWidth()/10+UtilityClass.getScreenWidth()/20, UtilityClass.getScreenWidth()/20);
         exit.addMouseListener(new MouseListenerClass(sudokuBoard) {
             @Override
             public void mouseEntered(MouseEvent e) {
@@ -51,13 +50,23 @@ public class BoardCompletedComponents {
 
     }
 
+    public JLabel drawTitleLabel() {
+        int titleLabelWidth = UtilityClass.getScreenWidth() / 3 - UtilityClass.getScreenWidth() / 22;
+        int titleLabelHeight = UtilityClass.getScreenWidth() / 18;
+        JLabel titleLabel = new JLabel();
+        titleLabel.setBounds(UtilityClass.getScreenWidth() / 2 - titleLabelWidth / 2, UtilityClass.getScreenWidth() / 70, titleLabelWidth, titleLabelHeight);
+        titleLabel.setFont(new Font(null, Font.ITALIC, UtilityClass.getScreenWidth()/25));
+        titleLabel.setText("WELL DONE!!!");
+        return titleLabel;
+    }
+
     //method draws main menu button for board completed panel
     public JButton drawMainMenuButton() {
         JButton mainMenu = new JButton("MAIN MENU");
         mainMenu.setVisible(false);
         UtilityClass.buttonConfigure(mainMenu);
-        mainMenu.setFont(new Font(null, Font.PLAIN, 80));
-        mainMenu.setBounds(UtilityClass.getScreenWidth() / 2 + 700 / 2, UtilityClass.getScreenHeight() / 2, 500, 115);
+        mainMenu.setFont(new Font(null, Font.PLAIN, UtilityClass.getScreenWidth()/25));
+        mainMenu.setBounds(UtilityClass.getScreenWidth() / 2 + UtilityClass.getScreenWidth()/10, UtilityClass.getScreenWidth()/4,UtilityClass.getScreenHeight()/2-UtilityClass.getScreenHeight()/16 , UtilityClass.getScreenWidth()/20);
         mainMenu.addMouseListener(new MouseListenerClass(sudokuBoard) {
             @Override
             public void mouseEntered(MouseEvent e) {
@@ -87,17 +96,20 @@ public class BoardCompletedComponents {
     public JPanel drawTypeNamePanel() {
         boardCompletedJPanel.setPlayerPlace(sudokuBoard.getHighScoresCreator().checkUserTime(sudokuBoard));
         JPanel namePanel = new JPanel();
+        int namePanelWidth = UtilityClass.getScreenWidth()/2-UtilityClass.getScreenWidth()/5;
+        int namePanelHeight = UtilityClass.getScreenWidth()/2-UtilityClass.getScreenWidth()/3;
         namePanel.setBorder(BorderFactory.createEtchedBorder(Color.GRAY, Color.PINK));
         namePanel.setVisible(false);
+        namePanel.setBorder(BorderFactory.createLineBorder(Color.black));
         namePanel.setLayout(new GridLayout(2, 0));
-        namePanel.setBounds(UtilityClass.getScreenWidth() / 2 - 600 / 2 + 600, UtilityClass.getScreenHeight() / 2 - 500 / 2, 600, 400);
+        namePanel.setBounds(UtilityClass.getScreenWidth() / 2 - UtilityClass.getScreenWidth()/20, UtilityClass.getScreenHeight() / 3 - UtilityClass.getScreenWidth()/30,namePanelWidth ,namePanelHeight);
         namePanel.setBackground(new Color(245, 232, 211));
         JLabel position = new JLabel("<html>Your result is " + boardCompletedJPanel.getPlayerPlace() + " on the list!<br/>Type your name!</html>");
-        position.setFont(new Font(null, Font.ITALIC, 50));
+        position.setFont(new Font(null, Font.ITALIC, UtilityClass.getScreenWidth()/45));
         namePanel.add(position);
         JTextField textField = new JTextField();
         textField.setBackground(new Color(245, 232, 211));
-        textField.setFont(new Font(null, Font.ITALIC, 50));
+        textField.setFont(new Font(null, Font.ITALIC, UtilityClass.getScreenWidth()/45));
         textField.setBorder(null);
         textField.requestFocusInWindow();
         namePanel.add(textField);
@@ -147,8 +159,10 @@ public class BoardCompletedComponents {
     //method draws time label for board completed panel
     public JLabel drawTime() {
         JLabel timeLabel = new JLabel("Total Time:" + "      " + sudokuBoard.getTimeCounter());
-        timeLabel.setBounds(UtilityClass.getScreenWidth() / 2 - 1000 / 2, UtilityClass.getScreenHeight() / 2 - 1100 / 2, 1000, 400);
-        timeLabel.setFont(new Font(null, Font.ITALIC, 80));
+        int timeLabelWidth = UtilityClass.getScreenWidth()/2-UtilityClass.getScreenWidth()/15;
+        int timeLabelHeight = UtilityClass.getScreenWidth()/14;
+        timeLabel.setBounds(UtilityClass.getScreenWidth() / 2 - timeLabelWidth / 2, UtilityClass.getScreenWidth()/16,timeLabelWidth , timeLabelHeight);
+        timeLabel.setFont(new Font(null, Font.ITALIC, UtilityClass.getScreenWidth()/25));
         return timeLabel;
     }
 
@@ -167,7 +181,8 @@ public class BoardCompletedComponents {
         GridLayout layout = new GridLayout(10, 0);
         layout.setVgap(10);
         panel.setLayout(layout);
-        panel.setBounds(UtilityClass.getScreenWidth() / 2 - 800 / 2, 300, 800, 700);
+        panel.setBounds(UtilityClass.getScreenWidth() / 2 - UtilityClass.getScreenWidth() / 3, UtilityClass.getScreenHeight() / 4, UtilityClass.getScreenWidth() / 2 - UtilityClass.getScreenWidth() / 6, UtilityClass.getScreenWidth() / 3);
+
         for (int x = 0; x < 10; x++) {
             JLabel label = new JLabel(labelNr + "..........");
             switch (labelNr) {
@@ -175,7 +190,7 @@ public class BoardCompletedComponents {
                 case 2 -> label.setForeground(new Color(169, 169, 169));
                 case 3 -> label.setForeground(new Color(102, 51, 0));
             }
-            label.setFont(new Font(null, Font.ITALIC, 50));
+            label.setFont(new Font(null, Font.ITALIC, UtilityClass.getScreenWidth() / 50));
             setText(label, labelNr - 1);
             panel.add(label);
             labelNr++;
