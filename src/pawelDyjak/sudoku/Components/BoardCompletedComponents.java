@@ -21,7 +21,7 @@ public class BoardCompletedComponents {
 
     //method draws exit button for board completed panel
     public JButton drawExitButton() {
-        JButton exit = new JButton("EXIT");
+        JButton exit = new JButton("Exit");
         exit.setVisible(false);
         UtilityClass.buttonConfigure(exit);
         exit.setFont(new Font(null, Font.PLAIN, UtilityClass.getScreenWidth()/25));
@@ -62,7 +62,7 @@ public class BoardCompletedComponents {
 
     //method draws main menu button for board completed panel
     public JButton drawMainMenuButton() {
-        JButton mainMenu = new JButton("MAIN MENU");
+        JButton mainMenu = new JButton("Main Menu");
         mainMenu.setVisible(false);
         UtilityClass.buttonConfigure(mainMenu);
         mainMenu.setFont(new Font(null, Font.PLAIN, UtilityClass.getScreenWidth()/25));
