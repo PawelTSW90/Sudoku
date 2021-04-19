@@ -69,19 +69,6 @@ public class SudokuBoard {
                 int code = e.getKeyCode();
                 int escapeButton = 27;
 
-                if(code ==81){
-                    soundClass.boardCompletedCorrectly(getSudokuBoard());
-                    getTimerClass().pauseThread();
-                    getMainFrame().add(getBoardCompletedJPanel().boardCompletedMessage());
-                    getBoardCompletedJPanel().setUserNameLabel();
-                    getMainFrame().getContentPane().getComponent(2).setVisible(false);
-                    getMainFrame().getContentPane().getComponent(1).setVisible(false);
-                    getMainFrame().getContentPane().getComponent(0).setVisible(false);
-                    //show cursor in user name text field automatically
-                    Component component = getMainFrame().getContentPane().getComponent(3);
-                    Component component1 = ((Container) component).getComponent(0);
-                    ((Container) component1).getComponent(1).requestFocusInWindow();
-                }
 
                 //open menu
                 if (code == escapeButton) {
