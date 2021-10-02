@@ -1,10 +1,13 @@
 package pawelDyjak.sudoku.Components;
 
 import pawelDyjak.sudoku.*;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.io.File;
 import java.io.IOException;
+import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -24,8 +27,8 @@ public class BoardCompletedComponents {
         JButton exit = new JButton("Exit");
         exit.setVisible(false);
         UtilityClass.buttonConfigure(exit);
-        exit.setFont(new Font(null, Font.PLAIN, UtilityClass.getScreenWidth()/25));
-        exit.setBounds(UtilityClass.getScreenWidth() / 2 + UtilityClass.getScreenWidth()/7, UtilityClass.getScreenWidth()/3+UtilityClass.getScreenWidth()/20, UtilityClass.getScreenWidth()/10+UtilityClass.getScreenWidth()/20, UtilityClass.getScreenWidth()/20);
+        exit.setFont(new Font(null, Font.PLAIN, UtilityClass.getScreenWidth() / 25));
+        exit.setBounds(UtilityClass.getScreenWidth() / 2 + UtilityClass.getScreenWidth() / 7, UtilityClass.getScreenWidth() / 3 + UtilityClass.getScreenWidth() / 20, UtilityClass.getScreenWidth() / 10 + UtilityClass.getScreenWidth() / 20, UtilityClass.getScreenWidth() / 20);
         exit.addMouseListener(new MouseListenerClass(sudokuBoard) {
             @Override
             public void mouseEntered(MouseEvent e) {
@@ -55,7 +58,7 @@ public class BoardCompletedComponents {
         int titleLabelHeight = UtilityClass.getScreenWidth() / 18;
         JLabel titleLabel = new JLabel();
         titleLabel.setBounds(UtilityClass.getScreenWidth() / 2 - titleLabelWidth / 2, UtilityClass.getScreenWidth() / 70, titleLabelWidth, titleLabelHeight);
-        titleLabel.setFont(new Font(null, Font.ITALIC, UtilityClass.getScreenWidth()/25));
+        titleLabel.setFont(new Font(null, Font.ITALIC, UtilityClass.getScreenWidth() / 25));
         titleLabel.setText("WELL DONE!!!");
         return titleLabel;
     }
@@ -65,8 +68,8 @@ public class BoardCompletedComponents {
         JButton mainMenu = new JButton("Main Menu");
         mainMenu.setVisible(false);
         UtilityClass.buttonConfigure(mainMenu);
-        mainMenu.setFont(new Font(null, Font.PLAIN, UtilityClass.getScreenWidth()/25));
-        mainMenu.setBounds(UtilityClass.getScreenWidth() / 2 + UtilityClass.getScreenWidth()/10, UtilityClass.getScreenWidth()/4,UtilityClass.getScreenHeight()/2-UtilityClass.getScreenHeight()/16 , UtilityClass.getScreenWidth()/20);
+        mainMenu.setFont(new Font(null, Font.PLAIN, UtilityClass.getScreenWidth() / 25));
+        mainMenu.setBounds(UtilityClass.getScreenWidth() / 2 + UtilityClass.getScreenWidth() / 10, UtilityClass.getScreenWidth() / 4, UtilityClass.getScreenHeight() / 2 - UtilityClass.getScreenHeight() / 16, UtilityClass.getScreenWidth() / 20);
         mainMenu.addMouseListener(new MouseListenerClass(sudokuBoard) {
             @Override
             public void mouseEntered(MouseEvent e) {
@@ -96,20 +99,20 @@ public class BoardCompletedComponents {
     public JPanel drawTypeNamePanel() {
         boardCompletedJPanel.setPlayerPlace(sudokuBoard.getHighScoresCreator().checkUserTime(sudokuBoard));
         JPanel namePanel = new JPanel();
-        int namePanelWidth = UtilityClass.getScreenWidth()/2-UtilityClass.getScreenWidth()/5;
-        int namePanelHeight = UtilityClass.getScreenWidth()/2-UtilityClass.getScreenWidth()/3;
+        int namePanelWidth = UtilityClass.getScreenWidth() / 2 - UtilityClass.getScreenWidth() / 5;
+        int namePanelHeight = UtilityClass.getScreenWidth() / 2 - UtilityClass.getScreenWidth() / 3;
         namePanel.setBorder(BorderFactory.createEtchedBorder(Color.GRAY, Color.PINK));
         namePanel.setVisible(false);
         namePanel.setBorder(BorderFactory.createLineBorder(Color.black));
         namePanel.setLayout(new GridLayout(2, 0));
-        namePanel.setBounds(UtilityClass.getScreenWidth() / 2 - UtilityClass.getScreenWidth()/20, UtilityClass.getScreenHeight() / 3 - UtilityClass.getScreenWidth()/30,namePanelWidth ,namePanelHeight);
+        namePanel.setBounds(UtilityClass.getScreenWidth() / 2 - UtilityClass.getScreenWidth() / 20, UtilityClass.getScreenHeight() / 3 - UtilityClass.getScreenWidth() / 30, namePanelWidth, namePanelHeight);
         namePanel.setBackground(new Color(245, 232, 211));
         JLabel position = new JLabel("<html>Your result is " + boardCompletedJPanel.getPlayerPlace() + " on the list!<br/>Type your name!</html>");
-        position.setFont(new Font(null, Font.ITALIC, UtilityClass.getScreenWidth()/45));
+        position.setFont(new Font(null, Font.ITALIC, UtilityClass.getScreenWidth() / 45));
         namePanel.add(position);
         JTextField textField = new JTextField();
         textField.setBackground(new Color(245, 232, 211));
-        textField.setFont(new Font(null, Font.ITALIC, UtilityClass.getScreenWidth()/45));
+        textField.setFont(new Font(null, Font.ITALIC, UtilityClass.getScreenWidth() / 45));
         textField.setBorder(null);
         textField.requestFocusInWindow();
         namePanel.add(textField);
@@ -159,10 +162,10 @@ public class BoardCompletedComponents {
     //method draws time label for board completed panel
     public JLabel drawTime() {
         JLabel timeLabel = new JLabel("Total Time:" + "      " + sudokuBoard.getTimeCounter());
-        int timeLabelWidth = UtilityClass.getScreenWidth()/2-UtilityClass.getScreenWidth()/15;
-        int timeLabelHeight = UtilityClass.getScreenWidth()/14;
-        timeLabel.setBounds(UtilityClass.getScreenWidth() / 2 - timeLabelWidth / 2, UtilityClass.getScreenWidth()/16,timeLabelWidth , timeLabelHeight);
-        timeLabel.setFont(new Font(null, Font.ITALIC, UtilityClass.getScreenWidth()/25));
+        int timeLabelWidth = UtilityClass.getScreenWidth() / 2 - UtilityClass.getScreenWidth() / 15;
+        int timeLabelHeight = UtilityClass.getScreenWidth() / 14;
+        timeLabel.setBounds(UtilityClass.getScreenWidth() / 2 - timeLabelWidth / 2, UtilityClass.getScreenWidth() / 16, timeLabelWidth, timeLabelHeight);
+        timeLabel.setFont(new Font(null, Font.ITALIC, UtilityClass.getScreenWidth() / 25));
         return timeLabel;
     }
 
@@ -170,7 +173,7 @@ public class BoardCompletedComponents {
     public JLabel drawBackground() {
         JLabel background = new JLabel();
         background.setBounds(0, 0, UtilityClass.getScreenWidth(), UtilityClass.getScreenHeight());
-        background.setIcon(new ImageIcon("./Visuals/sudoku-background.jpg"));
+        background.setIcon(new ImageIcon(getClass().getClassLoader().getResource("sudoku-background.jpg")));
         return background;
     }
 
@@ -209,8 +212,12 @@ public class BoardCompletedComponents {
 
     //method returns line on highScores board corresponding with players position
     public String lineReturn(int line) {
+        String pathString = MainMenu.class.getProtectionDomain().getCodeSource().getLocation().getPath();
+        pathString = pathString.substring(0, pathString.lastIndexOf("/") + 1);
+        pathString = pathString + "high_scores.brd";
+        pathString = pathString.substring(3);
+        Path path = Paths.get(pathString);
         String lineToChange = null;
-        Path path = Paths.get("./high_scores.brd");
         try {
             List<String> lines = Files.readAllLines(path);
             lineToChange = lines.get(line);

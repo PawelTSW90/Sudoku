@@ -90,8 +90,12 @@ public class SudokuGenerator {
 
     //method encrypt sudoku board from string to file
     public void encryptBoardToFile(String boardToEncrypt) {
+        String pathString = MainMenu.class.getProtectionDomain().getCodeSource().getLocation().getPath();
+        pathString = pathString.substring(0, pathString.lastIndexOf("/") + 1);
+        pathString = pathString + "encrypted_list.brd";
+        pathString = pathString.substring(3);
         try {
-            BufferedWriter writer = new BufferedWriter(new FileWriter("encrypted_list.brd", true));
+            BufferedWriter writer = new BufferedWriter(new FileWriter(pathString, true));
             writer.write(Objects.requireNonNull(encryptionClass.encrypt("123", boardToEncrypt)));
             writer.newLine();
             writer.close();
@@ -104,13 +108,17 @@ public class SudokuGenerator {
 
     //method picks random board from file and change it to string
     public String pickBoardToDecryptAndDisplay() {
+        String pathString = MainMenu.class.getProtectionDomain().getCodeSource().getLocation().getPath();
+        pathString = pathString.substring(0, pathString.lastIndexOf("/") + 1);
+        pathString = pathString + "encrypted_list.brd";
+        pathString = pathString.substring(3);
         Random random = new Random();
         String boardToDisplay = null;
         StringBuilder boardAfterDelete = new StringBuilder();
         int randomLine = random.nextInt(countBoards()) + 1;
         try {
 
-            Scanner scanner = new Scanner(new File("encrypted_list.brd"));
+            Scanner scanner = new Scanner(new File(pathString));
             for (int x = 1; x <= countBoards(); x++) {
 
 
@@ -125,14 +133,12 @@ public class SudokuGenerator {
                 }
 
             }
-            BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter("encrypted_list.brd"));
+            BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(pathString));
             bufferedWriter.write(boardAfterDelete.toString());
             bufferedWriter.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-
         return boardToDisplay;
     }
 
@@ -191,9 +197,13 @@ public class SudokuGenerator {
 
     //method returns number of random boards ready to display
     public int countBoards() {
+        String pathString = MainMenu.class.getProtectionDomain().getCodeSource().getLocation().getPath();
+        pathString = pathString.substring(0, pathString.lastIndexOf("/") + 1);
+        pathString = pathString + "encrypted_list.brd";
+        pathString = pathString.substring(3);
         int lines = 0;
         try {
-            BufferedReader bufferedReader = new BufferedReader(new FileReader("encrypted_list.brd"));
+            BufferedReader bufferedReader = new BufferedReader(new FileReader(pathString));
 
             while (bufferedReader.readLine() != null) {
                 lines++;

@@ -4,7 +4,6 @@ import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
-import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
 
@@ -12,7 +11,10 @@ public class HighScoresCreator {
 
     //method prepares HighScores list to enter new result
     public StringBuilder updateResult(int position) {
-        Path path = Paths.get("./high_scores.brd");
+        String pathString = MainMenu.class.getProtectionDomain().getCodeSource().getLocation().getPath();
+        pathString = pathString.substring(0, pathString.lastIndexOf("/") + 1);
+        pathString = pathString + "high_scores.brd";
+        pathString = pathString.substring(3);
         String lineValue;
         StringBuilder[] scoreTableArray = new StringBuilder[10];
         StringBuilder scoreTable = new StringBuilder();
@@ -20,7 +22,7 @@ public class HighScoresCreator {
             scoreTableArray[x] = new StringBuilder();
         }
         try {
-            List<String> lines = Files.readAllLines(path);
+            List<String> lines = Files.readAllLines(Paths.get(pathString));
             if (position <= 9) {
 
                 for (int x = 9; x >= position - 1; x--) {
@@ -108,7 +110,11 @@ public class HighScoresCreator {
                 }
             }
             scoreList.replace(positionForEntryStart, positionForEntryEnd - 1, name + "  " + "*" + time);
-            BufferedWriter writer = new BufferedWriter(new FileWriter("high_scores.brd", false));
+            String pathString = MainMenu.class.getProtectionDomain().getCodeSource().getLocation().getPath();
+            pathString = pathString.substring(0, pathString.lastIndexOf("/") + 1);
+            pathString = pathString + "high_scores.brd";
+            pathString = pathString.substring(3);
+            BufferedWriter writer = new BufferedWriter(new FileWriter(pathString, false));
             writer.write(scoreList.toString());
             writer.close();
 
@@ -119,6 +125,10 @@ public class HighScoresCreator {
 
     //method compares player time with other results, and returns player position
     public int checkUserTime(SudokuBoard sudokuBoard) {
+        String pathString = MainMenu.class.getProtectionDomain().getCodeSource().getLocation().getPath();
+        pathString = pathString.substring(0, pathString.lastIndexOf("/") + 1);
+        pathString = pathString + "high_scores.brd";
+        pathString = pathString.substring(3);
         StringBuilder highScoresString = new StringBuilder();
         StringBuilder singleHighScoresTime;
         String userTime = sudokuBoard.getTimeCounter().toString();
@@ -127,9 +137,8 @@ public class HighScoresCreator {
         int place = 0;
         int scoreIndexStart;
         int resultPlace = 11;
-        Path path = Paths.get("./high_scores.brd");
         try {
-            List<String> lines = Files.readAllLines(path);
+            List<String> lines = Files.readAllLines(Paths.get(pathString));
             for (String line : lines) {
                 highScoresString.append(line);
                 highScoresString.append("\n");
@@ -165,7 +174,6 @@ public class HighScoresCreator {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
         return resultPlace;
     }
 

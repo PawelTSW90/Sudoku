@@ -5,7 +5,12 @@ import pawelDyjak.sudoku.*;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseEvent;
+import java.io.File;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.net.URLDecoder;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -16,6 +21,7 @@ public class HighScoresComponents {
 
     public HighScoresComponents(MainMenu mainMenu) {
         this.mainMenu = mainMenu;
+
     }
 
     public JLabel highScore() {
@@ -83,16 +89,20 @@ public class HighScoresComponents {
 
     //method returns line on high scores board corresponding with players position
     public String lineReturn(int line) {
-        String lineToChange = null;
-        Path path = Paths.get("./high_scores.brd");
-        try {
-            List<String> lines = Files.readAllLines(path);
-            lineToChange = lines.get(line);
+        String linesToChange = null;
 
+        try {
+            String pathString = MainMenu.class.getProtectionDomain().getCodeSource().getLocation().getPath();
+            pathString = pathString.substring(0, pathString.lastIndexOf("/") + 1);
+            pathString = pathString + "high_scores.brd";
+            pathString = pathString.substring(3);
+            Path path = Paths.get(pathString);
+            List<String> lines = Files.readAllLines(path);
+            linesToChange = lines.get(line);
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return lineToChange;
+        return linesToChange;
 
 
     }
@@ -102,7 +112,7 @@ public class HighScoresComponents {
 
         JLabel backgroundLabel = new JLabel();
         backgroundLabel.setBounds(0, 0, UtilityClass.getScreenWidth(), UtilityClass.getScreenHeight());
-        backgroundLabel.setIcon(new ImageIcon("./Visuals/sudoku-background.jpg"));
+        backgroundLabel.setIcon(new ImageIcon(getClass().getClassLoader().getResource("sudoku-background.jpg")));
 
 
         return backgroundLabel;

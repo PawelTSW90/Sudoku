@@ -5,6 +5,14 @@ import pawelDyjak.sudoku.Components.*;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
+import java.io.*;
+import java.net.URISyntaxException;
+import java.net.URL;
+import java.net.URLDecoder;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.util.Enumeration;
+import java.util.jar.JarFile;
 
 import static javax.swing.WindowConstants.EXIT_ON_CLOSE;
 
@@ -16,14 +24,16 @@ public class MainMenu {
     private final JFrame mainMenuFrame = new JFrame();
 
 
-
     public MainMenu() {
         setMainMenuPanel();
+        createHighScoreFile();
+        createEncryptedListFile();
+
+
     }
 
     //method prepares main menu panel to display
     public void setMainMenuPanel() {
-
         mainMenuPanel.setLayout(new GridBagLayout());
         mainMenuPanel.setBounds(0, 0, UtilityClass.getScreenWidth(), UtilityClass.getScreenHeight());
         mainMenuPanel.addKeyListener(new KeyListenerClass() {
@@ -43,6 +53,69 @@ public class MainMenu {
         configureAndAddMainMenuComponents();
         setMainMenuFrame();
     }
+
+    public void createHighScoreFile() {
+        String path = MainMenu.class.getProtectionDomain().getCodeSource().getLocation().getPath();
+        path = path.substring(0, path.lastIndexOf("/") + 1);
+        try {
+            String decodedPath = URLDecoder.decode(path, "UTF-8");
+            decodedPath = decodedPath + "high_scores.brd";
+            File highScoresBoard = new File(decodedPath);
+            if (!highScoresBoard.exists()) {
+                highScoresBoard.createNewFile();
+                prepareHighScoresFile(decodedPath);
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    public void prepareHighScoresFile(String fileLocation) {
+        int position = 1;
+        int minutes = 5;
+        StringBuilder highScoresFile = new StringBuilder();
+        for (int x = 0; x < 10; x++) {
+            highScoresFile.append(position);
+            highScoresFile.append(".");
+            highScoresFile.append(" Empty");
+            if (minutes > 9) {
+                highScoresFile.append("  *00:" + minutes + ":00");
+            } else {
+                highScoresFile.append("  *00:0" + minutes + ":00");
+            }
+            highScoresFile.append("\n");
+            position++;
+            minutes++;
+        }
+
+
+        try {
+            BufferedWriter writer = new BufferedWriter(new FileWriter(fileLocation));
+            writer.write(highScoresFile.toString());
+            writer.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void createEncryptedListFile() {
+        String path = MainMenu.class.getProtectionDomain().getCodeSource().getLocation().getPath();
+        path = path.substring(0, path.lastIndexOf("/") + 1);
+        try {
+            String decodedPath = URLDecoder.decode(path, "UTF-8");
+            decodedPath = decodedPath + "encrypted_list.brd";
+            File encryptedListFile = new File(decodedPath);
+            if (!encryptedListFile.exists()) {
+                encryptedListFile.createNewFile();
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
 
     //method prepares main frame
     public void setMainMenuFrame() {

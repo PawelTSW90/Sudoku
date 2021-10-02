@@ -57,7 +57,7 @@ public class SudokuBoardComponents {
     public JButton drawEraseButton() {
         JButton erase = new JButton("");
         erase.setFocusable(false);
-        ImageIcon imageIcon = new ImageIcon(new ImageIcon("./Visuals/erase.png").getImage().getScaledInstance(UtilityClass.getScreenWidth()/19, UtilityClass.getScreenHeight()/15, Image.SCALE_DEFAULT));
+        ImageIcon imageIcon = new ImageIcon(new ImageIcon(getClass().getClassLoader().getResource("erase.png")).getImage().getScaledInstance(UtilityClass.getScreenWidth()/19, UtilityClass.getScreenHeight()/15, Image.SCALE_DEFAULT));
         erase.setBounds((UtilityClass.getScreenWidth())-UtilityClass.getScreenWidth()/16, (UtilityClass.getScreenWidth()/2) - (UtilityClass.getScreenWidth()/(8/2)), UtilityClass.getScreenWidth()/17, UtilityClass.getScreenWidth()/20);
         erase.setIcon(imageIcon);
         erase.setBorderPainted(false);
@@ -154,11 +154,11 @@ public class SudokuBoardComponents {
             @Override
             public void mousePressed(MouseEvent e) {
                 Component component = sudokuBoard.getSudokuBoardPanel().getComponent(6);
-                if (sudokuBoard.isHelpOn()) {
+                if (sudokuBoard.isHelpOn() && sudokuBoard.getSudokuBoardPanel().getComponent(6).isEnabled()) {
                     component.setForeground(new Color(102, 0, 0));
                     sudokuBoard.setHelpOn(false);
                     sudokuBoard.getBoardChecker().restoreButtonsColors();
-                } else {
+                } else if(!sudokuBoard.isHelpOn() && sudokuBoard.getSudokuBoardPanel().getComponent(6).isEnabled()) {
                     help.setForeground(new Color(0, 102, 0));
                     sudokuBoard.setHelpOn(true);
                     sudokuBoard.getBoardChecker().checkIfThereAreErrors();
@@ -199,10 +199,10 @@ public class SudokuBoardComponents {
             @Override
             public void mousePressed(MouseEvent e) {
                 Component component = sudokuBoard.getSudokuBoardPanel().getComponent(5);
-                if (sudokuBoard.isSoundOn()) {
+                if (sudokuBoard.isSoundOn() && sudokuBoard.getSudokuBoardPanel().getComponent(5).isEnabled()) {
                     component.setForeground(new Color(102, 0, 0));
                     sudokuBoard.setSoundOn(false);
-                } else {
+                } else if(!sudokuBoard.isSoundOn() && sudokuBoard.getSudokuBoardPanel().getComponent(5).isEnabled()) {
                     sound.setForeground(new Color(0, 102, 0));
                     sudokuBoard.setSoundOn(true);
                 }
@@ -338,7 +338,7 @@ public class SudokuBoardComponents {
 
         JLabel backgroundLabel = new JLabel();
         backgroundLabel.setBounds(0, 0, UtilityClass.getScreenWidth(), UtilityClass.getScreenHeight());
-        backgroundLabel.setIcon(new ImageIcon("./Visuals/sudoku-background.jpg"));
+        backgroundLabel.setIcon(new ImageIcon(getClass().getClassLoader().getResource("sudoku-background.jpg")));
 
 
         return backgroundLabel;

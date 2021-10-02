@@ -1,8 +1,7 @@
 package pawelDyjak.sudoku;
-
 import javax.sound.sampled.*;
-import java.io.File;
 import java.io.IOException;
+import java.net.URL;
 
 
 public class SoundClass {
@@ -12,8 +11,8 @@ public class SoundClass {
 
             try {
                 Clip clip = AudioSystem.getClip();
-                File file = new File("./Sounds/tick.wav");
-                AudioInputStream inputStream = AudioSystem.getAudioInputStream(file);
+                URL tickFile = getClass().getClassLoader().getResource("tick.wav");
+                AudioInputStream inputStream = AudioSystem.getAudioInputStream(tickFile);
                 clip.open(inputStream);
                 clip.start();
             } catch (LineUnavailableException | IOException | UnsupportedAudioFileException e) {
@@ -30,8 +29,8 @@ public class SoundClass {
 
             try {
                 Clip clip = AudioSystem.getClip();
-                File file = new File("./Sounds/board_completed.wav");
-                AudioInputStream inputStream = AudioSystem.getAudioInputStream(file);
+                URL boardCompletedFile = getClass().getClassLoader().getResource("board_completed.wav");
+                AudioInputStream inputStream = AudioSystem.getAudioInputStream(boardCompletedFile);
                 clip.open(inputStream);
                 clip.start();
             } catch (LineUnavailableException | IOException | UnsupportedAudioFileException e) {
@@ -48,8 +47,8 @@ public class SoundClass {
 
             try {
                 Clip clip = AudioSystem.getClip();
-                File file = new File("./Sounds/board_completed_wrong.wav");
-                AudioInputStream inputStream = AudioSystem.getAudioInputStream(file);
+                URL boardCompletedWrongFile = getClass().getClassLoader().getResource("board_completed_wrong.wav");
+                AudioInputStream inputStream = AudioSystem.getAudioInputStream(boardCompletedWrongFile);
                 clip.open(inputStream);
                 clip.start();
             } catch (LineUnavailableException | IOException | UnsupportedAudioFileException e) {
@@ -66,8 +65,8 @@ public class SoundClass {
 
             try {
                 Clip clip = AudioSystem.getClip();
-                File file = new File("./Sounds/error.wav");
-                AudioInputStream inputStream = AudioSystem.getAudioInputStream(file);
+                URL errorFile = getClass().getClassLoader().getResource("error.wav");
+                AudioInputStream inputStream = AudioSystem.getAudioInputStream(errorFile);
                 clip.open(inputStream);
                 clip.start();
             } catch (LineUnavailableException | IOException | UnsupportedAudioFileException e) {
@@ -84,8 +83,8 @@ public class SoundClass {
 
             try {
                 Clip clip = AudioSystem.getClip();
-                File file = new File("./Sounds/erase.wav");
-                AudioInputStream inputStream = AudioSystem.getAudioInputStream(file);
+                URL eraseFile = getClass().getClassLoader().getResource("erase.wav");
+                AudioInputStream inputStream = AudioSystem.getAudioInputStream(eraseFile);
                 clip.open(inputStream);
                 clip.start();
             } catch (LineUnavailableException | IOException | UnsupportedAudioFileException e) {
